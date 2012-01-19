@@ -3,6 +3,10 @@
 {% load metron_tags %}
 {% load i18n %}
 
+{% block extra_head_base %}
+    {% block extra_head %}{% endblock %}
+{% endblock %}
+
 {% block nav %}
     {% if user.is_authenticated %}
         <ul>{% spaceless %}
@@ -12,11 +16,10 @@
     {% endif %}
 {% endblock %}
 
+{% block body %}
+{% endblock %}
+
 {% block footer %}
     {% include "_footer.html" %}
 {% endblock %}
 
-{% block extra_body_base %}
-    {% analytics %}
-    {% block extra_body %}{% endblock %}
-{% endblock %}

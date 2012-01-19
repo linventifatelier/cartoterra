@@ -1,4 +1,45 @@
-{% extends "banner_base.html" %}
+{% extends "site_base.html" %}
+
+{% load staticfiles %}
+
+{% block extra_head %}
+        <link rel="stylesheet" href="{% static "css/homemap.css" %}">
+
+        {% comment %}
+        <link rel="stylesheet" href="{% static "css/homemap.css" %}">
+        <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+
+        <script type="text/javascript">
+            function displayDate()
+            {
+            document.getElementById("demo").innerHTML=Date();
+            }
+        </script>
+        {% endcomment %}
+        <script src="{% static "js/openlayers/OpenLayers.js" %}"></script>
+
+        <script type="text/javascript">
+            var map;
+
+            function init() {
+
+                map = new OpenLayers.Map({
+                    div: "homemap",
+                    allOverlays: true
+                });
+
+                var osm = new OpenLayers.Layer.OSM();
+
+                // note that first layer must be visible
+                map.addLayers([osm]);
+
+                map.addControl(new OpenLayers.Control.LayerSwitcher());
+                map.zoomToMaxExtent();
+            }
+            
+            window.onload = init;
+        </script>
+{% endblock %}
 
 {% load i18n %}
 {% load ifsetting_tag %}
@@ -7,19 +48,22 @@
 
 {% block body_class %}home{% endblock %}
 
+    {% comment %}
 {% block banner %}
-    <h1>{% trans "Welcome to Pinax" %}</h1>
-    <p>
-        {% blocktrans %}
-        <b>Pinax</b> is a <a href="http://djangoproject.com/">Django</a>
-        project intended to provide a starting point for websites. By
-        integrating numerous reusable Django apps to take care of the
-        things that many sites have in common, it lets you focus on what
-        makes your site different.
-        {% endblocktrans %}
-    </p>
-    
-    <h2>About Basic Project</h2>
+    {comment}
+    <h1>{% trans "Welcome to " %} {{ SITE_NAME }}</h1>
+
+    <p id="demo">This is a paragraph.</p>
+
+    <button type="button" onclick="displayDate()">Display Date</button>
+
+    <button type="button" onload="init()">
+        
+        <div id="map" class="smallmap">Toto</div>
+    </button>
+    {endcomment}
+
+    <h2>About {{ SITE_NAME }}</h2>
     <p>
         {% blocktrans %}
         This project takes the account_project and adds profiles and notifications.
@@ -40,4 +84,9 @@
             <p>{% blocktrans %}You can <a href="{{ login_url }}" class="btn primary large">Log In</a> to try out the site.{% endblocktrans %}</p>
         {% endifsetting %}
     {% endif %}
+{% endblock %}
+    {% endcomment %}
+
+{% block body %}
+    <div id="homemap"></div>
 {% endblock %}

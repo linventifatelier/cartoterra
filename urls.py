@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 
-from django.contrib import admin
+from django.contrib.gis import admin
 admin.autodiscover()
 
 from pinax.apps.account.openid_consumer import PinaxConsumer
