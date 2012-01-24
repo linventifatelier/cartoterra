@@ -153,7 +153,7 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     
     "django.contrib.gis",
-    "world",
+    "geodata",
 
     "pinax.templatetags",
     
@@ -219,6 +219,8 @@ EMAIL_DEBUG = DEBUG
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
+
+OPENLAYERS = posixpath.join(STATIC_URL, "js/openlayers/OpenLayers.js")
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

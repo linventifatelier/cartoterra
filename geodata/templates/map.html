@@ -1,0 +1,25 @@
+{% load staticfiles %}
+
+<html>
+  <head>
+    <script src="{% static "js/openlayers/lib/OpenLayers.js" %}"></script>
+    <script type="text/javascript">
+        var map, base_layer, kml;
+        function init(){
+            map = new OpenLayers.Map('map');
+            base_layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+               "http://labs.metacarta.com/wms/vmap0", {layers: 'basic'} );
+            kml = new OpenLayers.Layer.GML("KML", "/kml/", 
+               { format: OpenLayers.Format.KML });
+            map.addLayers([base_layer, kml]);
+            map.addControl(new OpenLayers.Control.LayerSwitcher());
+            map.zoomToMaxExtent();
+            }
+    </script>
+  </head>
+  <body onload="init()">
+    Hi.  There should be a total of {{location_count}} Locations.<br />
+    To see this data in Google Earth, <a href="/kml/">Open as KML</a>.
+    <div id="map"></div>
+  </body>
+</html>
