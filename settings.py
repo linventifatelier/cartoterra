@@ -154,6 +154,8 @@ INSTALLED_APPS = [
     
     "django.contrib.gis",
     "geodata",
+    "south",
+    #"django_evolution",
 
     "pinax.templatetags",
     

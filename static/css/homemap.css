@@ -9,6 +9,17 @@
 */
 }
 
+
+
+.smallmap
+{
+    height:300px;
+    width:40%;
+/*    
+    height:60%;
+*/
+}
+
 /* avoid pink tiles */
 .olImageLoadError {
     background-color: transparent !important;

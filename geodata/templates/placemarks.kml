@@ -1,0 +1,16 @@
+{% extends "gis/kml/base.kml" %}
+{% block placemarks %}{% for place in places %}
+  <Placemark>
+    <name>{% if place.name %}{{ place.name }}{% else %}{{ place }}{% endif %}</name>
+    <description>
+        <![CDATA[
+        <p>{% if place.description %}{{ place.description }}{% else %}{{ place }}{% endif %}</p>
+        {% if place.image %}
+          <p><img src="{{ place.image }}"></p>
+          {{ place.description }}
+        {% endif %}
+        ]]>
+    </description>
+    {{ place.kml|safe }}
+  </Placemark>{% endfor %}{% endblock %}
+
