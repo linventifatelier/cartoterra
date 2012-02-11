@@ -1,11 +1,12 @@
+{% extends "site_base.html" %}
 {% load staticfiles %}
 
-<html>
-  <head>
-{% comment %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static "css/homemap.css" %}">
+
     <script src="{% static "js/openlayers/lib/OpenLayers.js" %}"></script>
-{% endcomment %}
-    <script src="http://openlayers.org/dev/OpenLayers.js""></script>
+
     <script type="text/javascript">
         var map, base_layer, kml, patrimony_kml, patrimony_style, patrimony_stylemap, meeting_kml, meeting_style, meetnig_stylemap, construction_kml, construction_style, construction_stylemap, selectControlPatrimony, selectControlMeeting, selectControlConstruction;
 
@@ -31,14 +32,14 @@
             patrimony_stylemap = new OpenLayers.StyleMap({'default':patrimony_style});
             meeting_stylemap = new OpenLayers.StyleMap({'default':meeting_style});
             construction_stylemap = new OpenLayers.StyleMap({'default':construction_style});
-            map = new OpenLayers.Map('map');
+            map = new OpenLayers.Map('homemap');
             base_layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
                "http://labs.metacarta.com/wms/vmap0", {layers: 'basic'} );
-            kml = new OpenLayers.Layer.GML("KML", "/kml/", 
-               { format: OpenLayers.Format.KML });
+            //kml = new OpenLayers.Layer.GML("KML", "/kml/",
+            //   { format: OpenLayers.Format.KML });
             //patrimony_kml = new OpenLayers.Layer.GML(
             //    "Patrimony",
-            //    "/kml/patrimony.kml", 
+            //    "/kml/patrimony.kml",
             //    {
             //        format: OpenLayers.Format.KML,
             //        styleMap: patrimony_stylemap
@@ -48,7 +49,7 @@
                 projection: map.displayProjection,
                 strategies: [new OpenLayers.Strategy.Fixed()],
                 protocol: new OpenLayers.Protocol.HTTP({
-                    url: "/kml/patrimony.kml",
+                    url: "/kml/patrimonies.kml",
                     format: new OpenLayers.Format.KML({
                         extractStyles: true,
                         extractAttributes: true,
@@ -58,7 +59,7 @@
             });
             meeting_kml = new OpenLayers.Layer.GML(
                 "Meeting",
-                "/kml/meeting.kml", 
+                "/kml/meetings.kml",
                 {
                     format: OpenLayers.Format.KML,
                     styleMap: meeting_stylemap
@@ -66,7 +67,7 @@
             );
             construction_kml = new OpenLayers.Layer.GML(
                 "Construction",
-                "/kml/construction.kml", 
+                "/kml/constructions.kml",
                 {
                     format: OpenLayers.Format.KML,
                     styleMap: construction_stylemap
@@ -78,18 +79,18 @@
             selectControlPatrimony = new OpenLayers.Control.SelectFeature(patrimony_kml);
             selectControlMeeting = new OpenLayers.Control.SelectFeature(meeting_kml);
             selectControlConstruction = new OpenLayers.Control.SelectFeature(construction_kml);
-            
+
             patrimony_kml.events.on({
-                'featureselected': onFeatureSelect,
-                'featureunselected': onFeatureUnselect
+                'featureselected': onFeatureSelectPatrimony,
+                'featureunselected': onFeatureUnselectPatrimony
             });
             meeting_kml.events.on({
-                'featureselected': onFeatureSelect,
-                'featureunselected': onFeatureUnselect
+                'featureselected': onFeatureSelectMeeting,
+                'featureunselected': onFeatureUnselectMeeting
             });
             construction_kml.events.on({
-                'featureselected': onFeatureSelect,
-                'featureunselected': onFeatureUnselect
+                'featureselected': onFeatureSelectConstruction,
+                'featureunselected': onFeatureUnselectConstruction
             });
 
             map.addControl(selectControlPatrimony);
@@ -101,13 +102,18 @@
             selectControlConstruction.activate();
 
             map.addControl(new OpenLayers.Control.LayerSwitcher());
+	    map.addControl(new OpenLayers.Control.Navigation());
+	    map.addControl(new OpenLayers.Control.MouseToolbar());
+	    //map.addControl(new OpenLayers.Control.PanZoomBar({zoomWorldIcon: true}))
             map.zoomToMaxExtent();
             //map.zoomToExtent(new OpenLayers.Bounds(68.774414,11.381836,123.662109,34.628906));
         }
 
         function onPopupClose(evt) {
-            select.unselectAll();
+            //select.unselectAll();
+	    selectControl.unselect(this.feature);
         }
+
         function onFeatureSelect(event) {
             var feature = event.feature;
             // Since KML is user-generated, do naive protection against
@@ -116,7 +122,36 @@
             if (content.search("<script") != -1) {
                 content = "Content contained Javascript! Escaped content below.<br>" + content.replace(/</g, "&lt;");
             }
-            popup = new OpenLayers.Popup.FramedCloud("chicken", 
+            popup = new OpenLayers.Popup.FramedCloud("chicken",
+                                     feature.geometry.getBounds().getCenterLonLat(),
+                                     new OpenLayers.Size(100,100),
+                                     content,
+                                     //null, true, onPopupClose);
+                                     null, true);
+            feature.popup = popup;
+            map.addPopup(popup);
+        }
+        function onFeatureUnselect(event) {
+            var feature = event.feature
+            if(feature.popup) {
+	        popup.feature = null;
+                map.removePopup(feature.popup);
+                feature.popup.destroy();
+		feature.popup = null;
+                delete feature.popup;
+            }
+        }
+
+
+        function onFeatureSelectConstruction(event) {
+            var feature = event.feature;
+            // Since KML is user-generated, do naive protection against
+            // Javascript.
+            var content = "<h2>"+feature.attributes.name + "</h2>" + feature.attributes.description;
+            if (content.search("<script") != -1) {
+                content = "Content contained Javascript! Escaped content below.<br>" + content.replace(/</g, "&lt;");
+            }
+            popup = new OpenLayers.Popup.FramedCloud("construction",
                                      feature.geometry.getBounds().getCenterLonLat(),
                                      new OpenLayers.Size(100,100),
                                      content,
@@ -124,8 +159,8 @@
             feature.popup = popup;
             map.addPopup(popup);
         }
-        function onFeatureUnselect(event) {
-            var feature = event.feature;
+        function onFeatureUnselectConstruction(event) {
+            var feature = event.feature
             if(feature.popup) {
                 map.removePopup(feature.popup);
                 feature.popup.destroy();
@@ -133,15 +168,70 @@
             }
         }
 
+
+        function onFeatureSelectPatrimony(event) {
+            var feature = event.feature;
+            // Since KML is user-generated, do naive protection against
+            // Javascript.
+            var content = "<h2>"+feature.attributes.name + "</h2>" + feature.attributes.description;
+            if (content.search("<script") != -1) {
+                content = "Content contained Javascript! Escaped content below.<br>" + content.replace(/</g, "&lt;");
+            }
+            popup = new (OpenLayers.Popup.FramedCloud)("chicken",
+                                     feature.geometry.getBounds().getCenterLonLat(),
+                                     new OpenLayers.Size(100,100),
+                                     content,
+                                     null, true, onPopupClose);
+            feature.popup = popup;
+            map.addPopup(popup);
+        }
+        function onFeatureUnselectPatrimony(event) {
+            var feature = event.feature
+            if(feature.popup) {
+                map.removePopup(feature.popup);
+                feature.popup.destroy();
+                delete feature.popup;
+            }
+        }
+
+
+        function onFeatureSelectMeeting(event) {
+            var feature = event.feature;
+            // Since KML is user-generated, do naive protection against
+            // Javascript.
+            var content = "<h2>"+feature.attributes.name + "</h2>" + feature.attributes.description;
+            if (content.search("<script") != -1) {
+                content = "Content contained Javascript! Escaped content below.<br>" + content.replace(/</g, "&lt;");
+            }
+            popup = new OpenLayers.Popup.FramedCloud("meeting",
+                                     feature.geometry.getBounds().getCenterLonLat(),
+                                     new OpenLayers.Size(100,100),
+                                     content,
+                                     null, true, onPopupClose);
+            feature.popup = popup;
+            map.addPopup(popup);
+        }
+        function onFeatureUnselectMeeting(event) {
+            var feature = event.feature
+            if(feature.popup) {
+                map.removePopup(feature.popup);
+                feature.popup.destroy();
+                delete feature.popup;
+            }
+        }
+
+
+
+        window.onload = init;
     </script>
-  </head>
-  <body onload="init()">
+{% endblock %}
+
+{% load i18n %}
+
+{% block body_class %}home{% endblock %}
+
+{% block body %}
     Hi.  There should be a total of {{location_count}} Locations.<br />
     To see this data in Google Earth, <a href="/kml/">Open as KML</a>.
-    Hi.  There should be a total of {{location_count}} Locations.<br />
-    Hi.  There should be a total of {{location_count}} Locations.<br />
-    Hi.  There should be a total of {{location_count}} Locations.<br />
-    Hi.  There should be a total of {{location_count}} Locations.<br />
-    <div id="map"></div>
-  </body>
-</html>
+    <div id="homemap"></div>
+{% endblock %}

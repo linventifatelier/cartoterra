@@ -1,68 +1,16 @@
-{% extends "site_base.html" %}
-{% load staticfiles %}
-
-
-{% block extra_head %}
-    <link rel="stylesheet" href="{% static "css/homemap.css" %}">
-
-    <script src="{% static "js/openlayers/lib/OpenLayers.js" %}"></script>
-    <script type="text/javascript">
-        var map, base_layer, construction_layer, construction_style, construction_stylemap;
-
-        function init(){
-            construction_style = new OpenLayers.Style(OpenLayers.Util.applyDefaults({
-                fillColor: "red",
-                fillOpacity: 1,
-                pointRadius: 5,
-                strokeColor: "black",
-            }));
-            construction_stylemap = new OpenLayers.StyleMap({'default':construction_style});
-            map = new OpenLayers.Map('map');
-            base_layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
-               "http://labs.metacarta.com/wms/vmap0", {layers: 'basic'} );
-
-            geojson_format = new OpenLayers.Format.GeoJSON();
-            construction = geojson_format.read({{ construction.geometry.geojson|safe}})[0];
-            // We mark it 'safe' so that Django doesn't escape the quotes.
-         
-            construction.attributes = { 'name': "{{construction.name}}", 'type': 'point'}; 
-            vectors = new OpenLayers.Layer.Vector("Data");
-            vectors.addFeatures(construction);
-
-
-            //map.addLayers([base_layer, construction_layer, vectors]);
-            map.addLayers([base_layer, vectors]);
-
-            map.zoomToMaxExtent();
-            //map.zoomToExtent(new OpenLayers.Bounds(68.774414,11.381836,123.662109,34.628906));
-
-        }
-
-        window.onload = init;
-    </script>
-
-{% endblock %}
-
-
+{% extends "geodata_base.html" %}
 {% load i18n %}
-{% load ifsetting_tag %}
 
-{% block head_title %}{% trans "Construction" %}: {{ construction.name }}{% endblock %}
+{% block head_geodata_type %}{% trans "Construction" %}{% endblock %}
 
-{% block body_class %}construction{% endblock %}
+{% block body_geodata_type %}{% trans "Construction" %}{% endblock %}
 
-{% block body %}
-    <h1>{% trans "Construction " %}: {{ construction.name }}</h1>
-
-    <p>
-        <div id="map" class="smallmap">{{ construction.name }}.</div>
-    </p>
-
+{% block body_geodata_extra %}
     <p>
         {% trans "Techniques" %}:
-        {% if construction.techniques.all %}
+        {% if place.techniques.all %}
             <ul>
-            {% for technique in construction.techniques.all %}
+            {% for technique in place.techniques.all %}
                 <li>{{ technique.name }}</li>
             {% endfor %}
             </ul>
@@ -72,15 +20,11 @@
     </p>
 
     <p>
-        {% if construction.description %}{{ construction.description }}{% endif %}<br>
+        {% trans "Participative place" %}:
+        {% if place.participative %}
+            {% trans "Yes!" %}
+        {% else %}
+            {% trans "No." %}
+        {% endif %}
     </p>
-
-    <p>
-        {% trans "Contacts" %}:
-        <ul>
-            {% if construction.url %}<li><a href={{ construction.url }}>{{ construction.url }}</a></li>{% endif %}
-            {% if construction.contact %}<li>{{ construction.contact }}</li>{% endif %}<br>
-        </ul>
-    </p>
-
 {% endblock %}

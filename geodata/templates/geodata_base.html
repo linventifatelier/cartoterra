@@ -1,0 +1,92 @@
+{% extends "site_base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static "css/homemap.css" %}">
+
+    <script src="{% static "js/openlayers/lib/OpenLayers.js" %}"></script>
+    <script type="text/javascript">
+        var map, base_layer, place_layer, place_style, place_stylemap;
+
+        function init(){
+            place_style = new OpenLayers.Style(OpenLayers.Util.applyDefaults({
+                fillColor: "red",
+                fillOpacity: 1,
+                pointRadius: 5,
+                strokeColor: "black",
+            }));
+            place_stylemap = new OpenLayers.StyleMap({'default':place_style});
+            map = new OpenLayers.Map('map');
+            base_layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+               "http://labs.metacarta.com/wms/vmap0", {layers: 'basic'} );
+
+            geojson_format = new OpenLayers.Format.GeoJSON();
+            place = geojson_format.read({{ place.geometry.geojson|safe}})[0];
+            // We mark it 'safe' so that Django doesn't escape the quotes.
+
+            place.attributes = { 'name': "{{place.name}}", 'type': 'point'};
+            vectors = new OpenLayers.Layer.Vector("Data");
+            vectors.addFeatures(place);
+
+
+            //map.addLayers([base_layer, place_layer, vectors]);
+            map.addLayers([base_layer, vectors]);
+
+            map.zoomToMaxExtent();
+            //map.zoomToExtent(new OpenLayers.Bounds(68.774414,11.381836,123.662109,34.628906));
+
+        }
+
+        window.onload = init;
+    </script>
+
+{% endblock %}
+
+
+{% load i18n %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% block head_geodata_type %}{% endblock %}: {{ place.name }}{% endblock %}
+
+{% block body_class %}place{% endblock %}
+
+{% block body %}
+    <h1>{% block body_geodata_type %}{% endblock %}: {{ place.name }}</h1>
+
+    <p>
+        <div id="map" class="smallmap">{{ place.name }}.</div>
+    </p>
+
+    {% block body_geodata_extra %}
+    {% endblock %}
+
+    <p>
+        {% if place.image %}
+            {% trans "Image" %}:<br>
+{% comment %}
+            {{ place.image }}
+{% endcomment %}
+	    {% thumbnail place.image "300x300" as im %}
+	        <img style="margin:{{ im|margin:"300x300" }}" src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}">
+	    {% endthumbnail %}
+        {% endif %}
+    </p>
+
+    <p>
+        {% if place.description %}
+            {% trans "Description" %}:<br>
+            {{ place.description }}
+        {% endif %}
+    </p>
+
+    <p>
+        {% trans "Contacts" %}:
+        <ul>
+            {% if place.url %}<li><a href={{ place.url }}>{{ place.url }}</a></li>{% endif %}
+            {% if place.contact %}<li>{{ place.contact }}</li>{% endif %}<br>
+        </ul>
+    </p>
+
+{% endblock %}
