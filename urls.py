@@ -1,3 +1,4 @@
+"""urls file."""
 from django.conf import settings
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
@@ -7,7 +8,7 @@ from pinax.apps.account.openid_consumer import PinaxConsumer
 from django.contrib.gis import admin
 admin.autodiscover()
 
-from geodata.views import  *
+from geodata.views import *
 import os
 
 
@@ -25,7 +26,9 @@ urlpatterns = patterns("",
     url(r'^patrimony/(?P<ident>[0-9] *)/', patrimony_page),
     url(r'^meeting/(?P<ident>[0-9] *)/', meeting_page),
     url(r'^map/', map_page),
-    url(r"^admin/invite_user/$", "pinax.apps.signup_codes.views.admin_invite_user", name="admin_invite_user"),
+    url(r"^admin/invite_user/$",
+        "pinax.apps.signup_codes.views.admin_invite_user",
+        name="admin_invite_user"),
     url(r"^admin/", include(admin.site.urls)),
     url(r"^about/", include("about.urls")),
     url(r"^account/", include("pinax.apps.account.urls")),
@@ -39,7 +42,9 @@ urlpatterns = patterns("",
 if settings.SERVE_MEDIA:
     urlpatterns += patterns("",
                             url(r"", include("staticfiles.urls")),
-                            url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
-                                {'document_root': os.path.join(os.path.dirname(__file__),
-                                                               "site_media")}),
+                            url(r'^site_media/(?P<path>.*)$',
+                                'django.views.static.serve',
+                                {'document_root':
+                                 os.path.join(os.path.dirname(__file__),
+                                              "site_media")}),
                             )

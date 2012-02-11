@@ -84,8 +84,9 @@
     <p>
         {% trans "Contacts" %}:
         <ul>
-            {% if place.url %}<li><a href={{ place.url }}>{{ place.url }}</a></li>{% endif %}
-            {% if place.contact %}<li>{{ place.contact }}</li>{% endif %}<br>
+            {% if place.credit_creator %}<li>{% trans "User" %}: <a href=/profiles/profile/{{ place.creator }}/>{{ place.creator }}</a></li>{% endif %}
+            {% if place.url %}<li>{% trans "Website" %}: <a href={{ place.url }}>{{ place.url }}</a></li>{% endif %}
+            {% if place.contact %}<li>{% trans "Other contact information" %}: {{ place.contact }}</li>{% endif %}
         </ul>
     </p>
 

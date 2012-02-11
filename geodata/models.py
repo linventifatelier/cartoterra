@@ -1,6 +1,6 @@
 """GeoData methods."""
 from django.contrib.gis.db import models
-from django.conf import settings
+#from django.conf import settings
 #from profiles.models import Profile
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
@@ -9,13 +9,17 @@ from datetime import datetime, timedelta, date
 #from image import AutoImageField
 #import os
 #from sorl.thumbnail import ImageField, ImageWithThumbnailsField
-from sorl.thumbnail import ImageField, get_thumbnail
+#from sorl.thumbnail import ImageField, get_thumbnail
+from sorl.thumbnail import ImageField
 
 
 #class ProductImage(models.Model):
-#    fullsize=models.ImageField(upload_to=os.path.join(settings.MEDIA_ROOT, "img/fullsize"))
-#    display=AutoImageField(upload_to=os.path.join(settings.MEDIA_ROOT, "img/display"),prepopulate_from='fullsize', size=(300, 300))
-#    thumbnail=AutoImageField(upload_to=os.path.join(settings.MEDIA_ROOT, "img/thumbnail"),null=True,default='/media/noimage.jpg')
+#    fullsize=models.ImageField(upload_to=os.path.join(settings.MEDIA_ROOT,
+#    "img/fullsize"))
+#    display=AutoImageField(upload_to=os.path.join(settings.MEDIA_ROOT,
+#    "img/display"),prepopulate_from='fullsize', size=(300, 300))
+#    thumbnail=AutoImageField(upload_to=os.path.join(settings.MEDIA_ROOT,
+#    "img/thumbnail"),null=True,default='/media/noimage.jpg')
 
 #from image import ProductImage
 
@@ -37,17 +41,24 @@ class EarthTechnique(models.Model):
     name = models.CharField(_("name"), max_length=50)
     description = models.TextField(_("description"), blank=True, null=True)
     #image = models.TextField(_("image"), blank=True, null=True)
-    #image = models.ImageField(upload_to='img/techniques', blank=True, null=True)
+    #image = models.ImageField(upload_to='img/techniques', blank=True,
+    #null=True)
     image = ImageField(upload_to='img/techniques', blank=True, null=True)
-    #image = ImageWithThumbnailsField(upload_to='img/techniques', thumbnail={'size': (200, 200)}, blank=True, null=True)
-    #image = ImageField(upload_to='img/techniques', thumbnail={'size': (200, 200)}, blank=True, null=True)
+    #image = ImageWithThumbnailsField(upload_to='img/techniques',
+    #thumbnail={'size': (200, 200)}, blank=True, null=True)
+    #image = ImageField(upload_to='img/techniques', thumbnail={'size': (200,
+    #200)}, blank=True, null=True)
 
-
-    #image_display = AutoImageField(upload_to='img/techniques/display', prepopulate_from='image', size=(300, 300), blank=True, null=True)
-    #image = StdImageField(upload_to='img/techniques', size=(640, 640), thumbnail_size=(100, 100), blank=True, null=True)
-    #image_display = AutoImageField(upload_to='img/techniques/display', prepopulate_from='image', size=(640, 640), blank=True, null=True)
-    #fullsize = models.ImageField(upload_to=os.path.join(MEDIA_ROOT, "img/technique/fullsize"))
-    #display = AutoImageField(upload_to=os.path.join(MEDIA_ROOT, "img/technique/display"),prepopulate_from='fullsize', size=(300, 300))
+    #image_display = AutoImageField(upload_to='img/techniques/display',
+    #prepopulate_from='image', size=(300, 300), blank=True, null=True)
+    #image = StdImageField(upload_to='img/techniques', size=(640, 640),
+    #thumbnail_size=(100, 100), blank=True, null=True)
+    #image_display = AutoImageField(upload_to='img/techniques/display',
+    #prepopulate_from='image', size=(640, 640), blank=True, null=True)
+    #fullsize = models.ImageField(upload_to=os.path.join(MEDIA_ROOT,
+    #"img/technique/fullsize"))
+    #display = AutoImageField(upload_to=os.path.join(MEDIA_ROOT,
+    #"img/technique/display"),prepopulate_from='fullsize', size=(300, 300))
     url = models.URLField(_("website"), blank=True, null=True,
                           verify_exists=False)
 
@@ -88,6 +99,7 @@ class EarthGeoDataAbstract(models.Model):
     name = models.CharField(_("name"), max_length=50)
     pub_date = models.DateTimeField(_("creation date"), default=datetime.now())
     creator = models.ForeignKey(User, verbose_name=_("creator"))
+    credit_creator = models.BooleanField(_("credit creator"), default=True)
     description = models.TextField(_("description"), blank=True, null=True)
     image = ImageField(upload_to='img/geodata', blank=True, null=True)
     #image = models.TextField(_("image"), blank=True, null=True)

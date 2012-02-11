@@ -1,3 +1,4 @@
+"""Admin image widget."""
 ## from django.contrib.admin.widgets import AdminFileWidget
 ## from django.utils.translation import ugettext as _
 ## from django.utils.safestring import mark_safe
@@ -10,7 +11,7 @@
 ##     if value and getattr(value, "url", None):
 
 ##       image_url = value.url
-##       file_name=str(value)
+##       file_name = str(value)
 
 ##       # defining the size
 ##       size='100x100'
@@ -25,8 +26,11 @@
 ##       filehead, filetail  = os.path.split(value.url)
 ##       miniature_url     = filehead + '/' + miniature
 
-##       # make sure that the thumbnail is a version of the current original sized image
-##       if os.path.exists(miniature_filename) and os.path.getmtime(filename) > os.path.getmtime(miniature_filename):
+##       # make sure that the thumbnail is a version of the current original
+##       # sized image
+
+##       if os.path.exists(miniature_filename) and os.path.getmtime(filename) >
+##       os.path.getmtime(miniature_filename):
 ##         os.unlink(miniature_filename)
 
 ##       # if the image wasn't already resized, resize it
@@ -34,7 +38,8 @@
 ##         image = Image.open(filename)
 ##         image.thumbnail([x, y], Image.ANTIALIAS)
 ##         try:
-##           image.save(miniature_filename, image.format, quality=100, optimize=1)
+##           image.save(miniature_filename, image.format, quality=100,
+##                      optimize=1)
 ##         except:
 ##           image.save(miniature_filename, image.format, quality=100)
 
@@ -49,13 +54,16 @@ from django.contrib.admin.widgets import AdminFileWidget
 from django.utils.translation import ugettext as _
 from django.utils.safestring import mark_safe
 
+
 class AdminImageWidget(AdminFileWidget):
-  def render(self, name, value, attrs=None):
-    output = []
-    if value and getattr(value, "url", None):
-      image_url = value.url
-      file_name=str(value)
-      output.append(u' <a href="%s" target="_blank"><img src="%s" alt="%s" /></a> %s ' % \
-                  (image_url, image_url, file_name, _('Change:')))
-      output.append(super(AdminFileWidget, self).render(name, value, attrs))
-    return mark_safe(u''.join(output))
+    """Admin image widget."""
+    def render(self, name, value, attrs=None):
+        output = []
+        if value and getattr(value, "url", None):
+            image_url = value.url
+            file_name = str(value)
+            output.append(u' <a href="%s" target="_blank"><img src="%s" alt="%s" /></a> %s ' % \
+                          (image_url, image_url, file_name, _('Change:')))
+            output.append(super(AdminFileWidget, self).render(name, value,
+                                                              attrs))
+            return mark_safe(u''.join(output))

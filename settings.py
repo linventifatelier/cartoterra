@@ -1,3 +1,4 @@
+"""Settings."""
 # -*- coding: utf-8 -*-
 # Django settings for basic pinax project.
 
@@ -28,14 +29,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     "default": {
-#        "ENGINE": "django.db.backends.sqlite3", # Add "postgresql_psycopg2", "postgresql", "mysql", "sqlite3" or "oracle".
-        "ENGINE": "django.contrib.gis.db.backends.postgis", # Add "postgresql_psycopg2", "postgresql", "mysql", "sqlite3" or "oracle".
-#        "NAME": "dev.db",                       # Or path to database file if using sqlite3.
-        "NAME": "geodjango",                       # Or path to database file if using sqlite3.
-        "USER": "gueux",                             # Not used with sqlite3.
-#        "PASSWORD": "",                         # Not used with sqlite3.
-        "HOST": "",                             # Set to empty string for localhost. Not used with sqlite3.
-        "PORT": "",                             # Set to empty string for default. Not used with sqlite3.
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "NAME": "geodjango",
+        "USER": "gueux",
+#        "PASSWORD": "",
+        "HOST": "",
+        "PORT": "",
     }
 }
 
@@ -164,7 +163,7 @@ INSTALLED_APPS = [
     "pinax_theme_bootstrap",
 
     # external
-    "notification", # must be first
+    "notification",  # must be first
     "staticfiles",
     "compressor",
     "debug_toolbar",
@@ -212,7 +211,7 @@ AUTHENTICATION_BACKENDS = [
     "pinax.apps.account.auth_backends.AuthenticationBackend",
 ]
 
-LOGIN_URL = "/account/login/" # @@@ any way this can be a url name?
+LOGIN_URL = "/account/login/"  # @@@ any way this can be a url name?
 LOGIN_REDIRECT_URLNAME = "what_next"
 LOGOUT_REDIRECT_URLNAME = "home"
 
