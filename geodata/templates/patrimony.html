@@ -6,4 +6,46 @@
 {% block body_geodata_type %}{% trans "Patrimony" %}{% endblock %}
 
 {% block body_geodata_extra %}
+    <p>
+        {% trans "Architects" %}:
+        {% if place.architects.all %}
+            <ul>
+            {% for architect in place.architects.all %}
+                <li>{{ architect.name }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            {% trans "not provided" %}.
+        {% endif %}
+    </p>
+    <p>
+        {% trans "Techniques" %}:
+        {% if place.techniques.all %}
+            <ul>
+            {% for technique in place.techniques.all %}
+                <li>{{ technique.name }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            {% trans "not provided" %}.
+        {% endif %}
+    </p>
+
+    <p>
+        {% trans "UNESCO patrimony" %}:
+        {% if place.unesco %}
+            {% trans "Yes!" %}
+        {% else %}
+            {% trans "No." %}
+        {% endif %}
+    </p>
+
+    <p>
+        {% trans "Inauguration date" %}:
+        {% if place.inauguration_date %}
+	    {{ place.inauguration_date }}
+        {% else %}
+            {% trans "not provided" %}.
+        {% endif %}
+    </p>
 {% endblock %}

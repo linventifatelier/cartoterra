@@ -6,4 +6,11 @@
 {% block body_geodata_type %}{% trans "Meeting" %}{% endblock %}
 
 {% block body_geodata_extra %}
+    <p>
+        {% trans "Meeting type" %}: {{ place.meeting }}
+    </p>
+
+    <p>
+        {% trans "Dates" %}: {{ place.beginning_date }} - {{ place.end_date }}
+    </p>
 {% endblock %}
