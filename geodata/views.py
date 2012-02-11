@@ -3,7 +3,7 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic.simple import direct_to_template
 from django.contrib.gis.shortcuts import render_to_kml
-from models import InterestingLocation, EarthGeoDataMeeting, \
+from models import EarthGeoDataAbstract, EarthGeoDataMeeting, \
      EarthGeoDataPatrimony, EarthGeoDataConstruction
 
 
@@ -27,8 +27,15 @@ def construction_kml(_):
 
 def map_page(request):
     """Returns map.html template."""
-    lcount = InterestingLocation.objects.all().count()
-    return direct_to_template(request, 'map.html', {'location_count': lcount})
+    lcount_construction = EarthGeoDataConstruction.objects.all().count()
+    lcount_patrimony = EarthGeoDataPatrimony.objects.all().count()
+    lcount_meeting = EarthGeoDataMeeting.objects.all().count()
+    lcount = lcount_meeting + lcount_patrimony + lcount_construction
+    return direct_to_template(request, 'map.html', {'location_count': lcount,
+                                                    'construction_count': lcount_construction,
+                                                    'meeting_count': lcount_meeting,
+                                                    'patrimony_count': lcount_patrimony,
+                                                    })
 
 
 def construction_page(request, ident):

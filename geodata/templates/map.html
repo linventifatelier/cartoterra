@@ -1,5 +1,6 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
+{% load i18n %}
 
 
 {% block extra_head %}
@@ -231,7 +232,9 @@
 {% block body_class %}home{% endblock %}
 
 {% block body %}
-    Hi.  There should be a total of {{location_count}} Locations.<br />
+    {% trans "Total of GeoDatas" %}: {{location_count}} ({{construction_count}} {% trans "constructions" %}, {{patrimony_count}} {% trans "patrimonies" %}, {{meeting_count}} {% trans "meetings" %}).<br />
+    {% comment %}
     To see this data in Google Earth, <a href="/kml/">Open as KML</a>.
+    {% endcomment %}
     <div id="homemap"></div>
 {% endblock %}
