@@ -2,7 +2,7 @@
 from django.contrib.gis import admin
 from models import InterestingLocation, EarthTechnique, EarthArchitect, \
      EarthMeeting, EarthGeoDataMeeting, EarthGeoDataPatrimony, \
-     EarthGeoDataConstruction
+     EarthGeoDataConstruction, Book
 from django.conf import settings
 #from stdimage import StdImageField
 from imagewidget import AdminImageWidget
@@ -11,7 +11,16 @@ from imagewidget import AdminImageWidget
 #from widget import AdminImageFieldWithThumbWidget
 
 #ADMIN_THUMBS_SIZE = '60x60'
+#from nani import admin
+from nani import admin as naniadmin
 
+class BookAdmin(naniadmin.TranslatableAdmin):
+    """InterestingLocation administration interface."""
+    fieldsets = (
+        ('Book Attributes', {'fields': (('isbn', ))}),
+    )
+
+admin.site.register(Book, BookAdmin)
 
 class InterestingLocationAdmin(admin.OSMGeoAdmin):
     """InterestingLocation administration interface."""

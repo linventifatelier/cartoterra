@@ -12,3 +12,4 @@ PIL
 South
 django-stdimage
 sorl-thumbnail
+django-urli18n

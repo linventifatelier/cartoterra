@@ -4,6 +4,8 @@
 
 import os.path
 import posixpath
+from django.utils.translation import ugettext_lazy as _
+
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -47,7 +49,13 @@ TIME_ZONE = "Europe/Paris"
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "fr-FR"
+# LANGUAGE_CODE = "fr-FR"
+LANGUAGE_CODE = "en-US"
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('fr', _('French')),
+)
 
 SITE_ID = 1
 
@@ -57,6 +65,8 @@ SITE_NAME = "EarthBuilding.org"
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
+
+USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
@@ -115,7 +125,15 @@ MIDDLEWARE_CLASSES = [
     "pagination.middleware.PaginationMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    #'django.middleware.locale.LocaleMiddleware',
+    'urli18n.middleware.UrlQuerystringTransformMiddleware',
 ]
+
+URLI18N_INCLUDE_PATHS = [
+    '/', '/home',
+]
+
+URLI18N_QUERYSTRING_NAME = 'lang'
 
 ROOT_URLCONF = "pinax-basic.urls"
 
@@ -155,6 +173,8 @@ INSTALLED_APPS = [
     "geodata",
     "south",
     "sorl.thumbnail",
+    "urli18n",
+    #"admin_langswitch",
     #"django_evolution",
 
     "pinax.templatetags",

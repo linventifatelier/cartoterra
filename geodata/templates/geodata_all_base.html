@@ -1,0 +1,40 @@
+{% extends "site_base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static "css/homemap.css" %}">
+
+    <script src="{% static "js/openlayers/lib/OpenLayers.js" %}"></script>
+{% endblock %}
+
+
+{% load i18n %}
+
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "List" %}: {{ type_url }}{% endblock %}
+
+{% block body_class %}place{% endblock %}
+
+{% block body %}
+
+<ul>
+{% for data in geodata.all %}
+    <li>
+        <a href=/{{ type_url }}/{{ data.id }}/>{{ data.name }}</a>
+
+	{% if data.image %}
+	    {% thumbnail data.image "100x100" as im %}
+	        <img src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}">
+	    {% endthumbnail %}
+	{% endif %}
+
+        {% block body_geodata_extra %}
+        {% endblock %}
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

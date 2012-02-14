@@ -29,6 +29,27 @@ def construction_kml(_):
     'construction'})
 
 
+def patrimonies_all(_):
+    """Returns a template to present all patrimonies."""
+    geodata = EarthGeoDataPatrimony.objects.all()
+    return direct_to_template(_, 'patrimonies_all.html', {'geodata':
+    geodata, 'type_url': 'patrimony'})
+
+
+def meetings_all(_):
+    """Returns a template to present all meetings."""
+    geodata = EarthGeoDataMeeting.objects.all()
+    return direct_to_template(_, 'meetings_all.html', {'geodata':
+    geodata, 'type_url': 'meeting'})
+
+
+def constructions_all(_):
+    """Returns a template to present all constructions."""
+    geodata = EarthGeoDataConstruction.objects.all()
+    return direct_to_template(_, 'constructions_all.html', {'geodata':
+    geodata, 'type_url': 'construction'})
+
+
 def map_page(request):
     """Returns map.html template."""
     lcount_construction = EarthGeoDataConstruction.objects.all().count()

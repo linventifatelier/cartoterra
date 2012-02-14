@@ -11,6 +11,7 @@ from datetime import datetime, timedelta, date
 #from sorl.thumbnail import ImageField, ImageWithThumbnailsField
 #from sorl.thumbnail import ImageField, get_thumbnail
 from sorl.thumbnail import ImageField
+from nani.models import TranslatableModel,TranslatedFields
 
 
 #class ProductImage(models.Model):
@@ -22,6 +23,16 @@ from sorl.thumbnail import ImageField
 #    "img/thumbnail"),null=True,default='/media/noimage.jpg')
 
 #from image import ProductImage
+
+class Book(TranslatableModel):
+    """Test"""
+    isbn = models.CharField(max_length=17)
+    translations = TranslatedFields(
+        description = models.TextField()
+    )
+
+    def __unicode__(self):
+        return self.isbn
 
 
 class InterestingLocation(models.Model):
@@ -98,6 +109,7 @@ class EarthGeoDataAbstract(models.Model):
     """An abstract spatial model for earthbuilding geodata."""
     name = models.CharField(_("name"), max_length=50)
     pub_date = models.DateTimeField(_("creation date"), default=datetime.now())
+    #last_modified = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User, verbose_name=_("creator"))
     credit_creator = models.BooleanField(_("credit creator"), default=True)
     description = models.TextField(_("description"), blank=True, null=True)
