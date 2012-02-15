@@ -11,6 +11,8 @@ admin.autodiscover()
 from geodata.views import *
 import os
 
+from haystack.forms import ModelSearchForm
+from haystack.views import SearchView, search_view_factory
 
 handler500 = "pinax.views.server_error"
 
@@ -40,6 +42,11 @@ urlpatterns = patterns("",
     url(r"^profiles/", include("idios.urls")),
     url(r"^notices/", include("notification.urls")),
     url(r"^announcements/", include("announcements.urls")),
+    url(r'^search/', include('haystack.urls')),
+    url(r'^searchbis/', search_view_factory(
+                           view_class=SearchView,
+                           form_class=ModelSearchForm,
+    ), name="searchbis"),
 )
 
 

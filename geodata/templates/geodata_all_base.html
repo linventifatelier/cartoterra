@@ -20,6 +20,12 @@
 
 {% block body %}
 
+<form action="/search/?q=">
+    <input type="text" name="q" id="id_q">
+    <button type="submit">Go</button>
+</form>
+
+
 <ul>
 {% for data in geodata.all %}
     <li>

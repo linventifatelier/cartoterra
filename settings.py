@@ -135,7 +135,7 @@ URLI18N_INCLUDE_PATHS = [
 
 URLI18N_QUERYSTRING_NAME = 'lang'
 
-ROOT_URLCONF = "pinax-basic.urls"
+ROOT_URLCONF = "urls"
 
 TEMPLATE_DIRS = [
     os.path.join(PROJECT_ROOT, "templates"),
@@ -176,6 +176,7 @@ INSTALLED_APPS = [
     "urli18n",
     #"admin_langswitch",
     #"django_evolution",
+    "haystack",
 
     "pinax.templatetags",
 
@@ -203,6 +204,7 @@ INSTALLED_APPS = [
     # project
     "about",
     "profiles",
+
 ]
 
 FIXTURE_DIRS = [
@@ -243,6 +245,20 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 OPENLAYERS = posixpath.join(STATIC_URL, "js/openlayers/OpenLayers.js")
+
+
+HAYSTACK_SITECONF = 'search_sites'
+HAYSTACK_SEARCH_ENGINE = 'xapian'
+here = os.path.dirname(os.path.abspath(__file__))
+HAYSTACK_XAPIAN_PATH = here + '/search_index'
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.xapian_backend.XapianEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'xapian_index'),
+    },
+}
+
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

@@ -13,3 +13,5 @@ South
 django-stdimage
 sorl-thumbnail
 django-urli18n
+django-haystack
+xapian-haystack

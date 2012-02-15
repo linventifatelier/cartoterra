@@ -1,0 +1,19 @@
+<h1>Search</h1>
+
+<form method="get" action=".">
+    <label for='id_q'>{{ form.q.label }}</label>
+    {{ form.q }}
+    <input type="submit" value="Search">
+</form>
+
+{% if page.object_list %}
+    <ol>
+        {% for result in page.object_list %}
+            <li>
+                <a href='{{ result.object.get_absolute_url }}'>{{ result.object.name }}</a>
+            </li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
