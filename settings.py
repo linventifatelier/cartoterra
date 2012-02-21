@@ -160,6 +160,9 @@ TEMPLATE_CONTEXT_PROCESSORS = [
 ]
 
 INSTALLED_APPS = [
+    # Bug haystack :(
+    "haystack",
+
     # Django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -176,7 +179,6 @@ INSTALLED_APPS = [
     "urli18n",
     #"admin_langswitch",
     #"django_evolution",
-    "haystack",
 
     "pinax.templatetags",
 
