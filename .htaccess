@@ -1,4 +1,0 @@
-AuthName "Accès restreint."
-AuthType Basic
-AuthUserFile /home/linventifatelier/earthbuilding
-Require valid-user
