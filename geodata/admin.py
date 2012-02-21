@@ -84,10 +84,10 @@ class MyOSMAdmin(admin.OSMGeoAdmin):
                                                              **kwargs)
 
 
-#class EarthTechniqueAdmin(admin.ModelAdmin):
+class EarthTechniqueAdmin(admin.ModelAdmin):
 #class EarthTechniqueAdmin(MyAdmin):
 #class EarthTechniqueAdmin(MyModelAdmin):
-class EarthTechniqueAdmin(MyAdmin):
+#class EarthTechniqueAdmin(MyAdmin):
     """EarthTechnique administration interface."""
     list_display = ['name']
     list_filter = ['name']
