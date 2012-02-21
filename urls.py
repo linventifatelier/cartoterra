@@ -21,9 +21,10 @@ handler500 = "pinax.views.server_error"
 
 
 urlpatterns = patterns("",
-    url(r"^$", direct_to_template, {
-        "template": "homepage.html",
-    }, name="home"),
+    #url(r"^$", direct_to_template, {
+    #    "template": "homepage.html",
+    #}, name="home"),
+    url(r'^$', map_page, name="home"),
     url(r'^kml/patrimonies.kml$', patrimony_kml),
     url(r'^kml/meetings.kml$', meeting_kml),
     url(r'^kml/constructions.kml$', construction_kml),
