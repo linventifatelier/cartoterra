@@ -1,19 +1,32 @@
-<h1>Search</h1>
+{% extends "site_base.html" %}
 
-<form method="get" action=".">
-    <label for='id_q'>{{ form.q.label }}</label>
-    {{ form.q }}
-    <input type="submit" value="Search">
-</form>
+{% load staticfiles %}
 
-{% if page.object_list %}
-    <ol>
-        {% for result in page.object_list %}
-            <li>
-                <a href='{{ result.object.get_absolute_url }}'>{{ result.object.name }}</a>
-            </li>
-        {% endfor %}
-    </ol>
-{% else %}
-    <p>No results found.</p>
-{% endif %}
+{% load i18n %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "Search" %}{% endblock %}
+
+{% block body_class %}search{% endblock %}
+
+{% block body %}
+
+    <form method="get" action=".">
+        {% comment %}<label for='id_q'>{{ form.q.label }}</label>{% endcomment %}
+        {{ form.q }}
+        <button type="submit">Go</button>
+    </form>
+    
+    {% if page.object_list %}
+        <ol>
+            {% for result in page.object_list %}
+                <li>
+                    <a href='/{{ result.object.classurl }}/{{ result.object.id }}'>{{ result.object.name }}</a>
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+
+{% endblock %}
