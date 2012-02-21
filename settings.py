@@ -249,7 +249,7 @@ DEBUG_TOOLBAR_CONFIG = {
 OPENLAYERS = posixpath.join(STATIC_URL, "js/openlayers/OpenLayers.js")
 
 
-HAYSTACK_SITECONF = 'search_sites'
+HAYSTACK_SITECONF = 'urls'
 HAYSTACK_SEARCH_ENGINE = 'xapian'
 here = os.path.dirname(os.path.abspath(__file__))
 HAYSTACK_XAPIAN_PATH = here + '/search_index'
