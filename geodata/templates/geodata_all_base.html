@@ -14,7 +14,7 @@
 
 {% load ifsetting_tag %}
 
-{% block head_title %}{% trans "List" %}: {{ type_url }}{% endblock %}
+{% block head_title %}{% trans "List" %}: {{ data.classurl }}{% endblock %}
 
 {% block body_class %}place{% endblock %}
 
@@ -29,7 +29,7 @@
 <ul>
 {% for data in geodata.all %}
     <li>
-        <a href=/{{ type_url }}/{{ data.id }}/>{{ data.name }}</a>
+        <a href=/{{ data.classurl }}/{{ data.id }}/>{{ data.name }}</a>
 
 	{% if data.image %}
 	    {% thumbnail data.image "100x100" as im %}

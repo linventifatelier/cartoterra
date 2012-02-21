@@ -11,43 +11,40 @@ from models import EarthGeoDataMeeting, EarthGeoDataPatrimony, \
 def patrimony_kml(_):
     """Returns a kml file of all patrimony locations."""
     locations = EarthGeoDataPatrimony.objects.kml()
-    return render_to_kml("patrimonies.kml", {'places': locations, 'type_url':
-    'patrimony'})
+    return render_to_kml("patrimonies.kml", {'places': locations, })
 
 
 def meeting_kml(_):
     """Returns a kml file of all meeting locations."""
     locations = EarthGeoDataMeeting.objects.kml()
-    return render_to_kml("meetings.kml", {'places': locations, 'type_url':
-    'meeting'})
+    return render_to_kml("meetings.kml", {'places': locations, })
 
 
 def construction_kml(_):
     """Returns a kml file of all construction locations."""
     locations = EarthGeoDataConstruction.objects.kml()
-    return render_to_kml("constructions.kml", {'places': locations, 'type_url':
-    'construction'})
+    return render_to_kml("constructions.kml", {'places': locations, })
 
 
 def patrimonies_all(_):
     """Returns a template to present all patrimonies."""
     geodata = EarthGeoDataPatrimony.objects.all()
     return direct_to_template(_, 'patrimonies_all.html', {'geodata':
-    geodata, 'type_url': 'patrimony'})
+    geodata, })
 
 
 def meetings_all(_):
     """Returns a template to present all meetings."""
     geodata = EarthGeoDataMeeting.objects.all()
     return direct_to_template(_, 'meetings_all.html', {'geodata':
-    geodata, 'type_url': 'meeting'})
+    geodata, })
 
 
 def constructions_all(_):
     """Returns a template to present all constructions."""
     geodata = EarthGeoDataConstruction.objects.all()
     return direct_to_template(_, 'constructions_all.html', {'geodata':
-    geodata, 'type_url': 'construction'})
+    geodata, })
 
 
 def map_page(request):

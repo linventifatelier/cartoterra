@@ -50,7 +50,7 @@
                 projection: map.displayProjection,
                 strategies: [new OpenLayers.Strategy.Fixed()],
                 protocol: new OpenLayers.Protocol.HTTP({
-                    url: "/kml/patrimonies.kml",
+                    url: "{% url geodata.views.patrimony_kml %}",
                     format: new OpenLayers.Format.KML({
                         extractStyles: true,
                         extractAttributes: true,
@@ -60,7 +60,7 @@
             });
             meeting_kml = new OpenLayers.Layer.GML(
                 "Meeting",
-                "/kml/meetings.kml",
+                "{% url geodata.views.meeting_kml %}",
                 {
                     format: OpenLayers.Format.KML,
                     styleMap: meeting_stylemap
@@ -68,7 +68,7 @@
             );
             construction_kml = new OpenLayers.Layer.GML(
                 "Construction",
-                "/kml/constructions.kml",
+                "{% url geodata.views.construction_kml %}",
                 {
                     format: OpenLayers.Format.KML,
                     styleMap: construction_stylemap

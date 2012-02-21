@@ -133,6 +133,7 @@ class EarthGeoDataAbstract(models.Model):
 
 class EarthGeoDataPatrimony(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
+    classurl = "patrimony" 
     architects = models.ManyToManyField(EarthArchitect,
                                         verbose_name=_("architects"),
                                         blank=True, null=True)
@@ -150,6 +151,7 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
 
 class EarthGeoDataMeeting(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
+    classurl = "meeting" 
     meeting = models.ForeignKey(EarthMeeting, verbose_name=_("meeting"))
     beginning_date = models.DateField(_("beginning date"),
                                       default=date.today())
@@ -169,6 +171,7 @@ class EarthGeoDataMeeting(EarthGeoDataAbstract):
 
 class EarthGeoDataConstruction(EarthGeoDataAbstract):
     """A spatial model for earthbuilding construction geodata."""
+    classurl = "construction" 
     participative = models.BooleanField(_("participative"), default=False)
     techniques = models.ManyToManyField(EarthTechnique,
                                         verbose_name=_("techniques"),
