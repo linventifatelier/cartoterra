@@ -14,6 +14,9 @@ import os
 from haystack.forms import ModelSearchForm
 from haystack.views import SearchView, search_view_factory
 
+import haystack
+haystack.autodiscover()
+
 handler500 = "pinax.views.server_error"
 
 
