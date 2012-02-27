@@ -21,16 +21,7 @@
 
 
 {% block nav %}
-        <ul>{% spaceless %}
-            <li id="tab_mappage"><a href="{% url geodata.views.map_page %}">{% trans "Map" %}</a></li>
-            <li id="tab_constructions"><a href="{% url geodata.views.constructions_all %}">{% trans "Constructions" %}</a></li>
-            <li id="tab_patrimonies"><a href="{% url geodata.views.patrimonies_all %}">{% trans "Patrimonies" %}</a></li>
-            <li id="tab_meetings"><a href="{% url geodata.views.meetings_all %}">{% trans "Meetings" %}</a></li>
-    {% if user.is_authenticated %}
-            <li id="tab_profile"><a href="{% url profile_detail user.username %}">{% trans "Profile" %}</a></li>
-            <li id="tab_notices"><a href="{% url notification_notices %}">{% trans "Notices" %}{% if notice_unseen_count %} ({{ notice_unseen_count }}){% endif %}</a></li>
-    {% endif %}
-        {% endspaceless %}</ul>
+    {% include "_nav.html" %}
 {% endblock %}
 
 {% block body %}
