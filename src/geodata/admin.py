@@ -1,5 +1,6 @@
 """Geodata administration interface."""
 from django.contrib.gis import admin
+from olwidget.admin import GeoModelAdmin
 from models import InterestingLocation, EarthTechnique, EarthArchitect, \
      EarthMeeting, EarthGeoDataMeeting, EarthGeoDataPatrimony, \
      EarthGeoDataConstruction, Book
@@ -125,7 +126,8 @@ admin.site.register(EarthMeeting, EarthMeetingAdmin)
 
 
 #class EarthGeoDataAbstractAdmin(MyOSMAdmin):
-class EarthGeoDataAbstractAdmin(admin.OSMGeoAdmin):
+#class EarthGeoDataAbstractAdmin(admin.OSMGeoAdmin):
+class EarthGeoDataAbstractAdmin(GeoModelAdmin):
     """EarthGeoData abstract administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator')
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator')
@@ -141,11 +143,11 @@ class EarthGeoDataAbstractAdmin(admin.OSMGeoAdmin):
     )
 
     # Default GeoDjango OpenLayers map options
-    scrollable = False
-    map_width = 700
-    map_height = 325
-    if settings.OPENLAYERS:
-        openlayers_url = settings.OPENLAYERS
+    #scrollable = False
+    #map_width = 700
+    #map_height = 325
+    #if settings.OPENLAYERS:
+    #    openlayers_url = settings.OPENLAYERS
 
     class Meta:
         """Abstract class."""

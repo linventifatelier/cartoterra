@@ -1,0 +1,57 @@
+{% extends "site_base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+
+{% block extra_head %}
+    {{ map.media }}
+{% endblock %}
+
+
+{% load i18n %}
+
+{% load ifsetting_tag %}
+
+{% block head_title %}{% block head_geodata_type %}{% endblock %}: {{ place.name }}{% endblock %}
+
+{% block body_class %}place{% endblock %}
+
+{% block body %}
+    <h1>{% block body_geodata_type %}{% endblock %}: {{ place.name }}</h1>
+
+    <p>
+        {{ map }}
+    </p>
+
+    {% block body_geodata_extra %}
+    {% endblock %}
+
+    <p>
+        {% if place.image %}
+            {% trans "Image" %}:<br>
+{% comment %}
+            {{ place.image }}
+{% endcomment %}
+	    {% thumbnail place.image "300x300" as im %}
+	        <img style="margin:{{ im|margin:"300x300" }}" src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}">
+	    {% endthumbnail %}
+        {% endif %}
+    </p>
+
+    <p>
+        {% if place.description %}
+            {% trans "Description" %}:<br>
+            {{ place.description }}
+        {% endif %}
+    </p>
+
+    <p>
+        {% trans "Contacts" %}:
+        <ul>
+            {% if place.credit_creator %}<li>{% trans "User" %}: <a href=/profiles/profile/{{ place.creator }}/>{{ place.creator }}</a></li>{% endif %}
+            {% if place.url %}<li>{% trans "Website" %}: <a href={{ place.url }}>{{ place.url }}</a></li>{% endif %}
+            {% if place.contact %}<li>{% trans "Other contact information" %}: {{ place.contact }}</li>{% endif %}
+        </ul>
+    </p>
+
+{% endblock %}

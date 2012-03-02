@@ -180,6 +180,7 @@ INSTALLED_APPS = [
     #"admin_langswitch",
     #"django_evolution",
     "gunicorn",
+    "olwidget",
 
     "pinax.templatetags",
 

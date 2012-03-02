@@ -2,76 +2,122 @@
 
 from django.shortcuts import get_object_or_404
 from django.views.generic.simple import direct_to_template
-from django.contrib.gis.shortcuts import render_to_kml
-
+from django.utils.translation import ugettext_lazy as _
 from models import EarthGeoDataMeeting, EarthGeoDataPatrimony, \
      EarthGeoDataConstruction
+from forms import EarthGeoDataPatrimonyForm
+from olwidget.widgets import InfoMap, Map, InfoLayer
+from sorl.thumbnail import get_thumbnail
 
 
-def patrimony_kml(_):
-    """Returns a kml file of all patrimony locations."""
-    locations = EarthGeoDataPatrimony.objects.kml()
-    return render_to_kml("patrimonies.kml", {'places': locations, })
+def _info_builder(geodata):
+    info = []
+    for i in geodata.objects.all():
+        description = ""
+        image = ""
+
+        if i.description:
+            description = i.description
+        else: description = i.name
+
+        if i.image:
+            thumbnail = get_thumbnail(i.image, '100x100')
+            image = "<p><a href=/" + i.classurl + "/" + str(i.id) +\
+                    "/><img src=\"" + thumbnail.url + "\" width=\"" +\
+                    str(thumbnail.x) + "\" height=\"" + str(thumbnail.y) +\
+                    "\"></a></p>"
 
 
-def meeting_kml(_):
-    """Returns a kml file of all meeting locations."""
-    locations = EarthGeoDataMeeting.objects.kml()
-    return render_to_kml("meetings.kml", {'places': locations, })
+        info.append([i.geometry,
+                     "<h1>" + i.name + "</h1>" +\
+                     "<p><a href=/" + i.classurl + "/" + str(i.id) + "/>" +\
+                     description + "</a></p>" + image
+                     ])
+    return info
 
 
-def construction_kml(_):
-    """Returns a kml file of all construction locations."""
-    locations = EarthGeoDataConstruction.objects.kml()
-    return render_to_kml("constructions.kml", {'places': locations, })
-
-
-def patrimonies_all(_):
+def show_patrimony_all(_):
     """Returns a template to present all patrimonies."""
     geodata = EarthGeoDataPatrimony.objects.all()
-    return direct_to_template(_, 'patrimonies_all.html', {'geodata':
-    geodata, })
+    map_ = InfoMap(_info_builder(EarthGeoDataPatrimony),
+                   {'name': "Patrimonies", 'fill_color': 'red'})
+    return direct_to_template(_, 'show_patrimony_all.html',
+                              {'geodata': geodata, 'map': map_})
 
 
-def meetings_all(_):
+def show_meeting_all(_):
     """Returns a template to present all meetings."""
     geodata = EarthGeoDataMeeting.objects.all()
-    return direct_to_template(_, 'meetings_all.html', {'geodata':
-    geodata, })
+    map_ = InfoMap(_info_builder(EarthGeoDataMeeting),
+                   {'name': "Meetings", 'fill_color': 'red'})
+    return direct_to_template(_, 'show_meeting_all.html',
+                              {'geodata': geodata, 'map': map_})
 
 
-def constructions_all(_):
+def show_construction_all(_):
     """Returns a template to present all constructions."""
     geodata = EarthGeoDataConstruction.objects.all()
-    return direct_to_template(_, 'constructions_all.html', {'geodata':
-    geodata, })
+    map_ = InfoMap(_info_builder(EarthGeoDataConstruction),
+                   {'name': "Constructions", 'fill_color': 'red'})
+    return direct_to_template(_, 'show_construction_all.html',
+                              {'geodata': geodata, 'map': map_})
 
 
-def map_page(request):
-    """Returns map.html template."""
+def show_bigmap(request):
+    """Returns a big Map with all geodatas."""
     lcount_construction = EarthGeoDataConstruction.objects.all().count()
     lcount_patrimony = EarthGeoDataPatrimony.objects.all().count()
     lcount_meeting = EarthGeoDataMeeting.objects.all().count()
     lcount = lcount_meeting + lcount_patrimony + lcount_construction
-    return direct_to_template(request, 'map.html', {'location_count': lcount,
-    'construction_count': lcount_construction, 'meeting_count': lcount_meeting,
-    'patrimony_count': lcount_patrimony, })
+
+    map_ = Map([
+       InfoLayer(_info_builder(EarthGeoDataPatrimony),
+                 {'name': "Patrimonies", 'fill_color': 'red'}),
+       InfoLayer(_info_builder(EarthGeoDataConstruction),
+                 {'name': "Constructions", 'fill_color': 'blue'}),
+       InfoLayer(_info_builder(EarthGeoDataMeeting),
+                 {'name': "Meetings", 'fill_color': 'green'}),
+    ])
+    return direct_to_template(request, 'show_bigmap.html',
+                              { 'map': map_, 'location_count': lcount,
+                                'construction_count': lcount_construction,
+                                'meeting_count': lcount_meeting,
+                                'patrimony_count': lcount_patrimony})
 
 
-def construction_page(request, ident):
+def show_construction(request, ident):
     """Returns construction.html template."""
-    construction = get_object_or_404(EarthGeoDataConstruction, pk=ident)
-    return direct_to_template(request, 'construction.html', {'place':
-    construction})
+    geodata = get_object_or_404(EarthGeoDataConstruction, pk=ident)
+    map_ = InfoMap([[geodata.geometry, ""]],
+                   {'fill_color': 'red'})
+    return direct_to_template(request, 'show_construction.map',
+                              {'html': map_, 'place': geodata})
 
 
-def patrimony_page(request, ident):
+def show_patrimony(request, ident):
     """Returns patrimony.html template."""
-    patrimony = get_object_or_404(EarthGeoDataPatrimony, pk=ident)
-    return direct_to_template(request, 'patrimony.html', {'place': patrimony})
+    geodata = get_object_or_404(EarthGeoDataPatrimony, pk=ident)
+    map_ = InfoMap([[geodata.geometry, ""]],
+                   {'fill_color': 'red'})
+    return direct_to_template(request, 'show_patrimony.html',
+                              {'map': map_, 'place': geodata})
 
 
-def meeting_page(request, ident):
+def show_meeting(request, ident):
     """Returns meeting.html template."""
-    meeting = get_object_or_404(EarthGeoDataMeeting, pk=ident)
-    return direct_to_template(request, 'meeting.html', {'place': meeting})
+    geodata = get_object_or_404(EarthGeoDataMeeting, pk=ident)
+    map_ = InfoMap([[geodata.geometry, ""]],
+                   {'fill_color': 'red'})
+    return direct_to_template(request, 'show_meeting.html',
+                              {'map': map_, 'place': geodata})
+
+
+def add_patrimony(request):
+    if request.method == "POST":
+        form = EarthGeoDataPatrimonyForm(request.POST)
+    else:
+        form = EarthGeoDataPatrimonyForm() # An unbound form
+
+    return direct_to_template(request, 'add_patrimony.html', {
+        'form': form,
+        })
