@@ -83,7 +83,7 @@ def show_bigmap(request):
        InfoLayer(_info_builder(EarthGeoDataMeeting),
                  {'name': "Meetings",
                   'overlay_style': {'fill_color': 'green',}}),
-    ])
+    ], {'map_div_class': 'bigmap'})
     return direct_to_template(request, 'show_bigmap.html',
                               { 'map': map_, 'location_count': lcount,
                                 'patrimony_count': lcount_patrimony,
