@@ -11,4 +11,4 @@ pidfile = "/tmp/gunicorn-demo.pid"
 backlog = 2048
 logfile = "/home/linventifatelier/earthbuilding/log/gunicorn_demo.log"
 loglevel = "info"
-timeout=60
+timeout=90
