@@ -54,7 +54,7 @@ class EarthTechnique(models.Model):
     #image = models.TextField(_("image"), blank=True, null=True)
     #image = models.ImageField(upload_to='img/techniques', blank=True,
     #null=True)
-    image = ImageField(upload_to='img/techniques', blank=True, null=True)
+    ### image = ImageField(upload_to='img/techniques', blank=True, null=True)
     #image = ImageWithThumbnailsField(upload_to='img/techniques',
     #thumbnail={'size': (200, 200)}, blank=True, null=True)
     #image = ImageField(upload_to='img/techniques', thumbnail={'size': (200,

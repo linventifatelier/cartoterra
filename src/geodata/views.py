@@ -106,7 +106,7 @@ def show_construction(request, ident):
     map_ = InfoMap([[geodata.geometry, ""]],
                    {'fill_color': 'red'})
     return direct_to_template(request, 'show_construction.map',
-                              {'html': map_, 'place': geodata})
+                              {'map': map_, 'place': geodata})
 
 
 def show_meeting(request, ident):
