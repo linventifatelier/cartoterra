@@ -95,7 +95,8 @@ class EarthTechniqueAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
     fieldsets = (
-        ('Techniques', {'fields': (('name', 'description', 'image', 'url'))}),
+        ('Techniques', {'fields': (('name', 'description', 'url'))}),
+        #('Techniques', {'fields': (('name', 'description', 'image', 'url'))}),
     )
 
 admin.site.register(EarthTechnique, EarthTechniqueAdmin)

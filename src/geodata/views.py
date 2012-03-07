@@ -105,7 +105,7 @@ def show_construction(request, ident):
     geodata = get_object_or_404(EarthGeoDataConstruction, pk=ident)
     map_ = InfoMap([[geodata.geometry, ""]],
                    {'fill_color': 'red'})
-    return direct_to_template(request, 'show_construction.map',
+    return direct_to_template(request, 'show_construction.html',
                               {'map': map_, 'place': geodata})
 
 
