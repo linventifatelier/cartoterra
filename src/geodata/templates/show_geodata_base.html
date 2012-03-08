@@ -10,19 +10,22 @@
 
 {% load i18n %}
 
-{% block head_title %}{% block head_geodata_type %}{% endblock %}: {{ place.name }}{% endblock %}
+{% block head_title %}{% block head_geodata_type %}{% endblock %}: {{ geodata.name }}{% endblock %}
 
-{% block body_class %}place{% endblock %}
+{% block body_class %}geodata{% endblock %}
 
 {% block body %}
-  {% if user.is_authenticated %}
-  <form action=/edit/{{ place.classurl }}/{{ place.id }}/ />
-    <input type="submit" value="Edit \"{{ place.name }}\"?">
+  {% if user.is_authenticated and user == geodata.creator %}
+  <form action=/edit/{{ geodata.classurl }}/{{ geodata.id }}/ />
+    <input type="submit" value="Edit {{ geodata.name }}?" />
+  </form>
+  <form action=/delete/{{ geodata.classurl }}/{{ geodata.id }}/ />
+    <input type="submit" value="Delete {{ geodata.name }}?" />
   </form>
   {% endif %}
 
 
-    <h1>{% block body_geodata_type %}{% endblock %}: {{ place.name }}</h1>
+    <h1>{% block body_geodata_type %}{% endblock %}: {{ geodata.name }}</h1>
 
     <p>
         {{ map }}
@@ -32,30 +35,30 @@
     {% endblock %}
 
     <p>
-        {% if place.image %}
+        {% if geodata.image %}
             {% trans "Image" %}:<br>
 {% comment %}
-            {{ place.image }}
+            {{ geodata.image }}
 {% endcomment %}
-	    {% thumbnail place.image "300x300" as im %}
+	    {% thumbnail geodata.image "300x300" as im %}
 	        <img style="margin:{{ im|margin:"300x300" }}" src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}">
 	    {% endthumbnail %}
         {% endif %}
     </p>
 
     <p>
-        {% if place.description %}
+        {% if geodata.description %}
             {% trans "Description" %}:<br>
-            {{ place.description }}
+            {{ geodata.description }}
         {% endif %}
     </p>
 
     <p>
         {% trans "Contacts" %}:
         <ul>
-            {% if place.credit_creator %}<li>{% trans "User" %}: <a href=/profiles/profile/{{ place.creator }}/>{{ place.creator }}</a></li>{% endif %}
-            {% if place.url %}<li>{% trans "Website" %}: <a href={{ place.url }}>{{ place.url }}</a></li>{% endif %}
-            {% if place.contact %}<li>{% trans "Other contact information" %}: {{ place.contact }}</li>{% endif %}
+            {% if geodata.credit_creator %}<li>{% trans "User" %}: <a href=/profiles/profile/{{ geodata.creator }}/>{{ geodata.creator }}</a></li>{% endif %}
+            {% if geodata.url %}<li>{% trans "Website" %}: <a href={{ geodata.url }}>{{ geodata.url }}</a></li>{% endif %}
+            {% if geodata.contact %}<li>{% trans "Other contact information" %}: {{ geodata.contact }}</li>{% endif %}
         </ul>
     </p>
 

@@ -113,7 +113,7 @@ def show_patrimony(request, ident):
     map_ = InfoMap([[geodata.geometry, ""]],
                    {'fill_color': 'red'})
     return direct_to_template(request, 'show_patrimony.html',
-                              {'map': map_, 'place': geodata})
+                              {'map': map_, 'geodata': geodata})
 
 
 def show_construction(request, ident):
@@ -122,7 +122,7 @@ def show_construction(request, ident):
     map_ = InfoMap([[geodata.geometry, ""]],
                    {'fill_color': 'red'})
     return direct_to_template(request, 'show_construction.html',
-                              {'map': map_, 'place': geodata})
+                              {'map': map_, 'geodata': geodata})
 
 
 def show_meeting(request, ident):
@@ -131,7 +131,7 @@ def show_meeting(request, ident):
     map_ = InfoMap([[geodata.geometry, ""]],
                    {'fill_color': 'red'})
     return direct_to_template(request, 'show_meeting.html',
-                              {'map': map_, 'place': geodata})
+                              {'map': map_, 'geodata': geodata})
 
 
 
