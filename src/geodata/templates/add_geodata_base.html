@@ -1,0 +1,28 @@
+{% extends "site_base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load adminmedia %}
+
+
+{% block extra_head %}
+{{ form.media }}
+{% endblock %}
+
+
+{% block head_title %}{% trans "Add a"%} {% block head_geodata_type %}{% endblock %}{% endblock %}
+
+{% block body_class %}userform{% endblock %}
+
+{% block body %}
+    <h1>{% trans "Add a"%} {% block body_geodata_type %}{% endblock %}</h1>
+
+
+    <form method="post" action=".">{% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value={% trans "Submit" %} />
+    </form>
+
+    {% block body_geodata_extra %}
+    {% endblock %}
+{% endblock %}
+

@@ -10,13 +10,18 @@
 
 {% load i18n %}
 
-{% load ifsetting_tag %}
-
 {% block head_title %}{% block head_geodata_type %}{% endblock %}: {{ place.name }}{% endblock %}
 
 {% block body_class %}place{% endblock %}
 
 {% block body %}
+  {% if user.is_authenticated %}
+  <form action=/edit/{{ place.classurl }}/{{ place.id }}/ />
+    <input type="submit" value="Edit \"{{ place.name }}\"?">
+  </form>
+  {% endif %}
+
+
     <h1>{% block body_geodata_type %}{% endblock %}: {{ place.name }}</h1>
 
     <p>

@@ -10,25 +10,30 @@
 
 {% load i18n %}
 
-{% load ifsetting_tag %}
-
-{% block head_title %}{% trans "List" %}: {{ data.classurl }}{% endblock %}
+{% block head_title %}{% trans "List" %}: {{ classurl }}{% endblock %}
 
 {% block body_class %}place{% endblock %}
 
 {% block body %}
 
-<p>{{ map }}</p>
+  {% if user.is_authenticated %}
+  <form action=/add/{{ classurl }}/ />
+    <input type="submit" value="Add a {{ classname }}">
+  </form>
+  {% endif %}
 
 
-<form action="/search/?q=">
+  <p>{{ map }}</p>
+
+
+  <form action="/search/?q=">
     <input type="text" name="q" id="id_q">
     <button type="submit">Go</button>
-</form>
+  </form>
 
 
-<ul>
-{% for data in geodata.all %}
+  <ul>
+    {% for data in geodata.all %}
     <li>
         <a href=/{{ data.classurl }}/{{ data.id }}/>{{ data.name }}</a>
 
@@ -41,7 +46,7 @@
         {% block body_geodata_extra %}
         {% endblock %}
     </li>
-{% endfor %}
-</ul>
+    {% endfor %}
+  </ul>
 
 {% endblock %}
