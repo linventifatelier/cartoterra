@@ -14,12 +14,14 @@ from datetime import datetime
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views.generic import list_detail, create_update
+from django.contrib.auth.models import User
 
 
 
-def _info_builder(geodata):
+
+def _info_builder(geodataobjects):
     info = []
-    for i in geodata.objects.all():
+    for i in geodataobjects:
         description = ""
         image = ""
 
@@ -46,7 +48,7 @@ def _info_builder(geodata):
 def show_patrimony_all(_):
     """Returns a template to present all patrimonies."""
     geodata = EarthGeoDataPatrimony.objects.all()
-    map_ = InfoMap(_info_builder(EarthGeoDataPatrimony),
+    map_ = InfoMap(_info_builder(geodata),
                    {'name': "Patrimonies",
                     'overlay_style': {'fill_color': 'red',}})
     return direct_to_template(_, 'show_patrimony_all.html',
@@ -59,7 +61,7 @@ def show_patrimony_all(_):
 def show_construction_all(_):
     """Returns a template to present all constructions."""
     geodata = EarthGeoDataConstruction.objects.all()
-    map_ = InfoMap(_info_builder(EarthGeoDataConstruction),
+    map_ = InfoMap(_info_builder(geodata),
                    {'name': "Constructions",
                     'overlay_style': {'fill_color': 'blue',}})
     return direct_to_template(_, 'show_construction_all.html',
@@ -72,7 +74,7 @@ def show_construction_all(_):
 def show_meeting_all(_):
     """Returns a template to present all meetings."""
     geodata = EarthGeoDataMeeting.objects.all()
-    map_ = InfoMap(_info_builder(EarthGeoDataMeeting),
+    map_ = InfoMap(_info_builder(geodata),
                    {'name': "Meetings",
                     'overlay_style': {'fill_color': 'green',}})
     return direct_to_template(_, 'show_meeting_all.html',
@@ -84,19 +86,22 @@ def show_meeting_all(_):
 
 def show_bigmap(request):
     """Returns a big Map with all geodatas."""
-    lcount_patrimony = EarthGeoDataPatrimony.objects.all().count()
-    lcount_construction = EarthGeoDataConstruction.objects.all().count()
-    lcount_meeting = EarthGeoDataMeeting.objects.all().count()
+    patrimony = EarthGeoDataPatrimony.objects.all()
+    construction = EarthGeoDataConstruction.objects.all()
+    meeting = EarthGeoDataMeeting.objects.all()
+    lcount_patrimony = patrimony.count()
+    lcount_construction = construction.count()
+    lcount_meeting = meeting.count()
     lcount = lcount_patrimony + lcount_construction + lcount_meeting
 
     map_ = Map([
-       InfoLayer(_info_builder(EarthGeoDataPatrimony),
+       InfoLayer(_info_builder(patrimony),
                  {'name': "Patrimonies",
                   'overlay_style': {'fill_color': 'red',}}),
-       InfoLayer(_info_builder(EarthGeoDataConstruction),
+       InfoLayer(_info_builder(construction),
                  {'name': "Constructions",
                   'overlay_style': {'fill_color': 'blue',}}),
-       InfoLayer(_info_builder(EarthGeoDataMeeting),
+       InfoLayer(_info_builder(meeting),
                  {'name': "Meetings",
                   'overlay_style': {'fill_color': 'green',}}),
     ], {'map_div_class': 'bigmap'})
@@ -107,8 +112,39 @@ def show_bigmap(request):
                                 'meeting_count': lcount_meeting,})
 
 
+def show_usermap(request, userid):
+    """Returns a show_usermap.html template."""
+    user_ = get_object_or_404(User, pk=userid)
+    patrimony = EarthGeoDataPatrimony.objects.filter(creator = user_)
+    construction = EarthGeoDataConstruction.objects.filter(creator = user_)
+    meeting = EarthGeoDataMeeting.objects.filter(creator = user_)
+    lcount_patrimony = patrimony.count()
+    lcount_construction = construction.count()
+    lcount_meeting = meeting.count()
+    lcount = lcount_patrimony + lcount_construction + lcount_meeting
+
+    map_ = Map([
+       InfoLayer(_info_builder(patrimony),
+                 {'name': "Patrimonies " + user_.username,
+                  'overlay_style': {'fill_color': 'red',}}),
+       InfoLayer(_info_builder(construction),
+                 {'name': "Constructions " + user_.username,
+                  'overlay_style': {'fill_color': 'blue',}}),
+       InfoLayer(_info_builder(meeting),
+                 {'name': "Meetings " + user_.username,
+                  'overlay_style': {'fill_color': 'green',}}),
+    ], {'map_div_class': 'usermap'})
+    return direct_to_template(request, 'show_usermap.html',
+                              { 'map': map_,
+                                'user_': user_,
+                                'location_count': lcount,
+                                'patrimony_count': lcount_patrimony,
+                                'construction_count': lcount_construction,
+                                'meeting_count': lcount_meeting,})
+
+
 def show_patrimony(request, ident):
-    """Returns patrimony.html template."""
+    """Returns show_patrimony.html template."""
     geodata = get_object_or_404(EarthGeoDataPatrimony, pk=ident)
     map_ = InfoMap([[geodata.geometry, ""]],
                    {'fill_color': 'red'})
@@ -117,7 +153,7 @@ def show_patrimony(request, ident):
 
 
 def show_construction(request, ident):
-    """Returns construction.html template."""
+    """Returns show_construction.html template."""
     geodata = get_object_or_404(EarthGeoDataConstruction, pk=ident)
     map_ = InfoMap([[geodata.geometry, ""]],
                    {'fill_color': 'red'})
@@ -126,7 +162,7 @@ def show_construction(request, ident):
 
 
 def show_meeting(request, ident):
-    """Returns meeting.html template."""
+    """Returns show_meeting.html template."""
     geodata = get_object_or_404(EarthGeoDataMeeting, pk=ident)
     map_ = InfoMap([[geodata.geometry, ""]],
                    {'fill_color': 'red'})
