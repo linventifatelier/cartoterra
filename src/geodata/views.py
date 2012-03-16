@@ -423,14 +423,12 @@ def delete_meeting(request, ident):
 
 
 @login_required
-def _toggle_recommendation(request, geodatamodel, ident):
+def _toggle_recommendation(request, geodatamodel, profile, profile_r, ident):
     geodata = get_object_or_404(geodatamodel, pk=ident)
 
-    profile = request.user.get_profile()
-
     if request.method == 'POST':
-        if geodata in profile.r_patrimony.all():
-            profile.r_patrimony.remove(geodata)
+        if geodata in profile_r.all():
+            profile_r.remove(geodata)
             profile.save()
             messages.add_message(request, messages.SUCCESS,
                                  _("Successfully removed %(classurl)s \"%(name)s\" \
@@ -439,7 +437,7 @@ def _toggle_recommendation(request, geodatamodel, ident):
                                    'name': geodata.name, }
                                  )
         else:
-            profile.r_patrimony.add(geodata)
+            profile_r.add(geodata)
             profile.save()
             messages.add_message(request, messages.SUCCESS,
                                  _("Successfully added %(classurl)s \"%(name)s\" \
@@ -453,16 +451,31 @@ def _toggle_recommendation(request, geodatamodel, ident):
 
 @login_required
 def toggle_rec_patrimony(request, ident):
-    return _toggle_recommendation(request, EarthGeoDataPatrimony, ident)
+    profile = request.user.get_profile()
+    return _toggle_recommendation(request = request,
+                                  geodatamodel = EarthGeoDataPatrimony,
+                                  profile = profile,
+                                  profile_r = profile.r_patrimony,
+                                  ident = ident)
 
 
 @login_required
 def toggle_rec_construction(request, ident):
-    return _toggle_recommendation(request, EarthGeoDataConstruction, ident)
+    profile = request.user.get_profile()
+    return _toggle_recommendation(request = request,
+                                  geodatamodel = EarthGeoDataConstruction,
+                                  profile = profile,
+                                  profile_r = profile.r_construction,
+                                  ident = ident)
 
 
 @login_required
 def toggle_rec_meeting(request, ident):
-    return _toggle_recommendation(request, EarthGeoDataMeeting, ident)
+    profile = request.user.get_profile()
+    return _toggle_recommendation(request = request,
+                                  geodatamodel = EarthGeoDataMeeting,
+                                  profile = profile,
+                                  profile_r = profile.r_meeting,
+                                  ident = ident)
 
 
