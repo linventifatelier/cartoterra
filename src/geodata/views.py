@@ -15,6 +15,10 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views.generic import list_detail, create_update
 from django.contrib.auth.models import User
+from profiles.models import Profile
+from django.conf import settings
+
+
 
 
 
@@ -50,7 +54,13 @@ def show_patrimony_all(_):
     geodata = EarthGeoDataPatrimony.objects.all()
     map_ = InfoMap(_info_builder(geodata),
                    {'name': "Patrimonies",
-                    'overlay_style': {'fill_color': 'red',}})
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        }})
     return direct_to_template(_, 'show_patrimony_all.html',
                               {'geodata': geodata,
                                'classurl': 'patrimony',
@@ -63,7 +73,13 @@ def show_construction_all(_):
     geodata = EarthGeoDataConstruction.objects.all()
     map_ = InfoMap(_info_builder(geodata),
                    {'name': "Constructions",
-                    'overlay_style': {'fill_color': 'blue',}})
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/construction.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        }})
     return direct_to_template(_, 'show_construction_all.html',
                               {'geodata': geodata,
                                'classurl': 'construction',
@@ -76,7 +92,13 @@ def show_meeting_all(_):
     geodata = EarthGeoDataMeeting.objects.all()
     map_ = InfoMap(_info_builder(geodata),
                    {'name': "Meetings",
-                    'overlay_style': {'fill_color': 'green',}})
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        }})
     return direct_to_template(_, 'show_meeting_all.html',
                               {'geodata': geodata,
                                'classurl': 'meeting',
@@ -97,13 +119,31 @@ def show_bigmap(request):
     map_ = Map([
        InfoLayer(_info_builder(patrimony),
                  {'name': "Patrimonies",
-                  'overlay_style': {'fill_color': 'red',}}),
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                      'graphic_width': 20,
+                      'graphic_height': 20,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
        InfoLayer(_info_builder(construction),
                  {'name': "Constructions",
-                  'overlay_style': {'fill_color': 'blue',}}),
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/construction.png",
+                      'graphic_width': 20,
+                      'graphic_height': 20,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
        InfoLayer(_info_builder(meeting),
                  {'name': "Meetings",
-                  'overlay_style': {'fill_color': 'green',}}),
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                      'graphic_width': 20,
+                      'graphic_height': 20,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
     ], {'map_div_class': 'bigmap'})
     return direct_to_template(request, 'show_bigmap.html',
                               { 'map': map_, 'location_count': lcount,
@@ -114,25 +154,75 @@ def show_bigmap(request):
 
 def show_usermap(request, userid):
     """Returns a show_usermap.html template."""
-    user_ = get_object_or_404(User, pk=userid)
+    profile = get_object_or_404(Profile, pk=userid)
+    user_ = profile.user
     patrimony = EarthGeoDataPatrimony.objects.filter(creator = user_)
     construction = EarthGeoDataConstruction.objects.filter(creator = user_)
     meeting = EarthGeoDataMeeting.objects.filter(creator = user_)
+    r_patrimony = profile.r_patrimony.all()
+    r_construction = profile.r_construction.all()
+    r_meeting = profile.r_meeting.all()
     lcount_patrimony = patrimony.count()
     lcount_construction = construction.count()
     lcount_meeting = meeting.count()
     lcount = lcount_patrimony + lcount_construction + lcount_meeting
+    name = user_.username
 
     map_ = Map([
        InfoLayer(_info_builder(patrimony),
-                 {'name': "Patrimonies " + user_.username,
-                  'overlay_style': {'fill_color': 'red',}}),
+                 {'name': "Patrimonies " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                      'graphic_width': 20,
+                      'graphic_height': 20,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
        InfoLayer(_info_builder(construction),
-                 {'name': "Constructions " + user_.username,
-                  'overlay_style': {'fill_color': 'blue',}}),
+                 {'name': "Constructions " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/construction.png",
+                      'graphic_width': 20,
+                      'graphic_height': 20,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
        InfoLayer(_info_builder(meeting),
-                 {'name': "Meetings " + user_.username,
-                  'overlay_style': {'fill_color': 'green',}}),
+                 {'name': "Meetings " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                      'graphic_width': 20,
+                      'graphic_height': 20,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
+       InfoLayer(_info_builder(r_patrimony),
+                 {'name': "Recommendations: Patrimonies " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                      'graphic_width': 10,
+                      'graphic_height': 10,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
+       InfoLayer(_info_builder(r_construction),
+                 {'name': "Recommendations: Constructions " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/construction.png",
+                      'graphic_width': 10,
+                      'graphic_height': 10,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
+       InfoLayer(_info_builder(r_meeting),
+                 {'name': "Recommendations: Meetings " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                      'graphic_width': 10,
+                      'graphic_height': 10,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
     ], {'map_div_class': 'usermap'})
     return direct_to_template(request, 'show_usermap.html',
                               { 'map': map_,
@@ -143,11 +233,50 @@ def show_usermap(request, userid):
                                 'meeting_count': lcount_meeting,})
 
 
+def show_recommendations(request, userid):
+    """Returns a show_usermap.html template."""
+    profile = get_object_or_404(Profile, pk=userid)
+    patrimony = profile.r_patrimony.all()
+    construction = profile.r_construction.all()
+    meeting = profile.r_meeting.all()
+    lcount_patrimony = patrimony.count()
+    lcount_construction = construction.count()
+    lcount_meeting = meeting.count()
+    lcount = lcount_patrimony + lcount_construction + lcount_meeting
+    name = profile.user.username
+
+    map_ = Map([
+       InfoLayer(_info_builder(patrimony),
+                 {'name': "Patrimonies " + name,
+                  'overlay_style': {'fill_color': 'red',}}),
+       InfoLayer(_info_builder(construction),
+                 {'name': "Constructions " + name,
+                  'overlay_style': {'fill_color': 'blue',}}),
+       InfoLayer(_info_builder(meeting),
+                 {'name': "Meetings " + name,
+                  'overlay_style': {'fill_color': 'green',}}),
+    ], {'map_div_class': 'usermap'})
+    return direct_to_template(request, 'show_usermap.html',
+                              { 'map': map_,
+                                'user_': profile.user,
+                                'location_count': lcount,
+                                'patrimony_count': lcount_patrimony,
+                                'construction_count': lcount_construction,
+                                'meeting_count': lcount_meeting,})
+
+
 def show_patrimony(request, ident):
     """Returns show_patrimony.html template."""
     geodata = get_object_or_404(EarthGeoDataPatrimony, pk=ident)
-    map_ = InfoMap([[geodata.geometry, ""]],
-                   {'fill_color': 'red'})
+    map_ = InfoMap([[geodata.geometry,
+                     { 'style': {
+                         'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                         'graphic_width': 30,
+                         'graphic_height': 30,
+                         'fill_color': '#00FF00',
+                         'stroke_color': '#008800',
+                         }}]],
+                   )
     return direct_to_template(request, 'show_patrimony.html',
                               {'map': map_, 'geodata': geodata})
 
@@ -155,8 +284,15 @@ def show_patrimony(request, ident):
 def show_construction(request, ident):
     """Returns show_construction.html template."""
     geodata = get_object_or_404(EarthGeoDataConstruction, pk=ident)
-    map_ = InfoMap([[geodata.geometry, ""]],
-                   {'fill_color': 'red'})
+    map_ = InfoMap([[geodata.geometry,
+                     { 'style': {
+                         'external_graphic': settings.STATIC_URL+"img/construction.png",
+                         'graphic_width': 30,
+                         'graphic_height': 30,
+                         'fill_color': '#00FF00',
+                         'stroke_color': '#008800',
+                         }}]],
+                   )
     return direct_to_template(request, 'show_construction.html',
                               {'map': map_, 'geodata': geodata})
 
@@ -164,8 +300,15 @@ def show_construction(request, ident):
 def show_meeting(request, ident):
     """Returns show_meeting.html template."""
     geodata = get_object_or_404(EarthGeoDataMeeting, pk=ident)
-    map_ = InfoMap([[geodata.geometry, ""]],
-                   {'fill_color': 'red'})
+    map_ = InfoMap([[geodata.geometry,
+                     { 'style': {
+                         'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                         'graphic_width': 30,
+                         'graphic_height': 30,
+                         'fill_color': '#00FF00',
+                         'stroke_color': '#008800',
+                         }}]],
+                   )
     return direct_to_template(request, 'show_meeting.html',
                               {'map': map_, 'geodata': geodata})
 
@@ -234,6 +377,7 @@ def _edit_builder(request, geodatamodel, geodatamodelform, geodatatemplate, iden
             return HttpResponseRedirect('/%(classurl)s/%(ident)d/' %
                                         { 'classurl': obj.classurl,
                                           'ident': obj.id })
+            #return HttpResponseRedirect(request.META['HTTP_REFERER'])
         else:
             messages.add_message(request, messages.ERROR,
                                  error_message
@@ -264,8 +408,6 @@ def edit_construction(request, ident):
 def edit_meeting(request, ident):
     return _edit_builder(request, EarthGeoDataMeeting,
                          EarthGeoDataMeetingForm, 'edit_meeting.html', ident)
-
-
 
 
 @login_required
@@ -301,3 +443,49 @@ def delete_construction(request, ident):
 @login_required
 def delete_meeting(request, ident):
     return _delete_builder(request, EarthGeoDataMeeting, 'delete_meeting.html', ident)
+
+
+@login_required
+def _toggle_recommendation(request, geodatamodel, ident):
+    geodata = get_object_or_404(geodatamodel, pk=ident)
+
+    profile = request.user.get_profile()
+
+    if request.method == 'POST':
+        if geodata in profile.r_patrimony.all():
+            profile.r_patrimony.remove(geodata)
+            profile.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 _("Successfully removed %(classurl)s \"%(name)s\" \
+                                 from your recommendations.") %
+                                 { 'classurl': geodata.classurl,
+                                   'name': geodata.name, }
+                                 )
+        else:
+            profile.r_patrimony.add(geodata)
+            profile.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 _("Successfully added %(classurl)s \"%(name)s\" \
+                                 to your recommendations.") %
+                                 { 'classurl': geodata.classurl,
+                                   'name': geodata.name, }
+                                 )
+        return HttpResponseRedirect('/%(classurl)s/%(ident)d/' %
+                                    { 'classurl': geodata.classurl,
+                                      'ident': geodata.id })
+
+@login_required
+def toggle_rec_patrimony(request, ident):
+    return _toggle_recommendation(request, EarthGeoDataPatrimony, ident)
+
+
+@login_required
+def toggle_rec_construction(request, ident):
+    return _toggle_recommendation(request, EarthGeoDataConstruction, ident)
+
+
+@login_required
+def toggle_rec_meeting(request, ident):
+    return _toggle_recommendation(request, EarthGeoDataMeeting, ident)
+
+

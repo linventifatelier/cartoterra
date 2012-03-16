@@ -1,7 +1,7 @@
 """Geodata administration interface."""
 from django.contrib.gis import admin
 from olwidget.admin import GeoModelAdmin
-from models import InterestingLocation, EarthTechnique, EarthArchitect, \
+from models import EarthTechnique, EarthArchitect, \
      EarthMeeting, EarthGeoDataMeeting, EarthGeoDataPatrimony, \
      EarthGeoDataConstruction, Book
 from django.conf import settings
@@ -22,24 +22,6 @@ class BookAdmin(naniadmin.TranslatableAdmin):
     )
 
 admin.site.register(Book, BookAdmin)
-
-class InterestingLocationAdmin(admin.OSMGeoAdmin):
-    """InterestingLocation administration interface."""
-    list_display = ('name', 'interestingness')
-    list_filter = ('name', 'interestingness', )
-    fieldsets = (
-        ('Location Attributes', {'fields': (('name', 'interestingness'))}),
-        ('Editable Map View', {'fields': ('geometry', )}),
-    )
-
-    # Default GeoDjango OpenLayers map options
-    scrollable = False
-    map_width = 700
-    map_height = 325
-    if settings.OPENLAYERS:
-        openlayers_url = settings.OPENLAYERS
-
-admin.site.register(InterestingLocation, InterestingLocationAdmin)
 
 
 # class MyModelAdmin(admin.ModelAdmin):

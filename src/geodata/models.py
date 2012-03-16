@@ -35,18 +35,6 @@ class Book(TranslatableModel):
         return self.isbn
 
 
-class InterestingLocation(models.Model):
-    """A spatial model for interesting locations."""
-    name = models.CharField(max_length=50, )
-    interestingness = models.IntegerField()
-    geometry = models.PointField(srid=4326)  # EPSG:4236 is the spatial
-                                             # reference for our data
-    objects = models.GeoManager()  # so we can use spatial queryset methods
-
-    def __unicode__(self):
-        return self.name
-
-
 class EarthTechnique(models.Model):
     """A model for earthbuilding techniques."""
     name = models.CharField(_("name"), max_length=50)

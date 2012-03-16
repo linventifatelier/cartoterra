@@ -15,14 +15,30 @@
 {% block body_class %}geodata{% endblock %}
 
 {% block body %}
+  <ul>
   {% if user.is_authenticated and user == geodata.creator %}
+  <li>
   <form action=/edit/{{ geodata.classurl }}/{{ geodata.id }}/ />
-    <input type="submit" value="Edit {{ geodata.name }}?" />
+    <input type="submit" value="Edit" />
   </form>
+  </li>
+
+  <li>
   <form action=/delete/{{ geodata.classurl }}/{{ geodata.id }}/ />
-    <input type="submit" value="Delete {{ geodata.name }}?" />
+    <input type="submit" value="Delete" />
   </form>
+  </li>
   {% endif %}
+
+  {% if user.is_authenticated %}
+  <li>
+  {% trans "Recommendation" %}
+  <form method="post" action=/rec/{{ geodata.classurl }}/{{ geodata.id }}/ />{% csrf_token %}
+      <input type="submit" value="Toggle">
+  </form>
+  </li>
+  {% endif %}
+  </ul>
 
 
     <h1>{% block body_geodata_type %}{% endblock %}: {{ geodata.name }}</h1>
