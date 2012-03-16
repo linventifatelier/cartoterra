@@ -166,6 +166,10 @@ def show_usermap(request, userid):
     lcount_construction = construction.count()
     lcount_meeting = meeting.count()
     lcount = lcount_patrimony + lcount_construction + lcount_meeting
+    lcount_r_patrimony = r_patrimony.count()
+    lcount_r_construction = r_construction.count()
+    lcount_r_meeting = r_meeting.count()
+    lcount_r = lcount_r_patrimony + lcount_r_construction + lcount_r_meeting
     name = user_.username
 
     map_ = Map([
@@ -230,39 +234,12 @@ def show_usermap(request, userid):
                                 'location_count': lcount,
                                 'patrimony_count': lcount_patrimony,
                                 'construction_count': lcount_construction,
-                                'meeting_count': lcount_meeting,})
-
-
-def show_recommendations(request, userid):
-    """Returns a show_usermap.html template."""
-    profile = get_object_or_404(Profile, pk=userid)
-    patrimony = profile.r_patrimony.all()
-    construction = profile.r_construction.all()
-    meeting = profile.r_meeting.all()
-    lcount_patrimony = patrimony.count()
-    lcount_construction = construction.count()
-    lcount_meeting = meeting.count()
-    lcount = lcount_patrimony + lcount_construction + lcount_meeting
-    name = profile.user.username
-
-    map_ = Map([
-       InfoLayer(_info_builder(patrimony),
-                 {'name': "Patrimonies " + name,
-                  'overlay_style': {'fill_color': 'red',}}),
-       InfoLayer(_info_builder(construction),
-                 {'name': "Constructions " + name,
-                  'overlay_style': {'fill_color': 'blue',}}),
-       InfoLayer(_info_builder(meeting),
-                 {'name': "Meetings " + name,
-                  'overlay_style': {'fill_color': 'green',}}),
-    ], {'map_div_class': 'usermap'})
-    return direct_to_template(request, 'show_usermap.html',
-                              { 'map': map_,
-                                'user_': profile.user,
-                                'location_count': lcount,
-                                'patrimony_count': lcount_patrimony,
-                                'construction_count': lcount_construction,
-                                'meeting_count': lcount_meeting,})
+                                'meeting_count': lcount_meeting,
+                                'r_location_count': lcount_r,
+                                'r_patrimony_count': lcount_r_patrimony,
+                                'r_construction_count': lcount_r_construction,
+                                'r_meeting_count': lcount_r_meeting,
+                                })
 
 
 def show_patrimony(request, ident):

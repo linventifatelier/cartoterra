@@ -9,6 +9,8 @@
 
     {% trans "Total of GeoDatas of user" %} {{ user_.username }}: {{location_count}} ({{construction_count}} {% trans "constructions" %}, {{patrimony_count}} {% trans "patrimonies" %}, {{meeting_count}} {% trans "meetings" %}).<br />
 
+    {% trans "Total of Recommendations of user" %} {{ user_.username }}: {{r_location_count}} ({{r_construction_count}} {% trans "constructions" %}, {{r_patrimony_count}} {% trans "patrimonies" %}, {{r_meeting_count}} {% trans "meetings" %}).<br />
+
     {{ map }}
 
 {% endblock %}
