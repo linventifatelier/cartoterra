@@ -60,7 +60,9 @@ def show_patrimony_all(_):
                         'graphic_height': 20,
                         'fill_color': '#00FF00',
                         'stroke_color': '#008800',
-                        }})
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
     return direct_to_template(_, 'show_patrimony_all.html',
                               {'geodata': geodata,
                                'classurl': 'patrimony',
@@ -79,7 +81,9 @@ def show_construction_all(_):
                         'graphic_height': 20,
                         'fill_color': '#00FF00',
                         'stroke_color': '#008800',
-                        }})
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
     return direct_to_template(_, 'show_construction_all.html',
                               {'geodata': geodata,
                                'classurl': 'construction',
@@ -98,7 +102,9 @@ def show_meeting_all(_):
                         'graphic_height': 20,
                         'fill_color': '#00FF00',
                         'stroke_color': '#008800',
-                        }})
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
     return direct_to_template(_, 'show_meeting_all.html',
                               {'geodata': geodata,
                                'classurl': 'meeting',
@@ -253,6 +259,7 @@ def show_patrimony(request, ident):
                          'fill_color': '#00FF00',
                          'stroke_color': '#008800',
                          }}]],
+                   { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
                    )
     return direct_to_template(request, 'show_patrimony.html',
                               {'map': map_, 'geodata': geodata})
@@ -269,6 +276,7 @@ def show_construction(request, ident):
                          'fill_color': '#00FF00',
                          'stroke_color': '#008800',
                          }}]],
+                   { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
                    )
     return direct_to_template(request, 'show_construction.html',
                               {'map': map_, 'geodata': geodata})
@@ -285,6 +293,7 @@ def show_meeting(request, ident):
                          'fill_color': '#00FF00',
                          'stroke_color': '#008800',
                          }}]],
+                   { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
                    )
     return direct_to_template(request, 'show_meeting.html',
                               {'map': map_, 'geodata': geodata})
