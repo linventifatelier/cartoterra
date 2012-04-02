@@ -5,23 +5,11 @@
 
 {% block body_geodata_type %}{% trans "Patrimony" %}{% endblock %}
 
-{% block editform %}
-      <form action={% url edit_patrimony geodata.id %} />
-        <input type="submit" value="Edit" />
-      </form>
-{% endblock %}
+{% block edit_form_action %}{% url edit_patrimony geodata.id %}{% endblock %}
 
-{% block deleteform %}
-      <form action={% url delete_patrimony geodata.id %} />
-        <input type="submit" value="Delete" />
-      </form>
-{% endblock %}
+{% block delete_form_action %}{% url delete_patrimony geodata.id %}{% endblock %}
 
-{% block recform %}
-      <form method="post" action={% url toggle_rec_patrimony geodata.id %} />{% csrf_token %}
-        <input type="submit" value="Toggle">
-      </form>
-{% endblock %}
+{% block rec_form_action %}{% url toggle_rec_patrimony geodata.id %}{% endblock %}
 
 {% block body_geodata_extra %}
     <p>

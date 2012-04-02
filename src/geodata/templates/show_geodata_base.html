@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
 {% load thumbnail %}
+{% load i18n %}
 
 
 {% block extra_head %}
@@ -18,18 +19,25 @@
     <ul>
     {% if user.is_authenticated and user == geodata.creator %}
     <li>
-      {% block editform %}{% endblock %}
+      <form action={% block edit_form_action %}{% endblock %} />
+        <input type="submit" value={% trans "Edit" %} />
+      </form>
     </li>
 
     <li>
-      {% block deleteform %}{% endblock %}
+      <form action={% block delete_form_action %}{% endblock %} />
+        <input type="submit" value={% trans "Delete" %} />
+      </form>
     </li>
     {% endif %}
 
     {% if user.is_authenticated %}
     <li>
       {% trans "Recommendation" %}
-      {% block recform %}{% endblock %}
+      <form method="post" action={% block rec_form_action %}{% endblock %} />{% csrf_token %}
+        <input type="submit" value={% trans "Toggle" %}>
+      </form>
+
     </li>
     {% endif %}
     </ul>
