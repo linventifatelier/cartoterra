@@ -10,16 +10,15 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "List" %}: {{ classurl }}{% endblock %}
+{% block head_title %}{% trans "List" %}: {% block head_geodata_type %}{% endblock%}{% endblock %}
 
 {% block body_class %}place{% endblock %}
 
 {% block body %}
 
   {% if user.is_authenticated %}
-  <form action=/add/{{ classurl }}/ />
-    <input type="submit" value="Add a {{ classname }}">
-  </form>
+  {% block form_add_geodata %}
+  {% endblock %}
   {% endif %}
 
 

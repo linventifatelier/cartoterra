@@ -18,24 +18,18 @@
     <ul>
     {% if user.is_authenticated and user == geodata.creator %}
     <li>
-    <form action=/edit{{ geodata.get_absolute_url }} />
-      <input type="submit" value="Edit" />
-    </form>
+      {% block editform %}{% endblock %}
     </li>
 
     <li>
-    <form action=/delete{{ geodata.get_absolute_url }} />
-      <input type="submit" value="Delete" />
-    </form>
+      {% block deleteform %}{% endblock %}
     </li>
     {% endif %}
 
     {% if user.is_authenticated %}
     <li>
-    {% trans "Recommendation" %}
-    <form method="post" action=/rec{{ geodata.get_absolute_url }} />{% csrf_token %}
-        <input type="submit" value="Toggle">
-    </form>
+      {% trans "Recommendation" %}
+      {% block recform %}{% endblock %}
     </li>
     {% endif %}
     </ul>
@@ -72,7 +66,7 @@
     <p>
         {% trans "Contacts" %}:
         <ul>
-            {% if geodata.credit_creator %}<li>{% trans "User" %}: <a href=/profiles/profile/{{ geodata.creator }}/>{{ geodata.creator }}</a></li>{% endif %}
+            {% if geodata.credit_creator %}<li>{% trans "User" %}: <a href="{% url profile_detail geodata.creator %}">{{ geodata.creator }}</a></li>{% endif %}
             {% if geodata.url %}<li>{% trans "Website" %}: <a href={{ geodata.url }}>{{ geodata.url }}</a></li>{% endif %}
             {% if geodata.contact %}<li>{% trans "Other contact information" %}: {{ geodata.contact }}</li>{% endif %}
         </ul>

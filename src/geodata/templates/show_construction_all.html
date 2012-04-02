@@ -1,3 +1,12 @@
 {% extends "show_geodata_all_base.html" %}
+{% load i18n %}
+
+{% block head_geodata_type %}{% trans "constructions" %}{% endblock %}
 
 {% block body_class %}constructions{% endblock %}
+
+{% block form_add_geodata %}
+<form action={% url add_construction %} />
+  <input type="submit" value="Add a construction.">
+</form>
+{% endblock %}

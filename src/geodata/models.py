@@ -147,8 +147,9 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
     def get_model(self):
         return EarthGeoDataPatrimony
 
+    @models.permalink
     def get_absolute_url(self):
-        return "/patrimony/%s/" % self.id
+        return ("show_patrimony", [self.id])
 
     def contemporary_status(self):
         """Returns the contemporary status of a meeting."""
@@ -176,8 +177,9 @@ class EarthGeoDataMeeting(EarthGeoDataAbstract):
     def get_model(self):
         return EarthGeoDataMeeting
 
+    @models.permalink
     def get_absolute_url(self):
-        return "/meeting/%s/" % self.id
+        return ("show_meeting", [self.id])
 
     def ended_status(self):
         """Says if a meeting is ended or not."""
@@ -198,6 +200,7 @@ class EarthGeoDataConstruction(EarthGeoDataAbstract):
     def get_model(self):
         return EarthGeoDataConstruction
 
+    @models.permalink
     def get_absolute_url(self):
-        return "/construction/%s/" % self.id
+        return ("show_construction", [self.id])
 

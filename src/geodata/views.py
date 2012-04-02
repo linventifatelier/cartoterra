@@ -66,8 +66,6 @@ def show_patrimony_all(_):
                     })
     return direct_to_template(_, 'show_patrimony_all.html',
                               {'geodata': geodata,
-                               'classurl': 'patrimony',
-                               'classname': 'Patrimony',
                                'map': map_ })
 
 
@@ -87,8 +85,6 @@ def show_construction_all(_):
                     })
     return direct_to_template(_, 'show_construction_all.html',
                               {'geodata': geodata,
-                               'classurl': 'construction',
-                               'classname': 'Construction',
                                'map': map_})
 
 
@@ -108,8 +104,6 @@ def show_meeting_all(_):
                     })
     return direct_to_template(_, 'show_meeting_all.html',
                               {'geodata': geodata,
-                               'classurl': 'meeting',
-                               'classname': 'Meeting',
                                'map': map_})
 
 

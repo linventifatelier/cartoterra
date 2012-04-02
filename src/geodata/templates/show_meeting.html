@@ -5,12 +5,29 @@
 
 {% block body_geodata_type %}{% trans "Meeting" %}{% endblock %}
 
+{% block editform %}
+      <form action={% url edit_meeting geodata.id %} />
+        <input type="submit" value="Edit" />
+      </form>
+{% endblock %}
+
+{% block deleteform %}
+      <form action={% url delete_meeting geodata.id %} />
+        <input type="submit" value="Delete" />
+      </form>
+{% endblock %}
+
+{% block recform %}
+      <form method="post" action={% url toggle_rec_meeting geodata.id %} />{% csrf_token %}
+        <input type="submit" value="Toggle">
+      </form>
+{% endblock %}
 {% block body_geodata_extra %}
     <p>
-        {% trans "Meeting type" %}: {{ place.meeting }}
+        {% trans "Meeting type" %}: {{ geodata.meeting }}
     </p>
 
     <p>
-        {% trans "Dates" %}: {{ place.beginning_date }} - {{ place.end_date }}
+        {% trans "Dates" %}: {{ geodata.beginning_date }} - {{ geodata.end_date }}
     </p>
 {% endblock %}

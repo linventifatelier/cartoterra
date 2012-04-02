@@ -5,12 +5,30 @@
 
 {% block body_geodata_type %}{% trans "Patrimony" %}{% endblock %}
 
+{% block editform %}
+      <form action={% url edit_patrimony geodata.id %} />
+        <input type="submit" value="Edit" />
+      </form>
+{% endblock %}
+
+{% block deleteform %}
+      <form action={% url delete_patrimony geodata.id %} />
+        <input type="submit" value="Delete" />
+      </form>
+{% endblock %}
+
+{% block recform %}
+      <form method="post" action={% url toggle_rec_patrimony geodata.id %} />{% csrf_token %}
+        <input type="submit" value="Toggle">
+      </form>
+{% endblock %}
+
 {% block body_geodata_extra %}
     <p>
         {% trans "Architects" %}:
-        {% if place.architects.all %}
+        {% if geodata.architects.all %}
             <ul>
-            {% for architect in place.architects.all %}
+            {% for architect in geodata.architects.all %}
                 <li>{{ architect.name }}</li>
             {% endfor %}
             </ul>
@@ -20,9 +38,9 @@
     </p>
     <p>
         {% trans "Techniques" %}:
-        {% if place.techniques.all %}
+        {% if geodata.techniques.all %}
             <ul>
-            {% for technique in place.techniques.all %}
+            {% for technique in geodata.techniques.all %}
                 <li>{{ technique.name }}</li>
             {% endfor %}
             </ul>
@@ -33,7 +51,7 @@
 
     <p>
         {% trans "UNESCO patrimony" %}:
-        {% if place.unesco %}
+        {% if geodata.unesco %}
             {% trans "Yes!" %}
         {% else %}
             {% trans "No." %}
@@ -42,8 +60,8 @@
 
     <p>
         {% trans "Inauguration date" %}:
-        {% if place.inauguration_date %}
-	    {{ place.inauguration_date }}
+        {% if geodata.inauguration_date %}
+	    {{ geodata.inauguration_date }}
         {% else %}
             {% trans "not provided" %}.
         {% endif %}
