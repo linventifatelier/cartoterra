@@ -11,17 +11,21 @@
 
 {% block body %}
 
+
     <form method="get" action=".">
-        {% comment %}<label for='id_q'>{{ form.q.label }}</label>{% endcomment %}
-        {{ form.q }}
-        <button type="submit">Go</button>
+      {{ form.as_table }}
+      <tr>
+	<td>&nbsp;</td>
+	<td>
+	  <input type="submit" value="Search">
+	</td>
+      </tr>
     </form>
-    
     {% if page.object_list %}
         <ol>
             {% for result in page.object_list %}
                 <li>
-                    <a href='/{{ result.object.classurl }}/{{ result.object.id }}'>{{ result.object.name }}</a>
+                    <a href='{{ result.object.get_absolute_url }}'>{{ result.object.name }}</a>
                 </li>
             {% endfor %}
         </ol>

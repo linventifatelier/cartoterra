@@ -35,7 +35,7 @@
   <ul>
     {% for data in geodata.all %}
     <li>
-        <a href=/{{ data.classurl }}/{{ data.id }}/>{{ data.name }}</a>
+        <a href={{ data.get_absolute_url }}>{{ data.name }}</a>
 
 	{% if data.image %}
 	    {% thumbnail data.image "100x100" as im %}

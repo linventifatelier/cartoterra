@@ -14,6 +14,9 @@ import os
 from haystack.forms import ModelSearchForm
 from haystack.views import SearchView, search_view_factory
 
+from profiles.views import *
+
+
 import haystack
 haystack.autodiscover()
 
@@ -35,10 +38,11 @@ urlpatterns = patterns("",
     url(r'^edit/construction/(?P<ident>\d+)/$', edit_construction),
     url(r'^edit/meeting/(?P<ident>\d+)/$', edit_meeting),
     url(r'^delete/patrimony/(?P<ident>\d+)/$', delete_patrimony),
+    url(r'^delete/construction/(?P<ident>\d+)/$', delete_construction),
+    url(r'^delete/meeting/(?P<ident>\d+)/$', delete_meeting),
     url(r'^add/patrimony/$', add_patrimony),
     url(r'^add/construction/$', add_construction),
     url(r'^add/meeting/$', add_meeting),
-    url(r'^user/(?P<userid>\d+)/$', show_usermap),
     url(r'^rec/patrimony/(?P<ident>\d+)/$', toggle_rec_patrimony),
     url(r'^rec/construction/(?P<ident>\d+)/$', toggle_rec_construction),
     url(r'^rec/meeting/(?P<ident>\d+)/$', toggle_rec_meeting),
@@ -53,6 +57,10 @@ urlpatterns = patterns("",
     url(r"^about/", include("about.urls")),
     url(r"^account/", include("pinax.apps.account.urls")),
     url(r"^openid/", include(PinaxConsumer().urls)),
+    url(r"^profiles/profile/(?P<username>[\w\._-]+)/$",
+        ProfileDetailView.as_view(), name="profile_detail"),
+    url(r"^profiles/(?P<profile_slug>[\w\._-]+)/profile/(?P<profile_pk>\d+)/$",
+        ProfileDetailView.as_view(), name="profile_detail"),
     url(r"^profiles/", include("idios.urls")),
     url(r"^notices/", include("notification.urls")),
     url(r"^announcements/", include("announcements.urls")),

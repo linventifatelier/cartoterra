@@ -17,6 +17,7 @@ from django.views.generic import list_detail, create_update
 from django.contrib.auth.models import User
 from profiles.models import Profile
 from django.conf import settings
+from django.utils.encoding import force_unicode
 
 
 
@@ -35,15 +36,15 @@ def _info_builder(geodataobjects):
 
         if i.image:
             thumbnail = get_thumbnail(i.image, '100x100')
-            image = "<p><a href=/" + i.classurl + "/" + str(i.id) +\
-                    "/><img src=\"" + thumbnail.url + "\" width=\"" +\
+            image = "<p><a href=" + i.get_absolute_url() +\
+                    "><img src=\"" + thumbnail.url + "\" width=\"" +\
                     str(thumbnail.x) + "\" height=\"" + str(thumbnail.y) +\
                     "\"></a></p>"
 
 
         info.append([i.geometry,
                      "<h1>" + i.name + "</h1>" +\
-                     "<p><a href=/" + i.classurl + "/" + str(i.id) + "/>" +\
+                     "<p><a href=" + i.get_absolute_url() + ">" +\
                      description + "</a></p>" + image
                      ])
     return info
@@ -157,6 +158,73 @@ def show_bigmap(request):
                                 'construction_count': lcount_construction,
                                 'meeting_count': lcount_meeting,})
 
+def get_profilemap(profile):
+    user_ = profile.user
+    patrimony = EarthGeoDataPatrimony.objects.filter(creator = user_)
+    construction = EarthGeoDataConstruction.objects.filter(creator = user_)
+    meeting = EarthGeoDataMeeting.objects.filter(creator = user_)
+    r_patrimony = profile.r_patrimony.all()
+    r_construction = profile.r_construction.all()
+    r_meeting = profile.r_meeting.all()
+    name = user_.username
+
+    map_ = Map([
+       InfoLayer(_info_builder(patrimony),
+                 {'name': "Patrimonies " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                      'graphic_width': 20,
+                      'graphic_height': 20,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
+       InfoLayer(_info_builder(construction),
+                 {'name': "Constructions " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/construction.png",
+                      'graphic_width': 20,
+                      'graphic_height': 20,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
+       InfoLayer(_info_builder(meeting),
+                 {'name': "Meetings " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                      'graphic_width': 20,
+                      'graphic_height': 20,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
+       InfoLayer(_info_builder(r_patrimony),
+                 {'name': "Recommendations: Patrimonies " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                      'graphic_width': 10,
+                      'graphic_height': 10,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
+       InfoLayer(_info_builder(r_construction),
+                 {'name': "Recommendations: Constructions " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/construction.png",
+                      'graphic_width': 10,
+                      'graphic_height': 10,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
+       InfoLayer(_info_builder(r_meeting),
+                 {'name': "Recommendations: Meetings " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                      'graphic_width': 10,
+                      'graphic_height': 10,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
+    ], {'map_div_class': 'usermap'})
+    return map_
 
 def show_usermap(request, userid):
     """Returns a show_usermap.html template."""
@@ -313,11 +381,10 @@ def _add_builder(request, geodatamodel, geodatamodelform, geodatatemplate):
         if form.is_valid():
             obj = form.save()
             messages.add_message(request, messages.SUCCESS,
-                                 _("Successfully added %(classurl)s \"%(name)s\".") %
-                                 {"classurl": obj.classurl, "name": obj.name,}
+                                 _("Successfully added %(modelname)s \"%(name)s\".") %
+                                 {'modelname': force_unicode(obj._meta.verbose_name), 'name': obj.name,}
                                  )
-            return HttpResponseRedirect('/%(classurl)s/%(ident)d/' %
-                                        { 'classurl': obj.classurl, 'ident': obj.id })
+            return HttpResponseRedirect('%s' % obj.get_absolute_url())
         else:
             messages.add_message(request, messages.ERROR,
                                  error_message
@@ -357,12 +424,10 @@ def _edit_builder(request, geodatamodel, geodatamodelform, geodatatemplate, iden
         if form.is_valid():
             obj = form.save()
             messages.add_message(request, messages.SUCCESS,
-                                 _("Successfully edited %(classurl)s \"%(name)s\".") %
-                                 { 'classurl': obj.classurl, "name": obj.name, }
+                                 _("Successfully edited %(modelname)s \"%(name)s\".") %
+                                 { 'modelname': force_unicode(obj._meta.verbose_name), 'name': obj.name, }
                                  )
-            return HttpResponseRedirect('/%(classurl)s/%(ident)d/' %
-                                        { 'classurl': obj.classurl,
-                                          'ident': obj.id })
+            return HttpResponseRedirect("%s" % obj.get_absolute_url())
             #return HttpResponseRedirect(request.META['HTTP_REFERER'])
         else:
             messages.add_message(request, messages.ERROR,
@@ -406,8 +471,8 @@ def _delete_builder(request, geodatamodel, geodatatemplate, ident):
     if request.method == 'POST':
         geodata.delete()
         messages.add_message(request, messages.SUCCESS,
-                             _("Successfully deleted %(classurl)s \"%(name)s\".") %
-                             { 'classurl': geodata.classurl, "name": geodata.name, }
+                             _("Successfully deleted %(modelname)s \"%(name)s\".") %
+                             { 'modelname': force_unicode(geodata._meta.verbose_name), 'name': geodata.name, }
                              )
         return HttpResponseRedirect('/')
     else:
@@ -440,23 +505,21 @@ def _toggle_recommendation(request, geodatamodel, profile, profile_r, ident):
             profile_r.remove(geodata)
             profile.save()
             messages.add_message(request, messages.SUCCESS,
-                                 _("Successfully removed %(classurl)s \"%(name)s\" \
+                                 _("Successfully removed %(modelname)s \"%(name)s\" \
                                  from your recommendations.") %
-                                 { 'classurl': geodata.classurl,
+                                 { 'modelname': force_unicode(geodata._meta.verbose_name),
                                    'name': geodata.name, }
                                  )
         else:
             profile_r.add(geodata)
             profile.save()
             messages.add_message(request, messages.SUCCESS,
-                                 _("Successfully added %(classurl)s \"%(name)s\" \
+                                 _("Successfully added %(modelname)s \"%(name)s\" \
                                  to your recommendations.") %
-                                 { 'classurl': geodata.classurl,
+                                 { 'modelname': force_unicode(geodata._meta.verbose_name),
                                    'name': geodata.name, }
                                  )
-        return HttpResponseRedirect('/%(classurl)s/%(ident)d/' %
-                                    { 'classurl': geodata.classurl,
-                                      'ident': geodata.id })
+        return HttpResponseRedirect('%s' % geodata.get_absolute_url())
 
 @login_required
 def toggle_rec_patrimony(request, ident):

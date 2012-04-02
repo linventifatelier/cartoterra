@@ -61,6 +61,9 @@ class EarthTechnique(models.Model):
     url = models.URLField(_("website"), blank=True, null=True,
                           verify_exists=False)
 
+    def get_model(self):
+        return EarthTechnique
+
     def __unicode__(self):
         return self.name
 
@@ -72,6 +75,9 @@ class EarthArchitect(models.Model):
                              null=True)
     description = models.TextField(_("description"), blank=True, null=True)
 
+    def get_model(self):
+        return EarthArchitect
+
     def __unicode__(self):
         return self.name
 
@@ -80,6 +86,9 @@ class EarthMeeting(models.Model):
     """A model for earthbuilding meeting type (seminar, conference, , ...)."""
     name = models.CharField(_("name"), max_length=50)
     description = models.TextField(_("description"), blank=True, null=True)
+
+    def get_model(self):
+        return EarthMeeting
 
     def __unicode__(self):
         return self.name
@@ -121,7 +130,6 @@ class EarthGeoDataAbstract(models.Model):
 
 class EarthGeoDataPatrimony(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
-    classurl = "patrimony"
     architects = models.ManyToManyField(EarthArchitect,
                                         verbose_name=_("architects"),
                                         blank=True, null=True)
@@ -132,6 +140,16 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
 
+    class Meta:
+        verbose_name = _("patrimony")
+        verbose_name_plural = _("patrimonies")
+
+    def get_model(self):
+        return EarthGeoDataPatrimony
+
+    def get_absolute_url(self):
+        return "/patrimony/%s/" % self.id
+
     def contemporary_status(self):
         """Returns the contemporary status of a meeting."""
         return self.inauguration_date <= date.today() + timedelta(days=3650)
@@ -139,7 +157,6 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
 
 class EarthGeoDataMeeting(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
-    classurl = "meeting"
     meeting = models.ForeignKey(EarthMeeting, verbose_name=_("meeting"))
     beginning_date = models.DateField(_("beginning date"),
                                       default=date.today())
@@ -152,6 +169,16 @@ class EarthGeoDataMeeting(EarthGeoDataAbstract):
     ##                                        verbose_name=_("contributions"),
     ##                                        blank=True, null=True)
 
+    class Meta:
+        verbose_name = _("meeting")
+        verbose_name_plural = _("meetings")
+
+    def get_model(self):
+        return EarthGeoDataMeeting
+
+    def get_absolute_url(self):
+        return "/meeting/%s/" % self.id
+
     def ended_status(self):
         """Says if a meeting is ended or not."""
         return self.beginning_date <= date.today()
@@ -159,9 +186,18 @@ class EarthGeoDataMeeting(EarthGeoDataAbstract):
 
 class EarthGeoDataConstruction(EarthGeoDataAbstract):
     """A spatial model for earthbuilding construction geodata."""
-    classurl = "construction"
     participative = models.BooleanField(_("participative"), default=False)
     techniques = models.ManyToManyField(EarthTechnique,
                                         verbose_name=_("techniques"),
                                         blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("construction")
+        verbose_name_plural = _("constructions")
+
+    def get_model(self):
+        return EarthGeoDataConstruction
+
+    def get_absolute_url(self):
+        return "/construction/%s/" % self.id
 
