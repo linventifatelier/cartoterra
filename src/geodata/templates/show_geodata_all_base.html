@@ -38,7 +38,7 @@
 
 	{% if data.image %}
 	    {% thumbnail data.image "100x100" as im %}
-	        <img src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}">
+	        <img src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}" />
 	    {% endthumbnail %}
 	{% endif %}
 

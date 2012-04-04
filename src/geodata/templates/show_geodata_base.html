@@ -59,7 +59,7 @@
             {{ geodata.image }}
 {% endcomment %}
 	    {% thumbnail geodata.image "300x300" as im %}
-	        <img style="margin:{{ im|margin:"300x300" }}" src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}">
+	        <img style="margin:{{ im|margin:"300x300" }}" src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}" />
 	    {% endthumbnail %}
         {% endif %}
     </p>

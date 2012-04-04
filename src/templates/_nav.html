@@ -1,10 +1,12 @@
 {% load i18n %}
+{% load static from staticfiles %}
+
+
 
 <ul>{% spaceless %}
-    <li id="tab_bigmap"><a href="{% url geodata.views.show_bigmap %}">{% trans "Map" %}</a></li>
-    <li id="tab_construction"><a href="{% url geodata.views.show_construction_all %}">{% trans "Constructions" %}</a></li>
-    <li id="tab_patrimony"><a href="{% url geodata.views.show_patrimony_all %}">{% trans "Patrimonies" %}</a></li>
-    <li id="tab_meeting"><a href="{% url geodata.views.show_meeting_all %}">{% trans "Meetings" %}</a></li>
+    <li id="tab_construction"><a href="{% url geodata.views.show_construction_all %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /> {% trans "Constructions" %}</a></li>
+    <li id="tab_patrimony"><a href="{% url geodata.views.show_patrimony_all %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "Patrimonies" %}</a></li>
+    <li id="tab_meeting"><a href="{% url geodata.views.show_meeting_all %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "Meetings" %}</a></li>
 {% if user.is_authenticated %}
     <li id="tab_profile"><a href="{% url profile_detail user.username %}">{% trans "Profile" %}</a></li>
     <li id="tab_notices"><a href="{% url notification_notices %}">{% trans "Notices" %}{% if notice_unseen_count %} ({{ notice_unseen_count }}){% endif %}</a></li>
