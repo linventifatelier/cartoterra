@@ -9,34 +9,23 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /></a>
       <ul class="dropdown-menu">
         <li><a href="{% url geodata.views.show_patrimony_all %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "Map" %}</a></li>
-        <li><a href="{% url geodata.views.add_patrimony %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "Add" %}</a></li>
       </ul>
     </li>
-{% else %}
-    <li id="tab_patrimony"><a href="{% url geodata.views.show_patrimony_all %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /></a></li>
-{% endif %}
-
-{% if user.is_authenticated %}
     <li id="tab_construction" class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/construction.png" %}" width="15" height="15" /></a>
       <ul class="dropdown-menu">
         <li><a href="{% url geodata.views.show_construction_all %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /> {% trans "Map" %}</a></li>
-        <li><a href="{% url geodata.views.add_construction %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /> {% trans "Add" %}</a></li>
       </ul>
     </li>
-{% else %}
-    <li id="tab_construction"><a href="{% url geodata.views.show_construction_all %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /></a></li>
-{% endif %}
-
-{% if user.is_authenticated %}
     <li id="tab_meeting" class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/meeting.png" %}" width="15" height="15" /></a>
       <ul class="dropdown-menu">
         <li><a href="{% url geodata.views.show_meeting_all %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "Map" %}</a></li>
-        <li><a href="{% url geodata.views.add_meeting %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "Add" %}</a></li>
       </ul>
     </li>
 {% else %}
+    <li id="tab_patrimony"><a href="{% url geodata.views.show_patrimony_all %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /></a></li>
+    <li id="tab_construction"><a href="{% url geodata.views.show_construction_all %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /></a></li>
     <li id="tab_meeting"><a href="{% url geodata.views.show_meeting_all %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /></a></li>
 {% endif %}
 
@@ -45,7 +34,28 @@
         <input type="text" name="q" id="id_q" placeholder="{% trans "Search Earth GeoDatas" %}">
       </form>
     </li>
+
 {% if user.is_authenticated %}
+    <li id="tab_add" class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/meeting.png" %}" width="15" height="15" /></a>
+      <ul class="dropdown-menu">
+        <li><a href="{% url geodata.views.add_patrimony %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "Patrimony" %}</a></li>
+        <li><a href="{% url geodata.views.add_construction %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /> {% trans "Construction" %}</a></li>
+        <li><a href="{% url geodata.views.add_meeting %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "Meeting" %}</a></li>
+      </ul>
+    </li>
+    {% if edit_geodata %}
+        <li id="tab_edit"><a href="{{ edit_geodata }}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /></a></li>
+    {% endif %}
+    {% if delete_geodata %}
+        <li id="tab_delete"><a href="{{ delete_geodata }}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /></a></li>
+    {% endif %}
+    {% if rec_on_geodata %}
+        <li id="tab_recommend"><a href="{{ rec_on_geodata }}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /></a></li>
+    {% endif %}
+    {% if rec_off_geodata %}
+        <li id="tab_recommend"><a href="{{ rec_off_geodata }}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /></a></li>
+    {% endif %}
     <li id="tab_profile"><a href="{% url profile_detail user.username %}">{% trans "Profile" %}</a></li>
     <li id="tab_notices"><a href="{% url notification_notices %}">{% trans "Notices" %}{% if notice_unseen_count %} ({{ notice_unseen_count }}){% endif %}</a></li>
 {% endif %}

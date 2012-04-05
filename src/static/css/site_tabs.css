@@ -1,9 +1,9 @@
 /* SITE-SPECIFIC TAB STYLING */
 
 body.mappage #tab_mappage a,
-body.constructions #tab_constructions a,
-body.meetings #tab_meetings a,
-body.patrimonies #tab_patrimonies a,
+body.constructions #tab_construction a,
+body.meetings #tab_meeting a,
+body.patrimonies #tab_patrimony a,
 body.profile #tab_profile a,
 body.notices #tab_notices a
 {

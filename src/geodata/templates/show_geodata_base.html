@@ -16,33 +16,6 @@
 {% block body_class %}geodata{% endblock %}
 
 {% block body %}
-    <ul>
-    {% if user.is_authenticated and user == geodata.creator %}
-    <li>
-      <form action={% block edit_form_action %}{% endblock %} />
-        <input type="submit" value={% trans "Edit" %} />
-      </form>
-    </li>
-
-    <li>
-      <form action={% block delete_form_action %}{% endblock %} />
-        <input type="submit" value={% trans "Delete" %} />
-      </form>
-    </li>
-    {% endif %}
-
-    {% if user.is_authenticated %}
-    <li>
-      {% trans "Recommendation" %}
-      <form method="post" action={% block rec_form_action %}{% endblock %} />{% csrf_token %}
-        <input type="submit" value={% trans "Toggle" %}>
-      </form>
-
-    </li>
-    {% endif %}
-    </ul>
-
-
     <h1>{% block body_geodata_type %}{% endblock %}: {{ geodata.name }}</h1>
 
     <p>

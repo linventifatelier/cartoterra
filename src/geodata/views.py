@@ -18,14 +18,16 @@ from django.contrib.auth.models import User
 from profiles.models import Profile
 from django.conf import settings
 from django.utils.encoding import force_unicode
+from django.core.urlresolvers import reverse
 
 
 
 
 
 
-def _info_builder(geodataobjects):
+def _info_builder(geodataobjects, style = {}):
     info = []
+
     for i in geodataobjects:
         description = ""
         image = ""
@@ -41,19 +43,20 @@ def _info_builder(geodataobjects):
                     str(thumbnail.x) + "\" height=\"" + str(thumbnail.y) +\
                     "\"></a></p>"
 
+        mydict = { 'html': "<h1>" + i.name + "</h1>" +\
+                       "<p><a href=" + i.get_absolute_url() + ">" +\
+                       description + "</a></p>" + image,
+                   'style': style
+                   }
 
-        info.append([i.geometry,
-                     "<h1>" + i.name + "</h1>" +\
-                     "<p><a href=" + i.get_absolute_url() + ">" +\
-                     description + "</a></p>" + image
-                     ])
+        info.append([ i.geometry, mydict ])
     return info
 
 
 def show_patrimony_all(_):
     """Returns a template to present all patrimonies."""
-    geodata = EarthGeoDataPatrimony.objects.all()
-    map_ = InfoMap(_info_builder(geodata),
+    geodata_list = EarthGeoDataPatrimony.objects.all()
+    map_ = InfoMap(_info_builder(geodata_list),
                    {'name': "Patrimonies",
                     'overlay_style': {
                         'external_graphic': settings.STATIC_URL+"img/patrimony.png",
@@ -65,14 +68,14 @@ def show_patrimony_all(_):
                     'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                     })
     return direct_to_template(_, 'show_patrimony_all.html',
-                              {'geodata': geodata,
+                              {'geodata_list': geodata_list,
                                'map': map_ })
 
 
 def show_construction_all(_):
     """Returns a template to present all constructions."""
-    geodata = EarthGeoDataConstruction.objects.all()
-    map_ = InfoMap(_info_builder(geodata),
+    geodata_list = EarthGeoDataConstruction.objects.all()
+    map_ = InfoMap(_info_builder(geodata_list),
                    {'name': "Constructions",
                     'overlay_style': {
                         'external_graphic': settings.STATIC_URL+"img/construction.png",
@@ -84,14 +87,14 @@ def show_construction_all(_):
                     'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                     })
     return direct_to_template(_, 'show_construction_all.html',
-                              {'geodata': geodata,
+                              {'geodata_list': geodata_list,
                                'map': map_})
 
 
 def show_meeting_all(_):
     """Returns a template to present all meetings."""
-    geodata = EarthGeoDataMeeting.objects.all()
-    map_ = InfoMap(_info_builder(geodata),
+    geodata_list = EarthGeoDataMeeting.objects.all()
+    map_ = InfoMap(_info_builder(geodata_list),
                    {'name': "Meetings",
                     'overlay_style': {
                         'external_graphic': settings.STATIC_URL+"img/meeting.png",
@@ -103,7 +106,7 @@ def show_meeting_all(_):
                     'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                     })
     return direct_to_template(_, 'show_meeting_all.html',
-                              {'geodata': geodata,
+                              {'geodata_list': geodata_list,
                                'map': map_})
 
 
@@ -190,33 +193,28 @@ def get_profilemap(profile):
                       'fill_color': '#00FF00',
                       'stroke_color': '#008800',
                       }}),
-       InfoLayer(_info_builder(r_patrimony),
-                 {'name': "Recommendations: Patrimonies " + name,
-                  'overlay_style': {
-                      'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                      'graphic_width': 10,
-                      'graphic_height': 10,
-                      'fill_color': '#00FF00',
-                      'stroke_color': '#008800',
-                      }}),
-       InfoLayer(_info_builder(r_construction),
-                 {'name': "Recommendations: Constructions " + name,
-                  'overlay_style': {
-                      'external_graphic': settings.STATIC_URL+"img/construction.png",
-                      'graphic_width': 10,
-                      'graphic_height': 10,
-                      'fill_color': '#00FF00',
-                      'stroke_color': '#008800',
-                      }}),
-       InfoLayer(_info_builder(r_meeting),
-                 {'name': "Recommendations: Meetings " + name,
-                  'overlay_style': {
-                      'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                      'graphic_width': 10,
-                      'graphic_height': 10,
-                      'fill_color': '#00FF00',
-                      'stroke_color': '#008800',
-                      }}),
+       InfoLayer(_info_builder(r_patrimony, {
+                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                            'graphic_width': 10,
+                            'graphic_height': 10,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            }) +
+                 _info_builder(r_construction, {
+                            'external_graphic': settings.STATIC_URL+"img/construction.png",
+                            'graphic_width': 10,
+                            'graphic_height': 10,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            }) +
+                 _info_builder(r_meeting, {
+                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                            'graphic_width': 10,
+                            'graphic_height': 10,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            }) ,
+                 {'name': "Recommendations " + name, }),
     ], {'map_div_class': 'usermap'})
     return map_
 
@@ -310,6 +308,29 @@ def show_usermap(request, userid):
                                 })
 
 
+def _get_dict_show(request, map_, geodata, edit_func, delete_func,
+                   toggle_rec_func, ident):
+    if geodata.creator != request.user:
+        profile = request.user.get_profile()
+        recommendations = []
+        if toggle_rec_func == 'toggle_rec_patrimony':
+            recommendations = profile.r_patrimony
+        elif toggle_rec_func == 'toggle_rec_construction':
+            recommendations = profile.r_construction
+        elif toggle_rec_func == 'toggle_rec_meeting':
+           recommendations = profile.r_meeting
+        if geodata in recommendations.all():
+            return {'map': map_, 'geodata': geodata,
+                    'rec_off_geodata': reverse(toggle_rec_func, args=[ident]), }
+        else:
+            return {'map': map_, 'geodata': geodata,
+                    'rec_on_geodata': reverse(toggle_rec_func, args=[ident]), }
+    else:
+        return {'map': map_, 'geodata': geodata,
+                'edit_geodata': reverse(edit_func, args=[ident]),
+                'delete_geodata': reverse(delete_func, args=[ident]),}
+
+
 def show_patrimony(request, ident):
     """Returns show_patrimony.html template."""
     geodata = get_object_or_404(EarthGeoDataPatrimony, pk=ident)
@@ -324,7 +345,10 @@ def show_patrimony(request, ident):
                    { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
                    )
     return direct_to_template(request, 'show_patrimony.html',
-                              {'map': map_, 'geodata': geodata})
+                              _get_dict_show(request, map_, geodata,
+                                             'edit_patrimony',
+                                             'delete_patrimony',
+                                             'toggle_rec_patrimony', ident,))
 
 
 def show_construction(request, ident):
@@ -341,7 +365,10 @@ def show_construction(request, ident):
                    { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
                    )
     return direct_to_template(request, 'show_construction.html',
-                              {'map': map_, 'geodata': geodata})
+                              _get_dict_show(request, map_, geodata,
+                                             'edit_construction',
+                                             'delete_construction',
+                                             'toggle_rec_construction', ident))
 
 
 def show_meeting(request, ident):
@@ -358,7 +385,10 @@ def show_meeting(request, ident):
                    { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
                    )
     return direct_to_template(request, 'show_meeting.html',
-                              {'map': map_, 'geodata': geodata})
+                              _get_dict_show(request, map_, geodata,
+                                             'edit_meeting',
+                                             'delete_meeting',
+                                             'toggle_rec_meeting', ident))
 
 
 
@@ -491,16 +521,22 @@ def delete_meeting(request, ident):
 
 
 @login_required
-def _toggle_recommendation(request, geodatamodel, profile, profile_r, ident):
+def _toggle_recommendation(request, geodatamodel, profile_r, ident):
     geodata = get_object_or_404(geodatamodel, pk=ident)
+    profile = request.user.get_profile()
 
-    if request.method == 'POST':
+    if request.user == geodata.creator:
+        messages.add_message(request, messages.ERROR,
+                             _("You can't recommend a %(modelname)s you created.") %
+                             { 'modelname': force_unicode(geodata._meta.verbose_name), }
+                             )
+    else:
         if geodata in profile_r.all():
             profile_r.remove(geodata)
             profile.save()
             messages.add_message(request, messages.SUCCESS,
                                  _("Successfully removed %(modelname)s \"%(name)s\" \
-                                 from your recommendations.") %
+                             from your recommendations.") %
                                  { 'modelname': force_unicode(geodata._meta.verbose_name),
                                    'name': geodata.name, }
                                  )
@@ -509,18 +545,17 @@ def _toggle_recommendation(request, geodatamodel, profile, profile_r, ident):
             profile.save()
             messages.add_message(request, messages.SUCCESS,
                                  _("Successfully added %(modelname)s \"%(name)s\" \
-                                 to your recommendations.") %
+                             to your recommendations.") %
                                  { 'modelname': force_unicode(geodata._meta.verbose_name),
                                    'name': geodata.name, }
                                  )
-        return HttpResponseRedirect('%s' % geodata.get_absolute_url())
+    return HttpResponseRedirect('%s' % geodata.get_absolute_url())
 
 @login_required
 def toggle_rec_patrimony(request, ident):
     profile = request.user.get_profile()
     return _toggle_recommendation(request = request,
                                   geodatamodel = EarthGeoDataPatrimony,
-                                  profile = profile,
                                   profile_r = profile.r_patrimony,
                                   ident = ident)
 
@@ -530,7 +565,6 @@ def toggle_rec_construction(request, ident):
     profile = request.user.get_profile()
     return _toggle_recommendation(request = request,
                                   geodatamodel = EarthGeoDataConstruction,
-                                  profile = profile,
                                   profile_r = profile.r_construction,
                                   ident = ident)
 
@@ -540,7 +574,6 @@ def toggle_rec_meeting(request, ident):
     profile = request.user.get_profile()
     return _toggle_recommendation(request = request,
                                   geodatamodel = EarthGeoDataMeeting,
-                                  profile = profile,
                                   profile_r = profile.r_meeting,
                                   ident = ident)
 
