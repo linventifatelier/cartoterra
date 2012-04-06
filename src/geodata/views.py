@@ -12,7 +12,7 @@ from sorl.thumbnail import get_thumbnail
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.views.generic import list_detail, create_update
 from django.contrib.auth.models import User
 from profiles.models import Profile
@@ -441,7 +441,11 @@ def add_meeting(request):
 def _edit_builder(request, geodatamodel, geodatamodelform, geodatatemplate, ident):
     geodata = get_object_or_404(geodatamodel, pk=ident)
     if geodata.creator != request.user:
-        raise HttpResponseForbidden()
+        messages.add_message(request, messages.ERROR,
+                             _("You cannot edit %(modelname)s \"%(name)s\"") %
+                             { 'modelname': force_unicode(geodata._meta.verbose_name),
+                               'name': geodata.name, })
+        return HttpResponseForbidden()
 
     if request.method == "POST":
         form = geodatamodelform(request.POST, instance = geodata)
@@ -490,14 +494,18 @@ def _delete_builder(request, geodatamodel, geodatatemplate, ident):
     geodata = get_object_or_404(geodatamodel, pk=ident)
 
     if geodata.creator != request.user:
-        raise HttpResponseForbidden()
+        messages.add_message(request, messages.ERROR,
+                             _("You cannot delete %(modelname)s \"%(name)s\"") %
+                             { 'modelname': force_unicode(geodata._meta.verbose_name),
+                               'name': geodata.name, })
+        return HttpResponseForbidden()
 
     if request.method == 'POST':
         geodata.delete()
         messages.add_message(request, messages.SUCCESS,
                              _("Successfully deleted %(modelname)s \"%(name)s\".") %
-                             { 'modelname': force_unicode(geodata._meta.verbose_name), 'name': geodata.name, }
-                             )
+                             { 'modelname': force_unicode(geodata._meta.verbose_name),
+                               'name': geodata.name, })
         return HttpResponseRedirect('/')
     else:
         return direct_to_template(request, geodatatemplate, {
@@ -527,9 +535,9 @@ def _toggle_recommendation(request, geodatamodel, profile_r, ident):
 
     if request.user == geodata.creator:
         messages.add_message(request, messages.ERROR,
-                             _("You can't recommend a %(modelname)s you created.") %
-                             { 'modelname': force_unicode(geodata._meta.verbose_name), }
-                             )
+                             _("You cannot recommend %(modelname)s \"%(name)s\".") %
+                             { 'modelname': force_unicode(geodata._meta.verbose_name),
+                               'name': geodata.name, })
     else:
         if geodata in profile_r.all():
             profile_r.remove(geodata)
