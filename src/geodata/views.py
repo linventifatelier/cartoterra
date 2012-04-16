@@ -19,6 +19,8 @@ from profiles.models import Profile
 from django.conf import settings
 from django.utils.encoding import force_unicode
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import AnonymousUser
+
 
 
 
@@ -310,25 +312,29 @@ def show_usermap(request, userid):
 
 def _get_dict_show(request, map_, geodata, edit_func, delete_func,
                    toggle_rec_func, ident):
-    if geodata.creator != request.user:
-        profile = request.user.get_profile()
-        recommendations = []
-        if toggle_rec_func == 'toggle_rec_patrimony':
-            recommendations = profile.r_patrimony
-        elif toggle_rec_func == 'toggle_rec_construction':
-            recommendations = profile.r_construction
-        elif toggle_rec_func == 'toggle_rec_meeting':
-           recommendations = profile.r_meeting
-        if geodata in recommendations.all():
-            return {'map': map_, 'geodata': geodata,
-                    'rec_off_geodata': reverse(toggle_rec_func, args=[ident]), }
+    user = request.user
+    if isinstance(user, AnonymousUser):
+        return {'map': map_, 'geodata': geodata, }
+    else:
+        if geodata.creator != request.user:
+            profile = request.user.get_profile()
+            recommendations = []
+            if toggle_rec_func == 'toggle_rec_patrimony':
+                recommendations = profile.r_patrimony
+            elif toggle_rec_func == 'toggle_rec_construction':
+                recommendations = profile.r_construction
+            elif toggle_rec_func == 'toggle_rec_meeting':
+                recommendations = profile.r_meeting
+                if geodata in recommendations.all():
+                    return {'map': map_, 'geodata': geodata,
+                            'rec_off_geodata': reverse(toggle_rec_func, args=[ident]), }
+                else:
+                    return {'map': map_, 'geodata': geodata,
+                            'rec_on_geodata': reverse(toggle_rec_func, args=[ident]), }
         else:
             return {'map': map_, 'geodata': geodata,
-                    'rec_on_geodata': reverse(toggle_rec_func, args=[ident]), }
-    else:
-        return {'map': map_, 'geodata': geodata,
-                'edit_geodata': reverse(edit_func, args=[ident]),
-                'delete_geodata': reverse(delete_func, args=[ident]),}
+                    'edit_geodata': reverse(edit_func, args=[ident]),
+                    'delete_geodata': reverse(delete_func, args=[ident]),}
 
 
 def show_patrimony(request, ident):
