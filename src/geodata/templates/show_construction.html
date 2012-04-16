@@ -8,9 +8,9 @@
 {% block body_geodata_extra %}
     <p>
         {% trans "Techniques" %}:
-        {% if place.techniques.all %}
+        {% if geodata.techniques.all %}
             <ul>
-            {% for technique in place.techniques.all %}
+            {% for technique in geodata.techniques.all %}
                 <li>{{ technique.name }}</li>
             {% endfor %}
             </ul>
@@ -21,7 +21,7 @@
 
     <p>
         {% trans "Participative construction" %}:
-        {% if place.participative %}
+        {% if geodata.participative %}
             {% trans "Yes!" %}
         {% else %}
             {% trans "No." %}
