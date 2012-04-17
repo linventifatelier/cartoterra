@@ -192,6 +192,8 @@ class EarthGeoDataConstruction(EarthGeoDataAbstract):
     techniques = models.ManyToManyField(EarthTechnique,
                                         verbose_name=_("techniques"),
                                         blank=True, null=True)
+    inauguration_date = models.DateField(_("inauguration date"),
+                                         blank=True, null=True)
 
     class Meta:
         verbose_name = _("construction")

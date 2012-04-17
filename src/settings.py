@@ -179,6 +179,7 @@ INSTALLED_APPS = [
     "urli18n",
     #"admin_langswitch",
     #"django_evolution",
+    "floppyforms",
     "gunicorn",
     "olwidget",
 

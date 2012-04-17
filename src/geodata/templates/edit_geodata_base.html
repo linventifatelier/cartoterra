@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load i18n %}
 {% load adminmedia %}
+{% load thumbnail %}
 
 
 {% block extra_head %}
@@ -18,7 +19,24 @@
 
 
     <form enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
-      {{ form.as_p }}
+      {% for field in form %}
+      <p>
+        <dt>{{ field.label_tag }}</dt>
+        <dd>
+        {% ifequal field.name 'image' %}
+            {% if field.value %}
+            {% thumbnail field.value "100x100" as im %}
+            <img src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}" />
+            {% endthumbnail %}
+            {% endif %}
+        {% endifequal %}
+        {{ field }}
+        </dd>
+        {% if field.help_text %}<dd>{{ field.help_text }}</dd>{% endif %}
+        {% if field.errors %}<dd>{{ field.errors }}</dd>{% endif %}
+      </p>
+      {% endfor %}
+      </dl>
       <input type="submit" value={% trans "Submit" %} />
     </form>
 
