@@ -407,7 +407,7 @@ def _add_builder(request, geodatamodel, geodatamodelform, geodatatemplate):
                            pub_date = datetime.now())
 
     if request.method == "POST":
-        form = geodatamodelform(request.POST, instance = geodata)
+        form = geodatamodelform(request.POST, request.FILES, instance = geodata)
         if form.is_valid():
             obj = form.save()
             messages.add_message(request, messages.SUCCESS,
@@ -454,7 +454,7 @@ def _edit_builder(request, geodatamodel, geodatamodelform, geodatatemplate, iden
         return HttpResponseForbidden()
 
     if request.method == "POST":
-        form = geodatamodelform(request.POST, instance = geodata)
+        form = geodatamodelform(request.POST, request.FILES, instance = geodata)
         if form.is_valid():
             obj = form.save()
             messages.add_message(request, messages.SUCCESS,
