@@ -18,3 +18,4 @@ django-haystack
 xapian-haystack
 django-hvad
 django-olwidget
+django-floppyforms
