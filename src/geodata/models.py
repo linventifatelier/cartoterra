@@ -14,16 +14,6 @@ from sorl.thumbnail import ImageField
 from nani.models import TranslatableModel,TranslatedFields
 
 
-#class ProductImage(models.Model):
-#    fullsize=models.ImageField(upload_to=os.path.join(settings.MEDIA_ROOT,
-#    "img/fullsize"))
-#    display=AutoImageField(upload_to=os.path.join(settings.MEDIA_ROOT,
-#    "img/display"),prepopulate_from='fullsize', size=(300, 300))
-#    thumbnail=AutoImageField(upload_to=os.path.join(settings.MEDIA_ROOT,
-#    "img/thumbnail"),null=True,default='/media/noimage.jpg')
-
-#from image import ProductImage
-
 class Book(TranslatableModel):
     """Test"""
     isbn = models.CharField(max_length=17)
@@ -82,36 +72,14 @@ class EarthArchitect(models.Model):
         return self.name
 
 
-class EarthMeeting(models.Model):
-    """A model for earthbuilding meeting type (seminar, conference, , ...)."""
-    name = models.CharField(_("name"), max_length=50)
-    description = models.TextField(_("description"), blank=True, null=True)
-
-    def get_model(self):
-        return EarthMeeting
-
-    def __unicode__(self):
-        return self.name
-
-#class EarthMeetingContribution(models.Model):
-#    """A model for earthbuilding meeting contribution."""
-#    name = models.CharField(_("name"), max_length=50)
-#    user = models.ManyToManyField(User,verbose_name=_("user"), blank=True,
-#                                  null=True)
-#    description = models.TextField(_("description"), blank=True, null=True)
-#    def __unicode__(self): return self.name
-
-
 class EarthGeoDataAbstract(models.Model):
     """An abstract spatial model for earthbuilding geodata."""
     name = models.CharField(_("name"), max_length=50)
     pub_date = models.DateTimeField(_("creation date"), default=datetime.now())
-    #last_modified = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey(User, verbose_name=_("creator"))
     credit_creator = models.BooleanField(_("credit creator"), default=True)
     description = models.TextField(_("description"), blank=True, null=True)
     image = ImageField(upload_to='img/geodata', blank=True, null=True)
-    #image = models.TextField(_("image"), blank=True, null=True)
     url = models.URLField(_("website"), blank=True, null=True,
                           verify_exists=False)
     contact = models.TextField(_("contact"), blank=True, null=True)
@@ -158,17 +126,19 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
 
 class EarthGeoDataMeeting(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
-    meeting = models.ForeignKey(EarthMeeting, verbose_name=_("meeting"))
+    MEETING_CHOICES = (
+        ('S', _("Seminary")),
+        ('C', _("Conference")),
+        ('Q', _("Colloquium")),
+        ('F', _("Festival")),
+        ('N', _("Not specified")),
+    )
+    meeting_type = models.CharField(max_length=1, choices=MEETING_CHOICES,
+                                    verbose_name=_("meeting type"),
+                                    default='N')
     beginning_date = models.DateField(_("beginning date"),
                                       default=date.today())
     end_date = models.DateField(_("end date"), default=date.today())
-    ## techniques = models.ManyToManyField(EarthTechnique,
-    ##                                     verbose_name=_("techniques"),
-    ##                                     blank=True, null=True)
-
-    ## contributions = models.ManyToManyField(EarthMeetingContribution,
-    ##                                        verbose_name=_("contributions"),
-    ##                                        blank=True, null=True)
 
     class Meta:
         verbose_name = _("meeting")

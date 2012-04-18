@@ -2,7 +2,7 @@
 from django.contrib.gis import admin
 from olwidget.admin import GeoModelAdmin
 from models import EarthTechnique, EarthArchitect, \
-     EarthMeeting, EarthGeoDataMeeting, EarthGeoDataPatrimony, \
+     EarthGeoDataMeeting, EarthGeoDataPatrimony, \
      EarthGeoDataConstruction, Book
 from django.conf import settings
 #from stdimage import StdImageField
@@ -96,18 +96,6 @@ class EarthArchitectAdmin(admin.ModelAdmin):
 admin.site.register(EarthArchitect, EarthArchitectAdmin)
 
 
-class EarthMeetingAdmin(admin.ModelAdmin):
-    """EarthMeeting administration interface."""
-    list_display = ['name']
-    list_filter = ['name']
-    search_fields = ['name']
-    fieldsets = (
-        ('Type of meeting', {'fields': (('name', ))}),
-    )
-
-admin.site.register(EarthMeeting, EarthMeetingAdmin)
-
-
 #class EarthGeoDataAbstractAdmin(MyOSMAdmin):
 #class EarthGeoDataAbstractAdmin(admin.OSMGeoAdmin):
 class EarthGeoDataAbstractAdmin(GeoModelAdmin):
@@ -140,14 +128,17 @@ class EarthGeoDataAbstractAdmin(GeoModelAdmin):
 class EarthGeoDataPatrimonyAdmin(EarthGeoDataAbstractAdmin):
     """EarthGeoDataPatrimony administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator', 'unesco')
-    list_filter = ('name', 'pub_date', 'inauguration_date', 'creator',
-    'credit_creator', 'architects', 'techniques', 'unesco')
+    list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
+                   'inauguration_date', 'architects', 'techniques', 'unesco')
     search_fields = ['creator__username', 'name', 'techniques', 'architects']
     date_hierarchy = 'pub_date'
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date',
-    'inauguration_date', 'creator', 'credit_creator', 'architects',
-    'techniques', 'unesco', 'description', 'image', 'url', 'contact'))}),
+                                             'inauguration_date', 'creator',
+                                             'credit_creator', 'architects',
+                                             'techniques', 'unesco',
+                                             'description', 'image', 'url',
+                                             'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
 
@@ -156,16 +147,18 @@ admin.site.register(EarthGeoDataPatrimony, EarthGeoDataPatrimonyAdmin)
 
 class EarthGeoDataMeetingAdmin(EarthGeoDataAbstractAdmin):
     """EarthGeoDataMeeting administration interface."""
-    list_display = ('name', 'meeting', 'beginning_date', 'end_date',
-    'creator', 'credit_creator')
-    list_filter = ('name', 'meeting', 'pub_date', 'beginning_date', 'end_date',
-    'creator', 'credit_creator')
-    search_fields = ['creator__username', 'name', 'meeting']
+    list_display = ('name', 'pub_date', 'creator', 'credit_creator',
+                    'meeting_type', 'beginning_date', 'end_date', )
+    list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
+                   'meeting_type', 'beginning_date', 'end_date', )
+    search_fields = ['creator__username', 'name', 'meeting_type']
     date_hierarchy = 'beginning_date'
     fieldsets = (
-        ('Location Attributes', {'fields': (('name', 'meeting', 'pub_date',
-    'beginning_date', 'end_date', 'creator', 'credit_creator', 'description',
-    'image', 'url', 'contact'))}),
+        ('Location Attributes', {'fields': (('name', 'meeting_type', 'pub_date',
+                                             'beginning_date', 'end_date',
+                                             'creator', 'credit_creator',
+                                             'description', 'image', 'url',
+                                             'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
 
@@ -174,17 +167,17 @@ admin.site.register(EarthGeoDataMeeting, EarthGeoDataMeetingAdmin)
 
 class EarthGeoDataConstructionAdmin(EarthGeoDataAbstractAdmin):
     """EarthGeoDataConstruction administration interface."""
-    list_display = ('name', 'meeting', 'beginning_date', 'end_date',
-    'creator', 'credit_creator')
-    list_display = ('name', 'participative', 'creator', 'credit_creator')
-    list_filter = ('name', 'participative', 'pub_date', 'techniques',
-    'creator', 'credit_creator')
+    list_display = ('name', 'pub_date', 'creator', 'credit_creator',
+                    'participative', )
+    list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
+                   'participative', 'inauguration_date', 'techniques', )
     search_fields = ['creator__username', 'name', 'techniques']
     date_hierarchy = 'pub_date'
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date', 'creator',
-    'credit_creator', 'participative', 'techniques', 'description', 'image',
-    'url', 'contact'))}),
+                                             'credit_creator', 'participative',
+                                             'techniques', 'description',
+                                             'image', 'url', 'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
 

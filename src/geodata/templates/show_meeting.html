@@ -7,7 +7,7 @@
 
 {% block body_geodata_extra %}
     <p>
-        {% trans "Meeting type" %}: {{ geodata.meeting }}
+        {% trans "Meeting type" %}: {{ geodata.get_meeting_type_display }}
     </p>
 
     <p>
