@@ -10,7 +10,7 @@ from forms import EarthGeoDataPatrimonyForm, EarthGeoDataConstructionForm,\
 from olwidget.widgets import InfoMap, Map, InfoLayer
 from sorl.thumbnail import get_thumbnail
 from django.contrib.auth.decorators import login_required
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.views.generic import list_detail, create_update
@@ -20,6 +20,7 @@ from django.conf import settings
 from django.utils.encoding import force_unicode
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import AnonymousUser
+from django.db.models import Q
 
 
 
@@ -55,6 +56,86 @@ def _info_builder(geodataobjects, style = {}):
     return info
 
 
+def show_patrimony_contemporary(_):
+    """Returns a template to present contemporary patrimonies."""
+    geodata_list = EarthGeoDataPatrimony.objects.filter(
+        inauguration_date__gte = datetime.now() - timedelta(days=3650))
+    map_ = InfoMap(_info_builder(geodata_list),
+                   {'name': "Patrimonies",
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
+    return direct_to_template(_, 'show_patrimony_all.html',
+                              {'geodata_list': geodata_list,
+                               'map': map_ })
+
+
+def show_patrimony_unesco(_):
+    """Returns a template to present unesco patrimonies."""
+    geodata_list = EarthGeoDataPatrimony.objects.filter(unesco = True)
+    map_ = InfoMap(_info_builder(geodata_list),
+                   {'name': "Patrimonies",
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
+    return direct_to_template(_, 'show_patrimony_all.html',
+                              {'geodata_list': geodata_list,
+                               'map': map_ })
+
+
+def show_patrimony_vernacular(_):
+    """Returns a template to present vernacular patrimonies."""
+    geodata_list = EarthGeoDataPatrimony.objects.filter(architects__isnull = True)
+    map_ = InfoMap(_info_builder(geodata_list),
+                   {'name': "Patrimonies",
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
+    return direct_to_template(_, 'show_patrimony_all.html',
+                              {'geodata_list': geodata_list,
+                               'map': map_ })
+
+
+def show_patrimony_normal(_):
+    """Returns a template to present normal patrimonies."""
+    geodata_list = EarthGeoDataPatrimony.objects.filter(
+        Q(architects__isnull = False) & Q(unesco = False) &
+        (Q(inauguration_date__isnull = True) |
+         ~Q(inauguration_date__gte = datetime.now() - timedelta(days=3650))))
+    map_ = InfoMap(_info_builder(geodata_list),
+                   {'name': "Patrimonies",
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
+    return direct_to_template(_, 'show_patrimony_all.html',
+                              {'geodata_list': geodata_list,
+                               'map': map_ })
+
+
 def show_patrimony_all(_):
     """Returns a template to present all patrimonies."""
     geodata_list = EarthGeoDataPatrimony.objects.all()
@@ -72,6 +153,44 @@ def show_patrimony_all(_):
     return direct_to_template(_, 'show_patrimony_all.html',
                               {'geodata_list': geodata_list,
                                'map': map_ })
+
+
+def show_construction_participative(_):
+    """Returns a template to present participative constructions."""
+    geodata_list = EarthGeoDataConstruction.objects.filter(participative = True)
+    map_ = InfoMap(_info_builder(geodata_list),
+                   {'name': "Constructions",
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/construction.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
+    return direct_to_template(_, 'show_construction_all.html',
+                              {'geodata_list': geodata_list,
+                               'map': map_})
+
+
+def show_construction_normal(_):
+    """Returns a template to present participative constructions."""
+    geodata_list = EarthGeoDataConstruction.objects.filter(participative = False)
+    map_ = InfoMap(_info_builder(geodata_list),
+                   {'name': "Constructions",
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/construction.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
+    return direct_to_template(_, 'show_construction_all.html',
+                              {'geodata_list': geodata_list,
+                               'map': map_})
 
 
 def show_construction_all(_):

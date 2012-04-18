@@ -4,30 +4,30 @@
 
 
 <ul>{% spaceless %}
-{% if user.is_authenticated %}
     <li id="tab_patrimony" class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /></a>
       <ul class="dropdown-menu">
-        <li><a href="{% url geodata.views.show_patrimony_all %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "Map" %}</a></li>
+        <li><a href="{% url geodata.views.show_patrimony_all %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "All patrimonies" %}</a></li>
+        <li><a href="{% url geodata.views.show_patrimony_unesco %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "UNESCO" %}</a></li>
+        <li><a href="{% url geodata.views.show_patrimony_contemporary %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "Contemporary" %}</a></li>
+        <li><a href="{% url geodata.views.show_patrimony_vernacular %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "Vernacular" %}</a></li>
+        <li><a href="{% url geodata.views.show_patrimony_normal %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "Normal" %}</a></li>
       </ul>
     </li>
     <li id="tab_construction" class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/construction.png" %}" width="15" height="15" /></a>
       <ul class="dropdown-menu">
-        <li><a href="{% url geodata.views.show_construction_all %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /> {% trans "Map" %}</a></li>
+        <li><a href="{% url geodata.views.show_construction_all %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /> {% trans "All constructions" %}</a></li>
+        <li><a href="{% url geodata.views.show_construction_participative %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /> {% trans "Participative" %}</a></li>
+        <li><a href="{% url geodata.views.show_construction_normal %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /> {% trans "Normal" %}</a></li>
       </ul>
     </li>
     <li id="tab_meeting" class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/meeting.png" %}" width="15" height="15" /></a>
       <ul class="dropdown-menu">
-        <li><a href="{% url geodata.views.show_meeting_all %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "Map" %}</a></li>
+        <li><a href="{% url geodata.views.show_meeting_all %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "All meetings" %}</a></li>
       </ul>
     </li>
-{% else %}
-    <li id="tab_patrimony"><a href="{% url geodata.views.show_patrimony_all %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /></a></li>
-    <li id="tab_construction"><a href="{% url geodata.views.show_construction_all %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /></a></li>
-    <li id="tab_meeting"><a href="{% url geodata.views.show_meeting_all %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /></a></li>
-{% endif %}
 
     <li id="tab_search">
       <form action="/search/?q=">
