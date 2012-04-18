@@ -127,7 +127,7 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
 class EarthGeoDataMeeting(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
     MEETING_CHOICES = (
-        ('S', _("Seminary")),
+        ('S', _("Seminar")),
         ('C', _("Conference")),
         ('Q', _("Colloquium")),
         ('F', _("Festival")),

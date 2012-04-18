@@ -212,6 +212,82 @@ def show_construction_all(_):
                                'map': map_})
 
 
+def show_meeting_seminar(_):
+    """Returns a template to present seminar meetings."""
+    geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='S')
+    map_ = InfoMap(_info_builder(geodata_list),
+                   {'name': "Meetings",
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
+    return direct_to_template(_, 'show_meeting_all.html',
+                              {'geodata_list': geodata_list,
+                               'map': map_})
+
+
+def show_meeting_colloquium(_):
+    """Returns a template to present colloquium meetings."""
+    geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='Q')
+    map_ = InfoMap(_info_builder(geodata_list),
+                   {'name': "Meetings",
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
+    return direct_to_template(_, 'show_meeting_all.html',
+                              {'geodata_list': geodata_list,
+                               'map': map_})
+
+
+def show_meeting_conference(_):
+    """Returns a template to present conference meetings."""
+    geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='C')
+    map_ = InfoMap(_info_builder(geodata_list),
+                   {'name': "Meetings",
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
+    return direct_to_template(_, 'show_meeting_all.html',
+                              {'geodata_list': geodata_list,
+                               'map': map_})
+
+
+def show_meeting_festival(_):
+    """Returns a template to present festival meetings."""
+    geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='F')
+    map_ = InfoMap(_info_builder(geodata_list),
+                   {'name': "Meetings",
+                    'overlay_style': {
+                        'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                        'graphic_width': 20,
+                        'graphic_height': 20,
+                        'fill_color': '#00FF00',
+                        'stroke_color': '#008800',
+                        },
+                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                    })
+    return direct_to_template(_, 'show_meeting_all.html',
+                              {'geodata_list': geodata_list,
+                               'map': map_})
+
+
 def show_meeting_all(_):
     """Returns a template to present all meetings."""
     geodata_list = EarthGeoDataMeeting.objects.all()

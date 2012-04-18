@@ -26,6 +26,10 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/meeting.png" %}" width="15" height="15" /></a>
       <ul class="dropdown-menu">
         <li><a href="{% url geodata.views.show_meeting_all %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "All meetings" %}</a></li>
+        <li><a href="{% url geodata.views.show_meeting_seminar %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "Seminar" %}</a></li>
+        <li><a href="{% url geodata.views.show_meeting_colloquium %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "Colloquium" %}</a></li>
+        <li><a href="{% url geodata.views.show_meeting_conference %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "Conference" %}</a></li>
+        <li><a href="{% url geodata.views.show_meeting_festival %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "Festival" %}</a></li>
       </ul>
     </li>
 
