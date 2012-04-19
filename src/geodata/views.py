@@ -13,7 +13,6 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.views.generic import list_detail, create_update
 from django.contrib.auth.models import User
 from profiles.models import Profile
 from django.conf import settings
