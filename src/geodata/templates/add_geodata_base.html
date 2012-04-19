@@ -17,9 +17,26 @@
     <h1>{% trans "Add a"%} {% block body_geodata_type %}{% endblock %}</h1>
 
 
-    <form enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value={% trans "Submit" %} />
+    <form class="form-stacked" enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
+      {% for field in form %}
+        {% if field.errors %}
+        <fieldset class="control-group error">
+        {% else %}
+        <fieldset class="control-group">
+        {% endif %}
+
+        <label class="control-label">{{ field.label_tag }}</label>
+        <div class="controls">
+          {{ field }}
+          {% if field.help_text %}<p class="help-block">{{ field.help_text }}</p>{% endif %}
+        </div>
+        {% if field.errors %}<span class="help-inline">{{ field.errors }}</span>{% endif %}
+      </fieldset>
+      {% endfor %}
+      <fieldset class="form-actions">
+        <button type="submit" class="btn primary">{% trans "Submit" %}</button>
+        <button type="reset" class="btn">{% trans "Cancel" %}</button>
+      </fieldset>
     </form>
 
     {% block body_geodata_extra %}

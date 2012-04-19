@@ -1,0 +1,54 @@
+from django.contrib.syndication.views import Feed
+from django.conf import settings
+from geodata.models import EarthGeoDataPatrimony, EarthGeoDataConstruction,\
+    EarthGeoDataMeeting
+
+
+class PatrimonyFeed(Feed):
+    """A feed presenting changes and additions on EarthGeoDataPatrimony."""
+    title = settings.SITE_NAME + " patrimony news."
+    link = "/"
+    description = "Updates on changes and additions to patrimonies of " + settings.SITE_NAME + "."
+
+    def items(self):
+        return EarthGeoDataPatrimony.objects.order_by('-pub_date')[:20]
+
+    def item_title(self, item):
+        return item.name
+
+    def item_description(self, item):
+        return item.description
+
+
+class ConstructionFeed(Feed):
+    """A feed presenting changes and additions on EarthGeoDataConstruction."""
+    title = settings.SITE_NAME + " construction news."
+    link = "/"
+    description = "Updates on changes and additions to patrimonies of " + settings.SITE_NAME + "."
+
+    def items(self):
+        return EarthGeoDataConstruction.objects.order_by('-pub_date')[:20]
+
+    def item_title(self, item):
+        return item.name
+
+    def item_description(self, item):
+        return item.description
+
+
+class MeetingFeed(Feed):
+    """A feed presenting changes and additions on EarthGeoDataMeeting."""
+    title = settings.SITE_NAME + " meeting news."
+    link = "/"
+    description = "Updates on changes and additions to patrimonies of " + settings.SITE_NAME + "."
+
+    def items(self):
+        return EarthGeoDataMeeting.objects.order_by('-pub_date')[:20]
+
+    def item_title(self, item):
+        return item.name
+
+    def item_description(self, item):
+        return item.description
+
+

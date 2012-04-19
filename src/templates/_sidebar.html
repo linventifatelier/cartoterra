@@ -1,0 +1,32 @@
+{% load i18n %}
+{% load static from staticfiles %}
+
+<h5>{% trans "Recommendations" %}</h5>
+<ul>
+  <li><a href="{% url profile_detail "guest" %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "guest" %}</a></li>
+</ul>
+
+
+<h5>{% trans "External RSS Feeds" %}</h5>
+<ul>
+  <li class="external-rss-1">
+    <a rel="rss" href="http://example.com/rss/"><img src="{% static "img/patrimony.png" %}" width="15" heigth="15" />{% trans "external rss 1" %}</a>
+  </li>
+  <li class="external-rss-2">
+    <a rel="rss" href="http://example.com/rss/"><img src="{% static "img/patrimony.png" %}" width="15" heigth="15" />{% trans "external rss 2" %}</a>
+  </li>
+</ul>
+
+
+<h5>{% trans "Last modifications" %}</h5>
+<ul>
+  <li class="patrimony-rss">
+    <a rel="rss" href="{% url feed_patrimony %}"><img src="{% static "img/patrimony.png" %}" width="15" heigth="15" />{% trans "Patrimony feed." %}</a>
+  </li>
+  <li class="construction-rss">
+    <a rel="rss" href="{% url feed_construction %}"><img src="{% static "img/construction.png" %}" width="15" heigth="15" />{% trans "Construction feed." %}</a>
+  </li>
+  <li class="meeting-rss">
+    <a rel="rss" href="{% url feed_meeting %}"><img src="{% static "img/meeting.png" %}" width="15" heigth="15" />{% trans "Meeting feed." %}</a>
+  </li>
+</ul>

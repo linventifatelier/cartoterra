@@ -2,8 +2,12 @@
 
 from django.conf.urls.defaults import *
 from geodata import views
+from geodata import feeds
 
 urlpatterns = patterns('',
+    url(r'^feeds/patrimony/$', feeds.PatrimonyFeed(), name = "feed_patrimony"),
+    url(r'^feeds/construction/$', feeds.ConstructionFeed(), name = "feed_construction"),
+    url(r'^feeds/meeting/$', feeds.MeetingFeed(), name = "feed_meeting"),
     url(r'^patrimony/all/$', views.show_patrimony_all,
         name = "show_patrimony_all"),
     url(r'^patrimony/contemporary/$', views.show_patrimony_contemporary,

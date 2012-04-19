@@ -18,26 +18,36 @@
     <h1>{% trans "Edit"%} {% block body_geodata_type %}{% endblock %} "{{ geodata }}"</h1>
 
 
-    <form enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
+    <form class="form-stacked" enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
+      {% comment %}
+      <legend>{% trans "Edit"%} {% block body_geodata_type %}{% endblock %} "{{ geodata }}"</legend>
+      {% endcomment %}
       {% for field in form %}
-      <p>
-        <dt>{{ field.label_tag }}</dt>
-        <dd>
-        {% ifequal field.name 'image' %}
-            {% if field.value %}
-            {% thumbnail field.value "100x100" as im %}
-            <img src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}" />
-            {% endthumbnail %}
-            {% endif %}
-        {% endifequal %}
-        {{ field }}
-        </dd>
-        {% if field.help_text %}<dd>{{ field.help_text }}</dd>{% endif %}
-        {% if field.errors %}<dd>{{ field.errors }}</dd>{% endif %}
-      </p>
+        {% if field.errors %}
+        <fieldset class="control-group error">
+        {% else %}
+        <fieldset class="control-group">
+        {% endif %}
+
+        <label class="control-label">{{ field.label_tag }}</label>
+        <div class="controls">
+          {% ifequal field.name 'image' %}
+              {% if field.value %}
+                {% thumbnail field.value "100x100" as im %}
+                <p><img src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}" /></p>
+                {% endthumbnail %}
+              {% endif %}
+          {% endifequal %}
+          {{ field }}
+          {% if field.help_text %}<p class="help-block">{{ field.help_text }}</p>{% endif %}
+        </div>
+        {% if field.errors %}<span class="help-inline">{{ field.errors }}</span>{% endif %}
+      </fieldset>
       {% endfor %}
-      </dl>
-      <input type="submit" value={% trans "Submit" %} />
+      <fieldset class="form-actions">
+        <button type="submit" class="btn primary">{% trans "Submit" %}</button>
+        <button type="reset" class="btn">{% trans "Cancel" %}</button>
+      </fieldset>
     </form>
 
     {% block body_geodata_extra %}

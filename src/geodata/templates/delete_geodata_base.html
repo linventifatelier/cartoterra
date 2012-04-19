@@ -15,7 +15,7 @@
 
 
     <form method="post" action=".">{% csrf_token %}
-      <input type="submit" value={% trans "Confirm" %} />
+      <button type="submit" class="btn danger">{% trans "Confirm" %}</button>
     </form>
 
     {% block body_geodata_extra %}
