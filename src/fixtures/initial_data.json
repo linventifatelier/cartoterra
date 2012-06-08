@@ -3,8 +3,8 @@
         "pk": 1, 
         "model": "sites.site", 
         "fields": {
-            "domain": "earthbuilding.org", 
-            "name": "earthbuilding.org"
+            "domain": "cartoterra.net", 
+            "name": "cartoterra.net"
         }
     }
 ]

@@ -60,7 +60,7 @@ LANGUAGES = (
 SITE_ID = 1
 
 # Name of the website
-SITE_NAME = "EarthBuilding.org"
+SITE_NAME = "CartoTerra.net"
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
