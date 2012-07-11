@@ -1,5 +1,5 @@
 #!/bin/bash
-export MYENV=~/earthbuilding-env/lib/python2.7
+export MYENV=~/cartoterra/cartoterra-env/lib/python2.7
 export LOCALPYTHON=/usr/lib/python2.7
 ln -s $LOCALPYTHON/dist-packages/xapian/__init__.py $MYENV/site-packages/xapian.py
 ln -s $LOCALPYTHON/dist-packages/xapian/_xapian.so $MYENV/site-packages/
