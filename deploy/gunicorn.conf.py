@@ -7,8 +7,8 @@ def numCPUs():
 
 workers = numCPUs() * 2 + 1
 bind = "127.0.0.1:8000"
-pidfile = "/tmp/gunicorn-earthbuilding.pid"
+pidfile = "/home/www-cartoterra/gunicorn-cartoterra.pid"
 backlog = 2048
-logfile = "/home/linventifatelier/earthbuilding/log/gunicorn-earthbuilding.log"
+logfile = "/home/www-cartoterra/gunicorn-cartoterra.log"
 loglevel = "info"
 timeout=90
