@@ -10,11 +10,10 @@ env.gunicorn_pid = 'gunicorn-cartoterra.pid'
 env.src = env.code_dir + "/src"
 env.requirements = env.src + "/requirements/project.txt"
 env.local_python = 'python2.6'
-env.apps = 'geodata'
 
 def test():
    with settings(warn_only=True):
-      result = local('./manage.py test geodata', capture=True)
+      result = local('python manage.py test geodata', capture=True)
    if result.failed and not confirm("Tests failed. Continue anyway?"):
       abort("Aborting at user request.")
 
@@ -31,19 +30,10 @@ def update_requirements():
    run("source %s/bin/activate && pip install -r %s" %
        (env.virtualenv, env.requirements))
 
-def initdb():
-   with cd(env.src):
-      run("source %(env)s/bin/activate && ./manage.py syncdb && \
-          ./manage.py schemamigration %(app)s --initial && \
-          ./manage.py convert_to_south %(app)s" %
-          {'env': env.virtualenv, 'app': env.app})
-
 def syncdb():
    with cd(env.src):
-      run("source %(env)s/bin/activate && ./manage.py syncdb && \
-          ./manage.py schemamigration %(app)s && \
-          ./manage.py migrate %(app)s" %
-          {'env': env.virtualenv, 'app': env.app})
+      run("source %s/bin/activate && python manage.py syncdb && \
+          python manage.py migrate" % env.virtualenv)
 
 def init_remote():
    with cd(env.code_dir):
@@ -57,7 +47,7 @@ def init_remote():
        ln -s /usr/lib/%(localpython)s/dist-packages/xapian/_xapian.so \
           %(env)s/lib/%(localpython)s/site-packages/" %
        { 'localpython': env.local_python, 'env': env.virtualenv,})
-   initdb()
+   syncdb()
 
 def prepare_deploy():
    #test()
