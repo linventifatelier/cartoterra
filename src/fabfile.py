@@ -4,11 +4,13 @@ from fabric.api import *
 env.hosts = ['www-cartoterra@gueux.org']
 env.disable_known_hosts = True
 
-env.virtualenv = 'cartoterra-env'
-env.code_dir = 'cartoterra'
+env.virtualenv = '~/cartoterra-env'
+env.code_dir = '~/cartoterra'
 env.gunicorn_pid = 'gunicorn-cartoterra.pid'
-env.requirements = env.code_dir + "/src/requirements/project.txt"
+env.src = env.code_dir + "/src"
+env.requirements = env.src + "/requirements/project.txt"
 env.local_python = 'python2.6'
+env.apps = 'geodata'
 
 def test():
    with settings(warn_only=True):
@@ -29,6 +31,20 @@ def update_requirements():
    run("source %s/bin/activate && pip install -r %s" %
        (env.virtualenv, env.requirements))
 
+def initdb():
+   with cd(env.src):
+      run("source %(env)s/bin/activate && ./manage.py syncdb && \
+          ./manage.py schemamigration %(app)s --initial && \
+          ./manage.py convert_to_south %(app)s" %
+          {'env': env.virtualenv, 'app': env.app})
+
+def syncdb():
+   with cd(env.src):
+      run("source %(env)s/bin/activate && ./manage.py syncdb && \
+          ./manage.py schemamigration %(app)s && \
+          ./manage.py migrate %(app)s" %
+          {'env': env.virtualenv, 'app': env.app})
+
 def init_remote():
    with cd(env.code_dir):
       run("git clone git@gueux.org:cartoterra.git .")
@@ -41,6 +57,7 @@ def init_remote():
        ln -s /usr/lib/%(localpython)s/dist-packages/xapian/_xapian.so \
           %(env)s/lib/%(localpython)s/site-packages/" %
        { 'localpython': env.local_python, 'env': env.virtualenv,})
+   initdb()
 
 def prepare_deploy():
    #test()
@@ -53,4 +70,6 @@ def deploy():
    with cd(env.code_dir):
       run("git pull")
       run("kill -HUP $(cat %s)" % env.gunicorn_pid)
+   syncdb()
+
 

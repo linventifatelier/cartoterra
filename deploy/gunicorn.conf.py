@@ -1,14 +1,11 @@
-import os
+import multiprocessing
 
-def numCPUs():
-    if not hasattr(os, "sysconf"):
-        raise RuntimeError("No sysconf detected.")
-    return os.sysconf("SC_NPROCESSORS_ONLN")
+bind = "127.0.0.1:8001"
+workers = multiprocessing.cpu_count() * 2 + 1
 
-workers = numCPUs() * 2 + 1
-bind = "127.0.0.1:8000"
 pidfile = "/home/www-cartoterra/gunicorn-cartoterra.pid"
 backlog = 2048
-logfile = "/home/www-cartoterra/gunicorn-cartoterra.log"
-loglevel = "info"
+accesslog = "/home/www-cartoterra/log/gunicorn-access.log"
+errorlog = "/home/www-cartoterra/log/gunicorn-error.log"
+loglevel = "debug"
 timeout=90
