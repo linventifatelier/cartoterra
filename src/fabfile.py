@@ -1,11 +1,12 @@
 # import fabrics API functions
 from fabric.api import *
 
+
 env.hosts = ['www-cartoterra@gueux.org']
 env.disable_known_hosts = True
 
-env.virtualenv = '~/cartoterra-env'
-env.code_dir = '~/cartoterra'
+env.virtualenv = '/home/www-cartoterra/cartoterra-env'
+env.code_dir = '/home/www-cartoterra/cartoterra'
 env.gunicorn_pid = 'gunicorn-cartoterra.pid'
 env.src = env.code_dir + "/src"
 env.requirements = env.src + "/requirements/project.txt"
@@ -31,9 +32,8 @@ def update_requirements():
        (env.virtualenv, env.requirements))
 
 def syncdb():
-   with cd(env.src):
-      run("source %s/bin/activate && python manage.py syncdb && \
-          python manage.py migrate" % env.virtualenv)
+   run("cd %s && source %s/bin/activate && python manage.py syncdb && \
+        python manage.py migrate" % (env.src, env.virtualenv))
 
 def init_remote():
    with cd(env.code_dir):
@@ -59,7 +59,7 @@ def prepare_deploy():
 def deploy():
    with cd(env.code_dir):
       run("git pull")
+      syncdb()
       run("kill -HUP $(cat %s)" % env.gunicorn_pid)
-   syncdb()
 
 
