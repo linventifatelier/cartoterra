@@ -25,12 +25,15 @@ def commit():
 def push():
    local("git push")
 
+def update_requirements():
+   run("source %s/bin/activate && pip install -r %s" %
+       (env.virtualenv, env.requirements))
+
 def init_remote():
    with cd(env.code_dir):
       run("git clone git@gueux.org:cartoterra.git .")
    run("virtualenv --distribute %s" % env.virtualenv)
-   run("source %s/bin/activate && pip install -r %s" %
-       (env.virtualenv, env.requirements))
+   update_requirements()
    run("ln -s /usr/lib/%(localpython)s/dist-packages/xapian/__init__.py \
           %(env)s/lib/%(localpython)s/site-packages/xapian.py && \
        ln -s %(env)s/lib/%(localpython)s/site-packages/xapian_backend.py \
@@ -39,13 +42,12 @@ def init_remote():
           %(env)s/lib/%(localpython)s/site-packages/" %
        { 'localpython': env.local_python, 'env': env.virtualenv,})
 
-
-
 def prepare_deploy():
    #test()
    add()
    commit()
    push()
+
 
 def deploy():
    with cd(env.code_dir):

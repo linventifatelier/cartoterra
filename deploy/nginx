@@ -1,0 +1,55 @@
+############################
+# nginx's config for cartoterra
+############################
+server {
+    listen   80; ## listen for ipv4
+    listen   [::]:80; ## listen for ipv6
+
+    server_name  dev.gueux.org;
+
+    access_log  /var/log/nginx/dev.access.log;
+    error_log   /var/log/nginx/dev.error.log info;
+
+    rewrite ^ https://dev.gueux.org$request_uri? permanent;
+}
+
+server {
+    listen   443;
+    listen   [::]:443; ## listen for ipv6
+
+    server_name  dev.gueux.org;
+
+    include global/restrictions.conf;
+    include global/ssl.conf;
+    
+    access_log  /var/log/nginx/dev.access.log;
+    error_log  /var/log/nginx/dev.error.log info;
+
+    keepalive_timeout 5;
+
+    # path for static files
+    #root /home/cartoterra/media;
+
+    location /site_media/ {
+        alias /home/cartoterra/media/;
+        auth_basic            "Restricted";
+        auth_basic_user_file  /home/cartoterra/htpasswd;
+    }
+
+    location / {
+        auth_basic            "Restricted";
+        auth_basic_user_file  /home/cartoterra/htpasswd;
+        proxy_set_header X-Forwarded-Protocol ssl;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_read_timeout 90s;
+
+        try_files $uri $uri/ @proxy;
+    }
+
+    location @proxy {
+        proxy_pass http://localhost:8000;
+    }
+
+}
