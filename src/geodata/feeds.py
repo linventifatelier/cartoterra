@@ -1,4 +1,8 @@
+#from django.contrib.syndication.views import Feed
 from django.contrib.syndication.views import Feed
+from django.contrib.gis.feeds import GeoRSSFeed
+from django.utils.translation import ugettext_lazy as _
+#from django.contrib.gis.feeds import Feed
 from django.conf import settings
 from geodata.models import EarthGeoDataPatrimony, EarthGeoDataConstruction,\
     EarthGeoDataMeeting
@@ -8,7 +12,15 @@ class PatrimonyFeed(Feed):
     """A feed presenting changes and additions on EarthGeoDataPatrimony."""
     title = settings.SITE_NAME + " patrimony news."
     link = "/"
-    description = "Updates on changes and additions to patrimonies of " + settings.SITE_NAME + "."
+    description = _("Updates on changes and additions to patrimonies of " + settings.SITE_NAME + ".")
+
+    feed_type = GeoRSSFeed
+
+    #def item_extra_kwargs(self, item):
+    #    return {'geometry' : self.item_geometry(item)}
+
+    def item_geometry(self, item):
+        return item.geometry
 
     def items(self):
         return EarthGeoDataPatrimony.objects.order_by('-pub_date')[:20]
@@ -22,9 +34,17 @@ class PatrimonyFeed(Feed):
 
 class ConstructionFeed(Feed):
     """A feed presenting changes and additions on EarthGeoDataConstruction."""
-    title = settings.SITE_NAME + " construction news."
+    title = _(settings.SITE_NAME + " construction news.")
     link = "/"
-    description = "Updates on changes and additions to patrimonies of " + settings.SITE_NAME + "."
+    description = _("Updates on changes and additions to constructions of " + settings.SITE_NAME + ".")
+
+    feed_type = GeoRSSFeed
+
+    #def item_extra_kwargs(self, item):
+    #    return {'geometry' : self.item_geometry(item)}
+
+    def item_geometry(self, item):
+        return item.geometry
 
     def items(self):
         return EarthGeoDataConstruction.objects.order_by('-pub_date')[:20]
@@ -38,9 +58,17 @@ class ConstructionFeed(Feed):
 
 class MeetingFeed(Feed):
     """A feed presenting changes and additions on EarthGeoDataMeeting."""
-    title = settings.SITE_NAME + " meeting news."
+    title = _(settings.SITE_NAME + " meeting news.")
     link = "/"
-    description = "Updates on changes and additions to patrimonies of " + settings.SITE_NAME + "."
+    description = _("Updates on changes and additions to meetings of " + settings.SITE_NAME + ".")
+
+    feed_type = GeoRSSFeed
+
+    #def item_extra_kwargs(self, item):
+    #    return {'geometry' : self.item_geometry(item)}
+
+    def item_geometry(self, item):
+        return item.geometry
 
     def items(self):
         return EarthGeoDataMeeting.objects.order_by('-pub_date')[:20]
