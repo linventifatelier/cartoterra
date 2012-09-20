@@ -83,7 +83,7 @@ class EarthGeoDataAbstract(models.Model):
     url = models.URLField(_("website"), blank=True, null=True,
                           verify_exists=False)
     contact = models.TextField(_("contact"), blank=True, null=True)
-    geometry = models.PointField(srid=4326)  # EPSG:4236 is the spatial
+    geometry = models.PointField(srid=4326, blank=True, null=True)  # EPSG:4236 is the spatial
                                              # reference for our data
     objects = models.GeoManager()  # so we can use spatial queryset methods
 

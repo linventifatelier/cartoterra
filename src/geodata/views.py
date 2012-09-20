@@ -617,8 +617,8 @@ def _add_builder(request, geodatamodel, geodatamodelform, geodatatemplate):
         form = geodatamodelform(instance = geodata) # An unbound form
 
     return direct_to_template(request, geodatatemplate, {
-        'form': form,
-        })
+            'form': form,
+            })
 
 
 @login_required
