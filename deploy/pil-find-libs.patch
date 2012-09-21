@@ -1,0 +1,3 @@
+214a215,216
+>         add_directory(library_dirs, "/usr/lib/x86_64-linux-gnu")
+>         add_directory(library_dirs, "/usr/lib/i386-linux-gnu")
