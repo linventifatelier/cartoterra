@@ -166,14 +166,13 @@ class EarthGeoDataAbstractForm(MapModelForm):
                         self._errors['geometry'] = self.error_class([msg])
                 else:
                     msg = _("You have to provide a geometry \
-                          or a geolocated image (the image you have provided \
-                          does not seems to be geolocated).")
+                             or a geolocated image (the image you have \
+                             provided does not seems to be geolocated).")
                     self._errors['geometry'] = self.error_class([msg])
             else:
-                msg = _("You have to provide a geometry \
-                      or a geolocated image.")
+                msg = _("You have to provide a geometry or a geolocated \
+                         image.")
                 self._errors['geometry'] = self.error_class([msg])
-            super(MapModelForm, self).clean()
         return self.cleaned_data
 
     class Meta:
