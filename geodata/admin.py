@@ -14,9 +14,9 @@ from forms import EarthGeoDataAbstractForm
 
 #ADMIN_THUMBS_SIZE = '60x60'
 #from nani import admin
-from nani import admin as naniadmin
+from hvad import admin as hvadadmin
 
-class BookAdmin(naniadmin.TranslatableAdmin):
+class BookAdmin(hvadadmin.TranslatableAdmin):
     """InterestingLocation administration interface."""
     fieldsets = (
         ('Book Attributes', {'fields': (('isbn', ))}),

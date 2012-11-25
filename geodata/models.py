@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, date
 #from sorl.thumbnail import ImageField, ImageWithThumbnailsField
 #from sorl.thumbnail import ImageField, get_thumbnail
 from sorl.thumbnail import ImageField
-from nani.models import TranslatableModel,TranslatedFields
+from hvad.models import TranslatableModel,TranslatedFields
 
 
 class Book(TranslatableModel):
