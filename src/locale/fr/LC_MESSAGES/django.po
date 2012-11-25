@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-28 09:56+0200\n"
+"POT-Creation-Date: 2012-10-20 17:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,6 +53,46 @@ msgstr ""
 
 #: apps/profiles/models.py:24
 msgid "meeting recommendations"
+msgstr ""
+
+#: geodata/feeds.py:15
+msgid "Updates on changes and additions to patrimonies of "
+msgstr ""
+
+#: geodata/feeds.py:37
+msgid " construction news."
+msgstr ""
+
+#: geodata/feeds.py:39
+msgid "Updates on changes and additions to constructions of "
+msgstr ""
+
+#: geodata/feeds.py:61
+msgid " meeting news."
+msgstr ""
+
+#: geodata/feeds.py:63
+msgid "Updates on changes and additions to meetings of "
+msgstr ""
+
+#: geodata/forms.py:163
+msgid ""
+"You have to provide a geometry or a                                  "
+"geolocated image (the geolocation data of                                  "
+"your image do not seem clean)."
+msgstr ""
+
+#: geodata/forms.py:168
+msgid ""
+"You have to provide a geometry                              or a geolocated "
+"image (the image you have                              provided does not "
+"seems to be geolocated)."
+msgstr ""
+
+#: geodata/forms.py:173
+msgid ""
+"You have to provide a geometry or a geolocated                          "
+"image."
 msgstr ""
 
 #: geodata/imagewidget.py:66
@@ -371,42 +411,46 @@ msgstr ""
 msgid "Total of Recommendations of user"
 msgstr ""
 
-#: templates/_account_bar.html:8
+#: templates/_account_bar.html:9
 #, fuzzy
 msgid "My profile"
 msgstr "Profil"
 
-#: templates/_account_bar.html:9
+#: templates/_account_bar.html:10
 #, fuzzy
 msgid "Account settings"
 msgstr "Compte"
 
-#: templates/_account_bar.html:11
+#: templates/_account_bar.html:12
+msgid "Translator"
+msgstr ""
+
+#: templates/_account_bar.html:15
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/_account_bar.html:14
+#: templates/_account_bar.html:18
 msgid "Logout"
 msgstr "Déconnection"
 
-#: templates/_account_bar.html:18
+#: templates/_account_bar.html:22
 msgid "Log In"
 msgstr ""
 
-#: templates/_account_bar.html:19
+#: templates/_account_bar.html:23
 msgid "or"
 msgstr "ou"
 
-#: templates/_account_bar.html:20
+#: templates/_account_bar.html:24
 #, fuzzy
 msgid "Sign Up"
 msgstr "Inscription"
 
-#: templates/_footer.html:7
+#: templates/_footer.html:9
 msgid "by"
 msgstr ""
 
-#: templates/_footer.html:7
+#: templates/_footer.html:9
 msgid "is licensed under a"
 msgstr ""
 

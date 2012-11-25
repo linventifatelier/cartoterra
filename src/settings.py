@@ -182,6 +182,8 @@ INSTALLED_APPS = [
     "floppyforms",
     "gunicorn",
     "olwidget",
+    "rosetta",
+    "core",
 
     "pinax.templatetags",
 
@@ -267,6 +269,12 @@ HAYSTACK_CONNECTIONS = {
 }
 
 THUMBNAIL_DEBUG = DEBUG
+
+
+ROSETTA_MESSAGES_PER_PAGE = 20
+ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
+ROSETTA_MESSAGES_SOURCE_LANGUAGE_CODE = 'en'
+ROSETTA_MESSAGES_SOURCE_LANGUAGE_NAME = 'English'
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

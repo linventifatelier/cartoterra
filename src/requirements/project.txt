@@ -20,3 +20,4 @@ xapian-haystack
 django-hvad
 django-olwidget
 django-floppyforms
+django-rosetta
