@@ -1,0 +1,46 @@
+{% extends "theme_base.html" %}
+
+{% load metron_tags %}
+{% load i18n %}
+
+{% block extra_head_base %}
+    {% block extra_head %}{% endblock %}
+{% endblock %}
+
+{% block extra_style %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/extra.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css">
+{% endblock %}
+
+{% comment %}
+<div id='langbar' style='text-align:right;padding-top:5px;'>
+    <form name='langform' style='margin:0px;display:inline;width:200px' action='/i18n/setlang/' method='POST'>
+        {% for LANG in LANGUAGES  %}
+            <img src='{{ MEDIA_URL }}img/flags/{{ LANG.0 }}.png' title="{% trans LANG.1 %}" style='margin:5px;cursor:pointer' onclick="document.langform.language.value='{{ LANG.0 }}';document.langform.submit();">
+        {% endfor %}
+	<input name='language' type=hidden value="{{ LANGUAGE_CODE }}">
+	current LANG : {{ LANGUAGE_CODE }}
+    </form>
+</div>
+{% endcomment %}
+
+{% block navbar_class %}
+navbar-fixed-top navbar-inverse
+{% endblock %}
+
+
+{% block nav %}
+    {% include "_nav.html" %}
+{% endblock %}
+
+{% block body %}
+{% endblock %}
+
+{% block footer %}
+    {% include "_footer.html" %}
+{% endblock %}
+
+{% block extra_body_base %}
+    {% analytics %}
+    {% block extra_body %}{% endblock %}
+{% endblock %}

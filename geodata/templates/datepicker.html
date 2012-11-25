@@ -1,0 +1,19 @@
+{# datepicker.html #}
+{% include "floppyforms/input.html" %}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var options = {
+      dateFormat: 'yy-mm-dd'
+    };
+    $('#{{ attrs.id }}').datepicker(options);
+  });
+</script>
+{% comment %}
+</script><script type="text/javascript">
+    if (!Modernizr.inputtypes.date) {
+       $(function () {
+         $.datepicker.setDefaults($.datepicker.regional['{{ lang }}']);
+         $('#{{ attrs.id }}').datepicker({showOn: "both", buttonImageOnly: true, dateFormat: "yy-mm-dd", buttonImage: "{{ STATIC_URL }}new/img/calendar.gif"})} )}
+</script>
+{% endcomment %}
