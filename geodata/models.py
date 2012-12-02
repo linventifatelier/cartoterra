@@ -98,9 +98,10 @@ class EarthGeoDataAbstract(models.Model):
 
 class EarthGeoDataPatrimony(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
-    architects = models.ManyToManyField(EarthArchitect,
-                                        verbose_name=_("architects"),
-                                        blank=True, null=True)
+    #architects = models.ManyToManyField(EarthArchitect,
+    #                                    verbose_name=_("architects"),
+    #                                    blank=True, null=True)
+    architects = models.TextField(_("architects"), blank=True, null=True)
     techniques = models.ManyToManyField(EarthTechnique,
                                         verbose_name=_("techniques"),
                                         blank=True, null=True)

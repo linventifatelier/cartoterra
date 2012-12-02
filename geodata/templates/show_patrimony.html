@@ -7,6 +7,13 @@
 
 {% block body_geodata_extra %}
     <p>
+
+        {% if geodata.architects %}
+            {% trans "Architects" %}:<br>
+            {{ geodata.architects }}
+        {% endif %}
+
+        {% comment %}
         {% trans "Architects" %}:
         {% if geodata.architects.all %}
             <ul>
@@ -17,6 +24,7 @@
         {% else %}
             {% trans "not provided" %}.
         {% endif %}
+        {% endcomment %}
     </p>
     <p>
         {% trans "Techniques" %}:
