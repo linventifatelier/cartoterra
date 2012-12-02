@@ -91,16 +91,16 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static")
 STATIC_URL = "/site_media/static/"
 
 # Additional directories which hold static files
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, "static"),
-]
+#STATICFILES_DIRS = [
+#    os.path.join(PROJECT_ROOT, "static"),
+#]
 
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "django.contrib.staticfiles.finders.LegacyAppDirectoriesFinder",
+#    "django.contrib.staticfiles.finders.LegacyAppDirectoriesFinder",
     "compressor.finders.CompressorFinder",
 ]
 
