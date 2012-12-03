@@ -1,9 +1,8 @@
 """Geodata administration interface."""
 from django.contrib.gis import admin
 from olwidget.admin import GeoModelAdmin
-from models import EarthTechnique, EarthArchitect, \
-     EarthGeoDataMeeting, EarthGeoDataPatrimony, \
-     EarthGeoDataConstruction, Book
+from models import EarthTechnique, EarthGeoDataMeeting, \
+    EarthGeoDataPatrimony, EarthGeoDataConstruction, Book
 from django.conf import settings
 #from stdimage import StdImageField
 from imagewidget import AdminImageWidget
@@ -43,7 +42,7 @@ admin.site.register(Book, BookAdmin)
 #    pass
 
 
-class MyAdmin(admin.ModelAdmin):
+class EarthAdmin(admin.ModelAdmin):
     """Modified admin.ModelAdmin (include special AdminImageWidget for the
     image field)."""
     def formfield_for_dbfield(self, db_field, **kwargs):
@@ -52,10 +51,10 @@ class MyAdmin(admin.ModelAdmin):
             _request = kwargs.pop("request", None)
             kwargs['widget'] = AdminImageWidget
             return db_field.formfield(**kwargs)
-        return super(MyAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        return super(EarthAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
 
-class MyOSMAdmin(admin.OSMGeoAdmin):
+class EarthOSMAdmin(admin.OSMGeoAdmin):
     """Modified admin.OSMGeoAdmin (include special AdminImageWidget for the
     image field). TODO: does not work."""
     def formfield_for_dbfield(self, db_field, **kwargs):
@@ -64,7 +63,7 @@ class MyOSMAdmin(admin.OSMGeoAdmin):
             _request = kwargs.pop("request", None)
             kwargs['widget'] = AdminImageWidget
             return db_field.formfield(**kwargs)
-        return super(MyOSMAdmin, self).formfield_for_dbfield(db_field,
+        return super(EarthOSMAdmin, self).formfield_for_dbfield(db_field,
                                                              **kwargs)
 
 
@@ -85,16 +84,16 @@ class EarthTechniqueAdmin(admin.ModelAdmin):
 admin.site.register(EarthTechnique, EarthTechniqueAdmin)
 
 
-class EarthArchitectAdmin(admin.ModelAdmin):
-    """EarthArchitect administration interface."""
-    list_display = ['name', 'user']
-    list_filter = ['name', 'user']
-    search_fields = ['name']
-    fieldsets = (
-        ('Architect', {'fields': (('name', 'user'))}),
-    )
-
-admin.site.register(EarthArchitect, EarthArchitectAdmin)
+#class EarthArchitectAdmin(admin.ModelAdmin):
+#    """EarthArchitect administration interface."""
+#    list_display = ['name', 'user']
+#    list_filter = ['name', 'user']
+#    search_fields = ['name']
+#    fieldsets = (
+#        ('Architect', {'fields': (('name', 'user'))}),
+#    )
+#
+#admin.site.register(EarthArchitect, EarthArchitectAdmin)
 
 
 #class EarthGeoDataAbstractAdmin(MyOSMAdmin):

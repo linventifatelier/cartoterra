@@ -2,14 +2,15 @@
 
 {% load metron_tags %}
 {% load i18n %}
+{% load static from staticfiles %}
 
 {% block extra_head_base %}
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
 {% block extra_style %}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/extra.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css">
+<link rel="stylesheet" href="{% static "css/extra.css" %}">
+<link rel="stylesheet" href="{% static "css/site_tabs.css" %}">
 {% endblock %}
 
 {% comment %}

@@ -181,6 +181,7 @@ INSTALLED_APPS = [
     "gunicorn",
     "olwidget",
     "rosetta",
+    "hvad",
 
     # theme
     "pinax_theme_bootstrap_account",

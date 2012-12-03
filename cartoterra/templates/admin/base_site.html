@@ -1,0 +1,15 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ SITE_NAME }} {% trans ' admin' %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">{{ SITE_NAME }} {% trans 'administration' %}</h1>
+{% endblock %}
+
+{% block nav-global %}
+{% endblock %}
+
+{% block footer %}
+    {% include "_footer.html" %}
+{% endblock %}

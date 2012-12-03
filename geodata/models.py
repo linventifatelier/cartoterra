@@ -58,18 +58,18 @@ class EarthTechnique(models.Model):
         return self.name
 
 
-class EarthArchitect(models.Model):
-    """A model for earthbuilding architect type (toto, vernacular, (...)?)."""
-    name = models.CharField(_("name"), max_length=50)
-    user = models.ForeignKey(User, verbose_name=_("user"), blank=True,
-                             null=True)
-    description = models.TextField(_("description"), blank=True, null=True)
-
-    def get_model(self):
-        return EarthArchitect
-
-    def __unicode__(self):
-        return self.name
+#class EarthArchitect(models.Model):
+#    """A model for earthbuilding architect type (toto, vernacular, (...)?)."""
+#    name = models.CharField(_("name"), max_length=50)
+#    user = models.ForeignKey(User, verbose_name=_("user"), blank=True,
+#                             null=True)
+#    description = models.TextField(_("description"), blank=True, null=True)
+#
+#    def get_model(self):
+#        return EarthArchitect
+#
+#    def __unicode__(self):
+#        return self.name
 
 
 class EarthGeoDataAbstract(models.Model):
