@@ -32,6 +32,12 @@
         <li><a href="{% url show_meeting_festival %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "Festival" %}</a></li>
       </ul>
     </li>
+    <li id="tab_actor" class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/actor.png" %}" width="15" height="15" /><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="{% url show_actor_all %}"><img src="{% static "img/actor.png" %}" width="15" height="15" /> {% trans "All actors" %}</a></li>
+      </ul>
+    </li>
 
     <li id="tab_search">
       <form class="navbar-search" action="/search/?q=">
@@ -41,11 +47,12 @@
 
 {% if user.is_authenticated %}
     <li id="tab_add" class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/add.png" %}" width="15" height="15" /></a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/add.png" %}" width="15" height="15" /><b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="{% url add_patrimony %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "Patrimony" %}</a></li>
         <li><a href="{% url add_construction %}"><img src="{% static "img/construction.png" %}" width="15" height="15" /> {% trans "Construction" %}</a></li>
         <li><a href="{% url add_meeting %}"><img src="{% static "img/meeting.png" %}" width="15" height="15" /> {% trans "Meeting" %}</a></li>
+        <li><a href="{% url add_actor %}"><img src="{% static "img/actor.png" %}" width="15" height="15" /> {% trans "Actor" %}</a></li>
       </ul>
     </li>
     {% if edit_geodata %}

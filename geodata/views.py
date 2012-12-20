@@ -4,9 +4,9 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.simple import direct_to_template
 from django.utils.translation import ugettext_lazy as _
 from models import EarthGeoDataPatrimony, EarthGeoDataConstruction,\
-     EarthGeoDataMeeting
+     EarthGeoDataMeeting, EarthGeoDataActor
 from forms import EarthGeoDataPatrimonyForm, EarthGeoDataConstructionForm,\
-     EarthGeoDataMeetingForm
+     EarthGeoDataMeetingForm, EarthGeoDataActorForm
 from olwidget.widgets import InfoMap, Map, InfoLayer
 from sorl.thumbnail import get_thumbnail
 from django.contrib.auth.decorators import login_required
@@ -56,6 +56,32 @@ def _info_builder(geodataobjects, style = {}):
     return info
 
 
+class ActorAllView(TemplateView):
+    """Returns a template to present all meetings."""
+    template_name = 'show_actor_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ActorAllView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataActor.objects.all()
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Actors",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/actor.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
+
+
 class PatrimonyContemporaryView(TemplateView):
     """Returns a template to present contemporary patrimonies."""
     template_name = 'show_patrimony_all.html'
@@ -78,7 +104,6 @@ class PatrimonyContemporaryView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -105,7 +130,6 @@ class PatrimonyUnescoView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -132,7 +156,6 @@ class PatrimonyVernacularView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -162,7 +185,6 @@ class PatrimonyNormalView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -189,7 +211,6 @@ class PatrimonyAllView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -216,7 +237,6 @@ class ConstructionParticipativeView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -243,7 +263,6 @@ class ConstructionNormalView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -270,7 +289,6 @@ class ConstructionAllView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -297,7 +315,6 @@ class MeetingSeminarView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -324,7 +341,6 @@ class MeetingColloquiumView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -351,7 +367,6 @@ class MeetingConferenceView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -378,7 +393,6 @@ class MeetingFestivalView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -405,7 +419,6 @@ class MeetingAllView(TemplateView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        # Add in a QuerySet of all the books
         context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
@@ -424,10 +437,12 @@ class BigMapView(TemplateView):
         patrimony = EarthGeoDataPatrimony.objects.all()
         construction = EarthGeoDataConstruction.objects.all()
         meeting = EarthGeoDataMeeting.objects.all()
+        actor = EarthGeoDataActor.objects.all()
         lcount_patrimony = patrimony.count()
         lcount_construction = construction.count()
         lcount_meeting = meeting.count()
-        lcount = lcount_patrimony + lcount_construction + lcount_meeting
+        lcount_actor = actor.count()
+        lcount = lcount_patrimony + lcount_construction + lcount_meeting + lcount_actor
 
         map_ = Map([
            InfoLayer(_info_builder(patrimony),
@@ -457,14 +472,23 @@ class BigMapView(TemplateView):
                           'fill_color': '#00FF00',
                           'stroke_color': '#008800',
                           }}),
+           InfoLayer(_info_builder(actor),
+                     {'name': "Actors",
+                      'overlay_style': {
+                          'external_graphic': settings.STATIC_URL+"img/actor.png",
+                          'graphic_width': 20,
+                          'graphic_height': 20,
+                          'fill_color': '#00FF00',
+                          'stroke_color': '#008800',
+                          }}),
         ], {'map_div_class': 'bigmap', 'map_div_style': {'width': '600px', 'height': '400px'}})
 
-        # Add in a QuerySet of all the books
         context['map'] = map_
         context['location_count'] = lcount
         context['patrimony_count'] = lcount_patrimony
         context['construction_count'] = lcount_construction
         context['meeting_count'] = lcount_meeting
+        context['actor_count'] = lcount_actor
         return context
 
 
@@ -473,9 +497,11 @@ def get_profilemap(profile):
     patrimony = EarthGeoDataPatrimony.objects.filter(creator = user_)
     construction = EarthGeoDataConstruction.objects.filter(creator = user_)
     meeting = EarthGeoDataMeeting.objects.filter(creator = user_)
+    actor = EarthGeoDataActor.objects.filter(creator = user_)
     r_patrimony = profile.r_patrimony.all()
     r_construction = profile.r_construction.all()
     r_meeting = profile.r_meeting.all()
+    r_actor = profile.r_actor.all()
     name = user_.username
 
     map_ = Map([
@@ -501,6 +527,15 @@ def get_profilemap(profile):
                  {'name': "Meetings " + name,
                   'overlay_style': {
                       'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                      'graphic_width': 20,
+                      'graphic_height': 20,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
+       InfoLayer(_info_builder(actor),
+                 {'name': "Actors" + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/actor.png",
                       'graphic_width': 20,
                       'graphic_height': 20,
                       'fill_color': '#00FF00',
@@ -527,9 +562,17 @@ def get_profilemap(profile):
                             'fill_color': '#00FF00',
                             'stroke_color': '#008800',
                             }) ,
+                 _info_builder(r_actor, {
+                            'external_graphic': settings.STATIC_URL+"img/actor.png",
+                            'graphic_width': 10,
+                            'graphic_height': 10,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            }) ,
                  {'name': "Recommendations " + name, }),
     ], {'map_div_class': 'usermap'})
     return map_
+
 
 def show_usermap(request, userid):
     """Returns a show_usermap.html template."""
@@ -538,17 +581,21 @@ def show_usermap(request, userid):
     patrimony = EarthGeoDataPatrimony.objects.filter(creator = user_)
     construction = EarthGeoDataConstruction.objects.filter(creator = user_)
     meeting = EarthGeoDataMeeting.objects.filter(creator = user_)
+    actor = EarthGeoDataActor.objects.filter(creator = user_)
     r_patrimony = profile.r_patrimony.all()
     r_construction = profile.r_construction.all()
     r_meeting = profile.r_meeting.all()
+    r_actor = profile.r_actor.all()
     lcount_patrimony = patrimony.count()
     lcount_construction = construction.count()
     lcount_meeting = meeting.count()
-    lcount = lcount_patrimony + lcount_construction + lcount_meeting
+    lcount_actor = actor.count()
+    lcount = lcount_patrimony + lcount_construction + lcount_meeting + lcount_actor
     lcount_r_patrimony = r_patrimony.count()
     lcount_r_construction = r_construction.count()
     lcount_r_meeting = r_meeting.count()
-    lcount_r = lcount_r_patrimony + lcount_r_construction + lcount_r_meeting
+    lcount_r_actor = r_actor.count()
+    lcount_r = lcount_r_patrimony + lcount_r_construction + lcount_r_meeting + lcount_r_actor
     name = user_.username
 
     map_ = Map([
@@ -574,6 +621,15 @@ def show_usermap(request, userid):
                  {'name': "Meetings " + name,
                   'overlay_style': {
                       'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                      'graphic_width': 20,
+                      'graphic_height': 20,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
+       InfoLayer(_info_builder(actor),
+                 {'name': "Actors" + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/actor.png",
                       'graphic_width': 20,
                       'graphic_height': 20,
                       'fill_color': '#00FF00',
@@ -606,6 +662,15 @@ def show_usermap(request, userid):
                       'fill_color': '#00FF00',
                       'stroke_color': '#008800',
                       }}),
+       InfoLayer(_info_builder(r_actor),
+                 {'name': "Recommendations: Actors " + name,
+                  'overlay_style': {
+                      'external_graphic': settings.STATIC_URL+"img/actor.png",
+                      'graphic_width': 10,
+                      'graphic_height': 10,
+                      'fill_color': '#00FF00',
+                      'stroke_color': '#008800',
+                      }}),
     ], {'map_div_class': 'usermap'})
     return direct_to_template(request, 'show_usermap.html',
                               { 'map': map_,
@@ -614,10 +679,12 @@ def show_usermap(request, userid):
                                 'patrimony_count': lcount_patrimony,
                                 'construction_count': lcount_construction,
                                 'meeting_count': lcount_meeting,
+                                'actor_count': lcount_actor,
                                 'r_location_count': lcount_r,
                                 'r_patrimony_count': lcount_r_patrimony,
                                 'r_construction_count': lcount_r_construction,
                                 'r_meeting_count': lcount_r_meeting,
+                                'r_actor_count': lcount_r_actor,
                                 })
 
 
@@ -636,6 +703,8 @@ def _get_dict_show(request, map_, geodata, edit_func, delete_func,
                 recommendations = profile.r_construction
             elif toggle_rec_func == 'toggle_rec_meeting':
                 recommendations = profile.r_meeting
+            elif toggle_rec_func == 'toggle_rec_actor':
+                recommendations = profile.r_actor
                 if geodata in recommendations.all():
                     return {'map': map_, 'geodata': geodata,
                             'rec_off_geodata': reverse(toggle_rec_func, args=[ident]), }
@@ -708,6 +777,25 @@ def show_meeting(request, ident):
                                              'toggle_rec_meeting', ident))
 
 
+def show_actor(request, ident):
+    """Returns show_actor.html template."""
+    geodata = get_object_or_404(EarthGeoDataActor, pk=ident)
+    map_ = InfoMap([[geodata.geometry,
+                     { 'style': {
+                         'external_graphic': settings.STATIC_URL+"img/actor.png",
+                         'graphic_width': 30,
+                         'graphic_height': 30,
+                         'fill_color': '#00FF00',
+                         'stroke_color': '#008800',
+                         }}]],
+                   { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
+                   )
+    return direct_to_template(request, 'show_actor.html',
+                              _get_dict_show(request, map_, geodata,
+                                             'edit_actor',
+                                             'delete_actor',
+                                             'toggle_rec_actor', ident))
+
 
 error_message = _("Please correct the errors below.")
 
@@ -751,6 +839,11 @@ def add_construction(request):
 @login_required
 def add_meeting(request):
     return _add_builder(request, EarthGeoDataMeeting, EarthGeoDataMeetingForm, 'add_meeting.html')
+
+
+@login_required
+def add_actor(request):
+    return _add_builder(request, EarthGeoDataActor, EarthGeoDataActorForm, 'add_actor.html')
 
 
 
@@ -807,6 +900,12 @@ def edit_meeting(request, ident):
 
 
 @login_required
+def edit_actor(request, ident):
+    return _edit_builder(request, EarthGeoDataActor,
+                         EarthGeoDataActorForm, 'edit_actor.html', ident)
+
+
+@login_required
 def _delete_builder(request, geodatamodel, geodatatemplate, ident):
     geodata = get_object_or_404(geodatamodel, pk=ident)
 
@@ -843,6 +942,11 @@ def delete_construction(request, ident):
 @login_required
 def delete_meeting(request, ident):
     return _delete_builder(request, EarthGeoDataMeeting, 'delete_meeting.html', ident)
+
+
+@login_required
+def delete_actor(request, ident):
+    return _delete_builder(request, EarthGeoDataActor, 'delete_actor.html', ident)
 
 
 @login_required
@@ -900,6 +1004,15 @@ def toggle_rec_meeting(request, ident):
     return _toggle_recommendation(request = request,
                                   geodatamodel = EarthGeoDataMeeting,
                                   profile_r = profile.r_meeting,
+                                  ident = ident)
+
+
+@login_required
+def toggle_rec_actor(request, ident):
+    profile = request.user.get_profile()
+    return _toggle_recommendation(request = request,
+                                  geodatamodel = EarthGeoDataActor,
+                                  profile_r = profile.r_actor,
                                   ident = ident)
 
 

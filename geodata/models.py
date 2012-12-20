@@ -14,17 +14,6 @@ from sorl.thumbnail import ImageField
 from hvad.models import TranslatableModel,TranslatedFields
 
 
-class Book(TranslatableModel):
-    """Test"""
-    isbn = models.CharField(max_length=17)
-    translations = TranslatedFields(
-        description = models.TextField()
-    )
-
-    def __unicode__(self):
-        return self.isbn
-
-
 class EarthTechnique(models.Model):
     """A model for earthbuilding techniques."""
     name = models.CharField(_("name"), max_length=50)
@@ -95,9 +84,23 @@ class EarthGeoDataAbstract(models.Model):
         return self.name
 
 
-class EarthRole(models.Model):
+class EarthRole(TranslatableModel):
     """Actor role"""
-    name = models.CharField(_("name"), max_length=50)
+    #name = models.CharField(_("name"), max_length=50)
+    ident_name = models.CharField(_("Identification name"), max_length=255, unique=True)
+
+    translations = TranslatedFields(
+        name = models.CharField(_("Translated name"), max_length=255, blank=True, null=True)
+    )
+
+    def get_model(self):
+        return EarthRole
+
+    def __unicode__(self):
+        return self.ident_name
+        #return self.lazy_translation_getter('name', self.name)
+        #return str(self.safe_translation_getter('name'))
+        #return str(self.id)
 
 
 class EarthGeoDataActor(EarthGeoDataAbstract):
@@ -105,6 +108,15 @@ class EarthGeoDataActor(EarthGeoDataAbstract):
     role = models.ManyToManyField(EarthRole,
                                         verbose_name=_("role"),
                                         blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("actor")
+        verbose_name_plural = _("actors")
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("show_actor", [self.id])
+
 
 
 class EarthGeoDataPatrimony(EarthGeoDataAbstract):

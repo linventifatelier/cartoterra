@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from userena.models import UserenaBaseProfile
 from django.utils.translation import ugettext_lazy as _
 from geodata.models import EarthGeoDataPatrimony, EarthGeoDataConstruction, \
-     EarthGeoDataMeeting
+     EarthGeoDataMeeting, EarthGeoDataActor
 from django.db.models.signals import post_save
 
 
@@ -26,6 +26,9 @@ class Profile(UserenaBaseProfile):
                                            null=True, blank=True)
     r_meeting = models.ManyToManyField(EarthGeoDataMeeting,
                                        verbose_name=_("meeting recommendations"),
+                                       null=True, blank=True)
+    r_actor = models.ManyToManyField(EarthGeoDataActor,
+                                       verbose_name=_("actor recommendations"),
                                        null=True, blank=True)
 
 

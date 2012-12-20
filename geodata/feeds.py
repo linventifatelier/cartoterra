@@ -80,3 +80,25 @@ class MeetingFeed(Feed):
         return item.description
 
 
+class ActorFeed(Feed):
+    """A feed presenting changes and additions on EarthGeoDataActor."""
+    title = _(settings.SITE_NAME + " actor news.")
+    link = "/"
+    description = _("Updates on changes and additions to actors of " + settings.SITE_NAME + ".")
+
+    feed_type = GeoRSSFeed
+
+    #def item_extra_kwargs(self, item):
+    #    return {'geometry' : self.item_geometry(item)}
+
+    def item_geometry(self, item):
+        return item.geometry
+
+    def items(self):
+        return EarthGeoDataMeeting.objects.order_by('-pub_date')[:20]
+
+    def item_title(self, item):
+        return item.name
+
+    def item_description(self, item):
+        return item.description

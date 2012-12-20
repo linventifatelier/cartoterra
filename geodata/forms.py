@@ -4,7 +4,7 @@
 import floppyforms as forms
 from olwidget.forms import MapModelForm
 from models import EarthGeoDataAbstract, EarthGeoDataMeeting, \
-    EarthGeoDataPatrimony, EarthGeoDataConstruction
+    EarthGeoDataPatrimony, EarthGeoDataConstruction, EarthGeoDataActor
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.fields import DateField
 from sorl.thumbnail import ImageField
@@ -201,5 +201,11 @@ class EarthGeoDataMeetingForm(EarthGeoDataAbstractForm):
     end_date = forms.DateField(widget=DatePicker)
     class Meta:
         model = EarthGeoDataMeeting
+        exclude = ('creator', 'pub_date', )
+
+
+class EarthGeoDataActorForm(EarthGeoDataAbstractForm):
+    class Meta:
+        model = EarthGeoDataActor
         exclude = ('creator', 'pub_date', )
 

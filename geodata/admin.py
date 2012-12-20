@@ -1,8 +1,7 @@
 """Geodata administration interface."""
 from django.contrib.gis import admin
 from olwidget.admin import GeoModelAdmin
-from models import EarthTechnique, EarthGeoDataMeeting, \
-    EarthGeoDataPatrimony, EarthGeoDataConstruction, Book
+from models import *
 from django.conf import settings
 #from stdimage import StdImageField
 from imagewidget import AdminImageWidget
@@ -14,14 +13,6 @@ from forms import EarthGeoDataAbstractForm
 #ADMIN_THUMBS_SIZE = '60x60'
 #from nani import admin
 from hvad import admin as hvadadmin
-
-class BookAdmin(hvadadmin.TranslatableAdmin):
-    """InterestingLocation administration interface."""
-    fieldsets = (
-        ('Book Attributes', {'fields': (('isbn', ))}),
-    )
-
-admin.site.register(Book, BookAdmin)
 
 
 # class MyModelAdmin(admin.ModelAdmin):
@@ -67,6 +58,21 @@ class EarthOSMAdmin(admin.OSMGeoAdmin):
                                                              **kwargs)
 
 
+class EarthRoleAdmin(hvadadmin.TranslatableAdmin):
+#class EarthTechniqueAdmin(MyAdmin):
+    """EarthRole administration interface."""
+    #list_display = ['name']
+    #list_filter = ['name']
+    #search_fields = ['name']
+
+    fieldsets = (
+        #('Roles', {'fields': (('name', ))}),
+        #('Techniques', {'fields': (('name', 'description', 'image', 'url'))}),
+    )
+
+admin.site.register(EarthRole, EarthRoleAdmin)
+
+
 class EarthTechniqueAdmin(admin.ModelAdmin):
 #class EarthTechniqueAdmin(MyAdmin):
 #class EarthTechniqueAdmin(MyModelAdmin):
@@ -100,14 +106,13 @@ admin.site.register(EarthTechnique, EarthTechniqueAdmin)
 #class EarthGeoDataAbstractAdmin(admin.OSMGeoAdmin):
 class EarthGeoDataAbstractAdmin(GeoModelAdmin):
     """EarthGeoData abstract administration interface."""
-    list_display = ('name', 'pub_date', 'creator', 'credit_creator')
-    list_filter = ('name', 'pub_date', 'creator', 'credit_creator')
+    list_display = ('name', 'pub_date', 'creator')
+    list_filter = ('name', 'pub_date', 'creator')
     search_fields = ['creator__username', 'name']
     date_hierarchy = 'pub_date'
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date',
                                              'creator',
-                                             'credit_creator',
                                              'description', 'image',
                                              'url', 'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
@@ -123,6 +128,23 @@ class EarthGeoDataAbstractAdmin(GeoModelAdmin):
     class Meta:
         """Abstract class."""
         abstract = True
+
+
+class EarthGeoDataActorAdmin(EarthGeoDataAbstractAdmin):
+    """EarthGeoDataActor administration interface."""
+    list_display = ('name', 'pub_date', 'creator')
+    list_filter = ('name', 'pub_date', 'creator', 'role')
+    search_fields = ['creator__username', 'name', 'role']
+    date_hierarchy = 'pub_date'
+    fieldsets = (
+        ('Location Attributes', {'fields': (('name', 'pub_date',
+                                             'creator', 'role',
+                                             'description', 'image', 'url',
+                                             'contact'))}),
+        ('Editable Map View', {'fields': ('geometry', )}),
+    )
+
+admin.site.register(EarthGeoDataActor, EarthGeoDataActorAdmin)
 
 
 class EarthGeoDataPatrimonyAdmin(EarthGeoDataAbstractAdmin):
