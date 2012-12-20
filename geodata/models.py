@@ -77,7 +77,6 @@ class EarthGeoDataAbstract(models.Model):
     name = models.CharField(_("name"), max_length=50)
     pub_date = models.DateTimeField(_("creation date"), default=datetime.now())
     creator = models.ForeignKey(User, verbose_name=_("creator"))
-    credit_creator = models.BooleanField(_("credit creator"), default=True)
     description = models.TextField(_("description"), blank=True, null=True)
     image = ImageField(upload_to='img/geodata', blank=True, null=True)
     url = models.URLField(_("website"), blank=True, null=True,
@@ -96,11 +95,24 @@ class EarthGeoDataAbstract(models.Model):
         return self.name
 
 
+class EarthRole(models.Model):
+    """Actor role"""
+    name = models.CharField(_("name"), max_length=50)
+
+
+class EarthGeoDataActor(EarthGeoDataAbstract):
+    """A spatial model for earthbuilding actors."""
+    role = models.ManyToManyField(EarthRole,
+                                        verbose_name=_("role"),
+                                        blank=True, null=True)
+
+
 class EarthGeoDataPatrimony(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
     #architects = models.ManyToManyField(EarthArchitect,
     #                                    verbose_name=_("architects"),
     #                                    blank=True, null=True)
+    credit_creator = models.BooleanField(_("credit creator"), default=True)
     architects = models.TextField(_("architects"), blank=True, null=True)
     techniques = models.ManyToManyField(EarthTechnique,
                                         verbose_name=_("techniques"),
@@ -127,6 +139,7 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
 
 class EarthGeoDataMeeting(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
+    credit_creator = models.BooleanField(_("credit creator"), default=True)
     MEETING_CHOICES = (
         ('S', _("Seminar")),
         ('C', _("Conference")),
@@ -159,6 +172,7 @@ class EarthGeoDataMeeting(EarthGeoDataAbstract):
 
 class EarthGeoDataConstruction(EarthGeoDataAbstract):
     """A spatial model for earthbuilding construction geodata."""
+    credit_creator = models.BooleanField(_("credit creator"), default=True)
     participative = models.BooleanField(_("participative"), default=False)
     techniques = models.ManyToManyField(EarthTechnique,
                                         verbose_name=_("techniques"),

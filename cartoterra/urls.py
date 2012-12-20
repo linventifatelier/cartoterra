@@ -20,7 +20,7 @@ import haystack
 haystack.autodiscover()
 
 urlpatterns = patterns("",
-    url(r'^$', show_bigmap, name="home"),
+    url(r'^$', BigMapView.as_view(), name="home"),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     #url(r'^my_admin/jsi18n', include('django.views.i18n.null_javascript_catalog')),
     url(r"^geodata/", include("geodata.urls")),

@@ -20,6 +20,7 @@ from django.utils.encoding import force_unicode
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
+from django.views.generic import TemplateView, ListView
 
 
 
@@ -55,301 +56,417 @@ def _info_builder(geodataobjects, style = {}):
     return info
 
 
-def show_patrimony_contemporary(_):
+class PatrimonyContemporaryView(TemplateView):
     """Returns a template to present contemporary patrimonies."""
-    geodata_list = EarthGeoDataPatrimony.objects.filter(
-        inauguration_date__gte = datetime.now() - timedelta(days=3650))
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Patrimonies",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_patrimony_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_ })
+    template_name = 'show_patrimony_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PatrimonyContemporaryView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataPatrimony.objects.filter(
+            inauguration_date__gte = datetime.now() - timedelta(days=3650))
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Patrimonies",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_patrimony_unesco(_):
+class PatrimonyUnescoView(TemplateView):
     """Returns a template to present unesco patrimonies."""
-    geodata_list = EarthGeoDataPatrimony.objects.filter(unesco = True)
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Patrimonies",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_patrimony_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_ })
+    template_name = 'show_patrimony_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PatrimonyUnescoView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataPatrimony.objects.filter(unesco = True)
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Patrimonies",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_patrimony_vernacular(_):
+class PatrimonyVernacularView(TemplateView):
     """Returns a template to present vernacular patrimonies."""
-    geodata_list = EarthGeoDataPatrimony.objects.filter(architects__isnull = True)
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Patrimonies",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_patrimony_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_ })
+    template_name = 'show_patrimony_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PatrimonyVernacularView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataPatrimony.objects.filter(architects__isnull = True)
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Patrimonies",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_patrimony_normal(_):
+class PatrimonyNormalView(TemplateView):
     """Returns a template to present normal patrimonies."""
-    geodata_list = EarthGeoDataPatrimony.objects.filter(
-        Q(architects__isnull = False) & Q(unesco = False) &
-        (Q(inauguration_date__isnull = True) |
-         ~Q(inauguration_date__gte = datetime.now() - timedelta(days=3650))))
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Patrimonies",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_patrimony_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_ })
+    template_name = 'show_patrimony_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PatrimonyNormalView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataPatrimony.objects.filter(
+            Q(architects__isnull = False) & Q(unesco = False) &
+            (Q(inauguration_date__isnull = True) |
+             ~Q(inauguration_date__gte = datetime.now() - timedelta(days=3650))))
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Patrimonies",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_patrimony_all(_):
+class PatrimonyAllView(TemplateView):
     """Returns a template to present all patrimonies."""
-    geodata_list = EarthGeoDataPatrimony.objects.all()
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Patrimonies",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_patrimony_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_ })
+    template_name = 'show_patrimony_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PatrimonyAllView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataPatrimony.objects.all()
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Patrimonies",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_construction_participative(_):
+class ConstructionParticipativeView(TemplateView):
     """Returns a template to present participative constructions."""
-    geodata_list = EarthGeoDataConstruction.objects.filter(participative = True)
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Constructions",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/construction.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_construction_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_})
+    template_name = 'show_construction_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ConstructionParticipativeView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataConstruction.objects.filter(participative = True)
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Constructions",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/construction.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_construction_normal(_):
-    """Returns a template to present participative constructions."""
-    geodata_list = EarthGeoDataConstruction.objects.filter(participative = False)
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Constructions",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/construction.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_construction_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_})
+class ConstructionNormalView(TemplateView):
+    """Returns a template to present normal constructions."""
+    template_name = 'show_construction_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ConstructionNormalView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataConstruction.objects.filter(participative = False)
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Constructions",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/construction.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_construction_all(_):
+class ConstructionAllView(TemplateView):
     """Returns a template to present all constructions."""
-    geodata_list = EarthGeoDataConstruction.objects.all()
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Constructions",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/construction.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_construction_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_})
+    template_name = 'show_construction_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ConstructionAllView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataConstruction.objects.all()
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Constructions",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/construction.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_meeting_seminar(_):
+class MeetingSeminarView(TemplateView):
     """Returns a template to present seminar meetings."""
-    geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='S')
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Meetings",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_meeting_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_})
+    template_name = 'show_meeting_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(MeetingSeminarView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='S')
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Meetings",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_meeting_colloquium(_):
+class MeetingColloquiumView(TemplateView):
     """Returns a template to present colloquium meetings."""
-    geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='Q')
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Meetings",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_meeting_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_})
+    template_name = 'show_meeting_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(MeetingColloquiumView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='Q')
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Meetings",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_meeting_conference(_):
+class MeetingConferenceView(TemplateView):
     """Returns a template to present conference meetings."""
-    geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='C')
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Meetings",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_meeting_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_})
+    template_name = 'show_meeting_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(MeetingConferenceView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='C')
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Meetings",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_meeting_festival(_):
+class MeetingFestivalView(TemplateView):
     """Returns a template to present festival meetings."""
-    geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='F')
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Meetings",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_meeting_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_})
+    template_name = 'show_meeting_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(MeetingFestivalView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='F')
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Meetings",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_meeting_all(_):
+class MeetingAllView(TemplateView):
     """Returns a template to present all meetings."""
-    geodata_list = EarthGeoDataMeeting.objects.all()
-    map_ = InfoMap(_info_builder(geodata_list),
-                   {'name': "Meetings",
-                    'overlay_style': {
-                        'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                        'graphic_width': 20,
-                        'graphic_height': 20,
-                        'fill_color': '#00FF00',
-                        'stroke_color': '#008800',
-                        },
-                    'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                    })
-    return direct_to_template(_, 'show_meeting_all.html',
-                              {'geodata_list': geodata_list,
-                               'map': map_})
+    template_name = 'show_meeting_all.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(MeetingAllView, self).get_context_data(**kwargs)
+
+        geodata_list = EarthGeoDataMeeting.objects.all()
+        map_ = InfoMap(_info_builder(geodata_list),
+                       {'name': "Meetings",
+                        'overlay_style': {
+                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                            'graphic_width': 20,
+                            'graphic_height': 20,
+                            'fill_color': '#00FF00',
+                            'stroke_color': '#008800',
+                            },
+                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
+                        })
+
+        # Add in a QuerySet of all the books
+        context['geodata_list'] = geodata_list
+        context['map'] = map_
+        return context
 
 
-def show_bigmap(request):
+class BigMapView(TemplateView):
     """Returns a big Map with all geodatas."""
-    patrimony = EarthGeoDataPatrimony.objects.all()
-    construction = EarthGeoDataConstruction.objects.all()
-    meeting = EarthGeoDataMeeting.objects.all()
-    lcount_patrimony = patrimony.count()
-    lcount_construction = construction.count()
-    lcount_meeting = meeting.count()
-    lcount = lcount_patrimony + lcount_construction + lcount_meeting
+    __name__ = 'show_bigmap'
 
-    map_ = Map([
-       InfoLayer(_info_builder(patrimony),
-                 {'name': "Patrimonies",
-                  'overlay_style': {
-                      'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                      'graphic_width': 20,
-                      'graphic_height': 20,
-                      'fill_color': '#00FF00',
-                      'stroke_color': '#008800',
-                      }}),
-       InfoLayer(_info_builder(construction),
-                 {'name': "Constructions",
-                  'overlay_style': {
-                      'external_graphic': settings.STATIC_URL+"img/construction.png",
-                      'graphic_width': 20,
-                      'graphic_height': 20,
-                      'fill_color': '#00FF00',
-                      'stroke_color': '#008800',
-                      }}),
-       InfoLayer(_info_builder(meeting),
-                 {'name': "Meetings",
-                  'overlay_style': {
-                      'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                      'graphic_width': 20,
-                      'graphic_height': 20,
-                      'fill_color': '#00FF00',
-                      'stroke_color': '#008800',
-                      }}),
-    ], {'map_div_class': 'bigmap', 'map_div_style': {'width': '600px', 'height': '400px'}})
-    return direct_to_template(request, 'show_bigmap.html',
-                              { 'map': map_, 'location_count': lcount,
-                                'patrimony_count': lcount_patrimony,
-                                'construction_count': lcount_construction,
-                                'meeting_count': lcount_meeting,})
+    template_name = 'show_bigmap.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(BigMapView, self).get_context_data(**kwargs)
+
+        patrimony = EarthGeoDataPatrimony.objects.all()
+        construction = EarthGeoDataConstruction.objects.all()
+        meeting = EarthGeoDataMeeting.objects.all()
+        lcount_patrimony = patrimony.count()
+        lcount_construction = construction.count()
+        lcount_meeting = meeting.count()
+        lcount = lcount_patrimony + lcount_construction + lcount_meeting
+
+        map_ = Map([
+           InfoLayer(_info_builder(patrimony),
+                     {'name': "Patrimonies",
+                      'overlay_style': {
+                          'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                          'graphic_width': 20,
+                          'graphic_height': 20,
+                          'fill_color': '#00FF00',
+                          'stroke_color': '#008800',
+                          }}),
+           InfoLayer(_info_builder(construction),
+                     {'name': "Constructions",
+                      'overlay_style': {
+                          'external_graphic': settings.STATIC_URL+"img/construction.png",
+                          'graphic_width': 20,
+                          'graphic_height': 20,
+                          'fill_color': '#00FF00',
+                          'stroke_color': '#008800',
+                          }}),
+           InfoLayer(_info_builder(meeting),
+                     {'name': "Meetings",
+                      'overlay_style': {
+                          'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                          'graphic_width': 20,
+                          'graphic_height': 20,
+                          'fill_color': '#00FF00',
+                          'stroke_color': '#008800',
+                          }}),
+        ], {'map_div_class': 'bigmap', 'map_div_style': {'width': '600px', 'height': '400px'}})
+
+        # Add in a QuerySet of all the books
+        context['map'] = map_
+        context['location_count'] = lcount
+        context['patrimony_count'] = lcount_patrimony
+        context['construction_count'] = lcount_construction
+        context['meeting_count'] = lcount_meeting
+        return context
+
 
 def get_profilemap(profile):
     user_ = profile.user
