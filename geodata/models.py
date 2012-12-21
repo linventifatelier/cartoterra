@@ -132,6 +132,9 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
     unesco = models.BooleanField(_("unesco"), default=False)
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
+    actor = models.ManyToManyField(EarthGeoDataActor,
+                                        verbose_name=_("actor"),
+                                        blank=True, null=True)
 
     class Meta:
         verbose_name = _("patrimony")
@@ -165,6 +168,9 @@ class EarthGeoDataMeeting(EarthGeoDataAbstract):
     beginning_date = models.DateField(_("beginning date"),
                                       default=date.today())
     end_date = models.DateField(_("end date"), default=date.today())
+    actor = models.ManyToManyField(EarthGeoDataActor,
+                                        verbose_name=_("actor"),
+                                        blank=True, null=True)
 
     class Meta:
         verbose_name = _("meeting")
@@ -191,6 +197,9 @@ class EarthGeoDataConstruction(EarthGeoDataAbstract):
                                         blank=True, null=True)
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
+    actor = models.ManyToManyField(EarthGeoDataActor,
+                                        verbose_name=_("actor"),
+                                        blank=True, null=True)
 
     class Meta:
         verbose_name = _("construction")

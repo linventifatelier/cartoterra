@@ -151,14 +151,14 @@ class EarthGeoDataPatrimonyAdmin(EarthGeoDataAbstractAdmin):
     """EarthGeoDataPatrimony administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator', 'unesco')
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
-                   'inauguration_date', 'architects', 'techniques', 'unesco')
-    search_fields = ['creator__username', 'name', 'techniques', 'architects']
+                   'inauguration_date', 'architects', 'techniques', 'unesco', 'actor')
+    search_fields = ['creator__username', 'name', 'techniques', 'architects', 'actor']
     date_hierarchy = 'pub_date'
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date',
                                              'inauguration_date', 'creator',
                                              'credit_creator', 'architects',
-                                             'techniques', 'unesco',
+                                             'techniques', 'actor', 'unesco',
                                              'description', 'image', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
@@ -172,13 +172,13 @@ class EarthGeoDataMeetingAdmin(EarthGeoDataAbstractAdmin):
     list_display = ('name', 'pub_date', 'creator', 'credit_creator',
                     'meeting_type', 'beginning_date', 'end_date', )
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
-                   'meeting_type', 'beginning_date', 'end_date', )
-    search_fields = ['creator__username', 'name', 'meeting_type']
+                   'meeting_type', 'beginning_date', 'end_date', 'actor')
+    search_fields = ['creator__username', 'name', 'meeting_type', 'actor']
     date_hierarchy = 'beginning_date'
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'meeting_type', 'pub_date',
                                              'beginning_date', 'end_date',
-                                             'creator', 'credit_creator',
+                                             'creator', 'credit_creator', 'actor',
                                              'description', 'image', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
@@ -192,12 +192,12 @@ class EarthGeoDataConstructionAdmin(EarthGeoDataAbstractAdmin):
     list_display = ('name', 'pub_date', 'creator', 'credit_creator',
                     'participative', )
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
-                   'participative', 'inauguration_date', 'techniques', )
-    search_fields = ['creator__username', 'name', 'techniques']
+                   'participative', 'inauguration_date', 'techniques', 'actor')
+    search_fields = ['creator__username', 'name', 'techniques', 'actor']
     date_hierarchy = 'pub_date'
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date', 'creator',
-                                             'credit_creator', 'participative',
+                                             'credit_creator', 'actor', 'participative',
                                              'techniques', 'description',
                                              'image', 'url', 'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
