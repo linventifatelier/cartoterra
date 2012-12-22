@@ -124,7 +124,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.contrib.messages.context_processors.messages",
     "pinax_utils.context_processors.settings",
     "account.context_processors.account",
-    "announcements.context_processors.site_wide_announcements",
+    #"announcements.context_processors.site_wide_announcements",
 ]
 
 
@@ -167,6 +167,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.humanize",
     "django.contrib.staticfiles",
+    "django.contrib.markup",
 
     "django.contrib.gis",
     "south",
@@ -182,6 +183,7 @@ INSTALLED_APPS = [
     "olwidget",
     "rosetta",
     "hvad",
+    "knowledge",
 
     # theme
     "pinax_theme_bootstrap_account",
@@ -297,6 +299,14 @@ ROSETTA_MESSAGES_PER_PAGE = 20
 ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
 ROSETTA_MESSAGES_SOURCE_LANGUAGE_CODE = 'en'
 ROSETTA_MESSAGES_SOURCE_LANGUAGE_NAME = 'English'
+
+
+KNOWLEDGE_ALLOW_ANONYMOUS = False
+KNOWLEDGE_LOGIN_REQUIRED = False
+KNOWLEDGE_AUTO_PUBLICIZE = False
+KNOWLEDGE_FREE_RESPONSE = True
+KNOWLEDGE_SLUG_URLS = True
+KNOWLEDGE_ALERTS = False
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

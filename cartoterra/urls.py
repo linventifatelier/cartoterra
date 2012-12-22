@@ -27,6 +27,7 @@ urlpatterns = patterns("",
     url(r"^admin/", include(admin.site.urls)),
 
     url(r"^account/", include("account.urls")),
+    url(r'^knowledge/', include('knowledge.urls')),
     #url(r"^profiles/profile/(?P<username>[\w\._-]+)/$",
     #    ProfileDetailView.as_view(), name="profile_detail"),
     #url(r"^profiles/(?P<profile_slug>[\w\._-]+)/profile/(?P<profile_pk>\d+)/$",

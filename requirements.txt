@@ -1,14 +1,14 @@
 --extra-index-url=http://dist.pinaxproject.com/dev/
 --extra-index-url=http://dist.pinaxproject.com/alpha/
 
-Django==1.4.2
-pinax-theme-bootstrap==2.2.1
-pinax-theme-bootstrap-account==1.0b2
-django-user-accounts==1.0b7
-django-forms-bootstrap==2.0.3.post1
-metron==1.0
-pinax-utils==1.0b1.dev3
-django-debug-toolbar==0.8.5
+Django
+pinax-theme-bootstrap
+pinax-theme-bootstrap-account
+django-user-accounts
+django-forms-bootstrap
+metron
+pinax-utils
+django-debug-toolbar
 pytz
 django-openid
 python-openid
@@ -35,3 +35,5 @@ django-floppyforms
 django-rosetta
 gevent
 eventlet
+Markdown
+django-knowledge
