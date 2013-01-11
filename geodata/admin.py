@@ -1,6 +1,7 @@
 """Geodata administration interface."""
 from django.contrib.gis import admin
-from olwidget.admin import GeoModelAdmin
+#from olwidget.admin import GeoModelAdmin
+#from olwidget.admin import GeoModelAdmin
 from models import *
 from django.conf import settings
 #from stdimage import StdImageField
@@ -48,14 +49,15 @@ class EarthAdmin(admin.ModelAdmin):
 class EarthOSMAdmin(admin.OSMGeoAdmin):
     """Modified admin.OSMGeoAdmin (include special AdminImageWidget for the
     image field). TODO: does not work."""
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        if db_field.name == 'image':
-            #request = kwargs.pop("request", None)
-            _request = kwargs.pop("request", None)
-            kwargs['widget'] = AdminImageWidget
-            return db_field.formfield(**kwargs)
-        return super(EarthOSMAdmin, self).formfield_for_dbfield(db_field,
-                                                             **kwargs)
+    #def formfield_for_dbfield(self, db_field, **kwargs):
+    #    if db_field.name == 'image':
+    #        #request = kwargs.pop("request", None)
+    #        _request = kwargs.pop("request", None)
+    #        kwargs['widget'] = AdminImageWidget
+    #        return db_field.formfield(**kwargs)
+    #    return super(EarthOSMAdmin, self).formfield_for_dbfield(db_field,
+    #                                                         **kwargs)
+    openlayers_url='openlayers/OpenLayers.js'
 
 
 class EarthRoleAdmin(hvadadmin.TranslatableAdmin):
@@ -104,7 +106,8 @@ admin.site.register(EarthTechnique, EarthTechniqueAdmin)
 
 #class EarthGeoDataAbstractAdmin(MyOSMAdmin):
 #class EarthGeoDataAbstractAdmin(admin.OSMGeoAdmin):
-class EarthGeoDataAbstractAdmin(GeoModelAdmin):
+#class EarthGeoDataAbstractAdmin(GeoModelAdmin):
+class EarthGeoDataAbstractAdmin(EarthOSMAdmin):
     """EarthGeoData abstract administration interface."""
     list_display = ('name', 'pub_date', 'creator')
     list_filter = ('name', 'pub_date', 'creator')

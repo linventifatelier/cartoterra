@@ -20,9 +20,9 @@
     <form class="form-stacked" enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
       {% for field in form %}
         {% if field.errors %}
-        <fieldset class="control-group error">
+      <fieldset class="control-group error">
         {% else %}
-        <fieldset class="control-group">
+      <fieldset class="control-group">
         {% endif %}
 
         <label class="control-label">{{ field.label_tag }}</label>

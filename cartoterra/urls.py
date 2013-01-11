@@ -19,6 +19,11 @@ from profiles.views import *
 import haystack
 haystack.autodiscover()
 
+
+from dajaxice.core import dajaxice_autodiscover, dajaxice_config
+dajaxice_autodiscover()
+
+
 urlpatterns = patterns("",
     url(r'^$', BigMapView.as_view(), name="home"),
     url(r'^i18n/', include('django.conf.urls.i18n')),
@@ -40,6 +45,7 @@ urlpatterns = patterns("",
                            view_class=SearchView,
                            form_class=ModelSearchForm,
     ), name="searchbis"),
+    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

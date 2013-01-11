@@ -33,6 +33,11 @@ DATABASES = {
     }
 }
 
+
+# debug_toolbar
+INTERNAL_IPS = ('127.0.0.1',)
+
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -102,15 +107,19 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 #    "django.contrib.staticfiles.finders.LegacyAppDirectoriesFinder",
     "compressor.finders.CompressorFinder",
+    "dajaxice.finders.DajaxiceFinder",
 ]
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = "#hvb$153ul8f%9xx3n4)fx9@*^i)1zk*9nw(0#k_wrevkksg32"
+# You can create a new key with:
+# python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])'
+SECRET_KEY = "CHANGE_THIS_TO_SOMETHING_RANDOM_AND_SECRET"
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = [
     "django.template.loaders.filesystem.Loader",
     "django.template.loaders.app_directories.Loader",
+    "django.template.loaders.eggs.Loader",
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = [
@@ -170,6 +179,8 @@ INSTALLED_APPS = [
     "django.contrib.markup",
 
     "django.contrib.gis",
+    "dajaxice",
+    "dajax",
     "south",
     "sorl.thumbnail",
     "urli18n",
@@ -307,6 +318,11 @@ KNOWLEDGE_AUTO_PUBLICIZE = False
 KNOWLEDGE_FREE_RESPONSE = True
 KNOWLEDGE_SLUG_URLS = True
 KNOWLEDGE_ALERTS = False
+
+
+GEODATA_NOMINATIM_EMAIL = "linventifatelier@gueux.org"
+GEODATA_NOMINATIM_SEARCH = 'http://nominatim.openstreetmap.org/search?%s'
+GEODATA_NOMINATIM_REVERSE = 'http://nominatim.openstreetmap.org/reverse?%s'
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
