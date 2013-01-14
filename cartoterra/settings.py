@@ -34,8 +34,6 @@ DATABASES = {
 }
 
 
-# debug_toolbar
-INTERNAL_IPS = ('127.0.0.1',)
 
 
 # Local time zone for this installation. Choices can be found here:
@@ -144,7 +142,6 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     #"django_openid.consumer.SessionConsumer",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
     #"django.middleware.locale.LocaleMiddleware",
     "urli18n.middleware.UrlQuerystringTransformMiddleware",
 ]
@@ -204,7 +201,6 @@ INSTALLED_APPS = [
     # external
     "account",
     "compressor",
-    "debug_toolbar",
     "metron",
 
     # project
@@ -283,10 +279,6 @@ CONTACT_EMAIL = "linventifatelier@gueux.org"
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
-
-DEBUG_TOOLBAR_CONFIG = {
-    "INTERCEPT_REDIRECTS": False,
-}
 
 OPENLAYERS = posixpath.join(STATIC_URL, "js/openlayers/OpenLayers.js")
 
