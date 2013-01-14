@@ -3,6 +3,7 @@
 {% load metron_tags %}
 {% load i18n %}
 {% load static from staticfiles %}
+{% load url from future %}
 
 {% block extra_head_base %}
     {% block extra_head %}{% endblock %}
@@ -12,6 +13,9 @@
 <link rel="stylesheet" href="{% static "css/extra.css" %}">
 <link rel="stylesheet" href="{% static "css/site_tabs.css" %}">
 {% endblock %}
+
+
+{% block site_brand %}<a class="brand" href="{% url "home" %}"><img style="border-width:0" src="{% static "img/cartoterra.png" %}" /></a>{% endblock %}
 
 {% comment %}
 <div id='langbar' style='text-align:right;padding-top:5px;'>
