@@ -144,6 +144,8 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.messages.middleware.MessageMiddleware",
     #"django.middleware.locale.LocaleMiddleware",
     "urli18n.middleware.UrlQuerystringTransformMiddleware",
+    "account.middleware.LocaleMiddleware",
+    "account.middleware.TimezoneMiddleware",
 ]
 
 URLI18N_INCLUDE_PATHS = [
@@ -181,8 +183,7 @@ INSTALLED_APPS = [
     "south",
     "sorl.thumbnail",
     "urli18n",
-    "userena",
-    "guardian",
+    #"guardian",
     "easy_thumbnails",
     #"admin_langswitch",
     #"django_evolution",
@@ -204,9 +205,9 @@ INSTALLED_APPS = [
     "metron",
 
     # project
-    "cartoterra",
     "geodata",
     "profiles",
+    "cartoterra",
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -252,8 +253,7 @@ ABSOLUTE_URL_OVERRIDES = {
 
 
 AUTHENTICATION_BACKENDS = (
-    'userena.backends.UserenaAuthenticationBackend',
-    'guardian.backends.ObjectPermissionBackend',
+    #'guardian.backends.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -262,8 +262,10 @@ ANONYMOUS_USER_ID = -1
 
 AUTH_PROFILE_MODULE = "profiles.Profile"
 LOGIN_REDIRECT_URL = '/profiles/%(username)s/'
-LOGIN_URL = '/profiles/signin/'
-LOGOUT_URL = '/profiles/signout/'
+#LOGIN_URL = '/profiles/signin/'
+LOGIN_URL = 'account/login.html'
+#LOGOUT_URL = '/profiles/signout/'
+LOGOUT_URL = 'account/logout.html'
 #NOTIFICATION_LANGUAGE_MODULE = "account.Account"
 
 ACCOUNT_OPEN_SIGNUP = True

@@ -14,7 +14,6 @@ django-openid
 python-openid
 django-compressor
 django-announcements
-django-userena
 
 pip
 virtualenv

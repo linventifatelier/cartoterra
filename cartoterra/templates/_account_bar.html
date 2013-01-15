@@ -9,9 +9,8 @@
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="{% url userena_profile_detail user.username %}"><i class="icon-user"></i> {% trans "My profile" %}</a></li>
+                <li><a href="{% url profile_detail user.username %}"><i class="icon-user"></i> {% trans "My profile" %}</a></li>
                 <li><a href="{% url account_settings %}"><i class="icon-wrench"></i> Settings</a></li>
-                <li><a href="{% url userena_profile_edit user.username %}"><i class="icon-wrench"></i> {% trans "Account settings" %}</a></li>
                 {% if user.is_superuser or user|in_group:"translators" %}
                     <li><a href="{% url rosetta-home %}"><i class="icon-flag"></i> {% trans "Translator" %}</a></li>
                 {% endif %}
