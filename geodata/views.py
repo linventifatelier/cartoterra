@@ -9,10 +9,10 @@ from forms import EarthGeoDataPatrimonyForm, EarthGeoDataConstructionForm,\
      EarthGeoDataMeetingForm, EarthGeoDataActorForm
 from olwidget.widgets import InfoMap, Map, InfoLayer
 from sorl.thumbnail import get_thumbnail
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import datetime, timedelta
 from django.contrib import messages
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.contrib.auth.models import User
 from profiles.models import Profile
 from django.conf import settings
@@ -20,7 +20,12 @@ from django.utils.encoding import force_unicode
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
+from django.utils import simplejson
+from django.views.generic.detail import BaseDetailView, \
+    SingleObjectTemplateResponseMixin
+from django.utils.decorators import method_decorator
+
 
 
 
@@ -56,19 +61,20 @@ def _info_builder(geodataobjects, style = {}):
     return info
 
 
-class ActorAllView(TemplateView):
-    """Returns a template to present all meetings."""
-    template_name = 'show_actor_all.html'
+class PatrimonyListView(ListView):
+    """Returns a template to present all patrimonies."""
+    model = EarthGeoDataPatrimony
+    context_object_name = 'geodata'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super(ActorAllView, self).get_context_data(**kwargs)
+        context = super(PatrimonyListView, self).get_context_data(**kwargs)
 
-        geodata_list = EarthGeoDataActor.objects.all()
+        geodata_list = EarthGeoDataPatrimony.objects.all()
         map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Actors",
+                       {'name': "Patrimonies",
                         'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/actor.png",
+                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
                             'graphic_width': 20,
                             'graphic_height': 20,
                             'fill_color': '#00FF00',
@@ -82,7 +88,7 @@ class ActorAllView(TemplateView):
         return context
 
 
-class PatrimonyContemporaryView(TemplateView):
+class PatrimonyContemporaryView(PatrimonyListView):
     """Returns a template to present contemporary patrimonies."""
     template_name = 'show_patrimony_all.html'
 
@@ -109,7 +115,7 @@ class PatrimonyContemporaryView(TemplateView):
         return context
 
 
-class PatrimonyUnescoView(TemplateView):
+class PatrimonyUnescoView(PatrimonyListView):
     """Returns a template to present unesco patrimonies."""
     template_name = 'show_patrimony_all.html'
 
@@ -135,7 +141,7 @@ class PatrimonyUnescoView(TemplateView):
         return context
 
 
-class PatrimonyVernacularView(TemplateView):
+class PatrimonyVernacularView(PatrimonyListView):
     """Returns a template to present vernacular patrimonies."""
     template_name = 'show_patrimony_all.html'
 
@@ -161,7 +167,7 @@ class PatrimonyVernacularView(TemplateView):
         return context
 
 
-class PatrimonyNormalView(TemplateView):
+class PatrimonyNormalView(PatrimonyListView):
     """Returns a template to present normal patrimonies."""
     template_name = 'show_patrimony_all.html'
 
@@ -190,19 +196,20 @@ class PatrimonyNormalView(TemplateView):
         return context
 
 
-class PatrimonyAllView(TemplateView):
-    """Returns a template to present all patrimonies."""
-    template_name = 'show_patrimony_all.html'
+class ConstructionListView(ListView):
+    """Returns a template to present all constructions."""
+    model = EarthGeoDataConstruction
+    context_object_name = 'geodata'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super(PatrimonyAllView, self).get_context_data(**kwargs)
+        context = super(ConstructionListView, self).get_context_data(**kwargs)
 
-        geodata_list = EarthGeoDataPatrimony.objects.all()
+        geodata_list = EarthGeoDataConstruction.objects.all()
         map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Patrimonies",
+                       {'name': "Constructions",
                         'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                            'external_graphic': settings.STATIC_URL+"img/construction.png",
                             'graphic_width': 20,
                             'graphic_height': 20,
                             'fill_color': '#00FF00',
@@ -216,9 +223,8 @@ class PatrimonyAllView(TemplateView):
         return context
 
 
-class ConstructionParticipativeView(TemplateView):
+class ConstructionParticipativeView(ConstructionListView):
     """Returns a template to present participative constructions."""
-    template_name = 'show_construction_all.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -242,7 +248,7 @@ class ConstructionParticipativeView(TemplateView):
         return context
 
 
-class ConstructionNormalView(TemplateView):
+class ConstructionNormalView(ConstructionListView):
     """Returns a template to present normal constructions."""
     template_name = 'show_construction_all.html'
 
@@ -268,19 +274,20 @@ class ConstructionNormalView(TemplateView):
         return context
 
 
-class ConstructionAllView(TemplateView):
-    """Returns a template to present all constructions."""
-    template_name = 'show_construction_all.html'
+class MeetingListView(ListView):
+    """Returns a template to present all meetings."""
+    model = EarthGeoDataMeeting
+    context_object_name = 'geodata'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super(ConstructionAllView, self).get_context_data(**kwargs)
+        context = super(MeetingListView, self).get_context_data(**kwargs)
 
-        geodata_list = EarthGeoDataConstruction.objects.all()
+        geodata_list = EarthGeoDataMeeting.objects.all()
         map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Constructions",
+                       {'name': "Meetings",
                         'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/construction.png",
+                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
                             'graphic_width': 20,
                             'graphic_height': 20,
                             'fill_color': '#00FF00',
@@ -294,9 +301,8 @@ class ConstructionAllView(TemplateView):
         return context
 
 
-class MeetingSeminarView(TemplateView):
+class MeetingSeminarView(MeetingListView):
     """Returns a template to present seminar meetings."""
-    template_name = 'show_meeting_all.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -320,9 +326,8 @@ class MeetingSeminarView(TemplateView):
         return context
 
 
-class MeetingColloquiumView(TemplateView):
+class MeetingColloquiumView(MeetingListView):
     """Returns a template to present colloquium meetings."""
-    template_name = 'show_meeting_all.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -346,9 +351,8 @@ class MeetingColloquiumView(TemplateView):
         return context
 
 
-class MeetingConferenceView(TemplateView):
+class MeetingConferenceView(MeetingListView):
     """Returns a template to present conference meetings."""
-    template_name = 'show_meeting_all.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -398,19 +402,20 @@ class MeetingFestivalView(TemplateView):
         return context
 
 
-class MeetingAllView(TemplateView):
+class ActorListView(ListView):
     """Returns a template to present all meetings."""
-    template_name = 'show_meeting_all.html'
+    model = EarthGeoDataActor
+    context_object_name = 'geodata'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super(MeetingAllView, self).get_context_data(**kwargs)
+        context = super(ActorListView, self).get_context_data(**kwargs)
 
-        geodata_list = EarthGeoDataMeeting.objects.all()
+        geodata_list = EarthGeoDataActor.objects.all()
         map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Meetings",
+                       {'name': "Actors",
                         'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                            'external_graphic': settings.STATIC_URL+"img/actor.png",
                             'graphic_width': 20,
                             'graphic_height': 20,
                             'fill_color': '#00FF00',
@@ -689,7 +694,7 @@ def show_usermap(request, userid):
 
 
 def _get_dict_show(request, map_, geodata, edit_func, delete_func,
-                   toggle_rec_func, ident):
+                   toggle_rec_func, pk):
     user = request.user
     if isinstance(user, AnonymousUser):
         return {'map': map_, 'geodata': geodata, }
@@ -707,94 +712,108 @@ def _get_dict_show(request, map_, geodata, edit_func, delete_func,
                 recommendations = profile.r_actor
                 if geodata in recommendations.all():
                     return {'map': map_, 'geodata': geodata,
-                            'rec_off_geodata': reverse(toggle_rec_func, args=[ident]), }
+                            'rec_off_geodata': reverse(toggle_rec_func, args=[pk]), }
                 else:
                     return {'map': map_, 'geodata': geodata,
-                            'rec_on_geodata': reverse(toggle_rec_func, args=[ident]), }
+                            'rec_on_geodata': reverse(toggle_rec_func, args=[pk]), }
         else:
             return {'map': map_, 'geodata': geodata,
-                    'edit_geodata': reverse(edit_func, args=[ident]),
-                    'delete_geodata': reverse(delete_func, args=[ident]),}
+                    'edit_geodata': reverse(edit_func, args=[pk]),
+                    'delete_geodata': reverse(delete_func, args=[pk]),}
 
 
-def show_patrimony(request, ident):
-    """Returns show_patrimony.html template."""
-    geodata = get_object_or_404(EarthGeoDataPatrimony, pk=ident)
-    map_ = InfoMap([[geodata.geometry,
-                     { 'style': {
-                         'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                         'graphic_width': 30,
-                         'graphic_height': 30,
-                         'fill_color': '#00FF00',
-                         'stroke_color': '#008800',
-                         }}]],
-                   { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
-                   )
-    return direct_to_template(request, 'show_patrimony.html',
-                              _get_dict_show(request, map_, geodata,
-                                             'edit_patrimony',
-                                             'delete_patrimony',
-                                             'toggle_rec_patrimony', ident,))
+class PatrimonyDetail(DetailView):
+    model = EarthGeoDataPatrimony
+    context_object_name = 'geodata'
+    
+    def get_context_data(self, **kwargs):
+        context = super(PatrimonyDetail, self).get_context_data(**kwargs)
+
+        geodata = get_object_or_404(EarthGeoDataPatrimony, pk=self.kwargs['pk'])
+        map_ = InfoMap([[geodata.geometry,
+                         { 'style': {
+                             'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+                             'graphic_width': 30,
+                             'graphic_height': 30,
+                             'fill_color': '#00FF00',
+                             'stroke_color': '#008800',
+                             }}]],
+                       { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
+                       )
+        dict_show = _get_dict_show(self.request, map_, geodata, 'edit_patrimony', 'delete_patrimony', 'toggle_rec_patrimony', pk=self.kwargs['pk'])
+        context.update(dict_show)
+        return context
+    
+
+class ConstructionDetail(DetailView):
+    model = EarthGeoDataConstruction
+    context_object_name = 'geodata'
+    
+    def get_context_data(self, **kwargs):
+        context = super(ConstructionDetail, self).get_context_data(**kwargs)
+
+        geodata = get_object_or_404(EarthGeoDataConstruction, pk=self.kwargs['pk'])
+        map_ = InfoMap([[geodata.geometry,
+                         { 'style': {
+                             'external_graphic': settings.STATIC_URL+"img/construction.png",
+                             'graphic_width': 30,
+                             'graphic_height': 30,
+                             'fill_color': '#00FF00',
+                             'stroke_color': '#008800',
+                             }}]],
+                       { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
+                       )
+        dict_show = _get_dict_show(self.request, map_, geodata, 'edit_construction', 'delete_construction', 'toggle_rec_construction', pk=self.kwargs['pk'])
+        context.update(dict_show)
+        return context
 
 
-def show_construction(request, ident):
-    """Returns show_construction.html template."""
-    geodata = get_object_or_404(EarthGeoDataConstruction, pk=ident)
-    map_ = InfoMap([[geodata.geometry,
-                     { 'style': {
-                         'external_graphic': settings.STATIC_URL+"img/construction.png",
-                         'graphic_width': 30,
-                         'graphic_height': 30,
-                         'fill_color': '#00FF00',
-                         'stroke_color': '#008800',
-                         }}]],
-                   { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
-                   )
-    return direct_to_template(request, 'show_construction.html',
-                              _get_dict_show(request, map_, geodata,
-                                             'edit_construction',
-                                             'delete_construction',
-                                             'toggle_rec_construction', ident))
+
+class MeetingDetail(DetailView):
+    model = EarthGeoDataMeeting
+    context_object_name = 'geodata'
+    
+    def get_context_data(self, **kwargs):
+        context = super(MeetingDetail, self).get_context_data(**kwargs)
+
+        geodata = get_object_or_404(EarthGeoDataMeeting, pk=self.kwargs['pk'])
+        map_ = InfoMap([[geodata.geometry,
+                         { 'style': {
+                             'external_graphic': settings.STATIC_URL+"img/meeting.png",
+                             'graphic_width': 30,
+                             'graphic_height': 30,
+                             'fill_color': '#00FF00',
+                             'stroke_color': '#008800',
+                             }}]],
+                       { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
+                       )
+        dict_show = _get_dict_show(self.request, map_, geodata, 'edit_meeting', 'delete_meeting', 'toggle_rec_meeting', pk=self.kwargs['pk'])
+        context.update(dict_show)
+        return context
 
 
-def show_meeting(request, ident):
-    """Returns show_meeting.html template."""
-    geodata = get_object_or_404(EarthGeoDataMeeting, pk=ident)
-    map_ = InfoMap([[geodata.geometry,
-                     { 'style': {
-                         'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                         'graphic_width': 30,
-                         'graphic_height': 30,
-                         'fill_color': '#00FF00',
-                         'stroke_color': '#008800',
-                         }}]],
-                   { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
-                   )
-    return direct_to_template(request, 'show_meeting.html',
-                              _get_dict_show(request, map_, geodata,
-                                             'edit_meeting',
-                                             'delete_meeting',
-                                             'toggle_rec_meeting', ident))
+class ActorDetail(DetailView):
+    model = EarthGeoDataActor
+    context_object_name = 'geodata'
+    
+    def get_context_data(self, **kwargs):
+        context = super(ActorDetail, self).get_context_data(**kwargs)
 
+        geodata = get_object_or_404(EarthGeoDataActor, pk=self.kwargs['pk'])
+        map_ = InfoMap([[geodata.geometry,
+                         { 'style': {
+                             'external_graphic': settings.STATIC_URL+"img/actor.png",
+                             'graphic_width': 30,
+                             'graphic_height': 30,
+                             'fill_color': '#00FF00',
+                             'stroke_color': '#008800',
+                             }}]],
+                       { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
+                       )
+        dict_show = _get_dict_show(self.request, map_, geodata, 'edit_actor', 'delete_actor', 'toggle_rec_actor', pk=self.kwargs['pk'])
+        context.update(dict_show)
+        return context
 
-def show_actor(request, ident):
-    """Returns show_actor.html template."""
-    geodata = get_object_or_404(EarthGeoDataActor, pk=ident)
-    map_ = InfoMap([[geodata.geometry,
-                     { 'style': {
-                         'external_graphic': settings.STATIC_URL+"img/actor.png",
-                         'graphic_width': 30,
-                         'graphic_height': 30,
-                         'fill_color': '#00FF00',
-                         'stroke_color': '#008800',
-                         }}]],
-                   { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
-                   )
-    return direct_to_template(request, 'show_actor.html',
-                              _get_dict_show(request, map_, geodata,
-                                             'edit_actor',
-                                             'delete_actor',
-                                             'toggle_rec_actor', ident))
 
 
 error_message = _("Please correct the errors below.")
@@ -824,6 +843,16 @@ def _add_builder(request, geodatamodel, geodatamodelform, geodatatemplate):
     return direct_to_template(request, geodatatemplate, {
             'form': form,
             })
+
+
+
+class PatrimonyCreateView(CreateView):
+    model = EarthGeoDataPatrimony
+    form_class = EarthGeoDataPatrimonyForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PatrimonyCreateView, self).dispatch(*args, **kwargs)
 
 
 @login_required
@@ -1016,3 +1045,5 @@ def toggle_rec_actor(request, ident):
                                   ident = ident)
 
 
+class TestView(TemplateView):
+    template_name = 'test.html'
