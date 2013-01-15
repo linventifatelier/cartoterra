@@ -4,7 +4,9 @@
 
 <ul class="nav nav-list">
   <li class="nav-header">{% trans "Recommendations" %}</li>
+  {% comment %}
   <li><a href="{% url "profile_detail" "admin" %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "Admin" %}</a></li>
+  {% endcomment %}
 
   <li class="nav-header">{% trans "External RSS Feeds" %}</li>
   <li class="external-rss-1">
