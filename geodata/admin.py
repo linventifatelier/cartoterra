@@ -92,16 +92,18 @@ class EarthTechniqueAdmin(admin.ModelAdmin):
 admin.site.register(EarthTechnique, EarthTechniqueAdmin)
 
 
-#class EarthArchitectAdmin(admin.ModelAdmin):
-#    """EarthArchitect administration interface."""
-#    list_display = ['name', 'user']
-#    list_filter = ['name', 'user']
-#    search_fields = ['name']
-#    fieldsets = (
-#        ('Architect', {'fields': (('name', 'user'))}),
-#    )
-#
-#admin.site.register(EarthArchitect, EarthArchitectAdmin)
+class EarthMeetingTypeAdmin(hvadadmin.TranslatableAdmin):
+    """EarthMeetingType administration interface."""
+    #list_display = ['name']
+    #list_filter = ['name']
+    #search_fields = ['name']
+
+    fieldsets = (
+        #('Roles', {'fields': (('name', ))}),
+        #('Techniques', {'fields': (('name', 'description', 'image', 'url'))}),
+    )
+
+admin.site.register(EarthMeetingType, EarthMeetingTypeAdmin)
 
 
 #class EarthGeoDataAbstractAdmin(MyOSMAdmin):

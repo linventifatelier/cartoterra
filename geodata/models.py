@@ -152,19 +152,30 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
         return self.inauguration_date <= date.today() + timedelta(days=3650)
 
 
+class EarthMeetingType(TranslatableModel):
+    """Meeting type"""
+    #name = models.CharField(_("name"), max_length=50)
+    ident_name = models.CharField(_("Identification name"), max_length=255, unique=True)
+
+    translations = TranslatedFields(
+        name = models.CharField(_("Translated name"), max_length=255, blank=True, null=True)
+    )
+
+    def get_model(self):
+        return EarthMeetingType
+
+    def __unicode__(self):
+        return self.ident_name
+        #return self.lazy_translation_getter('name', self.name)
+        #return str(self.safe_translation_getter('name'))
+        #return str(self.id)
+
 class EarthGeoDataMeeting(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
     credit_creator = models.BooleanField(_("credit creator"), default=True)
-    MEETING_CHOICES = (
-        ('S', _("Seminar")),
-        ('C', _("Conference")),
-        ('Q', _("Colloquium")),
-        ('F', _("Festival")),
-        ('N', _("Not specified")),
-    )
-    meeting_type = models.CharField(max_length=1, choices=MEETING_CHOICES,
-                                    verbose_name=_("meeting type"),
-                                    default='N')
+    meeting_type = models.ForeignKey(EarthMeetingType,
+                                     verbose_name=_("meeting type"),
+                                     blank=True, null=True)
     beginning_date = models.DateField(_("beginning date"),
                                       default=date.today())
     end_date = models.DateField(_("end date"), default=date.today())
