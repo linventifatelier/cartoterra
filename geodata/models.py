@@ -4,7 +4,8 @@ from django.contrib.gis.db import models
 #from profiles.models import Profile
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from datetime import datetime, timedelta, date
+from datetime import timedelta, date
+from django.utils.timezone import now
 #from stdimage import StdImageField
 #from image import AutoImageField
 #import os
@@ -64,7 +65,7 @@ class EarthTechnique(models.Model):
 class EarthGeoDataAbstract(models.Model):
     """An abstract spatial model for earthbuilding geodata."""
     name = models.CharField(_("name"), max_length=50)
-    pub_date = models.DateTimeField(_("creation date"), default=datetime.now())
+    pub_date = models.DateTimeField(_("creation date"), default=now())
     creator = models.ForeignKey(User, verbose_name=_("creator"))
     description = models.TextField(_("description"), blank=True, null=True)
     image = ImageField(upload_to='img/geodata', blank=True, null=True)

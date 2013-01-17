@@ -1,32 +1,31 @@
 """GeoData views."""
 
 from django.shortcuts import get_object_or_404
-from django.views.generic.simple import direct_to_template
 from django.utils.translation import ugettext_lazy as _
 from models import EarthGeoDataPatrimony, EarthGeoDataConstruction,\
-     EarthGeoDataMeeting, EarthGeoDataActor
+     EarthGeoDataMeeting, EarthGeoDataActor, EarthGeoDataAbstract
 from forms import EarthGeoDataPatrimonyForm, EarthGeoDataConstructionForm,\
      EarthGeoDataMeetingForm, EarthGeoDataActorForm
 from olwidget.widgets import InfoMap, Map, InfoLayer
 from sorl.thumbnail import get_thumbnail
 from django.contrib.auth.decorators import login_required, user_passes_test
-from datetime import datetime, timedelta
+from django.utils.timezone import now
+from datetime import timedelta
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
-from django.contrib.auth.models import User
 from profiles.models import Profile
 from django.conf import settings
 from django.utils.encoding import force_unicode
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
+from django.views.generic.base import View, TemplateView
+from django.views.generic.detail import SingleObjectMixin, DetailView
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils import simplejson
-from django.views.generic.detail import BaseDetailView, \
-    SingleObjectTemplateResponseMixin
 from django.utils.decorators import method_decorator
-
-
+from django.core.exceptions import PermissionDenied
 
 
 
@@ -97,7 +96,7 @@ class PatrimonyContemporaryView(PatrimonyListView):
         context = super(PatrimonyContemporaryView, self).get_context_data(**kwargs)
 
         geodata_list = EarthGeoDataPatrimony.objects.filter(
-            inauguration_date__gte = datetime.now() - timedelta(days=3650))
+            inauguration_date__gte = now() - timedelta(days=3650))
         map_ = InfoMap(_info_builder(geodata_list),
                        {'name': "Patrimonies",
                         'overlay_style': {
@@ -178,7 +177,7 @@ class PatrimonyNormalView(PatrimonyListView):
         geodata_list = EarthGeoDataPatrimony.objects.filter(
             Q(architects__isnull = False) & Q(unesco = False) &
             (Q(inauguration_date__isnull = True) |
-             ~Q(inauguration_date__gte = datetime.now() - timedelta(days=3650))))
+             ~Q(inauguration_date__gte = now() - timedelta(days=3650))))
         map_ = InfoMap(_info_builder(geodata_list),
                        {'name': "Patrimonies",
                         'overlay_style': {
@@ -596,12 +595,12 @@ def _get_dict_show(request, map_, geodata, edit_func, delete_func,
                 recommendations = profile.r_meeting
             elif toggle_rec_func == 'toggle_rec_actor':
                 recommendations = profile.r_actor
-                if geodata in recommendations.all():
-                    return {'map': map_, 'geodata': geodata,
-                            'rec_off_geodata': reverse(toggle_rec_func, args=[pk]), }
-                else:
-                    return {'map': map_, 'geodata': geodata,
-                            'rec_on_geodata': reverse(toggle_rec_func, args=[pk]), }
+            if geodata in recommendations.all():
+                return {'map': map_, 'geodata': geodata,
+                        'rec_off_geodata': reverse(toggle_rec_func, args=[pk]), }
+            else:
+                return {'map': map_, 'geodata': geodata,
+                        'rec_on_geodata': reverse(toggle_rec_func, args=[pk]), }
         else:
             return {'map': map_, 'geodata': geodata,
                     'edit_geodata': reverse(edit_func, args=[pk]),
@@ -701,234 +700,222 @@ class ActorDetail(DetailView):
         return context
 
 
-
 error_message = _("Please correct the errors below.")
 
 
-@login_required
-def _add_builder(request, geodatamodel, geodatamodelform, geodatatemplate):
-    geodata = geodatamodel(creator = request.user,
-                           pub_date = datetime.now())
 
-    if request.method == "POST":
-        form = geodatamodelform(request.POST, request.FILES, instance = geodata)
-        if form.is_valid():
-            obj = form.save()
-            messages.add_message(request, messages.SUCCESS,
-                                 _("Successfully added %(modelname)s \"%(name)s\".") %
-                                 {'modelname': force_unicode(obj._meta.verbose_name), 'name': obj.name,}
-                                 )
-            return HttpResponseRedirect('%s' % obj.get_absolute_url())
-        else:
-            messages.add_message(request, messages.ERROR,
-                                 error_message
-                                 )
-    else:
-        form = geodatamodelform(instance = geodata) # An unbound form
+class GeoDataCreateView(CreateView):
+    context_object_name = 'geodata'
+    template_name_suffix = '_add_form'
 
-    return direct_to_template(request, geodatatemplate, {
-            'form': form,
-            })
+    def form_valid(self, form):
+        self.object = form.save(commit = False)
+        self.object.creator = self.request.user
+        self.object.pub_date = now()
+        messages.add_message(self.request, messages.SUCCESS,
+                             _("Successfully added %(modelname)s \"%(name)s\".") %
+                             { 'modelname': force_unicode(self.object._meta.verbose_name), 'name': self.object.name, }
+                             )
+        return super(GeoDataCreateView, self).form_valid(form)
 
-
-
-class PatrimonyCreateView(CreateView):
-    model = EarthGeoDataPatrimony
-    form_class = EarthGeoDataPatrimonyForm
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR,
+                             error_message
+                             )
+        return super(GeoDataCreateView, self).form_invalid(form)
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(PatrimonyCreateView, self).dispatch(*args, **kwargs)
+        return super(GeoDataCreateView, self).dispatch(*args, **kwargs)
 
 
-@login_required
-def add_patrimony(request):
-    return _add_builder(request, EarthGeoDataPatrimony, EarthGeoDataPatrimonyForm, 'add_patrimony.html')
+class PatrimonyCreateView(GeoDataCreateView):
+    model = EarthGeoDataPatrimony
+    form_class = EarthGeoDataPatrimonyForm
 
 
-@login_required
-def add_construction(request):
-    return _add_builder(request, EarthGeoDataConstruction, EarthGeoDataConstructionForm, 'add_construction.html')
+class ConstructionCreateView(GeoDataCreateView):
+    model = EarthGeoDataConstruction
+    form_class = EarthGeoDataConstructionForm
 
 
-@login_required
-def add_meeting(request):
-    return _add_builder(request, EarthGeoDataMeeting, EarthGeoDataMeetingForm, 'add_meeting.html')
+class MeetingCreateView(GeoDataCreateView):
+    model = EarthGeoDataMeeting
+    form_class = EarthGeoDataMeetingForm
 
 
-@login_required
-def add_actor(request):
-    return _add_builder(request, EarthGeoDataActor, EarthGeoDataActorForm, 'add_actor.html')
+class ActorCreateView(GeoDataCreateView):
+    model = EarthGeoDataActor
+    form_class = EarthGeoDataActorForm
 
 
 
-@login_required
-def _edit_builder(request, geodatamodel, geodatamodelform, geodatatemplate, ident):
-    geodata = get_object_or_404(geodatamodel, pk=ident)
-    if geodata.creator != request.user:
-        messages.add_message(request, messages.ERROR,
-                             _("You cannot edit %(modelname)s \"%(name)s\"") %
-                             { 'modelname': force_unicode(geodata._meta.verbose_name),
-                               'name': geodata.name, })
-        return HttpResponseForbidden()
+class GeoDataUpdateView(UpdateView):
+    context_object_name = 'geodata'
+    template_name_suffix = '_edit_form'
 
-    if request.method == "POST":
-        form = geodatamodelform(request.POST, request.FILES, instance = geodata)
-        if form.is_valid():
-            obj = form.save()
-            messages.add_message(request, messages.SUCCESS,
-                                 _("Successfully edited %(modelname)s \"%(name)s\".") %
-                                 { 'modelname': force_unicode(obj._meta.verbose_name), 'name': obj.name, }
-                                 )
-            return HttpResponseRedirect("%s" % obj.get_absolute_url())
-            #return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+    def get_object(self, *args, **kwargs):
+        geodata = super(GeoDataUpdateView, self).get_object(*args, **kwargs)
+        if geodata.creator != self.request.user:
+            raise PermissionDenied
         else:
-            messages.add_message(request, messages.ERROR,
-                                 error_message
-                                 )
-    else:
-        form = geodatamodelform(instance = geodata) # An unbound form
+            return geodata
 
-    return direct_to_template(request, geodatatemplate, {
-        'form': form,
-        'geodata': geodata,
-        })
+    def form_valid(self, form):
+        self.object = form.save()
+        messages.add_message(self.request, messages.SUCCESS,
+                             _("Successfully edited %(modelname)s \"%(name)s\".") %
+                             { 'modelname': force_unicode(self.object._meta.verbose_name), 'name': self.object.name, }
+                             )
+        return super(GeoDataUpdateView, self).form_valid(form)
 
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR,
+                             error_message
+                             )
+        return super(GeoDataUpdateView, self).form_invalid(form)
 
-@login_required
-def edit_patrimony(request, ident):
-    return _edit_builder(request, EarthGeoDataPatrimony,
-                         EarthGeoDataPatrimonyForm, 'edit_patrimony.html', ident)
-
-
-
-@login_required
-def edit_construction(request, ident):
-    return _edit_builder(request, EarthGeoDataConstruction,
-                         EarthGeoDataConstructionForm, 'edit_construction.html', ident)
+    @method_decorator(login_required)
+    #@method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, *args, **kwargs):
+        return super(GeoDataUpdateView, self).dispatch(*args, **kwargs)
 
 
-@login_required
-def edit_meeting(request, ident):
-    return _edit_builder(request, EarthGeoDataMeeting,
-                         EarthGeoDataMeetingForm, 'edit_meeting.html', ident)
+class PatrimonyUpdateView(GeoDataUpdateView):
+    model = EarthGeoDataPatrimony
+    form_class = EarthGeoDataPatrimonyForm
+    template_name = 'edit_patrimony.html'
 
 
-@login_required
-def edit_actor(request, ident):
-    return _edit_builder(request, EarthGeoDataActor,
-                         EarthGeoDataActorForm, 'edit_actor.html', ident)
+class ConstructionUpdateView(GeoDataUpdateView):
+    model = EarthGeoDataConstruction
+    form_class = EarthGeoDataConstructionForm
+    template_name = 'edit_construction.html'
 
 
-@login_required
-def _delete_builder(request, geodatamodel, geodatatemplate, ident):
-    geodata = get_object_or_404(geodatamodel, pk=ident)
+class MeetingUpdateView(GeoDataUpdateView):
+    model = EarthGeoDataMeeting
+    form_class = EarthGeoDataMeetingForm
+    template_name = 'edit_meeting.html'
 
-    if geodata.creator != request.user:
-        messages.add_message(request, messages.ERROR,
-                             _("You cannot delete %(modelname)s \"%(name)s\"") %
-                             { 'modelname': force_unicode(geodata._meta.verbose_name),
-                               'name': geodata.name, })
-        return HttpResponseForbidden()
 
-    if request.method == 'POST':
-        geodata.delete()
+class ActorUpdateView(GeoDataUpdateView):
+    model = EarthGeoDataActor
+    form_class = EarthGeoDataActorForm
+    template_name = 'edit_actor.html'
+
+
+class GeoDataDeleteView(DeleteView):
+    context_object_name = 'geodata'
+    success_url = reverse_lazy('home')
+
+    class Meta:
+        abstract = True
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
         messages.add_message(request, messages.SUCCESS,
                              _("Successfully deleted %(modelname)s \"%(name)s\".") %
-                             { 'modelname': force_unicode(geodata._meta.verbose_name),
-                               'name': geodata.name, })
-        return HttpResponseRedirect('/')
-    else:
-        return direct_to_template(request, geodatatemplate, {
-            'geodata': geodata,
-        })
+                             { 'modelname': force_unicode(self.object._meta.verbose_name),
+                               'name': self.object.name, })
+        self.object.delete()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_object(self, *args, **kwargs):
+        geodata = super(GeoDataDeleteView, self).get_object(*args, **kwargs)
+        if geodata.creator != self.request.user:
+            #messages.add_message(self.request, messages.ERROR,
+            #                     _("You cannot delete %(modelname)s \"%(name)s\"") %
+            #                     { 'modelname': force_unicode(geodata._meta.verbose_name),
+            #                       'name': geodata.name, })
+            raise PermissionDenied
+        else:
+            return geodata
+
+    @method_decorator(login_required)
+    #@method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, *args, **kwargs):
+        return super(GeoDataDeleteView, self).dispatch(*args, **kwargs)
 
 
-@login_required
-def delete_patrimony(request, ident):
-    return _delete_builder(request, EarthGeoDataPatrimony, 'delete_patrimony.html', ident)
+class PatrimonyDeleteView(GeoDataDeleteView):
+    model = EarthGeoDataPatrimony
+    form_class = EarthGeoDataPatrimonyForm
 
 
-@login_required
-def delete_construction(request, ident):
-    return _delete_builder(request, EarthGeoDataConstruction, 'delete_construction.html', ident)
+class ConstructionDeleteView(GeoDataDeleteView):
+    model = EarthGeoDataConstruction
+    form_class = EarthGeoDataConstructionForm
 
 
-@login_required
-def delete_meeting(request, ident):
-    return _delete_builder(request, EarthGeoDataMeeting, 'delete_meeting.html', ident)
+class MeetingDeleteView(GeoDataDeleteView):
+    model = EarthGeoDataMeeting
+    form_class = EarthGeoDataMeetingForm
 
 
-@login_required
-def delete_actor(request, ident):
-    return _delete_builder(request, EarthGeoDataActor, 'delete_actor.html', ident)
+class ActorDeleteView(GeoDataDeleteView):
+    model = EarthGeoDataActor
+    form_class = EarthGeoDataActorForm
 
 
-@login_required
-def _toggle_recommendation(request, geodatamodel, profile_r, ident):
-    geodata = get_object_or_404(geodatamodel, pk=ident)
-    profile = request.user.get_profile()
+class ToggleRecommendationView(SingleObjectMixin,View):
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        profile = request.user.get_profile()
+        if isinstance(self.object, EarthGeoDataPatrimony):
+            recommendations = profile.r_patrimony 
+        elif isinstance(self.object, EarthGeoDataConstruction):
+            recommendations = profile.r_construction
+        elif isinstance(self.object, EarthGeoDataMeeting):
+            recommendations = profile.r_meeting
+        elif isinstance(self.object, EarthGeoDataActor):
+            recommendations = profile.r_actor
+        else:
+            raise ToggleRecommendationError
 
-    if request.user == geodata.creator:
-        messages.add_message(request, messages.ERROR,
-                             _("You cannot recommend %(modelname)s \"%(name)s\".") %
-                             { 'modelname': force_unicode(geodata._meta.verbose_name),
-                               'name': geodata.name, })
-    else:
-        if geodata in profile_r.all():
-            profile_r.remove(geodata)
+        if self.object in recommendations.all():
+            recommendations.remove(self.object)
             profile.save()
             messages.add_message(request, messages.SUCCESS,
                                  _("Successfully removed %(modelname)s \"%(name)s\" \
                              from your recommendations.") %
-                                 { 'modelname': force_unicode(geodata._meta.verbose_name),
-                                   'name': geodata.name, }
+                                 { 'modelname': force_unicode(self.object._meta.verbose_name),
+                                   'name': self.object.name, }
                                  )
         else:
-            profile_r.add(geodata)
+            recommendations.add(self.object)
             profile.save()
             messages.add_message(request, messages.SUCCESS,
                                  _("Successfully added %(modelname)s \"%(name)s\" \
                              to your recommendations.") %
-                                 { 'modelname': force_unicode(geodata._meta.verbose_name),
-                                   'name': geodata.name, }
+                                 { 'modelname': force_unicode(self.object._meta.verbose_name),
+                                   'name': self.object.name, }
                                  )
-    return HttpResponseRedirect('%s' % geodata.get_absolute_url())
+        #return HttpResponse('Success')
+        return HttpResponseRedirect(self.object.get_absolute_url())
 
-@login_required
-def toggle_rec_patrimony(request, ident):
-    profile = request.user.get_profile()
-    return _toggle_recommendation(request = request,
-                                  geodatamodel = EarthGeoDataPatrimony,
-                                  profile_r = profile.r_patrimony,
-                                  ident = ident)
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ToggleRecommendationView, self).dispatch(*args, **kwargs)
 
 
-@login_required
-def toggle_rec_construction(request, ident):
-    profile = request.user.get_profile()
-    return _toggle_recommendation(request = request,
-                                  geodatamodel = EarthGeoDataConstruction,
-                                  profile_r = profile.r_construction,
-                                  ident = ident)
+class ToggleRecommendationPatrimonyView(ToggleRecommendationView):
+    model = EarthGeoDataPatrimony
 
 
-@login_required
-def toggle_rec_meeting(request, ident):
-    profile = request.user.get_profile()
-    return _toggle_recommendation(request = request,
-                                  geodatamodel = EarthGeoDataMeeting,
-                                  profile_r = profile.r_meeting,
-                                  ident = ident)
+class ToggleRecommendationConstructionView(ToggleRecommendationView):
+    model = EarthGeoDataConstruction
 
 
-@login_required
-def toggle_rec_actor(request, ident):
-    profile = request.user.get_profile()
-    return _toggle_recommendation(request = request,
-                                  geodatamodel = EarthGeoDataActor,
-                                  profile_r = profile.r_actor,
-                                  ident = ident)
+class ToggleRecommendationMeetingView(ToggleRecommendationView):
+    model = EarthGeoDataMeeting
+
+
+class ToggleRecommendationActorView(ToggleRecommendationView):
+    model = EarthGeoDataActor
+
 
 
 class TestView(TemplateView):
