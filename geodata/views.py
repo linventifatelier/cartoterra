@@ -145,7 +145,7 @@ class ActorListView(ListView):
         context = super(ActorListView, self).get_context_data(**kwargs)
 
         geodata_list = EarthGeoDataActor.objects.all()
-        map_ = InfoMap(_info_builder(geodata_list),
+        map_ = InfoMap(_info_builder(context['object_list']),
                        {'name': "Actors",
                         'overlay_style': {
                             'external_graphic': settings.STATIC_URL+"img/actor.png",
@@ -157,7 +157,6 @@ class ActorListView(ListView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
 
