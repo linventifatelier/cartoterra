@@ -69,8 +69,7 @@ class PatrimonyListView(ListView):
         # Call the base implementation first to get a context
         context = super(PatrimonyListView, self).get_context_data(**kwargs)
 
-        geodata_list = EarthGeoDataPatrimony.objects.all()
-        map_ = InfoMap(_info_builder(geodata_list),
+        map_ = InfoMap(_info_builder(context['object_list']),
                        {'name': "Patrimonies",
                         'overlay_style': {
                             'external_graphic': settings.STATIC_URL+"img/patrimony.png",
@@ -81,116 +80,6 @@ class PatrimonyListView(ListView):
                             },
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
-
-        context['geodata_list'] = geodata_list
-        context['map'] = map_
-        return context
-
-
-class PatrimonyContemporaryView(PatrimonyListView):
-    """Returns a template to present contemporary patrimonies."""
-    template_name = 'show_patrimony_all.html'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(PatrimonyContemporaryView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataPatrimony.objects.filter(
-            inauguration_date__gte = now() - timedelta(days=3650))
-        map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Patrimonies",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['geodata_list'] = geodata_list
-        context['map'] = map_
-        return context
-
-
-class PatrimonyUnescoView(PatrimonyListView):
-    """Returns a template to present unesco patrimonies."""
-    template_name = 'show_patrimony_all.html'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(PatrimonyUnescoView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataPatrimony.objects.filter(unesco = True)
-        map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Patrimonies",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['geodata_list'] = geodata_list
-        context['map'] = map_
-        return context
-
-
-class PatrimonyVernacularView(PatrimonyListView):
-    """Returns a template to present vernacular patrimonies."""
-    template_name = 'show_patrimony_all.html'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(PatrimonyVernacularView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataPatrimony.objects.filter(architects__isnull = True)
-        map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Patrimonies",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['geodata_list'] = geodata_list
-        context['map'] = map_
-        return context
-
-
-class PatrimonyNormalView(PatrimonyListView):
-    """Returns a template to present normal patrimonies."""
-    template_name = 'show_patrimony_all.html'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(PatrimonyNormalView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataPatrimony.objects.filter(
-            Q(architects__isnull = False) & Q(unesco = False) &
-            (Q(inauguration_date__isnull = True) |
-             ~Q(inauguration_date__gte = now() - timedelta(days=3650))))
-        map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Patrimonies",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
 
@@ -203,9 +92,7 @@ class ConstructionListView(ListView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ConstructionListView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataConstruction.objects.all()
-        map_ = InfoMap(_info_builder(geodata_list),
+        map_ = InfoMap(_info_builder(context['object_list']),
                        {'name': "Constructions",
                         'overlay_style': {
                             'external_graphic': settings.STATIC_URL+"img/construction.png",
@@ -217,58 +104,6 @@ class ConstructionListView(ListView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        context['geodata_list'] = geodata_list
-        context['map'] = map_
-        return context
-
-
-class ConstructionParticipativeView(ConstructionListView):
-    """Returns a template to present participative constructions."""
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(ConstructionParticipativeView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataConstruction.objects.filter(participative = True)
-        map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Constructions",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/construction.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['geodata_list'] = geodata_list
-        context['map'] = map_
-        return context
-
-
-class ConstructionNormalView(ConstructionListView):
-    """Returns a template to present normal constructions."""
-    template_name = 'show_construction_all.html'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(ConstructionNormalView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataConstruction.objects.filter(participative = False)
-        map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Constructions",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/construction.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
 
@@ -282,8 +117,8 @@ class MeetingListView(ListView):
         # Call the base implementation first to get a context
         context = super(MeetingListView, self).get_context_data(**kwargs)
 
-        geodata_list = EarthGeoDataMeeting.objects.all()
-        map_ = InfoMap(_info_builder(geodata_list),
+        #geodata_list = EarthGeoDataMeeting.objects.all()
+        map_ = InfoMap(_info_builder(context['object_list']),
                        {'name': "Meetings",
                         'overlay_style': {
                             'external_graphic': settings.STATIC_URL+"img/meeting.png",
@@ -295,108 +130,7 @@ class MeetingListView(ListView):
                         'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
                         })
 
-        context['geodata_list'] = geodata_list
-        context['map'] = map_
-        return context
-
-
-class MeetingSeminarView(MeetingListView):
-    """Returns a template to present seminar meetings."""
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(MeetingSeminarView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='S')
-        map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Meetings",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['geodata_list'] = geodata_list
-        context['map'] = map_
-        return context
-
-
-class MeetingColloquiumView(MeetingListView):
-    """Returns a template to present colloquium meetings."""
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(MeetingColloquiumView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='Q')
-        map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Meetings",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['geodata_list'] = geodata_list
-        context['map'] = map_
-        return context
-
-
-class MeetingConferenceView(MeetingListView):
-    """Returns a template to present conference meetings."""
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(MeetingConferenceView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='C')
-        map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Meetings",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['geodata_list'] = geodata_list
-        context['map'] = map_
-        return context
-
-
-class MeetingFestivalView(TemplateView):
-    """Returns a template to present festival meetings."""
-    template_name = 'show_meeting_all.html'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(MeetingFestivalView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataMeeting.objects.filter(meeting_type='F')
-        map_ = InfoMap(_info_builder(geodata_list),
-                       {'name': "Meetings",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['geodata_list'] = geodata_list
+        #context['geodata_list'] = geodata_list
         context['map'] = map_
         return context
 
