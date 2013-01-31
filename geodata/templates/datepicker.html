@@ -1,5 +1,7 @@
 {# datepicker.html #}
 {% include "floppyforms/input.html" %}
+{% load staticfiles %}
+
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -14,6 +16,6 @@
     if (!Modernizr.inputtypes.date) {
        $(function () {
          $.datepicker.setDefaults($.datepicker.regional['{{ lang }}']);
-         $('#{{ attrs.id }}').datepicker({showOn: "both", buttonImageOnly: true, dateFormat: "yy-mm-dd", buttonImage: "{{ STATIC_URL }}new/img/calendar.gif"})} )}
+         $('#{{ attrs.id }}').datepicker({showOn: "both", buttonImageOnly: true, dateFormat: "yy-mm-dd", buttonImage: "{% static "new/img/calendar.gif" %})} )}
 </script>
 {% endcomment %}

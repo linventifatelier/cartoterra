@@ -1,4 +1,5 @@
 {% load i18n %}
 {% load static from staticfiles %}
+{% load url from future %}
 
-<a class="btn btn-large btn-primary btn-danger" href="{% url knowledge_index %}">{% trans "Help!" %}</a>
+<a class="btn btn-large btn-primary btn-danger" href="{% url "knowledge_index" %}">{% trans "Help!" %}</a>

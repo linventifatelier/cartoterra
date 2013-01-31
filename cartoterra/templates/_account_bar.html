@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load in_group %}
 {% load account_tags %}
+{% load url from future %}
 <ul class="nav pull-right">
     {% if request.user.is_authenticated %}
         <li class="dropdown">
@@ -9,23 +10,23 @@
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="{% url profile_detail user.username %}"><i class="icon-user"></i> {% trans "My profile" %}</a></li>
-                <li><a href="{% url account_settings %}"><i class="icon-wrench"></i> Settings</a></li>
+                <li><a href="{% url "profile_detail" user.username %}"><i class="icon-user"></i> {% trans "My profile" %}</a></li>
+                <li><a href="{% url "account_settings" %}"><i class="icon-wrench"></i> Settings</a></li>
                 {% if user.is_superuser or user|in_group:"translators" %}
-                    <li><a href="{% url rosetta-home %}"><i class="icon-flag"></i> {% trans "Translator" %}</a></li>
+                    <li><a href="{% url "rosetta-home" %}"><i class="icon-flag"></i> {% trans "Translator" %}</a></li>
                 {% endif %}
                 {% if user.is_staff %}
                     <li><a href="/admin/"><i class="icon-cog"></i> {% trans "Admin" %}</a></li>
                 {% endif %}
                 <li class="divider"></li>
-                <li><a href="{% url account_logout %}"><i class="icon-off"></i> Log out</a></li>
+                <li><a href="{% url "account_logout" %}"><i class="icon-off"></i> Log out</a></li>
             </ul>
         </li>
     {% else %}
-        <li><a href="{% url account_login %}">Log in</a></li>
+        <li><a href="{% url "account_login" %}">Log in</a></li>
         {% if ACCOUNT_OPEN_SIGNUP %}
             <li class="navbar-text">or</li>
-            <li><a href="{% url account_signup %}">Sign up</a></li>
+            <li><a href="{% url "account_signup" %}">Sign up</a></li>
         {% endif %}
     {% endif %}
 </ul>
