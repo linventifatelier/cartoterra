@@ -35,6 +35,7 @@ django-floppyforms
 django-rosetta
 gevent
 eventlet
+psycogreen
 Markdown
 django-knowledge
 django-dajaxice
