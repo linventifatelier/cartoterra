@@ -1,0 +1,76 @@
+{% load static %}
+{% load i18n %}
+{% load dajaxice_templatetags %}
+
+{% block extrastyle %}
+<style type="text/css">
+  #{{ id }}_map { width: {{ map_width }}px; height: {{ map_height }}px; }
+  #{{ id }}_map .aligned label { float:inherit; }
+  #{{ id }}_admin_map { position: relative; vertical-align: top; float: {{ LANGUAGE_BIDI|yesno:"right,left" }}; }
+  {% if not display_wkt %}#{{ id }} { display: none; }{% endif %}
+  .olControlEditingToolbar .olControlModifyFeatureItemActive { 
+     background-image: url("{% static "admin/img/gis/move_vertex_on.png" %}");
+     background-repeat: no-repeat;
+  }
+  .olControlEditingToolbar .olControlModifyFeatureItemInactive { 
+     background-image: url("{% static "admin/img/gis/move_vertex_off.png" %}");
+     background-repeat: no-repeat;
+  }
+</style>
+<!--[if IE]>
+<style type="text/css">
+  /* This fixes the mouse offset issues in IE. */
+  #{{ id }}_admin_map { position: static; vertical-align: top; }
+  /* `font-size: 0` fixes the 1px border between tiles, but borks LayerSwitcher.
+      Thus, this is disabled until a better fix is found.
+  #{{ id }}_map { width: {{ map_width }}px; height: {{ map_height }}px; font-size: 0; } */
+</style>
+<![endif]-->
+
+<link rel="stylesheet" href="{% static "css/geodata.css" %}" type="text/css">
+{% endblock %}
+
+{% dajaxice_js_import %}
+
+<span id="{{ id }}_admin_map">
+<script type="text/javascript">
+//<![CDATA[
+{% block openlayers %}{% include "gis/admin/osm.js" %}{% endblock %}
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+{% block geodata_openlayers %}{% include "geodata_openlayers.js" %}{% endblock %}
+//]]>
+</script>
+<script src="{% static "dajax/jquery.dajax.core.js" %}" type="text/javascript" charset="utf-8"></script>
+
+<div class="controls controls-row">
+  <label class="label">{% trans "Latitude/Longitude" %}</label>
+  <div class="controls">
+    <input type="text" class="span2 spinner-link" value="" placeholder="{% trans "Latitude" %}" id="latitude">
+    <input type="text" class="span2 spinner-link" value="" placeholder="{% trans "Longitude" %}" id="longitude">
+    <button class="btn spinner-link" onclick="panToLatLonZoom($('#latitude').val(), $('#longitude').val(), 12);">{% trans "Update map" %}</button>
+  </div>
+</div>
+
+<div class="controls controls-row">
+  <label class="label" for="search_terms">{% trans "Nominatim Search" %}</label>
+  <div class="controls">
+    <input type="text" class="span3 spinner-link" value="" placeholder="{% trans "Search" %}" id="search_terms" class="span3" >
+    <input type="button" class="btn spinner-link" value="{% trans "Geolocate this address!" %}" onclick="Dajaxice.geodata.search_nominatim(Dajax.process, {'search_terms':search_terms.value})">
+  </div>
+</div>
+<div class="controls">
+  <div class="controls">
+    <select class="span5" id="search_results" onclick="Dajaxice.geodata.get_point_coordinates(Dajax.process, { 'bbox': $('#search_results option:selected').attr('bbox'),'lat': $('#search_results option:selected').attr('lat'), 'lon': $('#search_results option:selected').attr('lon'), 'minlat': $('#search_results option:selected').attr('minlat'), 'maxlat': $('#search_results option:selected').attr('maxlat'), 'minlon': $('#search_results option:selected').attr('minlon'), 'maxlon': $('#search_results option:selected').attr('maxlon') })" size="3"></select>
+  </div>
+</div>
+
+
+<div id="{{ id }}_map"{% if LANGUAGE_BIDI %} dir="ltr"{% endif %}></div>
+<a href="javascript:{{ module }}.clearFeatures()">{% trans "Delete all Features" %}</a>
+{% if display_wkt %}<p> WKT debugging window:</p>{% endif %}
+<textarea id="{{ id }}" class="vWKTField required" cols="150" rows="10" name="{{ name }}">{{ wkt }}</textarea>
+<script type="text/javascript">{% block init_function %}{{ module }}.init();{% endblock %}</script>
+</span>

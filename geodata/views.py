@@ -649,7 +649,3 @@ class ToggleRecommendationMeetingView(ToggleRecommendationView):
 class ToggleRecommendationActorView(ToggleRecommendationView):
     model = EarthGeoDataActor
 
-
-
-class TestView(TemplateView):
-    template_name = 'test.html'

@@ -1,7 +1,5 @@
 """Geodata administration interface."""
 from django.contrib.gis import admin
-#from olwidget.admin import GeoModelAdmin
-#from olwidget.admin import GeoModelAdmin
 from models import *
 from django.conf import settings
 #from stdimage import StdImageField
@@ -94,12 +92,12 @@ admin.site.register(EarthTechnique, EarthTechniqueAdmin)
 
 class EarthMeetingTypeAdmin(hvadadmin.TranslatableAdmin):
     """EarthMeetingType administration interface."""
-    #list_display = ['name']
-    #list_filter = ['name']
+    #list_display = ['ident_name']
+    #list_filter = ['ident_name']
     #search_fields = ['name']
 
     fieldsets = (
-        #('Roles', {'fields': (('name', ))}),
+        #('Identification Name', {'fields': (('ident_name', ))}),
         #('Techniques', {'fields': (('name', 'description', 'image', 'url'))}),
     )
 
@@ -108,7 +106,6 @@ admin.site.register(EarthMeetingType, EarthMeetingTypeAdmin)
 
 #class EarthGeoDataAbstractAdmin(MyOSMAdmin):
 #class EarthGeoDataAbstractAdmin(admin.OSMGeoAdmin):
-#class EarthGeoDataAbstractAdmin(GeoModelAdmin):
 class EarthGeoDataAbstractAdmin(EarthOSMAdmin):
     """EarthGeoData abstract administration interface."""
     list_display = ('name', 'pub_date', 'creator')

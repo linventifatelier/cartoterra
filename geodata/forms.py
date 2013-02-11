@@ -2,11 +2,11 @@
 
 #from django import forms
 import floppyforms as forms
-from olwidget.forms import MapModelForm
 from models import EarthGeoDataAbstract, EarthGeoDataMeeting, \
     EarthGeoDataPatrimony, EarthGeoDataConstruction, EarthGeoDataActor
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.fields import DateField
+from django.forms import ModelForm
 from sorl.thumbnail import ImageField
 from django.contrib.gis.db.models import PointField
 from django.contrib.gis.geos import Point
@@ -14,6 +14,8 @@ from PIL.ExifTags import TAGS, GPSTAGS
 from sorl.thumbnail import ImageField
 import PIL.Image
 from django.utils.translation import ugettext_lazy as _
+from geodata.widgets import GeoDataWidget
+
 
 
 
@@ -146,38 +148,47 @@ class DatePicker(forms.DateInput):
 #        return mark_safe(u''.join(output))
 
 
-class EarthGeoDataAbstractForm(MapModelForm):
-    def clean(self):
-        super(MapModelForm, self).clean()
+class EarthGeoDataAbstractForm(ModelForm):
+    geometry = forms.CharField(widget=GeoDataWidget())
+    #geometry = forms.CharField(widget=GeodataWidget())
+    #def clean(self):
+    #    super(MapModelForm, self).clean()
 
-        if not self.cleaned_data['geometry']:
-            if self.cleaned_data['image']:
-                im = Image.open(self.cleaned_data['image'])
-                gps_data = _get_exifgps(im)
-                longitude = gps_data['longitude']
-                latitude = gps_data['latitude']
-                if longitude and latitude:
-                    try:
-                        self.cleaned_data['geometry'] = Point(longitude, latitude)
-                    except (ValueError, TypeError):
-                        msg = _("You have to provide a geometry or a \
-                                 geolocated image (the geolocation data of \
-                                 your image do not seem clean).")
-                        self._errors['geometry'] = self.error_class([msg])
-                else:
-                    msg = _("You have to provide a geometry \
-                             or a geolocated image (the image you have \
-                             provided does not seems to be geolocated).")
-                    self._errors['geometry'] = self.error_class([msg])
-            else:
-                msg = _("You have to provide a geometry or a geolocated \
-                         image.")
-                self._errors['geometry'] = self.error_class([msg])
-        return self.cleaned_data
+    #    if not self.cleaned_data['geometry']:
+    #        if self.cleaned_data['image']:
+    #            im = Image.open(self.cleaned_data['image'])
+    #            gps_data = _get_exifgps(im)
+    #            longitude = gps_data['longitude']
+    #            latitude = gps_data['latitude']
+    #            if longitude and latitude:
+    #                try:
+    #                    self.cleaned_data['geometry'] = Point(longitude, latitude)
+    #                except (ValueError, TypeError):
+    #                    msg = _("You have to provide a geometry or a \
+    #                             geolocated image (the geolocation data of \
+    #                             your image do not seem clean).")
+    #                    self._errors['geometry'] = self.error_class([msg])
+    #            else:
+    #                msg = _("You have to provide a geometry \
+    #                         or a geolocated image (the image you have \
+    #                         provided does not seems to be geolocated).")
+    #                self._errors['geometry'] = self.error_class([msg])
+    #        else:
+    #            msg = _("You have to provide a geometry or a geolocated \
+    #                     image.")
+    #            self._errors['geometry'] = self.error_class([msg])
+    #    return self.cleaned_data
 
     class Meta:
         model = EarthGeoDataAbstract
         exclude = ('creator', 'pub_date', )
+    
+    class Media:
+        css = {
+            'all': ('css/geodata.css', )
+        }
+        js = ('openlayers/OpenLayers.js', )
+
 
 
 class EarthGeoDataPatrimonyForm(EarthGeoDataAbstractForm):

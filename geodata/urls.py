@@ -10,7 +10,6 @@ from django.db.models import Q
 
 
 urlpatterns = patterns('',
-    url(r'^test/$', views.TestView.as_view()),
     url(r'^feeds/patrimony/$', feeds.PatrimonyFeed(), name = "feed_patrimony"),
     url(r'^feeds/construction/$', feeds.ConstructionFeed(), name = "feed_construction"),
     url(r'^feeds/meeting/$', feeds.MeetingFeed(), name = "feed_meeting"),
