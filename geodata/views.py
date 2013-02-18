@@ -20,15 +20,304 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Q
 from django.views.generic.base import View, TemplateView
-from django.views.generic.detail import SingleObjectMixin, DetailView
-from django.views.generic.list import ListView
+from django.views.generic.detail import SingleObjectMixin, DetailView, BaseDetailView
+from django.views.generic.list import ListView, BaseListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils import simplejson
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
+from vectorformats.Formats import Django, GeoJSON
+from django.core.serializers import serialize
 
 
 
+class GeoJSONResponseMixin(object):
+    def render_to_response(self, context):
+        "Returns a GeoJSON response containing 'context' as payload"
+        return self.get_json_response(self.convert_context_to_json(context))
+
+    def get_json_response(self, content, **httpresponse_kwargs):
+        "Construct an `HttpResponse` object."
+        return HttpResponse(content,
+                            content_type='application/json',
+                            **httpresponse_kwargs)
+
+
+class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
+    def convert_context_to_json(self, context):
+        "Convert the context dictionary into a GeoJSON object"
+        m = self.get_object()
+        data = {'crs': {"type": "link", "properties": {"href": "http://spatialreference.org/ref/epsg/4326/", "type": "proj4"}},
+                'type': "Feature",
+                'geometry': simplejson.loads(m.geometry.geojson),
+                'properties': { 'pk': m.pk, 'name': m.name,
+                                'url': m.get_absolute_url(),
+                                'image': get_thumbnail(m.image, '100x100').url if m.image else None, }}
+        return simplejson.dumps(data)
+            
+
+class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
+    def convert_context_to_json(self, context):
+        "Convert the context dictionary into a GeoJSON object"
+        queryset = self.get_queryset()
+        data = {"crs": {"type": "link", "properties": {"href": "http://spatialreference.org/ref/epsg/4326/", "type": "proj4"}},
+                "type": "FeatureCollection",
+                "features": [{ 'geometry': simplejson.loads(m.geometry.geojson),
+                               'type': "Feature",
+                               'properties': { 'pk': m.pk, 'name': m.name,
+                                               'url': m.get_absolute_url(),
+                                               'image': get_thumbnail(m.image, '100x100').url if m.image else None,
+                                             }} for m in queryset]}
+        return simplejson.dumps(data)
+            
+
+
+class GeoJSONDetailView(GeoJSONFeatureResponseMixin, BaseDetailView):
+    pass
+
+
+class GeoJSONListView(GeoJSONFeatureCollectionResponseMixin, BaseListView):
+    pass
+
+
+class GeoJSONPatrimonyListView(GeoJSONListView):
+    model = EarthGeoDataPatrimony
+
+
+class GeoJSONPatrimonyDetailView(GeoJSONDetailView):
+    model = EarthGeoDataPatrimony
+
+
+class GeoJSONConstructionListView(GeoJSONListView):
+    model = EarthGeoDataConstruction
+
+
+class GeoJSONConstructionDetailView(GeoJSONDetailView):
+    model = EarthGeoDataConstruction
+
+
+class GeoJSONMeetingListView(GeoJSONListView):
+    model = EarthGeoDataMeeting
+
+
+class GeoJSONMeetingDetailView(GeoJSONDetailView):
+    model = EarthGeoDataMeeting
+
+
+class GeoJSONActorListView(GeoJSONListView):
+    model = EarthGeoDataActor
+
+
+class GeoJSONActorDetailView(GeoJSONDetailView):
+    model = EarthGeoDataActor
+
+
+class GeoDataMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(GeoDataMixin, self).get_context_data(**kwargs)
+        context['module'] = self.module
+        context['map_layers'] = self.map_layers
+        return context
+
+
+class PatrimonyListView(GeoDataMixin, ListView):
+    """Returns a template to present all patrimonies."""
+    model = EarthGeoDataPatrimony
+    context_object_name = 'geodata'
+    module = "list"
+    patrimonies = {
+        'name': "Patrimonies",
+        'external_graphic' : settings.STATIC_URL+"img/patrimony.png",
+        'graphic_width' : 20,
+        'graphic_height' : 20,
+        'fill_color' : '#00FF00',
+        'stroke_color' : '#008800',
+        'url' : 'geojson/',
+    }
+    map_layers = [patrimonies]
+
+
+class ConstructionListView(GeoDataMixin, ListView):
+    """Returns a template to present all constructions."""
+    model = EarthGeoDataConstruction
+    context_object_name = 'geodata'
+    module = "list"
+    constructions = {
+        'name': "Constructions",
+        'external_graphic': settings.STATIC_URL+"img/construction.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url' : 'geojson/',
+    }
+    map_layers = [constructions]
+
+
+class MeetingListView(GeoDataMixin, ListView):
+    """Returns a template to present all meetings."""
+    model = EarthGeoDataMeeting
+    context_object_name = 'geodata'
+    module = "list"
+    meetings = {
+        'name': "Meetings",
+        'external_graphic': settings.STATIC_URL+"img/meeting.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url' : 'geojson/',
+    }
+    map_layers = [meetings]
+
+
+class ActorListView(GeoDataMixin, ListView):
+    """Returns a template to present all actors."""
+    model = EarthGeoDataActor
+    context_object_name = 'geodata'
+    module = "list"
+    actors = {
+        'name': "Actors",
+        'external_graphic': settings.STATIC_URL+"img/actor.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url' : 'geojson/',
+    }
+    map_layers = [actors]
+
+
+class BigMapView(GeoDataMixin, TemplateView):
+    """Returns a template to present all patrimonies."""
+    template_name = 'geodata/geodata_bigmap.html'
+    module = "bigmap"
+    patrimonies = {
+        'name': "Patrimonies",
+        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url' : reverse_lazy('geojson_patrimony_list'),
+    }
+    constructions = {
+        'name': "Constructions",
+        'external_graphic': settings.STATIC_URL+"img/construction.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url' : reverse_lazy('geojson_construction_list'),
+    }
+    meetings = {
+        'name': "Meetings",
+        'external_graphic': settings.STATIC_URL+"img/meeting.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url' : reverse_lazy('geojson_meeting_list'),
+    }
+    actors = {
+        'name': "Actors",
+        'external_graphic' : settings.STATIC_URL+"img/actor.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url' : reverse_lazy('geojson_actor_list'),
+    }
+    map_layers = [patrimonies, constructions, meetings, actors]
+
+
+class GeoDataDetailMixin(GeoDataMixin):
+    def get_context_data(self, **kwargs):
+        context = super(GeoDataDetailMixin, self).get_context_data(**kwargs)
+        context['edit_geodata'] = self.edit_geodata
+        context['delete_geodata'] = self.delete_geodata
+        context['recommend_geodata'] = self.recommend_geodata
+        return context
+
+
+class PatrimonyDetailView(GeoDataDetailMixin, DetailView):
+    """Returns a template to present one patrimony."""
+    model = EarthGeoDataPatrimony
+    context_object_name = 'geodata'
+    module = "detail"
+    patrimony = {
+        'name': "Patrimony",
+        'external_graphic' : settings.STATIC_URL+"img/patrimony.png",
+        'graphic_width' : 20,
+        'graphic_height' : 20,
+        'fill_color' : '#00FF00',
+        'stroke_color' : '#008800',
+        'url' : 'geojson/',
+    }
+    map_layers = [patrimony]
+    edit_geodata = 'edit_patrimony'
+    delete_geodata = 'delete_patrimony'
+    recommend_geodata = 'toggle_rec_patrimony'
+
+
+class ConstructionDetailView(GeoDataDetailMixin, DetailView):
+    """Returns a template to present one construction."""
+    model = EarthGeoDataConstruction
+    context_object_name = 'geodata'
+    module = "detail"
+    construction = {
+        'name': "Construction",
+        'external_graphic' : settings.STATIC_URL+"img/construction.png",
+        'graphic_width' : 20,
+        'graphic_height' : 20,
+        'fill_color' : '#00FF00',
+        'stroke_color' : '#008800',
+        'url' : 'geojson/',
+    }
+    map_layers = [construction]
+    edit_geodata = 'edit_construction'
+    delete_geodata = 'delete_construction'
+    recommend_geodata = 'toggle_rec_construction'
+
+
+class MeetingDetailView(GeoDataDetailMixin, DetailView):
+    """Returns a template to present one meeting."""
+    model = EarthGeoDataMeeting
+    context_object_name = 'geodata'
+    module = "detail"
+    meeting = {
+        'name': "Meeting",
+        'external_graphic' : settings.STATIC_URL+"img/meeting.png",
+        'graphic_width' : 20,
+        'graphic_height' : 20,
+        'fill_color' : '#00FF00',
+        'stroke_color' : '#008800',
+        'url' : 'geojson/',
+    }
+    map_layers = [meeting]
+    edit_geodata = 'edit_meeting'
+    delete_geodata = 'delete_meeting'
+    recommend_geodata = 'toggle_rec_meeting'
+
+
+class ActorDetailView(GeoDataDetailMixin, DetailView):
+    """Returns a template to present one actor."""
+    model = EarthGeoDataActor
+    context_object_name = 'geodata'
+    module = "detail"
+    actor = {
+        'name': "Actor",
+        'external_graphic' : settings.STATIC_URL+"img/actor.png",
+        'graphic_width' : 20,
+        'graphic_height' : 20,
+        'fill_color' : '#00FF00',
+        'stroke_color' : '#008800',
+        'url' : 'geojson/',
+    }
+    map_layers = [actor]
+    edit_geodata = 'edit_actor'
+    delete_geodata = 'delete_actor'
+    recommend_geodata = 'toggle_rec_actor'
 
 
 
@@ -60,108 +349,7 @@ def _info_builder(geodataobjects, style = {}):
     return info
 
 
-class PatrimonyListView(ListView):
-    """Returns a template to present all patrimonies."""
-    model = EarthGeoDataPatrimony
-    context_object_name = 'geodata'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(PatrimonyListView, self).get_context_data(**kwargs)
-
-        map_ = InfoMap(_info_builder(context['object_list']),
-                       {'name': "Patrimonies",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-        context['map'] = map_
-        return context
-
-
-class ConstructionListView(ListView):
-    """Returns a template to present all constructions."""
-    model = EarthGeoDataConstruction
-    context_object_name = 'geodata'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(ConstructionListView, self).get_context_data(**kwargs)
-        map_ = InfoMap(_info_builder(context['object_list']),
-                       {'name': "Constructions",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/construction.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['map'] = map_
-        return context
-
-
-class MeetingListView(ListView):
-    """Returns a template to present all meetings."""
-    model = EarthGeoDataMeeting
-    context_object_name = 'geodata'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(MeetingListView, self).get_context_data(**kwargs)
-
-        #geodata_list = EarthGeoDataMeeting.objects.all()
-        map_ = InfoMap(_info_builder(context['object_list']),
-                       {'name': "Meetings",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        #context['geodata_list'] = geodata_list
-        context['map'] = map_
-        return context
-
-
-class ActorListView(ListView):
-    """Returns a template to present all meetings."""
-    model = EarthGeoDataActor
-    context_object_name = 'geodata'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(ActorListView, self).get_context_data(**kwargs)
-
-        geodata_list = EarthGeoDataActor.objects.all()
-        map_ = InfoMap(_info_builder(context['object_list']),
-                       {'name': "Actors",
-                        'overlay_style': {
-                            'external_graphic': settings.STATIC_URL+"img/actor.png",
-                            'graphic_width': 20,
-                            'graphic_height': 20,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            },
-                        'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }
-                        })
-
-        context['map'] = map_
-        return context
-
-
-class BigMapView(TemplateView):
+class OldBigMapView(TemplateView):
     """Returns a big Map with all geodatas."""
     __name__ = 'show_bigmap'
 
@@ -338,99 +526,6 @@ def _get_dict_show(request, map_, geodata, edit_func, delete_func,
             return {'map': map_, 'geodata': geodata,
                     'edit_geodata': reverse(edit_func, args=[pk]),
                     'delete_geodata': reverse(delete_func, args=[pk]),}
-
-
-class PatrimonyDetail(DetailView):
-    model = EarthGeoDataPatrimony
-    context_object_name = 'geodata'
-    
-    def get_context_data(self, **kwargs):
-        context = super(PatrimonyDetail, self).get_context_data(**kwargs)
-
-        geodata = get_object_or_404(EarthGeoDataPatrimony, pk=self.kwargs['pk'])
-        map_ = InfoMap([[geodata.geometry,
-                         { 'style': {
-                             'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                             'graphic_width': 30,
-                             'graphic_height': 30,
-                             'fill_color': '#00FF00',
-                             'stroke_color': '#008800',
-                             }}]],
-                       { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
-                       )
-        dict_show = _get_dict_show(self.request, map_, geodata, 'edit_patrimony', 'delete_patrimony', 'toggle_rec_patrimony', pk=self.kwargs['pk'])
-        context.update(dict_show)
-        return context
-    
-
-class ConstructionDetail(DetailView):
-    model = EarthGeoDataConstruction
-    context_object_name = 'geodata'
-    
-    def get_context_data(self, **kwargs):
-        context = super(ConstructionDetail, self).get_context_data(**kwargs)
-
-        geodata = get_object_or_404(EarthGeoDataConstruction, pk=self.kwargs['pk'])
-        map_ = InfoMap([[geodata.geometry,
-                         { 'style': {
-                             'external_graphic': settings.STATIC_URL+"img/construction.png",
-                             'graphic_width': 30,
-                             'graphic_height': 30,
-                             'fill_color': '#00FF00',
-                             'stroke_color': '#008800',
-                             }}]],
-                       { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
-                       )
-        dict_show = _get_dict_show(self.request, map_, geodata, 'edit_construction', 'delete_construction', 'toggle_rec_construction', pk=self.kwargs['pk'])
-        context.update(dict_show)
-        return context
-
-
-
-class MeetingDetail(DetailView):
-    model = EarthGeoDataMeeting
-    context_object_name = 'geodata'
-    
-    def get_context_data(self, **kwargs):
-        context = super(MeetingDetail, self).get_context_data(**kwargs)
-
-        geodata = get_object_or_404(EarthGeoDataMeeting, pk=self.kwargs['pk'])
-        map_ = InfoMap([[geodata.geometry,
-                         { 'style': {
-                             'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                             'graphic_width': 30,
-                             'graphic_height': 30,
-                             'fill_color': '#00FF00',
-                             'stroke_color': '#008800',
-                             }}]],
-                       { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
-                       )
-        dict_show = _get_dict_show(self.request, map_, geodata, 'edit_meeting', 'delete_meeting', 'toggle_rec_meeting', pk=self.kwargs['pk'])
-        context.update(dict_show)
-        return context
-
-
-class ActorDetail(DetailView):
-    model = EarthGeoDataActor
-    context_object_name = 'geodata'
-    
-    def get_context_data(self, **kwargs):
-        context = super(ActorDetail, self).get_context_data(**kwargs)
-
-        geodata = get_object_or_404(EarthGeoDataActor, pk=self.kwargs['pk'])
-        map_ = InfoMap([[geodata.geometry,
-                         { 'style': {
-                             'external_graphic': settings.STATIC_URL+"img/actor.png",
-                             'graphic_width': 30,
-                             'graphic_height': 30,
-                             'fill_color': '#00FF00',
-                             'stroke_color': '#008800',
-                             }}]],
-                       { 'map_options': {'controls': ['Navigation', 'PanZoom', 'Attribution'] }}
-                       )
-        dict_show = _get_dict_show(self.request, map_, geodata, 'edit_actor', 'delete_actor', 'toggle_rec_actor', pk=self.kwargs['pk'])
-        context.update(dict_show)
-        return context
 
 
 error_message = _("Please correct the errors below.")

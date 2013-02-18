@@ -5,7 +5,7 @@ from django.contrib.gis import admin
 class PointAdmin(admin.OSMGeoAdmin):
     list_filter = ('content_type','geometry' )
     list_display = ('object', 'geometry', 'content_type', 'object_id')
-    map_template = 'geodata_openlayers.html'
+    map_template = 'geodata/geodata_form_geometry_widget.html'
 
 # Getting an instance so we can generate the map widget; also
 # getting the geometry field for the model.

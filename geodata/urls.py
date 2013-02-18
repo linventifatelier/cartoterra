@@ -10,10 +10,52 @@ from django.db.models import Q
 
 
 urlpatterns = patterns('',
+    url(r'^old/bigmap/$', views.OldBigMapView.as_view()),
     url(r'^feeds/patrimony/$', feeds.PatrimonyFeed(), name = "feed_patrimony"),
     url(r'^feeds/construction/$', feeds.ConstructionFeed(), name = "feed_construction"),
     url(r'^feeds/meeting/$', feeds.MeetingFeed(), name = "feed_meeting"),
     url(r'^feeds/actor/$', feeds.ActorFeed(), name = "feed_actor"),
+    url(r'^patrimony/(?P<pk>\d+)/geojson/$', views.GeoJSONPatrimonyDetailView.as_view(), name="geojson_patrimony_detail"),
+    url(r'^construction/(?P<pk>\d+)/geojson/$', views.GeoJSONConstructionDetailView.as_view(), name="geojson_construction_detail"),
+    url(r'^meeting/(?P<pk>\d+)/geojson/$', views.GeoJSONMeetingDetailView.as_view(), name="geojson_meeting_detail"),
+    url(r'^actor/(?P<pk>\d+)/geojson/$', views.GeoJSONActorDetailView.as_view(), name="geojson_actor_detail"),
+    url(r'^patrimony/all/geojson/$', views.GeoJSONPatrimonyListView.as_view(), name="geojson_patrimony_list"),
+    url(r'^patrimony/contemporary/geojson/$',
+        views.GeoJSONPatrimonyListView.as_view(queryset=
+            EarthGeoDataPatrimony.objects.filter(inauguration_date__gte = now() - timedelta(days=3650)))),
+    url(r'^patrimony/unesco/geojson/$',
+        views.GeoJSONPatrimonyListView.as_view(queryset=
+            EarthGeoDataPatrimony.objects.filter(unesco = True))),
+    url(r'^patrimony/vernacular/geojson/$',
+        views.GeoJSONPatrimonyListView.as_view(queryset=
+            EarthGeoDataPatrimony.objects.filter(architects = ''))),
+    url(r'^patrimony/normal/geojson/$',
+        views.GeoJSONPatrimonyListView.as_view(queryset=
+            EarthGeoDataPatrimony.objects.exclude(architects = '').filter(
+                Q(unesco = False) &
+                (Q(inauguration_date__isnull = True) |
+                ~Q(inauguration_date__gte = now() - timedelta(days=3650)))))),
+    url(r'^construction/all/geojson/$', views.GeoJSONConstructionListView.as_view(), name="geojson_construction_list"),
+    url(r'^construction/participative/geojson/$',
+        views.GeoJSONConstructionListView.as_view(queryset=
+            EarthGeoDataConstruction.objects.filter(participative = True))),
+    url(r'^construction/normal/geojson/$',
+        views.GeoJSONConstructionListView.as_view(queryset=
+            EarthGeoDataConstruction.objects.filter(participative = False))),
+    url(r'^meeting/all/geojson/$', views.GeoJSONMeetingListView.as_view(), name="geojson_meeting_list"),
+    url(r'^meeting/seminar/geojson/$',
+        views.GeoJSONMeetingListView.as_view(queryset=
+            EarthGeoDataMeeting.objects.filter(meeting_type__ident_name__icontains = 'seminar'))),
+    url(r'^meeting/colloquium/geojson/$',
+        views.GeoJSONMeetingListView.as_view(queryset=
+            EarthGeoDataMeeting.objects.filter(meeting_type__ident_name__icontains = 'colloquium'))),
+    url(r'^meeting/conference/geojson/$',
+        views.GeoJSONMeetingListView.as_view(queryset=
+            EarthGeoDataMeeting.objects.filter(meeting_type__ident_name__icontains = 'conference'))),
+    url(r'^meeting/festival/geojson/$',
+        views.GeoJSONMeetingListView.as_view(queryset=
+            EarthGeoDataMeeting.objects.filter(meeting_type__ident_name__icontains = 'festival'))),
+    url(r'^actor/all/geojson/$', views.GeoJSONActorListView.as_view(), name="geojson_actor_list"),
     url(r'^patrimony/all/$', views.PatrimonyListView.as_view(),
         name = "show_patrimony_all"),
     url(r'^patrimony/contemporary/$',
@@ -35,7 +77,7 @@ urlpatterns = patterns('',
                 (Q(inauguration_date__isnull = True) |
                 ~Q(inauguration_date__gte = now() - timedelta(days=3650))))),
         name = "show_patrimony_normal"),
-    url(r'^patrimony/(?P<pk>\d+)/$', views.PatrimonyDetail.as_view(),
+    url(r'^patrimony/(?P<pk>\d+)/$', views.PatrimonyDetailView.as_view(),
         name = "show_patrimony"),
     url(r'^construction/all/$', views.ConstructionListView.as_view(),
         name = "show_construction_all"),
@@ -47,7 +89,7 @@ urlpatterns = patterns('',
         views.ConstructionListView.as_view(queryset=
             EarthGeoDataConstruction.objects.filter(participative = False)),
         name = "show_construction_normal"),
-    url(r'^construction/(?P<pk>\d+)/$', views.ConstructionDetail.as_view(),
+    url(r'^construction/(?P<pk>\d+)/$', views.ConstructionDetailView.as_view(),
         name = "show_construction"),
     url(r'^meeting/all/$', views.MeetingListView.as_view(),
         name = "show_meeting_all"),
@@ -67,11 +109,11 @@ urlpatterns = patterns('',
         views.MeetingListView.as_view(queryset=
             EarthGeoDataMeeting.objects.filter(meeting_type__ident_name__icontains = 'festival')),
         name = "show_meeting_festival"),
-    url(r'^meeting/(?P<pk>\d+)/$', views.MeetingDetail.as_view(),
+    url(r'^meeting/(?P<pk>\d+)/$', views.MeetingDetailView.as_view(),
         name = "show_meeting"),
     url(r'^actor/all/$', views.ActorListView.as_view(),
         name = "show_actor_all"),
-    url(r'^actor/(?P<pk>\d+)/$', views.ActorDetail.as_view(),
+    url(r'^actor/(?P<pk>\d+)/$', views.ActorDetailView.as_view(),
         name = "show_actor"),
     url(r'^patrimony/(?P<pk>\d+)/edit/$', views.PatrimonyUpdateView.as_view(),
         name = "edit_patrimony"),

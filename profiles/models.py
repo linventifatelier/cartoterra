@@ -30,6 +30,18 @@ class Profile(models.Model):
                                        verbose_name=_("actor recommendations"),
                                        null=True, blank=True)
 
+    def recommends(self, geodata):
+        if isinstance(geodata, EarthGeoDataPatrimony):
+            return self.r_patrimony.filter(id = geodata.id).exists()
+        elif isinstance(geodata, EarthGeoDataConstruction):
+            return self.r_construction.filter(id = geodata.id).exists()
+        elif isinstance(geodata, EarthGeoDataMeeting):
+            return self.r_meeting.filter(id = geodata.id).exists()
+        elif isinstance(geodata, EarthGeoDataActor):
+            return self.r_actor.filter(id = geodata.id).exists()
+        else:
+            return False
+
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

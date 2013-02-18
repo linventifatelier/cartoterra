@@ -1,0 +1,91 @@
+{% extends "site_base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load i18n %}
+{% load url from future %}
+{% load can_edit_geodata %}
+{% load recommends_geodata %}
+
+
+
+{% block extra_geodata_toolbox %}
+    {% if user|can_edit_geodata:geodata %}
+        <li id="tab_edit"><a href="{% url edit_geodata geodata.pk %}"><img src="{% static "img/edit.png" %}" width="15" height="15" /></a></li>                    
+        <li id="tab_delete"><a href="{% url delete_geodata geodata.pk %}"><img src="{% static "img/delete.png" %}" width="15" height="15" /></a></li>              
+    {% endif %}
+    {% if user|recommends_geodata:geodata %}
+        <li id="tab_recommend"><a href="{% url recommend_geodata geodata.pk %}"><img src="{% static "img/recommend.png" %}" width="15" height="15" /></a></li>     
+    {% else %}
+        <li id="tab_recommend"><a href="{% url recommend_geodata geodata.pk %}"><img src="{% static "img/recommend.png" %}" width="15" height="15" /></a></li>     
+    {% endif %}
+{% endblock %}
+
+{% block extra_head %}
+<style type="text/css">
+    #{{ module }}_map { width: 100%; height: 400px; }
+</style>
+
+<script type="text/javascript" src="{% static "openlayers/OpenLayers.js" %}"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+{% include "geodata/geodata_map.js" %}
+//]]>
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+  /* This fixes the mouse offset issues in IE. */
+  #{{ id }}_admin_map { position: static; vertical-align: top; }
+  /* `font-size: 0` fixes the 1px border between tiles, but borks LayerSwitcher.
+      Thus, this is disabled until a better fix is found.
+  #{{ id }}_map { width: {{ map_width }}px; height: {{ map_height }}px; font-size: 0; } */
+</style>
+<![endif]-->
+
+<link rel="stylesheet" href="{% static "css/geodata.css" %}" type="text/css">
+{% endblock %}
+
+
+{% block head_title %}{% block head_geodata_type %}{% endblock %}: {{ geodata.name }}{% endblock %}
+
+{% block body_class %}geodata{% endblock %}
+
+{% block body %}
+    <h1>{% block body_geodata_type %}{% endblock %}: {{ geodata.name }}</h1>
+
+    <div id="{{ module }}_map"></div>
+    <script type="text/javascript">{% block init_function %}{{ module }}_init();{% endblock %}</script>
+
+    {% block body_geodata_extra %}
+    {% endblock %}
+
+    <p>
+        {% if geodata.image %}
+            {% trans "Image" %}:<br>
+{% comment %}
+            {{ geodata.image }}
+{% endcomment %}
+	    {% thumbnail geodata.image "300x300" as im %}
+	        <img style="margin:{{ im|margin:"300x300" }}" src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}" />
+	    {% endthumbnail %}
+        {% endif %}
+    </p>
+
+    <p>
+        {% if geodata.description %}
+            {% trans "Description" %}:<br>
+            {{ geodata.description }}
+        {% endif %}
+    </p>
+
+    <p>
+        {% trans "Contacts" %}:
+        <ul>
+            {% if geodata.credit_creator %}<li>{% trans "User" %}: <address><a href="{% url "profile_detail" geodata.creator %}">{{ geodata.creator }}</a></address></li>{% endif %}
+            {% if geodata.url %}<li>{% trans "Website" %}: <a href={{ geodata.url }}>{{ geodata.url }}</a></li>{% endif %}
+            {% if geodata.contact %}<li>{% trans "Other contact information" %}: <address>{{ geodata.contact }}</address></li>{% endif %}
+        </ul>
+    </p>
+
+{% endblock %}
