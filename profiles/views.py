@@ -6,6 +6,7 @@ from olwidget.widgets import InfoMap, Map, InfoLayer
 from geodata.models import *
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from sorl.thumbnail import get_thumbnail
 
 
 def _info_builder(geodataobjects, style = {}):

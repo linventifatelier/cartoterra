@@ -26,7 +26,6 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils import simplejson
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
-from vectorformats.Formats import Django, GeoJSON
 from django.core.serializers import serialize
 
 
@@ -229,6 +228,55 @@ class BigMapView(GeoDataMixin, TemplateView):
         'url' : reverse_lazy('geojson_actor_list'),
     }
     map_layers = [patrimonies, constructions, meetings, actors]
+
+
+class ProfileMapView(GeoDataMixin, TemplateView):
+    """Returns a template to present all patrimonies."""
+    template_name = 'geodata/geodata_bigmap.html'
+    module = "profilemap"
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileMapView, self).get_context_data(**kwargs)
+
+        profile = get_object_or_404(Profile, user__username=self.kwargs['slug'])
+
+        patrimonies = {
+            'name': "Patrimonies",
+            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url' : reverse_lazy('geojson_patrimony_list'),
+        }
+        constructions = {
+            'name': "Constructions",
+            'external_graphic': settings.STATIC_URL+"img/construction.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url' : reverse_lazy('geojson_construction_list'),
+        }
+        meetings = {
+            'name': "Meetings",
+            'external_graphic': settings.STATIC_URL+"img/meeting.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url' : reverse_lazy('geojson_meeting_list'),
+        }
+        actors = {
+            'name': "Actors",
+            'external_graphic' : settings.STATIC_URL+"img/actor.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url' : reverse_lazy('geojson_actor_list'),
+        }
+        map_layers = [patrimonies, constructions, meetings, actors]
 
 
 class GeoDataDetailMixin(GeoDataMixin):
