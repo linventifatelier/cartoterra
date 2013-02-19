@@ -184,7 +184,7 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
     "urli18n",
     #"guardian",
-    "easy_thumbnails",
+    #"easy_thumbnails",
     #"admin_langswitch",
     #"django_evolution",
     "floppyforms",
