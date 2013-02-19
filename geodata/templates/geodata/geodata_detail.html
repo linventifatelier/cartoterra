@@ -14,9 +14,9 @@
         <li id="tab_delete"><a href="{% url delete_geodata geodata.pk %}"><img src="{% static "img/delete.png" %}" width="15" height="15" /></a></li>              
     {% endif %}
     {% if user|recommends_geodata:geodata %}
-        <li id="tab_recommend"><a href="{% url recommend_geodata geodata.pk %}"><img src="{% static "img/recommend.png" %}" width="15" height="15" /></a></li>     
+        <li id="tab_recommend"><a href="{% url recommend_geodata geodata.pk %}"><img src="{% static "img/recommend_on.png" %}" width="15" height="15" /></a></li>     
     {% else %}
-        <li id="tab_recommend"><a href="{% url recommend_geodata geodata.pk %}"><img src="{% static "img/recommend.png" %}" width="15" height="15" /></a></li>     
+        <li id="tab_recommend"><a href="{% url recommend_geodata geodata.pk %}"><img src="{% static "img/recommend_off.png" %}" width="15" height="15" /></a></li>     
     {% endif %}
 {% endblock %}
 
