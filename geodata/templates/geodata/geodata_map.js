@@ -1,7 +1,7 @@
 {% load l10n %}
 
 {% block vars %}var {{ module }} = {};
-{{ module }}.map = null; {{ module }}.controls = null; {{ module }}.panel = null; {{ module }}.bounds = null;
+{{ module }}.map = null; {{ module }}.controls = null; {{ module }}.panel = null; {{ module }}.bounds = null; {{ module }}.layers = {};
 {% endblock %}
 
 get_popup_content = function(feature){
@@ -21,7 +21,7 @@ get_popup_content = function(feature){
 
     {% for layer in map_layers %}
 
-    {{ module }}.{{ layer.name }} = new OpenLayers.Layer.Vector("{{ layer.name }}", {
+    {{ module }}.layers[{{ forloop.counter0 }}] = new OpenLayers.Layer.Vector("{{ layer.name }}", {
         style: {
             externalGraphic: '{{ layer.external_graphic }}',
             graphicWidth: '{{ layer.graphic_width }}',
@@ -32,7 +32,7 @@ get_popup_content = function(feature){
         strategies: [new OpenLayers.Strategy.BBOX()],
         eventListeners: {           
             'loadend': function (evt) {
-                {{ module}}.bounds.extend({{ module }}.{{ layer.name }}.getDataExtent());
+                {{ module}}.bounds.extend({{ module }}.layers[{{ forloop.counter0 }}].getDataExtent());
                 {% if forloop.last %}{{ module }}.map.zoomToExtent({{ module }}.bounds);{% endif %}
             },
             'featureselected':function(evt){
@@ -66,9 +66,9 @@ get_popup_content = function(feature){
     });
     {% endfor %}
 
-    {{ module }}.map.addLayers([{{ module }}.base_layer{% for layer in map_layers %}, {{ module }}.{{ layer.name }}{% endfor %}]);
+    {{ module }}.map.addLayers([{{ module }}.base_layer{% for layer in map_layers %}, {{ module }}.layers[{{ forloop.counter0 }}]{% endfor %}]);
 
-    var select = new OpenLayers.Control.SelectFeature([{% for layer in map_layers %}{% if forloop.first %}{% else %}, {% endif %}{{ module }}.{{ layer.name }}{% endfor %}], {'toggle' : true, 'clickout' : true});
+    var select = new OpenLayers.Control.SelectFeature([{% for layer in map_layers %}{% if forloop.first %}{% else %}, {% endif %}{{ module }}.layers[{{ forloop.counter0 }}]{% endfor %}], {'toggle' : true, 'clickout' : true});
     {{ module }}.map.addControl(select);
     select.activate();
 

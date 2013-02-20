@@ -119,7 +119,11 @@ class GeoDataMixin(object):
         return context
 
 
-class PatrimonyListView(GeoDataMixin, ListView):
+class GeoDataListView(GeoDataMixin, ListView):
+    pass
+
+
+class PatrimonyListView(GeoDataListView):
     """Returns a template to present all patrimonies."""
     model = EarthGeoDataPatrimony
     context_object_name = 'geodata'
@@ -136,7 +140,7 @@ class PatrimonyListView(GeoDataMixin, ListView):
     map_layers = [patrimonies]
 
 
-class ConstructionListView(GeoDataMixin, ListView):
+class ConstructionListView(GeoDataListView):
     """Returns a template to present all constructions."""
     model = EarthGeoDataConstruction
     context_object_name = 'geodata'
@@ -153,7 +157,7 @@ class ConstructionListView(GeoDataMixin, ListView):
     map_layers = [constructions]
 
 
-class MeetingListView(GeoDataMixin, ListView):
+class MeetingListView(GeoDataListView):
     """Returns a template to present all meetings."""
     model = EarthGeoDataMeeting
     context_object_name = 'geodata'
@@ -170,7 +174,7 @@ class MeetingListView(GeoDataMixin, ListView):
     map_layers = [meetings]
 
 
-class ActorListView(GeoDataMixin, ListView):
+class ActorListView(GeoDataListView):
     """Returns a template to present all actors."""
     model = EarthGeoDataActor
     context_object_name = 'geodata'
@@ -187,7 +191,11 @@ class ActorListView(GeoDataMixin, ListView):
     map_layers = [actors]
 
 
-class BigMapView(GeoDataMixin, TemplateView):
+class GeoDataTemplateView(GeoDataMixin, TemplateView):
+    pass
+
+
+class BigMapView(GeoDataTemplateView):
     """Returns a template to present all patrimonies."""
     template_name = 'geodata/geodata_bigmap.html'
     module = "bigmap"
@@ -230,55 +238,6 @@ class BigMapView(GeoDataMixin, TemplateView):
     map_layers = [patrimonies, constructions, meetings, actors]
 
 
-class ProfileMapView(GeoDataMixin, TemplateView):
-    """Returns a template to present all patrimonies."""
-    template_name = 'geodata/geodata_bigmap.html'
-    module = "profilemap"
-
-    def get_context_data(self, **kwargs):
-        context = super(ProfileMapView, self).get_context_data(**kwargs)
-
-        profile = get_object_or_404(Profile, user__username=self.kwargs['slug'])
-
-        patrimonies = {
-            'name': "Patrimonies",
-            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-            'graphic_width': 20,
-            'graphic_height': 20,
-            'fill_color': '#00FF00',
-            'stroke_color': '#008800',
-            'url' : reverse_lazy('geojson_patrimony_list'),
-        }
-        constructions = {
-            'name': "Constructions",
-            'external_graphic': settings.STATIC_URL+"img/construction.png",
-            'graphic_width': 20,
-            'graphic_height': 20,
-            'fill_color': '#00FF00',
-            'stroke_color': '#008800',
-            'url' : reverse_lazy('geojson_construction_list'),
-        }
-        meetings = {
-            'name': "Meetings",
-            'external_graphic': settings.STATIC_URL+"img/meeting.png",
-            'graphic_width': 20,
-            'graphic_height': 20,
-            'fill_color': '#00FF00',
-            'stroke_color': '#008800',
-            'url' : reverse_lazy('geojson_meeting_list'),
-        }
-        actors = {
-            'name': "Actors",
-            'external_graphic' : settings.STATIC_URL+"img/actor.png",
-            'graphic_width': 20,
-            'graphic_height': 20,
-            'fill_color': '#00FF00',
-            'stroke_color': '#008800',
-            'url' : reverse_lazy('geojson_actor_list'),
-        }
-        map_layers = [patrimonies, constructions, meetings, actors]
-
-
 class GeoDataDetailMixin(GeoDataMixin):
     def get_context_data(self, **kwargs):
         context = super(GeoDataDetailMixin, self).get_context_data(**kwargs)
@@ -288,7 +247,11 @@ class GeoDataDetailMixin(GeoDataMixin):
         return context
 
 
-class PatrimonyDetailView(GeoDataDetailMixin, DetailView):
+class GeoDataDetailView(GeoDataDetailMixin, DetailView):
+    pass
+
+
+class PatrimonyDetailView(GeoDataDetailView):
     """Returns a template to present one patrimony."""
     model = EarthGeoDataPatrimony
     context_object_name = 'geodata'
@@ -308,7 +271,7 @@ class PatrimonyDetailView(GeoDataDetailMixin, DetailView):
     recommend_geodata = 'toggle_rec_patrimony'
 
 
-class ConstructionDetailView(GeoDataDetailMixin, DetailView):
+class ConstructionDetailView(GeoDataDetailView):
     """Returns a template to present one construction."""
     model = EarthGeoDataConstruction
     context_object_name = 'geodata'
@@ -328,7 +291,7 @@ class ConstructionDetailView(GeoDataDetailMixin, DetailView):
     recommend_geodata = 'toggle_rec_construction'
 
 
-class MeetingDetailView(GeoDataDetailMixin, DetailView):
+class MeetingDetailView(GeoDataDetailView):
     """Returns a template to present one meeting."""
     model = EarthGeoDataMeeting
     context_object_name = 'geodata'
@@ -348,7 +311,7 @@ class MeetingDetailView(GeoDataDetailMixin, DetailView):
     recommend_geodata = 'toggle_rec_meeting'
 
 
-class ActorDetailView(GeoDataDetailMixin, DetailView):
+class ActorDetailView(GeoDataDetailView):
     """Returns a template to present one actor."""
     model = EarthGeoDataActor
     context_object_name = 'geodata'
