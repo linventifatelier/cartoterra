@@ -79,7 +79,7 @@ class GeoJSONProfileRecommendActorListView(GeoJSONProfileRecommendListView):
 
 class ProfileDetailView(DetailView):
     """Returns a template to present all patrimonies."""
-    template_name = 'geodata/geodata_bigmap.html'
+    template_name = 'profilemap.html'
     module = "profilemap"
     model = Profile
     slug_field = 'user__username'
