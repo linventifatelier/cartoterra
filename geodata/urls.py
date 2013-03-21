@@ -1,10 +1,10 @@
 """urls file."""
 
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from geodata.models import *
 from geodata import views
 from geodata import feeds
-from django.utils.timezone import now 
+from django.utils.timezone import now
 from datetime import timedelta
 from django.db.models import Q
 

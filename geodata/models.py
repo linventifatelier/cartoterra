@@ -13,6 +13,7 @@ from django.utils.timezone import now
 #from sorl.thumbnail import ImageField, get_thumbnail
 from sorl.thumbnail import ImageField
 from hvad.models import TranslatableModel,TranslatedFields
+from django.core.validators import URLValidator
 
 
 class EarthTechnique(models.Model):
@@ -38,8 +39,7 @@ class EarthTechnique(models.Model):
     #"img/technique/fullsize"))
     #display = AutoImageField(upload_to=os.path.join(MEDIA_ROOT,
     #"img/technique/display"),prepopulate_from='fullsize', size=(300, 300))
-    url = models.URLField(_("website"), blank=True, null=True,
-                          verify_exists=False)
+    url = models.URLField(_("website"), blank=True, null=True)
 
     def get_model(self):
         return EarthTechnique
@@ -69,8 +69,7 @@ class EarthGeoDataAbstract(models.Model):
     creator = models.ForeignKey(User, verbose_name=_("creator"))
     description = models.TextField(_("description"), blank=True, null=True)
     image = ImageField(upload_to='img/geodata', blank=True, null=True)
-    url = models.URLField(_("website"), blank=True, null=True,
-                          verify_exists=False)
+    url = models.URLField(_("website"), blank=True, null=True)
     contact = models.TextField(_("contact"), blank=True, null=True)
     geometry = models.PointField(srid=4326, blank=True, null=True)  # EPSG:4236 is the spatial
                                              # reference for our data
