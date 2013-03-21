@@ -31,6 +31,10 @@ get_popup_content = function(feature){
         },
         strategies: [new OpenLayers.Strategy.BBOX()],
         eventListeners: {           
+            'loadend': function (evt) {
+                {{ module}}.bounds.extend({{ module }}.layers[{{ forloop.counter0 }}].getDataExtent());
+                {% if forloop.last %}{{ module }}.map.zoomToExtent({{ module }}.bounds);{% endif %}
+            },
             'featureselected':function(evt){
                 var feature = evt.feature;
                 console.log(feature);
@@ -72,5 +76,5 @@ get_popup_content = function(feature){
 
     {{ module }}.map.addControl(new OpenLayers.Control.LayerSwitcher());
 
-    {{ module }}.map.zoomToMaxExtent();
+    {{ module }}.map.zoomIn();
 }
