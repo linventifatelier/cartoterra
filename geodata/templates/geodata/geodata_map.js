@@ -19,6 +19,8 @@ get_popup_content = function(feature){
     
     {{ module }}.base_layer = new OpenLayers.Layer.OSM("OpenStreetMap (Mapnik)");
 
+    LOADED_LAYERS = 0;
+
     {% for layer in map_layers %}
 
     {{ module }}.layers[{{ forloop.counter0 }}] = new OpenLayers.Layer.Vector("{{ layer.name }}", {
@@ -32,8 +34,11 @@ get_popup_content = function(feature){
         strategies: [new OpenLayers.Strategy.BBOX()],
         eventListeners: {           
             'loadend': function (evt) {
+                LOADED_LAYERS++;
                 {{ module}}.bounds.extend({{ module }}.layers[{{ forloop.counter0 }}].getDataExtent());
-                {% if forloop.last %}{{ module }}.map.zoomToExtent({{ module }}.bounds);{% endif %}
+                if (LOADED_LAYERS == {{ map_layers|length }}) {
+                    {{ module }}.map.zoomToExtent({{ module }}.bounds);
+                };
             },
             'featureselected':function(evt){
                 var feature = evt.feature;
