@@ -53,7 +53,7 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
                                 'url': m.get_absolute_url(),
                                 'image': get_thumbnail(m.image, '100x100').url if m.image else None, }}
         return simplejson.dumps(data)
-            
+
 
 class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
     def convert_context_to_json(self, context):
@@ -68,7 +68,7 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                                                'image': get_thumbnail(m.image, '100x100').url if m.image else None,
                                              }} for m in queryset]}
         return simplejson.dumps(data)
-            
+
 
 
 class GeoJSONDetailView(GeoJSONFeatureResponseMixin, BaseDetailView):
@@ -517,7 +517,7 @@ def _get_dict_show(request, map_, geodata, edit_func, delete_func,
         return {'map': map_, 'geodata': geodata, }
     else:
         if geodata.creator != request.user:
-            profile = request.user.get_profile()
+            profile = request.user.profile
             recommendations = []
             if toggle_rec_func == 'toggle_rec_patrimony':
                 recommendations = profile.r_patrimony
@@ -702,9 +702,9 @@ class ToggleRecommendationView(SingleObjectMixin,View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        profile = request.user.get_profile()
+        profile = request.user.profile
         if isinstance(self.object, EarthGeoDataPatrimony):
-            recommendations = profile.r_patrimony 
+            recommendations = profile.r_patrimony
         elif isinstance(self.object, EarthGeoDataConstruction):
             recommendations = profile.r_construction
         elif isinstance(self.object, EarthGeoDataMeeting):

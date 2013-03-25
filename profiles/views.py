@@ -14,11 +14,11 @@ class GeoJSONProfileCreatorMixin(GeoJSONFeatureCollectionResponseMixin):
     def get_queryset(self, **kwargs):
         queryset = super(GeoJSONProfileCreatorMixin, self).get_queryset(**kwargs)
         return queryset.filter(creator__username = self.kwargs['slug'])
-         
+
 
 class GeoJSONProfileCreatorListView(GeoJSONProfileCreatorMixin, BaseListView):
     pass
-         
+
 
 class GeoJSONProfileCreatorPatrimonyListView(GeoJSONProfileCreatorListView):
     model = EarthGeoDataPatrimony
@@ -43,7 +43,7 @@ class GeoJSONProfileRecommendListView(GeoJSONListView):
 
 class GeoJSONProfileRecommendPatrimonyListView(GeoJSONProfileRecommendListView):
     model = EarthGeoDataPatrimony
-    
+
     def get_queryset(self, **kwargs):
         queryset = super(GeoJSONProfileRecommendPatrimonyListView, self).get_queryset(**kwargs)
         profile = self.get_profile()
@@ -61,7 +61,7 @@ class GeoJSONProfileRecommendConstructionListView(GeoJSONProfileRecommendListVie
 
 class GeoJSONProfileRecommendMeetingListView(GeoJSONProfileRecommendListView):
     model = EarthGeoDataMeeting
-    
+
     def get_queryset(self, **kwargs):
         queryset = super(GeoJSONProfileRecommendMeetingListView, self).get_queryset(**kwargs)
         profile = self.get_profile()
@@ -70,7 +70,7 @@ class GeoJSONProfileRecommendMeetingListView(GeoJSONProfileRecommendListView):
 
 class GeoJSONProfileRecommendActorListView(GeoJSONProfileRecommendListView):
     model = EarthGeoDataActor
-    
+
     def get_queryset(self, **kwargs):
         queryset = super(GeoJSONProfileRecommendActorListView, self).get_queryset(**kwargs)
         profile = self.get_profile()
