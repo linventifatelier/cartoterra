@@ -6,9 +6,6 @@ register = template.Library()
 @register.filter
 def can_edit_geodata(user, geodata):
     if user.is_authenticated():
-        if geodata.creator == user:
-            return True
-        else:
-            return False
+        return (geodata.creator == user or user.is_staff)
     else:
         return False
