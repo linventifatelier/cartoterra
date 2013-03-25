@@ -40,3 +40,8 @@ Markdown
 django-knowledge
 django-dajaxice
 django-dajax
+celery
+django-celery
+celery-haystack
+django-redis-sessions
+django-redis-cache
