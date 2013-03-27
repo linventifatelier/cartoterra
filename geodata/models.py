@@ -85,10 +85,12 @@ class EarthGeoDataAbstract(models.Model):
 class EarthRole(TranslatableModel):
     """Actor role"""
     #name = models.CharField(_("name"), max_length=50)
-    ident_name = models.CharField(_("Identification name"), max_length=255, unique=True)
+    ident_namer = models.CharField(_("Identification name"), max_length=255,
+                                   unique=True)
 
     translations = TranslatedFields(
-        name = models.CharField(_("Translated name"), max_length=255, blank=True, null=True)
+        name=models.CharField(_("Translated name"), max_length=255,
+                              blank=True, null=True)
     )
 
     def get_model(self):
@@ -104,8 +106,8 @@ class EarthRole(TranslatableModel):
 class EarthGeoDataActor(EarthGeoDataAbstract):
     """A spatial model for earthbuilding actors."""
     role = models.ManyToManyField(EarthRole,
-                                        verbose_name=_("role"),
-                                        blank=True, null=True)
+                                  verbose_name=_("role"),
+                                  blank=True, null=True)
 
     class Meta:
         verbose_name = _("actor")
@@ -156,8 +158,8 @@ class EarthMeetingType(TranslatableModel):
                                   unique=True)
 
     translations = TranslatedFields(
-        name = models.CharField(_("Translated name"), max_length=255, blank=True,
-                                null=True)
+        name=models.CharField(_("Translated name"), max_length=255, blank=True,
+                              null=True)
     )
 
     def get_model(self):
