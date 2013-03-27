@@ -1,10 +1,10 @@
 """Geodata administration interface."""
 from django.contrib.gis import admin
 from models import *
-from django.conf import settings
+#from django.conf import settings
 #from stdimage import StdImageField
 from imagewidget import AdminImageWidget
-from forms import EarthGeoDataAbstractForm
+#from forms import EarthGeoDataAbstractForm
 #from sorl.thumbnail.admin import AdminImageMixin
 #from sorl.thumbnail import get_thumbnail
 #from widget import AdminImageFieldWithThumbWidget
@@ -38,10 +38,11 @@ class EarthAdmin(admin.ModelAdmin):
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == 'image':
             #request = kwargs.pop("request", None)
-            _request = kwargs.pop("request", None)
+            #_request = kwargs.pop("request", None)
             kwargs['widget'] = AdminImageWidget
             return db_field.formfield(**kwargs)
-        return super(EarthAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        return super(EarthAdmin, self).formfield_for_dbfield(db_field,
+                                                             **kwargs)
 
 
 class EarthOSMAdmin(admin.OSMGeoAdmin):
@@ -55,7 +56,7 @@ class EarthOSMAdmin(admin.OSMGeoAdmin):
     #        return db_field.formfield(**kwargs)
     #    return super(EarthOSMAdmin, self).formfield_for_dbfield(db_field,
     #                                                         **kwargs)
-    openlayers_url='openlayers/OpenLayers.js'
+    openlayers_url = 'openlayers/OpenLayers.js'
 
 
 class EarthRoleAdmin(hvadadmin.TranslatableAdmin):
@@ -153,8 +154,10 @@ class EarthGeoDataPatrimonyAdmin(EarthGeoDataAbstractAdmin):
     """EarthGeoDataPatrimony administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator', 'unesco')
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
-                   'inauguration_date', 'architects', 'techniques', 'unesco', 'actor')
-    search_fields = ['creator__username', 'name', 'techniques', 'architects', 'actor']
+                   'inauguration_date', 'architects', 'techniques', 'unesco',
+                   'actor')
+    search_fields = ['creator__username', 'name', 'techniques', 'architects',
+                     'actor']
     date_hierarchy = 'pub_date'
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date',
@@ -178,9 +181,10 @@ class EarthGeoDataMeetingAdmin(EarthGeoDataAbstractAdmin):
     search_fields = ['creator__username', 'name', 'meeting_type', 'actor']
     date_hierarchy = 'beginning_date'
     fieldsets = (
-        ('Location Attributes', {'fields': (('name', 'meeting_type', 'pub_date',
-                                             'beginning_date', 'end_date',
-                                             'creator', 'credit_creator', 'actor',
+        ('Location Attributes', {'fields': (('name', 'meeting_type',
+                                             'pub_date', 'beginning_date',
+                                             'end_date', 'creator',
+                                             'credit_creator', 'actor',
                                              'description', 'image', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
@@ -199,9 +203,10 @@ class EarthGeoDataConstructionAdmin(EarthGeoDataAbstractAdmin):
     date_hierarchy = 'pub_date'
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date', 'creator',
-                                             'credit_creator', 'actor', 'participative',
-                                             'techniques', 'description',
-                                             'image', 'url', 'contact'))}),
+                                             'credit_creator', 'actor',
+                                             'participative', 'techniques',
+                                             'description', 'image', 'url',
+                                             'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
 

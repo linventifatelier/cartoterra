@@ -5,15 +5,9 @@ import floppyforms as forms
 from models import EarthGeoDataAbstract, EarthGeoDataMeeting, \
     EarthGeoDataPatrimony, EarthGeoDataConstruction, EarthGeoDataActor
 from django.contrib.admin.widgets import AdminDateWidget
-from django.forms.fields import DateField
 from django.forms import ModelForm
 from sorl.thumbnail import ImageField
-from django.contrib.gis.db.models import PointField
-from django.contrib.gis.geos import Point
 from PIL.ExifTags import TAGS, GPSTAGS
-from sorl.thumbnail import ImageField
-import PIL.Image
-from django.utils.translation import ugettext_lazy as _
 from geodata.widgets import GeoDataWidget
 
 
@@ -35,14 +29,17 @@ def _fractToSimple(frac):
     if not frac:
         return None
     try:
-        f,n = frac
+        f, n = frac
         return round(float(f) / float(n), 3)
     except Exception, e:
         return None
 
 
 def _convert_to_degress(value):
-    """Helper function to convert the GPS coordinates stored in the EXIF to degress in float format"""
+    """
+    Helper function to convert the GPS coordinates stored in the EXIF to
+    degress in float format.
+    """
     d0 = value[0][0]
     d1 = value[0][1]
     d = float(d0) / float(d1)
@@ -182,13 +179,12 @@ class EarthGeoDataAbstractForm(ModelForm):
     class Meta:
         model = EarthGeoDataAbstract
         exclude = ('creator', 'pub_date', )
-    
+
     class Media:
         css = {
             'all': ('css/geodata.css', )
         }
         js = ('openlayers/OpenLayers.js', )
-
 
 
 class EarthGeoDataPatrimonyForm(EarthGeoDataAbstractForm):
@@ -210,13 +206,14 @@ class EarthGeoDataConstructionForm(EarthGeoDataAbstractForm):
 class EarthGeoDataMeetingForm(EarthGeoDataAbstractForm):
     beginning_date = forms.DateField(widget=DatePicker)
     end_date = forms.DateField(widget=DatePicker)
+
     class Meta:
         model = EarthGeoDataMeeting
         exclude = ('creator', 'pub_date', )
 
 
 class EarthGeoDataActorForm(EarthGeoDataAbstractForm):
+
     class Meta:
         model = EarthGeoDataActor
         exclude = ('creator', 'pub_date', )
-

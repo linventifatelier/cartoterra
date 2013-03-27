@@ -12,8 +12,7 @@ from django.utils.timezone import now
 #from sorl.thumbnail import ImageField, ImageWithThumbnailsField
 #from sorl.thumbnail import ImageField, get_thumbnail
 from sorl.thumbnail import ImageField
-from hvad.models import TranslatableModel,TranslatedFields
-from django.core.validators import URLValidator
+from hvad.models import TranslatableModel, TranslatedFields
 
 
 class EarthTechnique(models.Model):
@@ -71,9 +70,8 @@ class EarthGeoDataAbstract(models.Model):
     image = ImageField(upload_to='img/geodata', blank=True, null=True)
     url = models.URLField(_("website"), blank=True, null=True)
     contact = models.TextField(_("contact"), blank=True, null=True)
-    geometry = models.PointField(srid=4326, blank=True, null=True)  # EPSG:4236 is the spatial
-                                             # reference for our data
-    objects = models.GeoManager()  # so we can use spatial queryset methods
+    geometry = models.PointField(srid=4326, blank=True, null=True)
+    objects = models.GeoManager()
 
     class Meta:
         """Abstract class, sorted by name."""
@@ -118,7 +116,6 @@ class EarthGeoDataActor(EarthGeoDataAbstract):
         return ("show_actor", [self.id])
 
 
-
 class EarthGeoDataPatrimony(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
     #architects = models.ManyToManyField(EarthArchitect,
@@ -133,8 +130,8 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
     actor = models.ManyToManyField(EarthGeoDataActor,
-                                        verbose_name=_("actor"),
-                                        blank=True, null=True)
+                                   verbose_name=_("actor"),
+                                   blank=True, null=True)
 
     class Meta:
         verbose_name = _("patrimony")
@@ -155,10 +152,12 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
 class EarthMeetingType(TranslatableModel):
     """Meeting type"""
     #name = models.CharField(_("name"), max_length=50)
-    ident_name = models.CharField(_("Identification name"), max_length=255, unique=True)
+    ident_name = models.CharField(_("Identification name"), max_length=255,
+                                  unique=True)
 
     translations = TranslatedFields(
-        name = models.CharField(_("Translated name"), max_length=255, blank=True, null=True)
+        name = models.CharField(_("Translated name"), max_length=255, blank=True,
+                                null=True)
     )
 
     def get_model(self):
@@ -170,6 +169,32 @@ class EarthMeetingType(TranslatableModel):
         #return str(self.safe_translation_getter('name'))
         #return str(self.id)
 
+
+class EarthGeoDataConstruction(EarthGeoDataAbstract):
+    """A spatial model for earthbuilding construction geodata."""
+    credit_creator = models.BooleanField(_("credit creator"), default=True)
+    participative = models.BooleanField(_("participative"), default=False)
+    techniques = models.ManyToManyField(EarthTechnique,
+                                        verbose_name=_("techniques"),
+                                        blank=True, null=True)
+    inauguration_date = models.DateField(_("inauguration date"),
+                                         blank=True, null=True)
+    actor = models.ManyToManyField(EarthGeoDataActor,
+                                   verbose_name=_("actor"),
+                                   blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("construction")
+        verbose_name_plural = _("constructions")
+
+    def get_model(self):
+        return EarthGeoDataConstruction
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("show_construction", [self.id])
+
+
 class EarthGeoDataMeeting(EarthGeoDataAbstract):
     """A spatial model for earthbuilding patrimony geodata."""
     credit_creator = models.BooleanField(_("credit creator"), default=True)
@@ -180,8 +205,8 @@ class EarthGeoDataMeeting(EarthGeoDataAbstract):
                                       default=date.today())
     end_date = models.DateField(_("end date"), default=date.today())
     actor = models.ManyToManyField(EarthGeoDataActor,
-                                        verbose_name=_("actor"),
-                                        blank=True, null=True)
+                                   verbose_name=_("actor"),
+                                   blank=True, null=True)
 
     class Meta:
         verbose_name = _("meeting")
@@ -197,29 +222,3 @@ class EarthGeoDataMeeting(EarthGeoDataAbstract):
     def ended_status(self):
         """Says if a meeting is ended or not."""
         return self.beginning_date <= date.today()
-
-
-class EarthGeoDataConstruction(EarthGeoDataAbstract):
-    """A spatial model for earthbuilding construction geodata."""
-    credit_creator = models.BooleanField(_("credit creator"), default=True)
-    participative = models.BooleanField(_("participative"), default=False)
-    techniques = models.ManyToManyField(EarthTechnique,
-                                        verbose_name=_("techniques"),
-                                        blank=True, null=True)
-    inauguration_date = models.DateField(_("inauguration date"),
-                                         blank=True, null=True)
-    actor = models.ManyToManyField(EarthGeoDataActor,
-                                        verbose_name=_("actor"),
-                                        blank=True, null=True)
-
-    class Meta:
-        verbose_name = _("construction")
-        verbose_name_plural = _("constructions")
-
-    def get_model(self):
-        return EarthGeoDataConstruction
-
-    @models.permalink
-    def get_absolute_url(self):
-        return ("show_construction", [self.id])
-
