@@ -1,6 +1,5 @@
 from dajax.core import Dajax
 from dajaxice.decorators import dajaxice_register
-from django.utils import simplejson
 from geodata.helpers import Nominatim
 
 

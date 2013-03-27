@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.utils.encoding import smart_str
 from django.utils.translation import get_language
-from django.utils import simplejson
+import json
 import urllib
 
 
@@ -11,8 +11,8 @@ class Nominatim(object):
 
     def make_query(self, url, params):
         f = urllib.urlopen(url % urllib.urlencode(params))
-        return simplejson.load(f)
-    
+        return json.load(f)
+
     def reverse(self, lat, lon):
         params = {
             'format': 'json',
@@ -24,7 +24,7 @@ class Nominatim(object):
             'email': settings.GEODATA_NOMINATIM_EMAIL
         }
         return self.make_query(self.reverse_url, params)
-    
+
     def search(self, query):
         params = {
             'format': 'json',
@@ -35,4 +35,3 @@ class Nominatim(object):
             'email': settings.GEODATA_NOMINATIM_EMAIL
         }
         return self.make_query(self.search_url, params)
-

@@ -22,7 +22,7 @@ from django.views.generic.base import View, TemplateView
 from django.views.generic.detail import SingleObjectMixin, DetailView, BaseDetailView
 from django.views.generic.list import ListView, BaseListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.utils import simplejson
+import json
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 from django.core.serializers import serialize
@@ -47,11 +47,11 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
         m = self.get_object()
         data = {'crs': {"type": "link", "properties": {"href": "http://spatialreference.org/ref/epsg/4326/", "type": "proj4"}},
                 'type': "Feature",
-                'geometry': simplejson.loads(m.geometry.geojson),
+                'geometry': json.loads(m.geometry.geojson),
                 'properties': { 'pk': m.pk, 'name': m.name,
                                 'url': m.get_absolute_url(),
                                 'image': get_thumbnail(m.image, '100x100').url if m.image else None, }}
-        return simplejson.dumps(data)
+        return json.dumps(data)
 
 
 class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
@@ -60,13 +60,13 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
         queryset = self.get_queryset()
         data = {"crs": {"type": "link", "properties": {"href": "http://spatialreference.org/ref/epsg/4326/", "type": "proj4"}},
                 "type": "FeatureCollection",
-                "features": [{ 'geometry': simplejson.loads(m.geometry.geojson),
+                "features": [{ 'geometry': json.loads(m.geometry.geojson),
                                'type': "Feature",
                                'properties': { 'pk': m.pk, 'name': m.name,
                                                'url': m.get_absolute_url(),
                                                'image': get_thumbnail(m.image, '100x100').url if m.image else None,
                                              }} for m in queryset]}
-        return simplejson.dumps(data)
+        return json.dumps(data)
 
 
 
