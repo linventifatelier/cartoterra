@@ -30,7 +30,6 @@ django-urli18n
 django-haystack
 xapian-haystack
 django-hvad
-django-olwidget
 django-floppyforms
 django-rosetta
 gevent
