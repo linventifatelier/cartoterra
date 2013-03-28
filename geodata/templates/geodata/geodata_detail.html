@@ -1,6 +1,5 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
-{% load thumbnail %}
 {% load i18n %}
 {% load url from future %}
 {% load can_edit_geodata %}
@@ -68,9 +67,9 @@
         <div class="imageRow">
         <div class="set">
         {% for image in geodata.image.all %}
-	    {% thumbnail image.image "100x100" as im %}
-            <a href="{{ image.image.url }}" rel="lightbox-journey" title=""><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" /></a>
-	    {% endthumbnail %}
+            {% with image.thumbnail as im %}
+            <a href="{{ image.original.url }}" rel="lightbox-journey" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" /></a>
+	    {% endwith %}
         {% empty %}
             {% trans "No image provided yet." %}
         {% endfor %}

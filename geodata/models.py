@@ -9,9 +9,8 @@ from django.utils.timezone import now
 #from stdimage import StdImageField
 #from image import AutoImageField
 #import os
-#from sorl.thumbnail import ImageField, ImageWithThumbnailsField
-#from sorl.thumbnail import ImageField, get_thumbnail
-from sorl.thumbnail import ImageField
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 from hvad.models import TranslatableModel, TranslatedFields
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
@@ -64,16 +63,18 @@ class EarthTechnique(models.Model):
 
 
 class Image(models.Model):
-    image = ImageField(upload_to='img/geodata', blank=True, null=True)
-    #original = ImageField(upload_to='img/geodata', blank=True, null=True)
-    #image = ImageSpecField(image_field='original',
-    #                       processors=[ResizeToFill(300, 300)],
-    #                       format='JPEG',
-    #                       options={'quality': 80})
-    #thumbnail = ImageSpecField(image_field='original',
-    #                           processors=[ResizeToFill(100, 100)],
-    #                           format='JPEG',
-    #                           options={'quality': 60})
+    #image = ImageField(upload_to='img/geodata', blank=True, null=True)
+    original = models.ImageField(upload_to='img/geodata')
+    legend = models.CharField(_("legend"), max_length=50, blank=True,
+                              null=True)
+    image = ImageSpecField(image_field='original',
+                           processors=[ResizeToFill(300, 300)],
+                           format='JPEG',
+                           options={'quality': 80})
+    thumbnail = ImageSpecField(image_field='original',
+                               processors=[ResizeToFill(100, 100)],
+                               format='JPEG',
+                               options={'quality': 60})
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
@@ -109,7 +110,7 @@ class EarthRole(TranslatableModel):
     """Actor role"""
     #name = models.CharField(_("name"), max_length=50)
     ident_name = models.CharField(_("Identification name"), max_length=255,
-                                   unique=True)
+                                  unique=True)
 
     translations = TranslatedFields(
         name=models.CharField(_("Translated name"), max_length=255,

@@ -1,6 +1,5 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
-{% load thumbnail %}
 {% load i18n %}
 
 
@@ -53,9 +52,9 @@
         <a href={{ data.get_absolute_url }}>{{ data.name }}</a>
 
 	{% if data.image %}
-	    {% thumbnail data.image.image "100x100" as im %}
-	        <img src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}" />
-	    {% endthumbnail %}
+            {% with image.thumbnail as im %}
+	        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" />
+	    {% endwith %}
 	{% endif %}
 
         {% block body_geodata_extra %}

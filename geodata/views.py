@@ -5,7 +5,6 @@ from models import EarthGeoDataPatrimony, EarthGeoDataConstruction,\
     EarthGeoDataMeeting, EarthGeoDataActor
 from forms import EarthGeoDataPatrimonyForm, EarthGeoDataConstructionForm,\
     EarthGeoDataMeetingForm, EarthGeoDataActorForm, ImageFormSet
-from sorl.thumbnail import get_thumbnail
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 from django.contrib import messages
@@ -52,7 +51,7 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
                 {
                     'pk': m.pk, 'name': m.name,
                     'url': m.get_absolute_url(),
-                    'image': get_thumbnail(m.image.all()[0].image, '100x100').url
+                    'image': m.image.all()[0].thumbnail.url
                     if m.image.all() else None,
                 }}
         return json.dumps(data)
@@ -77,7 +76,7 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                   {
                       'pk': m.pk, 'name': m.name,
                       'url': m.get_absolute_url(),
-                      'image': get_thumbnail(m.image.all()[0].image, '100x100').url
+                      'image': m.image.all()[0].thumbnail.url
                       if m.image.all() else None,
                   }} for m in queryset]}
         return json.dumps(data)
