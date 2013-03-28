@@ -8,7 +8,7 @@
 -------------------------------------------------- */
 
 body {
-    background-color: #fff;
+    background-color: #ccc;
     position: relative;
     padding-top: 80px;
 }
@@ -146,6 +146,23 @@ div.quickstart form textarea {
 #footer p.right {
   float: right;
 }
+.partners {
+	margin-top: 15px;
+	float : left;
+	height: 50px; 
+	width : auto;
+	overflow: hidden; 
+	border-bottom :1px dotted black;
+	}
+.legal {
+	margin-top:15px;
+	height: 50px;
+	font-size: xx-small;
+	float : right;
+	border-bottom : 1px dotted black;
+}
+
+
 
 /* Special grid styles
 -------------------------------------------------- */
