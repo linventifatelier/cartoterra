@@ -44,6 +44,9 @@
 <![endif]-->
 
 <link rel="stylesheet" href="{% static "css/geodata.css" %}" type="text/css">
+
+<script type="text/javascript" src="{% static "slimbox/js/slimbox2.js" %}"></script>
+<link rel="stylesheet" href="{% static "slimbox/css/slimbox2.css" %}" type="text/css" media="screen" />
 {% endblock %}
 
 
@@ -61,15 +64,18 @@
     {% endblock %}
 
     <p>
-        {% if geodata.image %}
-            {% trans "Image" %}:<br>
-{% comment %}
-            {{ geodata.image }}
-{% endcomment %}
-	    {% thumbnail geodata.image "300x300" as im %}
-	        <img style="margin:{{ im|margin:"300x300" }}" src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}" />
+        {% if geodata.image.all|length > 1 %}{% trans "Images" %}{% else %}{% trans "Image" %}{% endif %}:
+        <div class="imageRow">
+        <div class="set">
+        {% for image in geodata.image.all %}
+	    {% thumbnail image.image "100x100" as im %}
+            <a href="{{ image.image.url }}" rel="lightbox-journey" title=""><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" /></a>
 	    {% endthumbnail %}
-        {% endif %}
+        {% empty %}
+            {% trans "No image provided yet." %}
+        {% endfor %}
+        </div>
+        </div>
     </p>
 
     <p>

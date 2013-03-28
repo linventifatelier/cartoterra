@@ -12,6 +12,7 @@ from imagewidget import AdminImageWidget
 #ADMIN_THUMBS_SIZE = '60x60'
 #from nani import admin
 from hvad import admin as hvadadmin
+from django.contrib.contenttypes.generic import GenericTabularInline
 
 
 # class MyModelAdmin(admin.ModelAdmin):
@@ -105,6 +106,12 @@ class EarthMeetingTypeAdmin(hvadadmin.TranslatableAdmin):
 admin.site.register(EarthMeetingType, EarthMeetingTypeAdmin)
 
 
+class ImageInline(GenericTabularInline):
+    model = Image
+    #admin_thumbnail = AdminThumbnail(image_field='thumbnail')
+    #readonly_fields = ('admin_thumbnail', )
+
+
 #class EarthGeoDataAbstractAdmin(MyOSMAdmin):
 #class EarthGeoDataAbstractAdmin(admin.OSMGeoAdmin):
 class EarthGeoDataAbstractAdmin(EarthOSMAdmin):
@@ -116,10 +123,11 @@ class EarthGeoDataAbstractAdmin(EarthOSMAdmin):
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date',
                                              'creator',
-                                             'description', 'image',
+                                             'description',
                                              'url', 'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
+    inlines = [ImageInline]
 
     # Default GeoDjango OpenLayers map options
     #scrollable = False
@@ -142,7 +150,7 @@ class EarthGeoDataActorAdmin(EarthGeoDataAbstractAdmin):
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date',
                                              'creator', 'role',
-                                             'description', 'image', 'url',
+                                             'description', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
@@ -164,7 +172,7 @@ class EarthGeoDataPatrimonyAdmin(EarthGeoDataAbstractAdmin):
                                              'inauguration_date', 'creator',
                                              'credit_creator', 'architects',
                                              'techniques', 'actor', 'unesco',
-                                             'description', 'image', 'url',
+                                             'description', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
@@ -185,7 +193,7 @@ class EarthGeoDataMeetingAdmin(EarthGeoDataAbstractAdmin):
                                              'pub_date', 'beginning_date',
                                              'end_date', 'creator',
                                              'credit_creator', 'actor',
-                                             'description', 'image', 'url',
+                                             'description', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
@@ -205,7 +213,7 @@ class EarthGeoDataConstructionAdmin(EarthGeoDataAbstractAdmin):
         ('Location Attributes', {'fields': (('name', 'pub_date', 'creator',
                                              'credit_creator', 'actor',
                                              'participative', 'techniques',
-                                             'description', 'image', 'url',
+                                             'description', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )

@@ -53,7 +53,7 @@
         <a href={{ data.get_absolute_url }}>{{ data.name }}</a>
 
 	{% if data.image %}
-	    {% thumbnail data.image "100x100" as im %}
+	    {% thumbnail data.image.image "100x100" as im %}
 	        <img src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}" />
 	    {% endthumbnail %}
 	{% endif %}

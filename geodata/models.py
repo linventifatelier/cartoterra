@@ -13,6 +13,8 @@ from django.utils.timezone import now
 #from sorl.thumbnail import ImageField, get_thumbnail
 from sorl.thumbnail import ImageField
 from hvad.models import TranslatableModel, TranslatedFields
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
 
 
 class EarthTechnique(models.Model):
@@ -61,13 +63,34 @@ class EarthTechnique(models.Model):
 #        return self.name
 
 
+class Image(models.Model):
+    image = ImageField(upload_to='img/geodata', blank=True, null=True)
+    #original = ImageField(upload_to='img/geodata', blank=True, null=True)
+    #image = ImageSpecField(image_field='original',
+    #                       processors=[ResizeToFill(300, 300)],
+    #                       format='JPEG',
+    #                       options={'quality': 80})
+    #thumbnail = ImageSpecField(image_field='original',
+    #                           processors=[ResizeToFill(100, 100)],
+    #                           format='JPEG',
+    #                           options={'quality': 60})
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
+
+#    class Meta:
+#        """Abstract class."""
+#        abstract = True
+
+
 class EarthGeoDataAbstract(models.Model):
     """An abstract spatial model for earthbuilding geodata."""
     name = models.CharField(_("name"), max_length=50)
     pub_date = models.DateTimeField(_("creation date"), default=now())
     creator = models.ForeignKey(User, verbose_name=_("creator"))
     description = models.TextField(_("description"), blank=True, null=True)
-    image = ImageField(upload_to='img/geodata', blank=True, null=True)
+    #image = ImageField(upload_to='img/geodata', blank=True, null=True)
+    image = generic.GenericRelation(Image)
     url = models.URLField(_("website"), blank=True, null=True)
     contact = models.TextField(_("contact"), blank=True, null=True)
     geometry = models.PointField(srid=4326, blank=True, null=True)
@@ -85,7 +108,7 @@ class EarthGeoDataAbstract(models.Model):
 class EarthRole(TranslatableModel):
     """Actor role"""
     #name = models.CharField(_("name"), max_length=50)
-    ident_namer = models.CharField(_("Identification name"), max_length=255,
+    ident_name = models.CharField(_("Identification name"), max_length=255,
                                    unique=True)
 
     translations = TranslatedFields(
@@ -116,6 +139,10 @@ class EarthGeoDataActor(EarthGeoDataAbstract):
     @models.permalink
     def get_absolute_url(self):
         return ("show_actor", [self.id])
+
+
+#class ActorImage(AbstractImage):
+#    geodata = models.ForeignKey(EarthGeoDataActor, related_name='image')
 
 
 class EarthGeoDataPatrimony(EarthGeoDataAbstract):

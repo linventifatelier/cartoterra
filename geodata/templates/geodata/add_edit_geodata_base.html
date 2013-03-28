@@ -10,9 +10,10 @@
 
 {% block extra_script %}
 {{ form.media.js }}
+<script type="text/javascript" src="{% static "js/formset.js" %}"></script>
 {% endblock %}
 
-
+{% block head_title %}{% endblock %}
 
 {% block body_class %}userform{% endblock %}
 
@@ -22,11 +23,11 @@
 
     <form class="form-stacked" enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
       {% for field in form %}
-        {% if field.errors %}
+      {% if field.errors %}
       <fieldset class="control-group error">
-        {% else %}
+      {% else %}
       <fieldset class="control-group">
-        {% endif %}
+      {% endif %}
 
         <label class="control-label">{{ field.label_tag }}</label>
         <div class="controls">
@@ -36,6 +37,37 @@
         {% if field.errors %}<span class="help-inline">{{ field.errors }}</span>{% endif %}
       </fieldset>
       {% endfor %}
+      
+      {{ image_formset.management_form }}
+      <div class="images">
+      {% for form in image_formset.forms %}
+        <div id="{{ form.prefix }}-row" class="dynamic-form">
+          {{ form }}
+          {% comment %}
+          <div{% if forloop.first %} class="hidden"{% endif %}>
+            <a id="remove-{{ form.prefix }}-row" href="javascript:void(0)" class="delete-row">Hide</a>
+          </div>
+          {% endcomment %}
+        </div>
+      {% endfor %}
+      </div>
+      <a href="javascript:void(0)" class="add-row">{% trans "Add more images" %}</a>
+
+      <script type="text/javascript">
+      <!--
+      $(function () {
+          $('.add-row').click(function() {
+            return addForm(this, 'geodata-image-content_type-object_id');
+          });
+          {% comment %}
+          $('.delete-row').click(function() {
+            return deleteForm(this, 'geodata-image-content_type-object_id');
+          })
+          {% endcomment %}
+      })
+      //-->
+      </script>
+
       <fieldset class="form-actions">
         <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
         <button type="reset" class="btn">{% trans "Cancel" %}</button>

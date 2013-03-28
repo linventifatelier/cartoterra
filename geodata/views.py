@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from models import EarthGeoDataPatrimony, EarthGeoDataConstruction,\
     EarthGeoDataMeeting, EarthGeoDataActor
 from forms import EarthGeoDataPatrimonyForm, EarthGeoDataConstructionForm,\
-    EarthGeoDataMeetingForm, EarthGeoDataActorForm
+    EarthGeoDataMeetingForm, EarthGeoDataActorForm, ImageFormSet
 from sorl.thumbnail import get_thumbnail
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
@@ -52,8 +52,8 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
                 {
                     'pk': m.pk, 'name': m.name,
                     'url': m.get_absolute_url(),
-                    'image': get_thumbnail(m.image, '100x100').url
-                    if m.image else None,
+                    'image': get_thumbnail(m.image.all()[0].image, '100x100').url
+                    if m.image.all() else None,
                 }}
         return json.dumps(data)
 
@@ -77,8 +77,8 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                   {
                       'pk': m.pk, 'name': m.name,
                       'url': m.get_absolute_url(),
-                      'image': get_thumbnail(m.image, '100x100').url
-                      if m.image else None,
+                      'image': get_thumbnail(m.image.all()[0].image, '100x100').url
+                      if m.image.all() else None,
                   }} for m in queryset]}
         return json.dumps(data)
 
@@ -350,15 +350,34 @@ class GeoDataCreateView(CreateView):
     context_object_name = 'geodata'
     template_name_suffix = '_add_form'
 
+    def get_context_data(self, **kwargs):
+        context = super(GeoDataCreateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['image_formset'] = ImageFormSet(self.request.POST,
+                                                    self.request.FILES)
+        else:
+            context['image_formset'] = ImageFormSet()
+        return context
+
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.creator = self.request.user
         self.object.pub_date = now()
-        messages.add_message(self.request, messages.SUCCESS,
-                             _("Successfully added %(modelname)s \"%(name)s\".") %
-                             { 'modelname': force_unicode(self.object._meta.verbose_name), 'name': self.object.name, }
-                             )
-        return super(GeoDataCreateView, self).form_valid(form)
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+        image_formset.instance = self.object
+        if image_formset.is_valid():
+            self.object.save()
+            image_formset.save()
+            messages.add_message(self.request, messages.SUCCESS,
+                                 _("Successfully added %(modelname)s \"%(name)s\".") %
+                                 {'modelname': force_unicode(self.object._meta.verbose_name),
+                                  'name': self.object.name, }
+                                 )
+            return HttpResponseRedirect(self.get_success_url())
+            #return super(GeoDataCreateView, self).form_valid(form)
+        else:
+            self.form_invalid()
 
     def form_invalid(self, form):
         messages.add_message(self.request, messages.ERROR,
@@ -395,6 +414,16 @@ class GeoDataUpdateView(UpdateView):
     context_object_name = 'geodata'
     template_name_suffix = '_edit_form'
 
+    def get_context_data(self, **kwargs):
+        context = super(GeoDataUpdateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['image_formset'] = ImageFormSet(self.request.POST,
+                                                    self.request.FILES,
+                                                    instance=self.object)
+        else:
+            context['image_formset'] = ImageFormSet(instance=self.object)
+        return context
+
     def get_object(self, *args, **kwargs):
         geodata = super(GeoDataUpdateView, self).get_object(*args, **kwargs)
         if geodata.creator != self.request.user:
@@ -403,13 +432,22 @@ class GeoDataUpdateView(UpdateView):
             return geodata
 
     def form_valid(self, form):
-        self.object = form.save()
-        messages.add_message(self.request, messages.SUCCESS,
-                             _("Successfully edited %(modelname)s \"%(name)s\".") %
-                             {'modelname': force_unicode(self.object._meta.verbose_name),
-                              'name': self.object.name, }
-                             )
-        return super(GeoDataUpdateView, self).form_valid(form)
+        self.object = form.save(commit=False)
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+        #image_formset.instance = self.object
+        if image_formset.is_valid():
+            self.object.save()
+            image_formset.save()
+            messages.add_message(self.request, messages.SUCCESS,
+                                 _("Successfully edited %(modelname)s \"%(name)s\".") %
+                                 {'modelname': force_unicode(self.object._meta.verbose_name),
+                                  'name': self.object.name, }
+                                 )
+            return HttpResponseRedirect(self.get_success_url())
+            #return super(GeoDataUpdateView, self).form_valid(form)
+        else:
+            self.form_invalid()
 
     def form_invalid(self, form):
         messages.add_message(self.request, messages.ERROR,

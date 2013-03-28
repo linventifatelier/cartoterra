@@ -2,15 +2,14 @@
 
 #from django import forms
 import floppyforms as forms
-from models import EarthGeoDataAbstract, EarthGeoDataMeeting, \
-    EarthGeoDataPatrimony, EarthGeoDataConstruction, EarthGeoDataActor
+from models import EarthGeoDataAbstract, EarthGeoDataPatrimony,\
+    EarthGeoDataConstruction, EarthGeoDataMeeting, EarthGeoDataActor,\
+    Image
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms import ModelForm
-from sorl.thumbnail import ImageField
 from PIL.ExifTags import TAGS, GPSTAGS
 from geodata.widgets import GeoDataWidget
-
-
+from django.contrib.contenttypes.generic import generic_inlineformset_factory
 
 
 ##############################################
@@ -143,6 +142,8 @@ class DatePicker(forms.DateInput):
 #                           % (value.url, value.url)))
 #        output.append(super(ImageWidget, self).render(name, value, attrs))
 #        return mark_safe(u''.join(output))
+
+ImageFormSet = generic_inlineformset_factory(Image, extra=1, can_delete=True)
 
 
 class EarthGeoDataAbstractForm(ModelForm):
