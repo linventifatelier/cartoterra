@@ -189,7 +189,6 @@ INSTALLED_APPS = [
     #"django_evolution",
     "floppyforms",
     "gunicorn",
-    "olwidget",
     "rosetta",
     "hvad",
     "knowledge",

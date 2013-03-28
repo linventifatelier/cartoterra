@@ -1,33 +1,26 @@
 """GeoData views."""
 
-from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from models import EarthGeoDataPatrimony, EarthGeoDataConstruction,\
-     EarthGeoDataMeeting, EarthGeoDataActor, EarthGeoDataAbstract
+    EarthGeoDataMeeting, EarthGeoDataActor
 from forms import EarthGeoDataPatrimonyForm, EarthGeoDataConstructionForm,\
-     EarthGeoDataMeetingForm, EarthGeoDataActorForm
-from olwidget.widgets import InfoMap, Map, InfoLayer
+    EarthGeoDataMeetingForm, EarthGeoDataActorForm, ImageFormSet
 from sorl.thumbnail import get_thumbnail
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
-from datetime import timedelta
 from django.contrib import messages
-from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
-from profiles.models import Profile
+from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
 from django.utils.encoding import force_unicode
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.contrib.auth.models import AnonymousUser
-from django.db.models import Q
+from django.core.urlresolvers import reverse_lazy
 from django.views.generic.base import View, TemplateView
-from django.views.generic.detail import SingleObjectMixin, DetailView, BaseDetailView
+from django.views.generic.detail import SingleObjectMixin, DetailView,\
+    BaseDetailView
 from django.views.generic.list import ListView, BaseListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.utils import simplejson
+import json
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
-from django.core.serializers import serialize
-
 
 
 class GeoJSONResponseMixin(object):
@@ -46,29 +39,48 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
     def convert_context_to_json(self, context):
         "Convert the context dictionary into a GeoJSON object"
         m = self.get_object()
-        data = {'crs': {"type": "link", "properties": {"href": "http://spatialreference.org/ref/epsg/4326/", "type": "proj4"}},
+        data = {'crs':
+                {
+                    "type": "link",
+                    "properties": {
+                        "href": "http://spatialreference.org/ref/epsg/4326/",
+                        "type": "proj4"}
+                },
                 'type': "Feature",
-                'geometry': simplejson.loads(m.geometry.geojson),
-                'properties': { 'pk': m.pk, 'name': m.name,
-                                'url': m.get_absolute_url(),
-                                'image': get_thumbnail(m.image, '100x100').url if m.image else None, }}
-        return simplejson.dumps(data)
+                'geometry': json.loads(m.geometry.geojson),
+                'properties':
+                {
+                    'pk': m.pk, 'name': m.name,
+                    'url': m.get_absolute_url(),
+                    'image': get_thumbnail(m.image.all()[0].image, '100x100').url
+                    if m.image.all() else None,
+                }}
+        return json.dumps(data)
 
 
 class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
     def convert_context_to_json(self, context):
         "Convert the context dictionary into a GeoJSON object"
         queryset = self.get_queryset()
-        data = {"crs": {"type": "link", "properties": {"href": "http://spatialreference.org/ref/epsg/4326/", "type": "proj4"}},
-                "type": "FeatureCollection",
-                "features": [{ 'geometry': simplejson.loads(m.geometry.geojson),
-                               'type': "Feature",
-                               'properties': { 'pk': m.pk, 'name': m.name,
-                                               'url': m.get_absolute_url(),
-                                               'image': get_thumbnail(m.image, '100x100').url if m.image else None,
-                                             }} for m in queryset]}
-        return simplejson.dumps(data)
-
+        data = {'crs':
+                {
+                    "type": "link",
+                    "properties": {
+                        "href": "http://spatialreference.org/ref/epsg/4326/",
+                        "type": "proj4"}
+                },
+                'type': "FeatureCollection",
+                'features':
+                [{'geometry': json.loads(m.geometry.geojson),
+                  'type': "Feature",
+                  'properties':
+                  {
+                      'pk': m.pk, 'name': m.name,
+                      'url': m.get_absolute_url(),
+                      'image': get_thumbnail(m.image.all()[0].image, '100x100').url
+                      if m.image.all() else None,
+                  }} for m in queryset]}
+        return json.dumps(data)
 
 
 class GeoJSONDetailView(GeoJSONFeatureResponseMixin, BaseDetailView):
@@ -130,12 +142,12 @@ class PatrimonyListView(GeoDataListView):
     module = "list"
     patrimonies = {
         'name': "Patrimonies",
-        'external_graphic' : settings.STATIC_URL+"img/patrimony.png",
-        'graphic_width' : 20,
-        'graphic_height' : 20,
-        'fill_color' : '#00FF00',
-        'stroke_color' : '#008800',
-        'url' : 'geojson/',
+        'external_graphic': settings.STATIC_URL + "img/patrimony.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url': 'geojson/',
     }
     map_layers = [patrimonies]
 
@@ -147,12 +159,12 @@ class ConstructionListView(GeoDataListView):
     module = "list"
     constructions = {
         'name': "Constructions",
-        'external_graphic': settings.STATIC_URL+"img/construction.png",
+        'external_graphic': settings.STATIC_URL + "img/construction.png",
         'graphic_width': 20,
         'graphic_height': 20,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url' : 'geojson/',
+        'url': 'geojson/',
     }
     map_layers = [constructions]
 
@@ -164,12 +176,12 @@ class MeetingListView(GeoDataListView):
     module = "list"
     meetings = {
         'name': "Meetings",
-        'external_graphic': settings.STATIC_URL+"img/meeting.png",
+        'external_graphic': settings.STATIC_URL + "img/meeting.png",
         'graphic_width': 20,
         'graphic_height': 20,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url' : 'geojson/',
+        'url': 'geojson/',
     }
     map_layers = [meetings]
 
@@ -181,12 +193,12 @@ class ActorListView(GeoDataListView):
     module = "list"
     actors = {
         'name': "Actors",
-        'external_graphic': settings.STATIC_URL+"img/actor.png",
+        'external_graphic': settings.STATIC_URL + "img/actor.png",
         'graphic_width': 20,
         'graphic_height': 20,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url' : 'geojson/',
+        'url': 'geojson/',
     }
     map_layers = [actors]
 
@@ -201,39 +213,39 @@ class BigMapView(GeoDataTemplateView):
     module = "bigmap"
     patrimonies = {
         'name': "Patrimonies",
-        'external_graphic': settings.STATIC_URL+"img/patrimony.png",
+        'external_graphic': settings.STATIC_URL + "img/patrimony.png",
         'graphic_width': 20,
         'graphic_height': 20,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url' : reverse_lazy('geojson_patrimony_list'),
+        'url': reverse_lazy('geojson_patrimony_list'),
     }
     constructions = {
         'name': "Constructions",
-        'external_graphic': settings.STATIC_URL+"img/construction.png",
+        'external_graphic': settings.STATIC_URL + "img/construction.png",
         'graphic_width': 20,
         'graphic_height': 20,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url' : reverse_lazy('geojson_construction_list'),
+        'url': reverse_lazy('geojson_construction_list'),
     }
     meetings = {
         'name': "Meetings",
-        'external_graphic': settings.STATIC_URL+"img/meeting.png",
+        'external_graphic': settings.STATIC_URL + "img/meeting.png",
         'graphic_width': 20,
         'graphic_height': 20,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url' : reverse_lazy('geojson_meeting_list'),
+        'url': reverse_lazy('geojson_meeting_list'),
     }
     actors = {
         'name': "Actors",
-        'external_graphic' : settings.STATIC_URL+"img/actor.png",
+        'external_graphic': settings.STATIC_URL + "img/actor.png",
         'graphic_width': 20,
         'graphic_height': 20,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url' : reverse_lazy('geojson_actor_list'),
+        'url': reverse_lazy('geojson_actor_list'),
     }
     map_layers = [patrimonies, constructions, meetings, actors]
 
@@ -258,12 +270,12 @@ class PatrimonyDetailView(GeoDataDetailView):
     module = "detail"
     patrimony = {
         'name': "Patrimony",
-        'external_graphic' : settings.STATIC_URL+"img/patrimony.png",
-        'graphic_width' : 20,
-        'graphic_height' : 20,
-        'fill_color' : '#00FF00',
-        'stroke_color' : '#008800',
-        'url' : 'geojson/',
+        'external_graphic': settings.STATIC_URL + "img/patrimony.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url': 'geojson/',
     }
     map_layers = [patrimony]
     edit_geodata = 'edit_patrimony'
@@ -278,12 +290,12 @@ class ConstructionDetailView(GeoDataDetailView):
     module = "detail"
     construction = {
         'name': "Construction",
-        'external_graphic' : settings.STATIC_URL+"img/construction.png",
-        'graphic_width' : 20,
-        'graphic_height' : 20,
-        'fill_color' : '#00FF00',
-        'stroke_color' : '#008800',
-        'url' : 'geojson/',
+        'external_graphic': settings.STATIC_URL + "img/construction.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url': 'geojson/',
     }
     map_layers = [construction]
     edit_geodata = 'edit_construction'
@@ -298,12 +310,12 @@ class MeetingDetailView(GeoDataDetailView):
     module = "detail"
     meeting = {
         'name': "Meeting",
-        'external_graphic' : settings.STATIC_URL+"img/meeting.png",
-        'graphic_width' : 20,
-        'graphic_height' : 20,
-        'fill_color' : '#00FF00',
-        'stroke_color' : '#008800',
-        'url' : 'geojson/',
+        'external_graphic': settings.STATIC_URL + "img/meeting.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url': 'geojson/',
     }
     map_layers = [meeting]
     edit_geodata = 'edit_meeting'
@@ -318,12 +330,12 @@ class ActorDetailView(GeoDataDetailView):
     module = "detail"
     actor = {
         'name': "Actor",
-        'external_graphic' : settings.STATIC_URL+"img/actor.png",
-        'graphic_width' : 20,
-        'graphic_height' : 20,
-        'fill_color' : '#00FF00',
-        'stroke_color' : '#008800',
-        'url' : 'geojson/',
+        'external_graphic': settings.STATIC_URL + "img/actor.png",
+        'graphic_width': 20,
+        'graphic_height': 20,
+        'fill_color': '#00FF00',
+        'stroke_color': '#008800',
+        'url': 'geojson/',
     }
     map_layers = [actor]
     edit_geodata = 'edit_actor'
@@ -331,231 +343,41 @@ class ActorDetailView(GeoDataDetailView):
     recommend_geodata = 'toggle_rec_actor'
 
 
-
-def _info_builder(geodataobjects, style = {}):
-    info = []
-
-    for i in geodataobjects:
-        description = ""
-        image = ""
-
-        if i.description:
-            description = i.description
-        else: description = i.name
-
-        if i.image:
-            thumbnail = get_thumbnail(i.image, '100x100')
-            image = "<p><a href=" + i.get_absolute_url() +\
-                    "><img src=\"" + thumbnail.url + "\" width=\"" +\
-                    str(thumbnail.x) + "\" height=\"" + str(thumbnail.y) +\
-                    "\"></a></p>"
-
-        mydict = { 'html': "<h1>" + i.name + "</h1>" +\
-                       "<p><a href=" + i.get_absolute_url() + ">" +\
-                       description + "</a></p>" + image,
-                   'style': style
-                   }
-
-        info.append([ i.geometry, mydict ])
-    return info
-
-
-class OldBigMapView(TemplateView):
-    """Returns a big Map with all geodatas."""
-    __name__ = 'show_bigmap'
-
-    template_name = 'show_bigmap.html'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(BigMapView, self).get_context_data(**kwargs)
-
-        patrimony = EarthGeoDataPatrimony.objects.all()
-        construction = EarthGeoDataConstruction.objects.all()
-        meeting = EarthGeoDataMeeting.objects.all()
-        actor = EarthGeoDataActor.objects.all()
-        lcount_patrimony = patrimony.count()
-        lcount_construction = construction.count()
-        lcount_meeting = meeting.count()
-        lcount_actor = actor.count()
-        lcount = lcount_patrimony + lcount_construction + lcount_meeting + lcount_actor
-
-        map_ = Map([
-           InfoLayer(_info_builder(patrimony),
-                     {'name': "Patrimonies",
-                      'overlay_style': {
-                          'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                          'graphic_width': 20,
-                          'graphic_height': 20,
-                          'fill_color': '#00FF00',
-                          'stroke_color': '#008800',
-                          }}),
-           InfoLayer(_info_builder(construction),
-                     {'name': "Constructions",
-                      'overlay_style': {
-                          'external_graphic': settings.STATIC_URL+"img/construction.png",
-                          'graphic_width': 20,
-                          'graphic_height': 20,
-                          'fill_color': '#00FF00',
-                          'stroke_color': '#008800',
-                          }}),
-           InfoLayer(_info_builder(meeting),
-                     {'name': "Meetings",
-                      'overlay_style': {
-                          'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                          'graphic_width': 20,
-                          'graphic_height': 20,
-                          'fill_color': '#00FF00',
-                          'stroke_color': '#008800',
-                          }}),
-           InfoLayer(_info_builder(actor),
-                     {'name': "Actors",
-                      'overlay_style': {
-                          'external_graphic': settings.STATIC_URL+"img/actor.png",
-                          'graphic_width': 20,
-                          'graphic_height': 20,
-                          'fill_color': '#00FF00',
-                          'stroke_color': '#008800',
-                          }}),
-        ], {'map_div_class': 'bigmap', 'map_div_style': {'width': '600px', 'height': '400px'}})
-
-        context['map'] = map_
-        context['location_count'] = lcount
-        context['patrimony_count'] = lcount_patrimony
-        context['construction_count'] = lcount_construction
-        context['meeting_count'] = lcount_meeting
-        context['actor_count'] = lcount_actor
-        return context
-
-
-def get_profilemap(profile):
-    user_ = profile.user
-    patrimony = EarthGeoDataPatrimony.objects.filter(creator = user_)
-    construction = EarthGeoDataConstruction.objects.filter(creator = user_)
-    meeting = EarthGeoDataMeeting.objects.filter(creator = user_)
-    actor = EarthGeoDataActor.objects.filter(creator = user_)
-    r_patrimony = profile.r_patrimony.all()
-    r_construction = profile.r_construction.all()
-    r_meeting = profile.r_meeting.all()
-    r_actor = profile.r_actor.all()
-    name = user_.username
-
-    map_ = Map([
-       InfoLayer(_info_builder(patrimony),
-                 {'name': "Patrimonies " + name,
-                  'overlay_style': {
-                      'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                      'graphic_width': 20,
-                      'graphic_height': 20,
-                      'fill_color': '#00FF00',
-                      'stroke_color': '#008800',
-                      }}),
-       InfoLayer(_info_builder(construction),
-                 {'name': "Constructions " + name,
-                  'overlay_style': {
-                      'external_graphic': settings.STATIC_URL+"img/construction.png",
-                      'graphic_width': 20,
-                      'graphic_height': 20,
-                      'fill_color': '#00FF00',
-                      'stroke_color': '#008800',
-                      }}),
-       InfoLayer(_info_builder(meeting),
-                 {'name': "Meetings " + name,
-                  'overlay_style': {
-                      'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                      'graphic_width': 20,
-                      'graphic_height': 20,
-                      'fill_color': '#00FF00',
-                      'stroke_color': '#008800',
-                      }}),
-       InfoLayer(_info_builder(actor),
-                 {'name': "Actors" + name,
-                  'overlay_style': {
-                      'external_graphic': settings.STATIC_URL+"img/actor.png",
-                      'graphic_width': 20,
-                      'graphic_height': 20,
-                      'fill_color': '#00FF00',
-                      'stroke_color': '#008800',
-                      }}),
-       InfoLayer(_info_builder(r_patrimony, {
-                            'external_graphic': settings.STATIC_URL+"img/patrimony.png",
-                            'graphic_width': 10,
-                            'graphic_height': 10,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            }) +
-                 _info_builder(r_construction, {
-                            'external_graphic': settings.STATIC_URL+"img/construction.png",
-                            'graphic_width': 10,
-                            'graphic_height': 10,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            }) +
-                 _info_builder(r_meeting, {
-                            'external_graphic': settings.STATIC_URL+"img/meeting.png",
-                            'graphic_width': 10,
-                            'graphic_height': 10,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            }) ,
-                 _info_builder(r_actor, {
-                            'external_graphic': settings.STATIC_URL+"img/actor.png",
-                            'graphic_width': 10,
-                            'graphic_height': 10,
-                            'fill_color': '#00FF00',
-                            'stroke_color': '#008800',
-                            }) ,
-                 {'name': "Recommendations " + name, }),
-    ], {'map_div_class': 'usermap'})
-    return map_
-
-
-def _get_dict_show(request, map_, geodata, edit_func, delete_func,
-                   toggle_rec_func, pk):
-    user = request.user
-    if isinstance(user, AnonymousUser):
-        return {'map': map_, 'geodata': geodata, }
-    else:
-        if geodata.creator != request.user:
-            profile = request.user.profile
-            recommendations = []
-            if toggle_rec_func == 'toggle_rec_patrimony':
-                recommendations = profile.r_patrimony
-            elif toggle_rec_func == 'toggle_rec_construction':
-                recommendations = profile.r_construction
-            elif toggle_rec_func == 'toggle_rec_meeting':
-                recommendations = profile.r_meeting
-            elif toggle_rec_func == 'toggle_rec_actor':
-                recommendations = profile.r_actor
-            if geodata in recommendations.all():
-                return {'map': map_, 'geodata': geodata,
-                        'rec_off_geodata': reverse(toggle_rec_func, args=[pk]), }
-            else:
-                return {'map': map_, 'geodata': geodata,
-                        'rec_on_geodata': reverse(toggle_rec_func, args=[pk]), }
-        else:
-            return {'map': map_, 'geodata': geodata,
-                    'edit_geodata': reverse(edit_func, args=[pk]),
-                    'delete_geodata': reverse(delete_func, args=[pk]),}
-
-
 error_message = _("Please correct the errors below.")
-
 
 
 class GeoDataCreateView(CreateView):
     context_object_name = 'geodata'
     template_name_suffix = '_add_form'
 
+    def get_context_data(self, **kwargs):
+        context = super(GeoDataCreateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['image_formset'] = ImageFormSet(self.request.POST,
+                                                    self.request.FILES)
+        else:
+            context['image_formset'] = ImageFormSet()
+        return context
+
     def form_valid(self, form):
-        self.object = form.save(commit = False)
+        self.object = form.save(commit=False)
         self.object.creator = self.request.user
         self.object.pub_date = now()
-        messages.add_message(self.request, messages.SUCCESS,
-                             _("Successfully added %(modelname)s \"%(name)s\".") %
-                             { 'modelname': force_unicode(self.object._meta.verbose_name), 'name': self.object.name, }
-                             )
-        return super(GeoDataCreateView, self).form_valid(form)
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+        image_formset.instance = self.object
+        if image_formset.is_valid():
+            self.object.save()
+            image_formset.save()
+            messages.add_message(self.request, messages.SUCCESS,
+                                 _("Successfully added %(modelname)s \"%(name)s\".") %
+                                 {'modelname': force_unicode(self.object._meta.verbose_name),
+                                  'name': self.object.name, }
+                                 )
+            return HttpResponseRedirect(self.get_success_url())
+            #return super(GeoDataCreateView, self).form_valid(form)
+        else:
+            self.form_invalid()
 
     def form_invalid(self, form):
         messages.add_message(self.request, messages.ERROR,
@@ -588,26 +410,44 @@ class ActorCreateView(GeoDataCreateView):
     form_class = EarthGeoDataActorForm
 
 
-
 class GeoDataUpdateView(UpdateView):
     context_object_name = 'geodata'
     template_name_suffix = '_edit_form'
 
+    def get_context_data(self, **kwargs):
+        context = super(GeoDataUpdateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['image_formset'] = ImageFormSet(self.request.POST,
+                                                    self.request.FILES,
+                                                    instance=self.object)
+        else:
+            context['image_formset'] = ImageFormSet(instance=self.object)
+        return context
 
     def get_object(self, *args, **kwargs):
         geodata = super(GeoDataUpdateView, self).get_object(*args, **kwargs)
-        if geodata.creator != self.request.user:
-            raise PermissionDenied
-        else:
+        if geodata.creator == self.request.user or self.request.user.is_staff:
             return geodata
+        else:
+            raise PermissionDenied
 
     def form_valid(self, form):
-        self.object = form.save()
-        messages.add_message(self.request, messages.SUCCESS,
-                             _("Successfully edited %(modelname)s \"%(name)s\".") %
-                             { 'modelname': force_unicode(self.object._meta.verbose_name), 'name': self.object.name, }
-                             )
-        return super(GeoDataUpdateView, self).form_valid(form)
+        self.object = form.save(commit=False)
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+        #image_formset.instance = self.object
+        if image_formset.is_valid():
+            self.object.save()
+            image_formset.save()
+            messages.add_message(self.request, messages.SUCCESS,
+                                 _("Successfully edited %(modelname)s \"%(name)s\".") %
+                                 {'modelname': force_unicode(self.object._meta.verbose_name),
+                                  'name': self.object.name, }
+                                 )
+            return HttpResponseRedirect(self.get_success_url())
+            #return super(GeoDataUpdateView, self).form_valid(form)
+        else:
+            self.form_invalid()
 
     def form_invalid(self, form):
         messages.add_message(self.request, messages.ERROR,
@@ -656,18 +496,14 @@ class GeoDataDeleteView(DeleteView):
         self.object = self.get_object()
         messages.add_message(request, messages.SUCCESS,
                              _("Successfully deleted %(modelname)s \"%(name)s\".") %
-                             { 'modelname': force_unicode(self.object._meta.verbose_name),
-                               'name': self.object.name, })
+                             {'modelname': force_unicode(self.object._meta.verbose_name),
+                              'name': self.object.name, })
         self.object.delete()
         return HttpResponseRedirect(self.get_success_url())
 
     def get_object(self, *args, **kwargs):
         geodata = super(GeoDataDeleteView, self).get_object(*args, **kwargs)
         if geodata.creator != self.request.user:
-            #messages.add_message(self.request, messages.ERROR,
-            #                     _("You cannot delete %(modelname)s \"%(name)s\"") %
-            #                     { 'modelname': force_unicode(geodata._meta.verbose_name),
-            #                       'name': geodata.name, })
             raise PermissionDenied
         else:
             return geodata
@@ -698,7 +534,7 @@ class ActorDeleteView(GeoDataDeleteView):
     form_class = EarthGeoDataActorForm
 
 
-class ToggleRecommendationView(SingleObjectMixin,View):
+class ToggleRecommendationView(SingleObjectMixin, View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -720,8 +556,8 @@ class ToggleRecommendationView(SingleObjectMixin,View):
             messages.add_message(request, messages.SUCCESS,
                                  _("Successfully removed %(modelname)s \"%(name)s\" \
                              from your recommendations.") %
-                                 { 'modelname': force_unicode(self.object._meta.verbose_name),
-                                   'name': self.object.name, }
+                                 {'modelname': force_unicode(self.object._meta.verbose_name),
+                                  'name': self.object.name, }
                                  )
         else:
             recommendations.add(self.object)
@@ -729,8 +565,8 @@ class ToggleRecommendationView(SingleObjectMixin,View):
             messages.add_message(request, messages.SUCCESS,
                                  _("Successfully added %(modelname)s \"%(name)s\" \
                              to your recommendations.") %
-                                 { 'modelname': force_unicode(self.object._meta.verbose_name),
-                                   'name': self.object.name, }
+                                 {'modelname': force_unicode(self.object._meta.verbose_name),
+                                  'name': self.object.name, }
                                  )
         #return HttpResponse('Success')
         return HttpResponseRedirect(self.object.get_absolute_url())
@@ -754,4 +590,3 @@ class ToggleRecommendationMeetingView(ToggleRecommendationView):
 
 class ToggleRecommendationActorView(ToggleRecommendationView):
     model = EarthGeoDataActor
-
