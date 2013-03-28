@@ -15,10 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="building1.svg"
-   inkscape:export-filename="/Volumes/HDWL/07.WEB/07.Earth Building geowiki/LOGOS/chantier1.png"
-   inkscape:export-xdpi="22.5"
-   inkscape:export-ydpi="22.5">
+   sodipodi:docname="patrimony.svg"
+   inkscape:export-filename="/Users/gregoirepaccoud/Documents/WEB/geowiki/GWrepoLocal1/earthbuilding/geodata/static/img/patrimony.png"
+   inkscape:export-xdpi="14.105618"
+   inkscape:export-ydpi="14.105618">
   <defs
      id="defs4">
     <linearGradient
@@ -39,13 +39,13 @@
     <linearGradient
        id="linearGradient3620">
       <stop
-         style="stop-color:#d2ffc2;stop-opacity:0.96470588;"
+         style="stop-color:#677d5f;stop-opacity:0.96470588;"
          offset="0"
          id="stop3622" />
       <stop
          id="stop3630"
          offset="0.5"
-         style="stop-color:#bbe988;stop-opacity:0.95686275;" />
+         style="stop-color:#93b76b;stop-opacity:0.95686269;" />
       <stop
          style="stop-color:#66c274;stop-opacity:0.9137255;"
          offset="1"
@@ -339,17 +339,17 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="356.46537"
+     inkscape:cx="154.32251"
      inkscape:cy="701.84635"
      inkscape:document-units="px"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:snap-global="false"
      inkscape:window-width="1276"
      inkscape:window-height="756"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1" />
+     inkscape:window-x="385"
+     inkscape:window-y="80"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -366,7 +366,7 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="rectangle"
-     style="display:inline">
+     style="display:none">
     <rect
        style="fill:#5fa45d;fill-opacity:0.70817117;stroke:none;display:inline"
        id="rect3723"
@@ -396,7 +396,7 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="transparence rond"
-     style="display:inline">
+     style="display:none">
     <path
        sodipodi:type="arc"
        style="fill:url(#radialGradient3717);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
@@ -412,7 +412,7 @@
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="contenu logo"
-     style="display:inline">
+     style="display:none">
     <path
        style="fill:#ffffff;fill-opacity:0.92996108;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 239.71961,427.83537 c 16.66637,-0.67332 11.50303,0.76591 50.00255,-2.0203 1.89715,-24.68405 4.60957,-48.96046 5.3033,-74.24622 9.66025,1.59126 11.78511,0.16836 17.67767,0.25254 1.34687,40.1844 2.69374,51.87299 4.04061,74.49875 44.57017,5.00586 79.97041,0.84179 119.95561,1.26269 l -2.0203,56.82108 -126.52161,41.16372 -65.40738,-41.92133 -3.03045,-55.81093 z"
