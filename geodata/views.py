@@ -426,10 +426,10 @@ class GeoDataUpdateView(UpdateView):
 
     def get_object(self, *args, **kwargs):
         geodata = super(GeoDataUpdateView, self).get_object(*args, **kwargs)
-        if geodata.creator != self.request.user:
-            raise PermissionDenied
-        else:
+        if geodata.creator == self.request.user or self.request.user.is_staff:
             return geodata
+        else:
+            raise PermissionDenied
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
