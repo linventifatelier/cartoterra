@@ -8,10 +8,76 @@
 -------------------------------------------------- */
 
 body {
-    background-color: #ccc;
+      font-size: 13px;
+  color: #333333;
+  background-color: #bbaa99;
     position: relative;
     padding-top: 80px;
 }
+
+a {
+  color: #7c88ad;
+} 
+
+p {
+  font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #4f3937;
+}
+
+.page-header {
+  border-bottom: 1pxpx solid #eeeeee;
+}
+
+hr {
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #ffffff;
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  background-color: #f5e7da;
+  padding: 4px 4px 4px 4px;
+  font-size: 13px;
+  color: #555555;
+  border: 1px solid #ccc;
+}
+
+.well {
+  background-color: #eae3dc;
+  border-color: #776350;
+}
+
+li.well {
+	color: 4d1f1a;
+}
+
+#list_map {
+	background-color:#776350;
+}
+
 section {
     padding-top: 60px;
 }
