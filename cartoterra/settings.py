@@ -181,7 +181,7 @@ INSTALLED_APPS = [
     "dajaxice",
     "dajax",
     "south",
-    "sorl.thumbnail",
+    #"sorl.thumbnail",
     "urli18n",
     #"guardian",
     #"easy_thumbnails",
@@ -192,6 +192,7 @@ INSTALLED_APPS = [
     "rosetta",
     "hvad",
     "knowledge",
+    "imagekit",
 
     # theme
     "pinax_theme_bootstrap_account",

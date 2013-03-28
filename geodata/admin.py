@@ -13,6 +13,7 @@ from imagewidget import AdminImageWidget
 #from nani import admin
 from hvad import admin as hvadadmin
 from django.contrib.contenttypes.generic import GenericTabularInline
+from imagekit.admin import AdminThumbnail
 
 
 # class MyModelAdmin(admin.ModelAdmin):
@@ -108,8 +109,8 @@ admin.site.register(EarthMeetingType, EarthMeetingTypeAdmin)
 
 class ImageInline(GenericTabularInline):
     model = Image
-    #admin_thumbnail = AdminThumbnail(image_field='thumbnail')
-    #readonly_fields = ('admin_thumbnail', )
+    admin_thumbnail = AdminThumbnail(image_field='thumbnail')
+    readonly_fields = ('admin_thumbnail', )
 
 
 #class EarthGeoDataAbstractAdmin(MyOSMAdmin):
