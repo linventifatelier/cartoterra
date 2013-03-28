@@ -6,7 +6,7 @@ import os
 #env.hosts = ['www-cartoterra@gueux.org']
 if env.ssh_config_path and os.path.isfile(os.path.expanduser(env.ssh_config_path)):
     env.use_ssh_config = True
-env.hosts = ['felix@panterre-local']
+env.hosts = ['gregoire@192.168.2.210']
 env.disable_known_hosts = True
 
 env.app_user = "www-cartoterra"
