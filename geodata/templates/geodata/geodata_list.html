@@ -39,11 +39,6 @@
   <div id="{{ module }}_map"></div>
   <script type="text/javascript">{% block init_function %}{{ module }}_init();{% endblock %}</script>
 
-  <form action="/search/?q=">
-    <input type="text" name="q" id="id_q">
-    <button type="submit">Go</button>
-  </form>
-
   <ul>
     {% for data in object_list %}
     <li>
