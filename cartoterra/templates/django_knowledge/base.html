@@ -1,6 +1,7 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
+{% load breadcrumbs %}
 
 {% block extra_head %}
     {% comment %}
@@ -12,6 +13,11 @@
 {% block head_title %}{{ SITE_NAME }} | Support Center{% endblock %}
 
 {% block body_class %}knowledge{% endblock %}
+
+{% block breadcrumbs %}
+{% breadcrumb_url 'Home' "home" %}
+{% breadcrumb 'Help' %}
+{% endblock %}
 
 {% block body %}
 <div class="wrapper">

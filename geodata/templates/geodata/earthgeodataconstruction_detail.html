@@ -1,5 +1,6 @@
 {% extends "geodata/geodata_detail.html" %}
 {% load i18n %}
+{% load breadcrumbs %}
 
 {% block head_geodata_type %}{% trans "Construction" %}{% endblock %}
 
@@ -39,4 +40,8 @@
             {% trans "No." %}
         {% endif %}
     </p>
+{% endblock %}
+
+{% block breadcrumbs_extra_detail %}
+{% include "geodata/_breadcrumb_list_construction.html" %}
 {% endblock %}

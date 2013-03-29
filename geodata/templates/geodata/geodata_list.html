@@ -1,6 +1,7 @@
-{% extends "site_base.html" %}
+{% extends "geodata/geodata_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
+{% load breadcrumbs %}
 
 
 {% block extra_head %}
@@ -35,16 +36,13 @@
 {% block body_class %}place{% endblock %}
 
 {% block body %}
-
   <div id="{{ module }}_map"></div>
   <script type="text/javascript">{% block init_function %}{{ module }}_init();{% endblock %}</script>
-
 
   <form action="/search/?q=">
     <input type="text" name="q" id="id_q">
     <button type="submit">Go</button>
   </form>
-
 
   <ul>
     {% for data in object_list %}

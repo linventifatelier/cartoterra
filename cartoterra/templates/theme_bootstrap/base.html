@@ -1,5 +1,7 @@
 {% load staticfiles %}
 {% load url from future %}
+{% load breadcrumbs %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
     <head>
@@ -72,6 +74,12 @@
                       {% include "_sidebar.html" %}
                     </div>
                     <div class="container-fluid span8 content">
+                      {% block breadcrumb_base %}
+                      <ul class="breadcrumb">
+                        {% block breadcrumbs %}
+                        {% endblock %}
+                      </ul>
+                      {% endblock %}
                       {% block body %}
                         {% block content %}
                         {% endblock %}
