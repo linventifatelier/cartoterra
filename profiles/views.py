@@ -1,4 +1,4 @@
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.views.generic.list import BaseListView
 from models import Profile
 from geodata.views import GeoJSONFeatureCollectionResponseMixin,\
@@ -84,7 +84,7 @@ class GeoJSONProfileRecommendActorListView(GeoJSONProfileRecommendListView):
 
 
 class ProfileDetailView(DetailView):
-    """Returns a template to present all patrimonies."""
+    """Returns a template to present all patrimonies of a given profile."""
     template_name = 'profilemap.html'
     module = "profilemap"
     model = Profile
@@ -184,3 +184,9 @@ class ProfileDetailView(DetailView):
                                  recommendations_actors]
         context['module'] = self.module
         return context
+
+
+class ProfileListView(ListView):
+    """Returns a template to present all profiles."""
+    model = Profile
+    template_name = 'profile_list.html'

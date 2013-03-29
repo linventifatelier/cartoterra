@@ -1,0 +1,31 @@
+{% extends "geodata/geodata_base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load breadcrumbs %}
+
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "css/geodata.css" %}" type="text/css">
+{% endblock %}
+
+
+{% block head_title %}{% trans "List of profiles" %}: {% block head_geodata_type %}{% endblock%}{% endblock %}
+
+{% block body_class %}profiles{% endblock %}
+
+{% block body %}
+  <ul>
+    {% for profile in object_list %}
+    <li>
+        <a href={% url "profile_detail" profile.user.username %}>{{ profile.user.username }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
+
+{% block breadcrumbs %}
+{% breadcrumb_url 'Home' "home" %}
+{% breadcrumb 'Profiles' %}
+{% endblock %}
+

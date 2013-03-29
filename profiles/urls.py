@@ -1,10 +1,12 @@
 from django.conf.urls import *
 from profiles.views import *
-from geodata import views as geodataviews
 from geodata.models import *
 
-urlpatterns = patterns("",
-    url(r"^profile/(?P<slug>[\w\._-]+)/$", ProfileDetailView.as_view(), name="profile_detail"),
+urlpatterns = patterns(
+    "",
+    url(r"^profile/(?P<slug>[\w\._-]+)/$", ProfileDetailView.as_view(),
+        name="profile_detail"),
+    url(r"^all/$", ProfileListView.as_view(), name="profile_list"),
     url(r'^profile/(?P<slug>[\w\._-]+)/creator/patrimony/geojson/$',
         GeoJSONProfileCreatorPatrimonyListView.as_view(),
         name="geojson_profile_creator_patrimony"),
