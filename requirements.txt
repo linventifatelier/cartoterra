@@ -1,7 +1,7 @@
 --extra-index-url=http://dist.pinaxproject.com/dev/
 --extra-index-url=http://dist.pinaxproject.com/alpha/
 
-Django==1.5
+Django==1.5.1
 pinax-theme-bootstrap==3.0a4
 pinax-theme-bootstrap-account==1.0b2
 django-user-accounts==1.0b8
@@ -39,7 +39,7 @@ django-knowledge==0.1.1
 django-dajaxice==0.5.5
 django-dajax==0.9.2
 celery==3.0.17
-django-celery==3.0.11
+django-celery==3.0.17
 celery-haystack==0.7.2
 redis==2.7.2
 django-redis-sessions==0.3.1
