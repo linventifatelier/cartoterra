@@ -33,11 +33,9 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True),
                       keep_default=False)
 
-        # Adding field 'Profile.mugshot'
-        db.add_column(u'profiles_profile', 'mugshot',
-                      self.gf('django.db.models.fields.files.ImageField')(default='', max_length=100, blank=True),
-                      keep_default=False)
 
+        # User chose to not deal with backwards NULL issues for 'Profile.mugshot'
+        raise RuntimeError("Cannot reverse this migration. 'Profile.mugshot' and its values cannot be restored.")
         # Adding field 'Profile.about'
         db.add_column(u'profiles_profile', 'about',
                       self.gf('django.db.models.fields.TextField')(null=True, blank=True),
