@@ -74,6 +74,25 @@ li.well {
 	color: 4d1f1a;
 }
 
+.nav-header {
+	color : #4d1f1a;
+}
+
+.breadcrumb {
+	background-color:#bbaa99;
+}
+
+.breadcrumb li.active {
+	text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.breadcrumb a {
+	text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+
 #list_map {
 	background-color:#776350;
 }
