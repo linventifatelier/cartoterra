@@ -11,7 +11,7 @@ function addForm(btn, prefix) {
     var formCount = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
     var row = $('.dynamic-form:first').clone(true).get(0);
     $(row).removeAttr('id').insertAfter($('.dynamic-form:last')).children('.hidden').removeClass('hidden');
-    $(row).children().not(':last').each(function() {
+    $(row).children().not(':last').children().each(function() {
       updateElementIndex(this, prefix, formCount);
       $(this).val('');
     });

@@ -79,9 +79,8 @@ class Image(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
-#    class Meta:
-#        """Abstract class."""
-#        abstract = True
+    class Meta:
+        ordering = ["id"]
 
 
 class EarthGeoDataAbstract(models.Model):

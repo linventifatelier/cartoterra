@@ -376,7 +376,7 @@ class GeoDataCreateView(CreateView):
             return HttpResponseRedirect(self.get_success_url())
             #return super(GeoDataCreateView, self).form_valid(form)
         else:
-            self.form_invalid()
+            return self.form_invalid(form)
 
     def form_invalid(self, form):
         messages.add_message(self.request, messages.ERROR,
@@ -446,7 +446,7 @@ class GeoDataUpdateView(UpdateView):
             return HttpResponseRedirect(self.get_success_url())
             #return super(GeoDataUpdateView, self).form_valid(form)
         else:
-            self.form_invalid()
+            return self.form_invalid(form)
 
     def form_invalid(self, form):
         messages.add_message(self.request, messages.ERROR,
