@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load dajaxice_templatetags %}
+{% dajaxice_js_import %}
 
 {% block extrastyle %}
 <style type="text/css">
@@ -30,9 +31,6 @@
 <link rel="stylesheet" href="{% static "css/geodata.css" %}" type="text/css">
 {% endblock %}
 
-{% dajaxice_js_import %}
-
-<span id="{{ id }}_admin_map">
 <script type="text/javascript">
 //<![CDATA[
 {% block openlayers %}{% include "gis/admin/osm.js" %}{% endblock %}
@@ -45,32 +43,25 @@
 </script>
 <script src="{% static "dajax/jquery.dajax.core.js" %}" type="text/javascript" charset="utf-8"></script>
 
-<div class="controls controls-row">
   <label class="label">{% trans "Latitude/Longitude" %}</label>
-  <div class="controls">
+  <div>
     <input type="text" class="span2 spinner-link" value="" placeholder="{% trans "Latitude" %}" id="latitude">
     <input type="text" class="span2 spinner-link" value="" placeholder="{% trans "Longitude" %}" id="longitude">
-    <button class="btn spinner-link" onclick="panToLatLonZoom($('#latitude').val(), $('#longitude').val(), 12);">{% trans "Update map" %}</button>
+    <input type="button" class="btn spinner-link" value="{% trans "Update map" %}" onclick="panToLatLonZoom($('#latitude').val(), $('#longitude').val(), 12);">
   </div>
-</div>
 
-<div class="controls controls-row">
   <label class="label" for="search_terms">{% trans "Nominatim Search" %}</label>
-  <div class="controls">
+  <div>
     <input type="text" class="span3 spinner-link" value="" placeholder="{% trans "Search" %}" id="search_terms" class="span3" >
     <input type="button" class="btn spinner-link" value="{% trans "Geolocate this address!" %}" onclick="Dajaxice.geodata.search_nominatim(Dajax.process, {'search_terms':search_terms.value})">
   </div>
-</div>
-<div class="controls">
-  <div class="controls">
+
+  <div>
     <select class="span5" id="search_results" onclick="Dajaxice.geodata.get_point_coordinates(Dajax.process, { 'bbox': $('#search_results option:selected').attr('bbox'),'lat': $('#search_results option:selected').attr('lat'), 'lon': $('#search_results option:selected').attr('lon'), 'minlat': $('#search_results option:selected').attr('minlat'), 'maxlat': $('#search_results option:selected').attr('maxlat'), 'minlon': $('#search_results option:selected').attr('minlon'), 'maxlon': $('#search_results option:selected').attr('maxlon') })" size="3"></select>
   </div>
-</div>
-
 
 <div id="{{ id }}_map"{% if LANGUAGE_BIDI %} dir="ltr"{% endif %}></div>
 <a href="javascript:{{ module }}.clearFeatures()">{% trans "Delete all Features" %}</a>
 {% if display_wkt %}<p> WKT debugging window:</p>{% endif %}
 <textarea id="{{ id }}" class="vWKTField required" cols="150" rows="10" name="{{ name }}">{{ wkt }}</textarea>
 <script type="text/javascript">{% block init_function %}{{ module }}.init();{% endblock %}</script>
-</span>
