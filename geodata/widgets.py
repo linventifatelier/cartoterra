@@ -1,9 +1,9 @@
-from django.contrib.gis.admin.widgets import OpenLayersWidget
 from geodata.models import EarthGeoDataAbstract
 from django.contrib.gis import admin
 
+
 class PointAdmin(admin.OSMGeoAdmin):
-    list_filter = ('content_type','geometry' )
+    list_filter = ('content_type', 'geometry')
     list_display = ('object', 'geometry', 'content_type', 'object_id')
     map_template = 'geodata/geodata_form_geometry_widget.html'
 
