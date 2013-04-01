@@ -2,12 +2,11 @@
 {% load i18n %}
 {% load breadcrumbs %}
 
-{% block head_title %}{% trans "Add a"%} {% block head_geodata_type %}{% endblock %}{% endblock %}
+{% block head_title %}{% trans "Add"%}: {% block head_geodata_type %}{{ geodata_verbose_name }}{% endblock %}{% endblock %}
 
-{% block body_h1 %}{% trans "Add a"%} {% block body_geodata_type %}{% endblock %}{% endblock %}
+{% block body_h1 %}{% trans "Add"%}: {% block body_geodata_type %}{{ geodata_verbose_name }}{% endblock %}{% endblock %}
 
 {% block breadcrumbs_extra %}
-{% block breadcrumbs_extra_add %}
-{% endblock %}
+{% breadcrumb_url geodata_verbose_name_plural geodata_list_url %}
 {% breadcrumb 'Add' %}
 {% endblock %}

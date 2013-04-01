@@ -125,20 +125,80 @@ class GeoJSONActorDetailView(GeoJSONDetailView):
 class GeoDataMixin(object):
     def get_context_data(self, **kwargs):
         context = super(GeoDataMixin, self).get_context_data(**kwargs)
+        context['geodata_detail_url'] = self.geodata_detail_url
+        context['geodata_list_url'] = self.geodata_list_url
+        context['geodata_add_url'] = self.geodata_add_url
+        context['geodata_edit_url'] = self.geodata_edit_url
+        context['geodata_delete_url'] = self.geodata_delete_url
+        context['geodata_recommend_url'] = self.geodata_recommend_url
+        return context
+
+
+class PatrimonyMixin(object):
+    geodata_detail_url = "show_patrimony"
+    geodata_list_url = "show_patrimony_all"
+    geodata_add_url = "add_patrimony"
+    geodata_edit_url = "edit_patrimony"
+    geodata_delete_url = "delete_patrimony"
+    geodata_recommend_url = "toggle_rec_patrimony"
+
+
+class ConstructionMixin(object):
+    geodata_detail_url = "show_construction"
+    geodata_list_url = "show_construction_all"
+    geodata_add_url = "add_construction"
+    geodata_edit_url = "edit_construction"
+    geodata_delete_url = "delete_construction"
+    geodata_recommend_url = "toggle_rec_construction"
+
+
+class MeetingMixin(object):
+    geodata_detail_url = "show_meeting"
+    geodata_list_url = "show_meeting_all"
+    geodata_add_url = "add_meeting"
+    geodata_edit_url = "edit_meeting"
+    geodata_delete_url = "delete_meeting"
+    geodata_recommend_url = "toggle_rec_meeting"
+
+
+class ActorMixin(object):
+    geodata_detail_url = "show_actor"
+    geodata_list_url = "show_actor_all"
+    geodata_add_url = "add_actor"
+    geodata_edit_url = "edit_actor"
+    geodata_delete_url = "delete_actor"
+    geodata_recommend_url = "toggle_rec_actor"
+
+
+class GeoDataMapMixin(GeoDataMixin):
+    def get_context_data(self, **kwargs):
+        context = super(GeoDataMapMixin, self).get_context_data(**kwargs)
         context['module'] = self.module
         context['map_layers'] = self.map_layers
         return context
 
 
-class GeoDataListView(GeoDataMixin, ListView):
+class GeoDataMultipleObjectsMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(GeoDataMultipleObjectsMixin,
+                        self).get_context_data(**kwargs)
+        queryset = self.get_queryset()
+        context['geodata_verbose_name'] = \
+            queryset.model._meta.verbose_name.title()
+        context['geodata_verbose_name_plural'] = \
+            queryset.model._meta.verbose_name_plural.title()
+        return context
+
+
+class GeoDataListView(GeoDataMultipleObjectsMixin, GeoDataMapMixin, ListView):
+    context_object_name = 'geodata'
+    module = "list"
     pass
 
 
-class PatrimonyListView(GeoDataListView):
+class PatrimonyListView(PatrimonyMixin, GeoDataListView):
     """Returns a template to present all patrimonies."""
     model = EarthGeoDataPatrimony
-    context_object_name = 'geodata'
-    module = "list"
     patrimonies = {
         'name': "Patrimonies",
         'external_graphic': settings.STATIC_URL + "img/patrimony.png",
@@ -151,11 +211,9 @@ class PatrimonyListView(GeoDataListView):
     map_layers = [patrimonies]
 
 
-class ConstructionListView(GeoDataListView):
+class ConstructionListView(ConstructionMixin, GeoDataListView):
     """Returns a template to present all constructions."""
     model = EarthGeoDataConstruction
-    context_object_name = 'geodata'
-    module = "list"
     constructions = {
         'name': "Constructions",
         'external_graphic': settings.STATIC_URL + "img/construction.png",
@@ -168,11 +226,9 @@ class ConstructionListView(GeoDataListView):
     map_layers = [constructions]
 
 
-class MeetingListView(GeoDataListView):
+class MeetingListView(MeetingMixin, GeoDataListView):
     """Returns a template to present all meetings."""
     model = EarthGeoDataMeeting
-    context_object_name = 'geodata'
-    module = "list"
     meetings = {
         'name': "Meetings",
         'external_graphic': settings.STATIC_URL + "img/meeting.png",
@@ -185,11 +241,9 @@ class MeetingListView(GeoDataListView):
     map_layers = [meetings]
 
 
-class ActorListView(GeoDataListView):
+class ActorListView(ActorMixin, GeoDataListView):
     """Returns a template to present all actors."""
     model = EarthGeoDataActor
-    context_object_name = 'geodata'
-    module = "list"
     actors = {
         'name': "Actors",
         'external_graphic': settings.STATIC_URL + "img/actor.png",
@@ -202,11 +256,19 @@ class ActorListView(GeoDataListView):
     map_layers = [actors]
 
 
-class GeoDataTemplateView(GeoDataMixin, TemplateView):
+class GeoDataAllMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(GeoDataAllMixin, self).get_context_data(**kwargs)
+        context['module'] = self.module
+        context['map_layers'] = self.map_layers
+        return context
+
+
+class GeoDataAllView(GeoDataAllMixin, TemplateView):
     pass
 
 
-class BigMapView(GeoDataTemplateView):
+class BigMapView(GeoDataAllView):
     """Returns a template to present all patrimonies."""
     template_name = 'geodata/geodata_bigmap.html'
     module = "bigmap"
@@ -249,24 +311,32 @@ class BigMapView(GeoDataTemplateView):
     map_layers = [patrimonies, constructions, meetings, actors]
 
 
-class GeoDataDetailMixin(GeoDataMixin):
+class GeoDataSingleObjectMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(GeoDataSingleObjectMixin,
+                        self).get_context_data(**kwargs)
+        #object = self.get_object()
+        context['geodata_verbose_name'] = self.model._meta.verbose_name.title()
+        context['geodata_verbose_name_plural'] = \
+            self.model._meta.verbose_name_plural.title()
+        return context
+
+
+class GeoDataDetailMixin(GeoDataSingleObjectMixin, GeoDataMapMixin):
     def get_context_data(self, **kwargs):
         context = super(GeoDataDetailMixin, self).get_context_data(**kwargs)
-        context['edit_geodata'] = self.edit_geodata
-        context['delete_geodata'] = self.delete_geodata
-        context['recommend_geodata'] = self.recommend_geodata
         return context
 
 
 class GeoDataDetailView(GeoDataDetailMixin, DetailView):
+    context_object_name = 'geodata'
+    module = "detail"
     pass
 
 
-class PatrimonyDetailView(GeoDataDetailView):
+class PatrimonyDetailView(PatrimonyMixin, GeoDataDetailView):
     """Returns a template to present one patrimony."""
     model = EarthGeoDataPatrimony
-    context_object_name = 'geodata'
-    module = "detail"
     patrimony = {
         'name': "Patrimony",
         'external_graphic': settings.STATIC_URL + "img/patrimony.png",
@@ -277,16 +347,11 @@ class PatrimonyDetailView(GeoDataDetailView):
         'url': 'geojson/',
     }
     map_layers = [patrimony]
-    edit_geodata = 'edit_patrimony'
-    delete_geodata = 'delete_patrimony'
-    recommend_geodata = 'toggle_rec_patrimony'
 
 
-class ConstructionDetailView(GeoDataDetailView):
+class ConstructionDetailView(ConstructionMixin, GeoDataDetailView):
     """Returns a template to present one construction."""
     model = EarthGeoDataConstruction
-    context_object_name = 'geodata'
-    module = "detail"
     construction = {
         'name': "Construction",
         'external_graphic': settings.STATIC_URL + "img/construction.png",
@@ -297,16 +362,11 @@ class ConstructionDetailView(GeoDataDetailView):
         'url': 'geojson/',
     }
     map_layers = [construction]
-    edit_geodata = 'edit_construction'
-    delete_geodata = 'delete_construction'
-    recommend_geodata = 'toggle_rec_construction'
 
 
-class MeetingDetailView(GeoDataDetailView):
+class MeetingDetailView(MeetingMixin, GeoDataDetailView):
     """Returns a template to present one meeting."""
     model = EarthGeoDataMeeting
-    context_object_name = 'geodata'
-    module = "detail"
     meeting = {
         'name': "Meeting",
         'external_graphic': settings.STATIC_URL + "img/meeting.png",
@@ -317,16 +377,11 @@ class MeetingDetailView(GeoDataDetailView):
         'url': 'geojson/',
     }
     map_layers = [meeting]
-    edit_geodata = 'edit_meeting'
-    delete_geodata = 'delete_meeting'
-    recommend_geodata = 'toggle_rec_meeting'
 
 
-class ActorDetailView(GeoDataDetailView):
+class ActorDetailView(ActorMixin, GeoDataDetailView):
     """Returns a template to present one actor."""
     model = EarthGeoDataActor
-    context_object_name = 'geodata'
-    module = "detail"
     actor = {
         'name': "Actor",
         'external_graphic': settings.STATIC_URL + "img/actor.png",
@@ -337,15 +392,12 @@ class ActorDetailView(GeoDataDetailView):
         'url': 'geojson/',
     }
     map_layers = [actor]
-    edit_geodata = 'edit_actor'
-    delete_geodata = 'delete_actor'
-    recommend_geodata = 'toggle_rec_actor'
 
 
 error_message = _("Please correct the errors below.")
 
 
-class GeoDataCreateView(CreateView):
+class GeoDataCreateView(GeoDataSingleObjectMixin, GeoDataMixin, CreateView):
     context_object_name = 'geodata'
     template_name_suffix = '_add_form'
 
@@ -368,11 +420,12 @@ class GeoDataCreateView(CreateView):
         if image_formset.is_valid():
             self.object.save()
             image_formset.save()
-            messages.add_message(self.request, messages.SUCCESS,
-                                 _("Successfully added %(modelname)s \"%(name)s\".") %
-                                 {'modelname': force_unicode(self.object._meta.verbose_name),
-                                  'name': self.object.name, }
-                                 )
+            messages.add_message(
+                self.request, messages.SUCCESS,
+                _("Successfully added %(modelname)s \"%(name)s\".") %
+                {'modelname': force_unicode(self.object._meta.verbose_name),
+                 'name': self.object.name, }
+            )
             return HttpResponseRedirect(self.get_success_url())
             #return super(GeoDataCreateView, self).form_valid(form)
         else:
@@ -389,27 +442,27 @@ class GeoDataCreateView(CreateView):
         return super(GeoDataCreateView, self).dispatch(*args, **kwargs)
 
 
-class PatrimonyCreateView(GeoDataCreateView):
+class PatrimonyCreateView(PatrimonyMixin, GeoDataCreateView):
     model = EarthGeoDataPatrimony
     form_class = EarthGeoDataPatrimonyForm
 
 
-class ConstructionCreateView(GeoDataCreateView):
+class ConstructionCreateView(ConstructionMixin, GeoDataCreateView):
     model = EarthGeoDataConstruction
     form_class = EarthGeoDataConstructionForm
 
 
-class MeetingCreateView(GeoDataCreateView):
+class MeetingCreateView(MeetingMixin, GeoDataCreateView):
     model = EarthGeoDataMeeting
     form_class = EarthGeoDataMeetingForm
 
 
-class ActorCreateView(GeoDataCreateView):
+class ActorCreateView(ActorMixin, GeoDataCreateView):
     model = EarthGeoDataActor
     form_class = EarthGeoDataActorForm
 
 
-class GeoDataUpdateView(UpdateView):
+class GeoDataUpdateView(GeoDataSingleObjectMixin, GeoDataMixin, UpdateView):
     context_object_name = 'geodata'
     template_name_suffix = '_edit_form'
 
@@ -438,11 +491,12 @@ class GeoDataUpdateView(UpdateView):
         if image_formset.is_valid():
             self.object.save()
             image_formset.save()
-            messages.add_message(self.request, messages.SUCCESS,
-                                 _("Successfully edited %(modelname)s \"%(name)s\".") %
-                                 {'modelname': force_unicode(self.object._meta.verbose_name),
-                                  'name': self.object.name, }
-                                 )
+            messages.add_message(
+                self.request, messages.SUCCESS,
+                _("Successfully edited %(modelname)s \"%(name)s\".") %
+                {'modelname': force_unicode(self.object._meta.verbose_name),
+                 'name': self.object.name, }
+            )
             return HttpResponseRedirect(self.get_success_url())
             #return super(GeoDataUpdateView, self).form_valid(form)
         else:
@@ -460,31 +514,31 @@ class GeoDataUpdateView(UpdateView):
         return super(GeoDataUpdateView, self).dispatch(*args, **kwargs)
 
 
-class PatrimonyUpdateView(GeoDataUpdateView):
+class PatrimonyUpdateView(PatrimonyMixin, GeoDataUpdateView):
     model = EarthGeoDataPatrimony
     form_class = EarthGeoDataPatrimonyForm
     template_name = 'edit_patrimony.html'
 
 
-class ConstructionUpdateView(GeoDataUpdateView):
+class ConstructionUpdateView(ConstructionMixin, GeoDataUpdateView):
     model = EarthGeoDataConstruction
     form_class = EarthGeoDataConstructionForm
     template_name = 'edit_construction.html'
 
 
-class MeetingUpdateView(GeoDataUpdateView):
+class MeetingUpdateView(MeetingMixin, GeoDataUpdateView):
     model = EarthGeoDataMeeting
     form_class = EarthGeoDataMeetingForm
     template_name = 'edit_meeting.html'
 
 
-class ActorUpdateView(GeoDataUpdateView):
+class ActorUpdateView(ActorMixin, GeoDataUpdateView):
     model = EarthGeoDataActor
     form_class = EarthGeoDataActorForm
     template_name = 'edit_actor.html'
 
 
-class GeoDataDeleteView(DeleteView):
+class GeoDataDeleteView(GeoDataSingleObjectMixin, GeoDataMixin, DeleteView):
     context_object_name = 'geodata'
     success_url = reverse_lazy('home')
 
@@ -493,10 +547,12 @@ class GeoDataDeleteView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        messages.add_message(request, messages.SUCCESS,
-                             _("Successfully deleted %(modelname)s \"%(name)s\".") %
-                             {'modelname': force_unicode(self.object._meta.verbose_name),
-                              'name': self.object.name, })
+        messages.add_message(
+            request, messages.SUCCESS,
+            _("Successfully deleted %(modelname)s \"%(name)s\".") %
+            {'modelname': force_unicode(self.object._meta.verbose_name),
+             'name': self.object.name, }
+        )
         self.object.delete()
         return HttpResponseRedirect(self.get_success_url())
 
@@ -513,24 +569,28 @@ class GeoDataDeleteView(DeleteView):
         return super(GeoDataDeleteView, self).dispatch(*args, **kwargs)
 
 
-class PatrimonyDeleteView(GeoDataDeleteView):
+class PatrimonyDeleteView(PatrimonyMixin, GeoDataDeleteView):
     model = EarthGeoDataPatrimony
     form_class = EarthGeoDataPatrimonyForm
 
 
-class ConstructionDeleteView(GeoDataDeleteView):
+class ConstructionDeleteView(ConstructionMixin, GeoDataDeleteView):
     model = EarthGeoDataConstruction
     form_class = EarthGeoDataConstructionForm
 
 
-class MeetingDeleteView(GeoDataDeleteView):
+class MeetingDeleteView(MeetingMixin, GeoDataDeleteView):
     model = EarthGeoDataMeeting
     form_class = EarthGeoDataMeetingForm
 
 
-class ActorDeleteView(GeoDataDeleteView):
+class ActorDeleteView(ActorMixin, GeoDataDeleteView):
     model = EarthGeoDataActor
     form_class = EarthGeoDataActorForm
+
+
+class GeoDataError(Exception):
+    pass
 
 
 class ToggleRecommendationView(SingleObjectMixin, View):
@@ -547,26 +607,28 @@ class ToggleRecommendationView(SingleObjectMixin, View):
         elif isinstance(self.object, EarthGeoDataActor):
             recommendations = profile.r_actor
         else:
-            raise ToggleRecommendationError
+            raise GeoDataError
 
         if self.object in recommendations.all():
             recommendations.remove(self.object)
             profile.save()
-            messages.add_message(request, messages.SUCCESS,
-                                 _("Successfully removed %(modelname)s \"%(name)s\" \
-                             from your recommendations.") %
-                                 {'modelname': force_unicode(self.object._meta.verbose_name),
-                                  'name': self.object.name, }
-                                 )
+            messages.add_message(
+                request, messages.SUCCESS,
+                _("Successfully removed %(modelname)s \"%(name)s\" from your \
+                recommendations.") %
+                {'modelname': force_unicode(self.object._meta.verbose_name),
+                 'name': self.object.name, }
+            )
         else:
             recommendations.add(self.object)
             profile.save()
-            messages.add_message(request, messages.SUCCESS,
-                                 _("Successfully added %(modelname)s \"%(name)s\" \
-                             to your recommendations.") %
-                                 {'modelname': force_unicode(self.object._meta.verbose_name),
-                                  'name': self.object.name, }
-                                 )
+            messages.add_message(
+                request, messages.SUCCESS,
+                _("Successfully added %(modelname)s \"%(name)s\" to your \
+                recommendations.") %
+                {'modelname': force_unicode(self.object._meta.verbose_name),
+                 'name': self.object.name, }
+            )
         #return HttpResponse('Success')
         return HttpResponseRedirect(self.object.get_absolute_url())
 

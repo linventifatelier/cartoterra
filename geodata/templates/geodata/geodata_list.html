@@ -30,10 +30,13 @@
 <link rel="stylesheet" href="{% static "css/geodata.css" %}" type="text/css">
 {% endblock %}
 
+{% block breadcrumbs_extra %}
+{% breadcrumb geodata_verbose_name_plural %}
+{% endblock %}
 
-{% block head_title %}{% trans "List" %}: {% block head_geodata_type %}{% endblock%}{% endblock %}
+{% block head_title %}{% trans "List" %}: {% block head_geodata_type %}{{ geodata_verbose_name_plural }}{% endblock%}{% endblock %}
 
-{% block body_class %}place{% endblock %}
+{% block body_class %}{{ geodata_verbose_name_plural }}{% endblock %}
 
 {% block body %}
   <div id="{{ module }}_map"></div>

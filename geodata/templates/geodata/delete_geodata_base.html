@@ -16,7 +16,10 @@
 
 
     <form method="post" action=".">{% csrf_token %}
-      <button type="submit" class="btn danger">{% trans "Confirm" %}</button>
+      <fieldset class="form-actions">
+        <button type="submit" class="btn btn-danger">{% trans "Confirm" %}</button>
+        <a class="btn" href="{% url geodata_detail_url geodata.id %}">{% trans "Cancel" %}</a>
+      </fieldset>
     </form>
 
     {% block body_geodata_extra %}
@@ -24,7 +27,7 @@
 {% endblock %}
 
 {% block breadcrumbs_extra %}
-{% block breadcrumbs_extra_detail %}
-{% endblock %}
+{% breadcrumb_url geodata_verbose_name_plural geodata_list_url %}
+{% breadcrumb_url geodata.name geodata_detail_url geodata.id %}
 {% breadcrumb 'Delete' %}
 {% endblock %}

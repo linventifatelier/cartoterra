@@ -1,7 +1,6 @@
 {% extends "geodata/geodata_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
-{% load url from future %}
 {% load can_edit_geodata %}
 {% load recommends_geodata %}
 {% load breadcrumbs %}
@@ -9,13 +8,13 @@
 
 {% block extra_geodata_toolbox %}
     {% if user|can_edit_geodata:geodata %}
-        <li id="tab_edit"><a href="{% url edit_geodata geodata.pk %}"><img src="{% static "img/edit.png" %}" width="15" height="15" /></a></li>                    
-        <li id="tab_delete"><a href="{% url delete_geodata geodata.pk %}"><img src="{% static "img/delete.png" %}" width="15" height="15" /></a></li>              
+        <li id="tab_edit"><a href="{% url geodata_edit_url geodata.pk %}"><img src="{% static "img/edit.png" %}" width="15" height="15" /></a></li>                    
+        <li id="tab_delete"><a href="{% url geodata_delete_url geodata.pk %}"><img src="{% static "img/delete.png" %}" width="15" height="15" /></a></li>              
     {% endif %}
     {% if user|recommends_geodata:geodata %}
-        <li id="tab_recommend"><a href="{% url recommend_geodata geodata.pk %}"><img src="{% static "img/recommend_on.png" %}" width="15" height="15" /></a></li>     
+        <li id="tab_recommend"><a href="{% url geodata_recommend_url geodata.pk %}"><img src="{% static "img/recommend_on.png" %}" width="15" height="15" /></a></li>     
     {% else %}
-        <li id="tab_recommend"><a href="{% url recommend_geodata geodata.pk %}"><img src="{% static "img/recommend_off.png" %}" width="15" height="15" /></a></li>     
+        <li id="tab_recommend"><a href="{% url geodata_recommend_url geodata.pk %}"><img src="{% static "img/recommend_off.png" %}" width="15" height="15" /></a></li>     
     {% endif %}
 {% endblock %}
 
@@ -49,17 +48,16 @@
 {% endblock %}
 
 {% block breadcrumbs_extra %}
-{% block breadcrumbs_extra_detail %}
-{% endblock %}
+{% breadcrumb_url geodata_verbose_name_plural geodata_list_url %}
 {% breadcrumb geodata.name %}
 {% endblock %}
 
-{% block head_title %}{% block head_geodata_type %}{% endblock %}: {{ geodata.name }}{% endblock %}
+{% block head_title %}{% block head_geodata_type %}{{ geodata_verbose_name }}{% endblock %}: {{ geodata.name }}{% endblock %}
 
 {% block body_class %}geodata{% endblock %}
 
 {% block body %}
-    <h1>{% block body_geodata_type %}{% endblock %}: {{ geodata.name }}</h1>
+    <h1>{% block body_geodata_type %}{{ geodata_verbose_name }}{% endblock %}: {{ geodata.name }}</h1>
 
     <div id="{{ module }}_map"></div>
     <script type="text/javascript">{% block init_function %}{{ module }}_init();{% endblock %}</script>
