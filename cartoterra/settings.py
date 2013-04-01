@@ -3,7 +3,8 @@ import posixpath
 from django.utils.translation import ugettext_lazy as _
 
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                            os.pardir))
 PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
@@ -27,14 +28,10 @@ DATABASES = {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
         "NAME": "geodjango",
         "USER": "gueux",
-#        "PASSWORD": "",
         "HOST": "",
         "PORT": "",
     }
 }
-
-
-
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -103,7 +100,7 @@ STATIC_URL = "/site_media/static/"
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-#    "django.contrib.staticfiles.finders.LegacyAppDirectoriesFinder",
+    #"django.contrib.staticfiles.finders.LegacyAppDirectoriesFinder",
     "compressor.finders.CompressorFinder",
     "dajaxice.finders.DajaxiceFinder",
 ]
