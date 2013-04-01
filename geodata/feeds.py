@@ -12,7 +12,8 @@ class PatrimonyFeed(Feed):
     """A feed presenting changes and additions on EarthGeoDataPatrimony."""
     title = settings.SITE_NAME + " patrimony news."
     link = "/"
-    description = _("Updates on changes and additions to patrimonies of " + settings.SITE_NAME + ".")
+    description = _("Updates on changes and additions to patrimonies of " +
+                    settings.SITE_NAME + ".")
 
     feed_type = GeoRSSFeed
 
@@ -36,7 +37,8 @@ class ConstructionFeed(Feed):
     """A feed presenting changes and additions on EarthGeoDataConstruction."""
     title = _(settings.SITE_NAME + " construction news.")
     link = "/"
-    description = _("Updates on changes and additions to constructions of " + settings.SITE_NAME + ".")
+    description = _("Updates on changes and additions to constructions of " +
+                    settings.SITE_NAME + ".")
 
     feed_type = GeoRSSFeed
 
@@ -60,7 +62,8 @@ class MeetingFeed(Feed):
     """A feed presenting changes and additions on EarthGeoDataMeeting."""
     title = _(settings.SITE_NAME + " meeting news.")
     link = "/"
-    description = _("Updates on changes and additions to meetings of " + settings.SITE_NAME + ".")
+    description = _("Updates on changes and additions to meetings of " +
+                    settings.SITE_NAME + ".")
 
     feed_type = GeoRSSFeed
 
@@ -84,7 +87,8 @@ class ActorFeed(Feed):
     """A feed presenting changes and additions on EarthGeoDataActor."""
     title = _(settings.SITE_NAME + " actor news.")
     link = "/"
-    description = _("Updates on changes and additions to actors of " + settings.SITE_NAME + ".")
+    description = _("Updates on changes and additions to actors of " +
+                    settings.SITE_NAME + ".")
 
     feed_type = GeoRSSFeed
 
