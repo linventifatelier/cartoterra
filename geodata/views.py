@@ -201,9 +201,9 @@ class PatrimonyListView(PatrimonyMixin, GeoDataListView):
     model = EarthGeoDataPatrimony
     patrimonies = {
         'name': "Patrimonies",
-        'external_graphic': settings.STATIC_URL + "img/patrimony.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/building_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': 'geojson/',
@@ -216,9 +216,9 @@ class ConstructionListView(ConstructionMixin, GeoDataListView):
     model = EarthGeoDataConstruction
     constructions = {
         'name': "Constructions",
-        'external_graphic': settings.STATIC_URL + "img/construction.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/construction_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': 'geojson/',
@@ -231,9 +231,9 @@ class MeetingListView(MeetingMixin, GeoDataListView):
     model = EarthGeoDataMeeting
     meetings = {
         'name': "Meetings",
-        'external_graphic': settings.STATIC_URL + "img/meeting.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/event_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': 'geojson/',
@@ -246,9 +246,9 @@ class ActorListView(ActorMixin, GeoDataListView):
     model = EarthGeoDataActor
     actors = {
         'name': "Actors",
-        'external_graphic': settings.STATIC_URL + "img/actor.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': 'geojson/',
@@ -274,36 +274,36 @@ class BigMapView(GeoDataAllView):
     module = "bigmap"
     patrimonies = {
         'name': "Patrimonies",
-        'external_graphic': settings.STATIC_URL + "img/patrimony.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/building_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': reverse_lazy('geojson_patrimony_list'),
     }
     constructions = {
         'name': "Constructions",
-        'external_graphic': settings.STATIC_URL + "img/construction.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/construction_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': reverse_lazy('geojson_construction_list'),
     }
     meetings = {
         'name': "Meetings",
-        'external_graphic': settings.STATIC_URL + "img/meeting.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/event_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': reverse_lazy('geojson_meeting_list'),
     }
     actors = {
         'name': "Actors",
-        'external_graphic': settings.STATIC_URL + "img/actor.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': reverse_lazy('geojson_actor_list'),
@@ -339,9 +339,9 @@ class PatrimonyDetailView(PatrimonyMixin, GeoDataDetailView):
     model = EarthGeoDataPatrimony
     patrimony = {
         'name': "Patrimony",
-        'external_graphic': settings.STATIC_URL + "img/patrimony.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/building_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': 'geojson/',
@@ -354,9 +354,9 @@ class ConstructionDetailView(ConstructionMixin, GeoDataDetailView):
     model = EarthGeoDataConstruction
     construction = {
         'name': "Construction",
-        'external_graphic': settings.STATIC_URL + "img/construction.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/construction_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': 'geojson/',
@@ -369,9 +369,9 @@ class MeetingDetailView(MeetingMixin, GeoDataDetailView):
     model = EarthGeoDataMeeting
     meeting = {
         'name': "Meeting",
-        'external_graphic': settings.STATIC_URL + "img/meeting.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/event_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': 'geojson/',
@@ -384,9 +384,9 @@ class ActorDetailView(ActorMixin, GeoDataDetailView):
     model = EarthGeoDataActor
     actor = {
         'name': "Actor",
-        'external_graphic': settings.STATIC_URL + "img/actor.png",
-        'graphic_width': 20,
-        'graphic_height': 20,
+        'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
+        'graphic_width': 10,
+        'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': 'geojson/',
