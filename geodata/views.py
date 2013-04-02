@@ -1,7 +1,7 @@
 """GeoData views."""
 
 from django.utils.translation import ugettext_lazy as _
-from models import Building, Worksite, Event, Stakeholder
+from models import Building, Worksite, Event, Stakeholder, Profile
 from forms import BuildingForm, WorksiteForm, EventForm, StakeholderForm, \
     ImageFormSet
 from django.contrib.auth.decorators import login_required
@@ -19,6 +19,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 import json
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404
 
 
 class GeoJSONResponseMixin(object):
@@ -630,13 +631,13 @@ class ToggleRecommendationView(SingleObjectMixin, View):
         self.object = self.get_object()
         profile = request.user.profile
         if isinstance(self.object, Building):
-            recommendations = profile.r_patrimony
+            recommendations = profile.r_building
         elif isinstance(self.object, Worksite):
-            recommendations = profile.r_construction
+            recommendations = profile.r_worksite
         elif isinstance(self.object, Event):
-            recommendations = profile.r_meeting
+            recommendations = profile.r_event
         elif isinstance(self.object, Stakeholder):
-            recommendations = profile.r_actor
+            recommendations = profile.r_stakeholder
         else:
             raise GeoDataError
 
@@ -682,3 +683,188 @@ class ToggleRecommendationEventView(ToggleRecommendationView):
 
 class ToggleRecommendationStakeholderView(ToggleRecommendationView):
     model = Stakeholder
+
+
+class GeoJSONProfileCreatorMixin(GeoJSONFeatureCollectionResponseMixin):
+    def get_queryset(self, **kwargs):
+        queryset = super(GeoJSONProfileCreatorMixin,
+                         self).get_queryset(**kwargs)
+        return queryset.filter(creator__username=self.kwargs['slug'])
+
+
+class GeoJSONProfileCreatorListView(GeoJSONProfileCreatorMixin, BaseListView):
+    pass
+
+
+class GeoJSONProfileCreatorBuildingListView(GeoJSONProfileCreatorListView):
+    model = Building
+
+
+class GeoJSONProfileCreatorWorksiteListView(GeoJSONProfileCreatorListView):
+    model = Worksite
+
+
+class GeoJSONProfileCreatorEventListView(GeoJSONProfileCreatorListView):
+    model = Event
+
+
+class GeoJSONProfileCreatorStakeholderListView(GeoJSONProfileCreatorListView):
+    model = Stakeholder
+
+
+class GeoJSONProfileRecommendListView(GeoJSONListView):
+    def get_profile(self, **kwargs):
+        return get_object_or_404(Profile, user__username=self.kwargs['slug'])
+
+
+class GeoJSONProfileRecommendBuildingListView(
+        GeoJSONProfileRecommendListView):
+    model = Building
+
+    def get_queryset(self, **kwargs):
+        queryset = super(GeoJSONProfileRecommendBuildingListView,
+                         self).get_queryset(**kwargs)
+        profile = self.get_profile()
+        return queryset.filter(id__in=profile.r_patrimony.all())
+
+
+class GeoJSONProfileRecommendWorksiteListView(
+        GeoJSONProfileRecommendListView):
+    model = Worksite
+
+    def get_queryset(self, **kwargs):
+        queryset = super(GeoJSONProfileRecommendWorksiteListView,
+                         self).get_queryset(**kwargs)
+        profile = self.get_profile()
+        return queryset.filter(id__in=profile.r_construction.all())
+
+
+class GeoJSONProfileRecommendEventListView(GeoJSONProfileRecommendListView):
+    model = Event
+
+    def get_queryset(self, **kwargs):
+        queryset = super(GeoJSONProfileRecommendEventListView,
+                         self).get_queryset(**kwargs)
+        profile = self.get_profile()
+        return queryset.filter(id__in=profile.r_meeting.all())
+
+
+class GeoJSONProfileRecommendStakeholderListView(
+    GeoJSONProfileRecommendListView
+):
+    model = Stakeholder
+
+    def get_queryset(self, **kwargs):
+        queryset = super(GeoJSONProfileRecommendStakeholderListView,
+                         self).get_queryset(**kwargs)
+        profile = self.get_profile()
+        return queryset.filter(id__in=profile.r_actor.all())
+
+
+class ProfileDetailView(DetailView):
+    """Returns a template to present all patrimonies of a given profile."""
+    #template_name = 'profilemap.html'
+    module = "profilemap"
+    model = Profile
+    slug_field = 'user__username'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileDetailView, self).get_context_data(**kwargs)
+
+        profile = get_object_or_404(Profile,
+                                    user__username=self.kwargs['slug'])
+        username = profile.user.username
+
+        patrimonies = {
+            'name': "Patrimonies %s" % username,
+            'external_graphic': settings.STATIC_URL + "img/patrimony.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_profile_creator_patrimony',
+                                kwargs={'slug': self.kwargs['slug']}),
+        }
+        constructions = {
+            'name': "Constructions %s" % username,
+            'external_graphic': settings.STATIC_URL + "img/construction.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_profile_creator_construction',
+                                kwargs={'slug': self.kwargs['slug']}),
+        }
+        meetings = {
+            'name': "Meetings %s" % username,
+            'external_graphic': settings.STATIC_URL + "img/meeting.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_profile_creator_meeting',
+                                kwargs={'slug': self.kwargs['slug']}),
+        }
+        actors = {
+            'name': "Actors %s" % username,
+            'external_graphic': settings.STATIC_URL + "img/actor.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_profile_creator_actor',
+                                kwargs={'slug': self.kwargs['slug']}),
+        }
+        recommendations_patrimonies = {
+            'name': "Recommendations %s: Patrimonies" % username,
+            'external_graphic': settings.STATIC_URL + "img/patrimony.png",
+            'graphic_width': 10,
+            'graphic_height': 10,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_profile_recommend_patrimony',
+                                kwargs={'slug': self.kwargs['slug']}),
+        }
+        recommendations_constructions = {
+            'name': "Recommendations %s: Constructions" % username,
+            'external_graphic': settings.STATIC_URL + "img/construction.png",
+            'graphic_width': 10,
+            'graphic_height': 10,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_profile_recommend_construction',
+                                kwargs={'slug': self.kwargs['slug']}),
+        }
+        recommendations_meetings = {
+            'name': "Recommendations %s: Meetings" % username,
+            'external_graphic': settings.STATIC_URL + "img/meeting.png",
+            'graphic_width': 10,
+            'graphic_height': 10,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_profile_recommend_meeting',
+                                kwargs={'slug': self.kwargs['slug']}),
+        }
+        recommendations_actors = {
+            'name': "Recommendations %s: Actors" % username,
+            'external_graphic': settings.STATIC_URL + "img/actor.png",
+            'graphic_width': 10,
+            'graphic_height': 10,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_profile_recommend_actor',
+                                kwargs={'slug': self.kwargs['slug']}),
+        }
+        context['map_layers'] = [patrimonies, constructions, meetings, actors,
+                                 recommendations_patrimonies,
+                                 recommendations_constructions,
+                                 recommendations_meetings,
+                                 recommendations_actors]
+        context['module'] = self.module
+        return context
+
+
+class ProfileListView(ListView):
+    """Returns a template to present all profiles."""
+    model = Profile
+    #template_name = 'profile_list.html'

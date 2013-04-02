@@ -26,7 +26,6 @@ urlpatterns = patterns(
     #    include('django.views.i18n.null_javascript_catalog')),
     url(r"^geodata/", include("geodata.urls")),
     url(r"^admin/", include(admin.site.urls)),
-    url(r"^profiles/", include("profiles.urls")),
     url(r"^account/", include("account.urls")),
     url(r'^knowledge/', include('knowledge.urls')),
     url(r"^announcements/", include("announcements.urls")),

@@ -16,6 +16,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.core.validators import RegexValidator
 import re
+from django.db.models.signals import post_save
 
 
 ident_regex = re.compile(r'^[a-zA-Z0-9_\-]+$')
@@ -243,3 +244,53 @@ class Event(GeoDataAbstract):
     def ended_status(self):
         """Says if an event is ended or not."""
         return self.beginning_date <= date.today()
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User,
+                                unique=True,
+                                verbose_name=_('user'))
+    #about = models.TextField(_("about"), null=True, blank=True)
+    #location = models.CharField(_("location"), max_length=40, null=True,
+    #                            blank=True)
+    #website = models.URLField(_("website"), null=True, blank=True,
+    #                          verify_exists=False)
+    r_building = models.ManyToManyField(
+        Building,
+        verbose_name=_("building recommendations"),
+        related_name="recommended_by",
+        null=True, blank=True)
+    r_worksite = models.ManyToManyField(
+        Worksite,
+        verbose_name=_("worksite recommendations"),
+        related_name="recommended_by",
+        null=True, blank=True)
+    r_event = models.ManyToManyField(
+        Event,
+        verbose_name=_("event recommendations"),
+        related_name="recommended_by",
+        null=True, blank=True)
+    r_stakeholder = models.ManyToManyField(
+        Stakeholder,
+        verbose_name=_("stakeholder recommendations"),
+        related_name="recommended_by",
+        null=True, blank=True)
+
+    def recommends(self, geodata):
+        if isinstance(geodata, Building):
+            return self.r_building.filter(id=geodata.id).exists()
+        elif isinstance(geodata, Worksite):
+            return self.r_worksite.filter(id=geodata.id).exists()
+        elif isinstance(geodata, Event):
+            return self.r_event.filter(id=geodata.id).exists()
+        elif isinstance(geodata, Stakeholder):
+            return self.r_stakeholder.filter(id=geodata.id).exists()
+        else:
+            return False
+
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)

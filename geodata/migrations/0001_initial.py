@@ -42,7 +42,7 @@ class Migration(SchemaMigration):
         # Adding model 'EarthRole'
         db.create_table(u'geodata_earthrole', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('ident_name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
+            ('ident_name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=50)),
         ))
         db.send_create_signal(u'geodata', ['EarthRole'])
 
@@ -115,7 +115,7 @@ class Migration(SchemaMigration):
         # Adding model 'EventType'
         db.create_table(u'geodata_eventtype', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('ident_name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
+            ('ident_name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=50)),
         ))
         db.send_create_signal(u'geodata', ['EventType'])
 
@@ -176,6 +176,45 @@ class Migration(SchemaMigration):
         ))
         db.create_unique(u'geodata_event_stakeholder', ['event_id', 'stakeholder_id'])
 
+        # Adding model 'Profile'
+        db.create_table(u'geodata_profile', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
+        ))
+        db.send_create_signal(u'geodata', ['Profile'])
+
+        # Adding M2M table for field r_building on 'Profile'
+        db.create_table(u'geodata_profile_r_building', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('profile', models.ForeignKey(orm[u'geodata.profile'], null=False)),
+            ('building', models.ForeignKey(orm[u'geodata.building'], null=False))
+        ))
+        db.create_unique(u'geodata_profile_r_building', ['profile_id', 'building_id'])
+
+        # Adding M2M table for field r_worksite on 'Profile'
+        db.create_table(u'geodata_profile_r_worksite', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('profile', models.ForeignKey(orm[u'geodata.profile'], null=False)),
+            ('worksite', models.ForeignKey(orm[u'geodata.worksite'], null=False))
+        ))
+        db.create_unique(u'geodata_profile_r_worksite', ['profile_id', 'worksite_id'])
+
+        # Adding M2M table for field r_event on 'Profile'
+        db.create_table(u'geodata_profile_r_event', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('profile', models.ForeignKey(orm[u'geodata.profile'], null=False)),
+            ('event', models.ForeignKey(orm[u'geodata.event'], null=False))
+        ))
+        db.create_unique(u'geodata_profile_r_event', ['profile_id', 'event_id'])
+
+        # Adding M2M table for field r_stakeholder on 'Profile'
+        db.create_table(u'geodata_profile_r_stakeholder', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('profile', models.ForeignKey(orm[u'geodata.profile'], null=False)),
+            ('stakeholder', models.ForeignKey(orm[u'geodata.stakeholder'], null=False))
+        ))
+        db.create_unique(u'geodata_profile_r_stakeholder', ['profile_id', 'stakeholder_id'])
+
 
     def backwards(self, orm):
         # Removing unique constraint on 'EventTypeTranslation', fields ['language_code', 'master']
@@ -231,6 +270,21 @@ class Migration(SchemaMigration):
 
         # Removing M2M table for field stakeholder on 'Event'
         db.delete_table('geodata_event_stakeholder')
+
+        # Deleting model 'Profile'
+        db.delete_table(u'geodata_profile')
+
+        # Removing M2M table for field r_building on 'Profile'
+        db.delete_table('geodata_profile_r_building')
+
+        # Removing M2M table for field r_worksite on 'Profile'
+        db.delete_table('geodata_profile_r_worksite')
+
+        # Removing M2M table for field r_event on 'Profile'
+        db.delete_table('geodata_profile_r_event')
+
+        # Removing M2M table for field r_stakeholder on 'Profile'
+        db.delete_table('geodata_profile_r_stakeholder')
 
 
     models = {
@@ -290,7 +344,7 @@ class Migration(SchemaMigration):
         u'geodata.earthrole': {
             'Meta': {'object_name': 'EarthRole'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ident_name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
+            'ident_name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'})
         },
         u'geodata.earthroletranslation': {
             'Meta': {'unique_together': "[('language_code', 'master')]", 'object_name': 'EarthRoleTranslation', 'db_table': "u'geodata_earthrole_translation'"},
@@ -325,7 +379,7 @@ class Migration(SchemaMigration):
         u'geodata.eventtype': {
             'Meta': {'object_name': 'EventType'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ident_name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
+            'ident_name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'})
         },
         u'geodata.eventtypetranslation': {
             'Meta': {'unique_together': "[('language_code', 'master')]", 'object_name': 'EventTypeTranslation', 'db_table': "u'geodata_eventtype_translation'"},
@@ -341,6 +395,15 @@ class Migration(SchemaMigration):
             'legend': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'original': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'})
+        },
+        u'geodata.profile': {
+            'Meta': {'object_name': 'Profile'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'r_building': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.Building']", 'null': 'True', 'blank': 'True'}),
+            'r_event': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.Event']", 'null': 'True', 'blank': 'True'}),
+            'r_stakeholder': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.Stakeholder']", 'null': 'True', 'blank': 'True'}),
+            'r_worksite': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.Worksite']", 'null': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
         },
         u'geodata.stakeholder': {
             'Meta': {'object_name': 'Stakeholder'},

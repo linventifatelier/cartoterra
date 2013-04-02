@@ -203,7 +203,7 @@ INSTALLED_APPS = [
 
     # project
     "geodata",
-    "profiles",
+    #"profiles",
     "cartoterra",
 ]
 
@@ -245,7 +245,7 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ABSOLUTE_URL_OVERRIDES = {
-    "auth.user": lambda o: "/profiles/profile/%s/" % o.username,
+    "auth.user": lambda o: "/geodata/profiles/profile/%s/" % o.username,
 }
 
 
@@ -257,7 +257,7 @@ AUTHENTICATION_BACKENDS = (
 ANONYMOUS_USER_ID = -1
 
 
-LOGIN_REDIRECT_URL = '/profiles/%(username)s/'
+LOGIN_REDIRECT_URL = '/geodata/profiles/%(username)s/'
 #LOGIN_URL = '/profiles/signin/'
 LOGIN_URL = 'account/login.html'
 #LOGOUT_URL = '/profiles/signout/'

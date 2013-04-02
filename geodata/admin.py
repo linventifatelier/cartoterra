@@ -1,7 +1,7 @@
 """Geodata administration interface."""
 from django.contrib.gis import admin
 from models import Building, Worksite, Event, Stakeholder, Image, \
-    EventType, EarthTechnique, EarthRole
+    EventType, EarthTechnique, EarthRole, Profile
 #from django.conf import settings
 #from stdimage import StdImageField
 from imagewidget import AdminImageWidget
@@ -224,3 +224,6 @@ class WorksiteAdmin(GeoDataAbstractAdmin):
     )
 
 admin.site.register(Worksite, WorksiteAdmin)
+
+
+admin.site.register(Profile)
