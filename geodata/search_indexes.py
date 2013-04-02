@@ -1,9 +1,9 @@
-import datetime
 from haystack import indexes
 from haystack import site
 from geodata.models import EarthGeoDataPatrimony
 from geodata.models import EarthGeoDataConstruction
 from geodata.models import EarthGeoDataMeeting
+from django.utils.timezone import now
 
 
 class EarthGeoDataPatrimonyIndex(indexes.SearchIndex):
@@ -17,7 +17,7 @@ class EarthGeoDataPatrimonyIndex(indexes.SearchIndex):
 
     def index_queryset(self):
         "Used when the entire index for model is updated."
-        return EarthGeoDataPatrimony.objects.filter(pub_date__lte=datetime.datetime.now())
+        return EarthGeoDataPatrimony.objects.filter(pub_date__lte=now())
 
 
 site.register(EarthGeoDataPatrimony, EarthGeoDataPatrimonyIndex)
@@ -34,7 +34,7 @@ class EarthGeoDataConstructionIndex(indexes.SearchIndex):
 
     def index_queryset(self):
         "Used when the entire index for model is updated."
-        return EarthGeoDataConstruction.objects.filter(pub_date__lte=datetime.datetime.now())
+        return EarthGeoDataConstruction.objects.filter(pub_date__lte=now())
 
 
 site.register(EarthGeoDataConstruction, EarthGeoDataConstructionIndex)
@@ -51,8 +51,7 @@ class EarthGeoDataMeetingIndex(indexes.SearchIndex):
 
     def index_queryset(self):
         "Used when the entire index for model is updated."
-        return EarthGeoDataMeeting.objects.filter(pub_date__lte=datetime.datetime.now())
+        return EarthGeoDataMeeting.objects.filter(pub_date__lte=now())
 
 
 site.register(EarthGeoDataMeeting, EarthGeoDataMeetingIndex)
-

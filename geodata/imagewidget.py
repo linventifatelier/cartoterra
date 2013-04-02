@@ -43,7 +43,8 @@
 ##         except:
 ##           image.save(miniature_filename, image.format, quality=100)
 
-##       output.append(u' <div><a href="%s" target="_blank"><img src="%s" alt="%s" /></a></div> %s ' % \
+##       output.append(" <div><a href="%s" target="_blank">\
+##            <img src="%s" alt="%s" /></a></div> %s " % \
 ##       (miniature_url, miniature_url, miniature_filename, _('Change:')))
 
 ##     output.append(super(AdminFileWidget, self).render(name, value, attrs))
@@ -62,8 +63,9 @@ class AdminImageWidget(AdminFileWidget):
         if value and getattr(value, "url", None):
             image_url = value.url
             file_name = str(value)
-            output.append(u' <a href="%s" target="_blank"><img src="%s" alt="%s" /></a> %s ' % \
+            output.append(" <a href=\"%s\" target=\"_blank\">\
+                <img src=\"%s\" alt=\"%s\" /></a> %s " %
                           (image_url, image_url, file_name, _('Change:')))
             output.append(super(AdminFileWidget, self).render(name, value,
                                                               attrs))
-            return mark_safe(u''.join(output))
+            return mark_safe("".join(output))

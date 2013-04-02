@@ -5,18 +5,15 @@ import floppyforms as forms
 from models import EarthGeoDataAbstract, EarthGeoDataPatrimony,\
     EarthGeoDataConstruction, EarthGeoDataMeeting, EarthGeoDataActor,\
     Image
-from django.contrib.admin.widgets import AdminDateWidget
 from django.forms import ModelForm
 from PIL.ExifTags import TAGS, GPSTAGS
 from geodata.widgets import GeoDataWidget
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
+import logging
+
+logger = logging.getLogger(__name__)
 
 
-##############################################
-# Credits:
-# https://bitbucket.org/weholt/django-photofile/
-# http://www.blog.pythonlibrary.org/2010/03/28/getting-photo-metadata-exif-using-python/
-# http://eran.sandler.co.il/2011/05/20/extract-gps-latitude-and-longitude-data-from-exif-using-python-imaging-library-pil/
 def _get_if_exist(data, key):
     if key in data:
         return data[key]
@@ -24,21 +21,17 @@ def _get_if_exist(data, key):
     return None
 
 
-def _fractToSimple(frac):
-    if not frac:
-        return None
+def _frac_to_float(frac):
     try:
         f, n = frac
         return round(float(f) / float(n), 3)
-    except Exception, e:
+    except:
+        logger.warning("_get_exifgps: Conversion of altitude from frac to \
+            float failed. Exif altitude: %s" % frac)
         return None
 
 
 def _convert_to_degress(value):
-    """
-    Helper function to convert the GPS coordinates stored in the EXIF to
-    degress in float format.
-    """
     d0 = value[0][0]
     d1 = value[0][1]
     d = float(d0) / float(d1)
@@ -54,44 +47,45 @@ def _convert_to_degress(value):
     return d + (m / 60.0) + (s / 3600.0)
 
 
-def _get_exifgps(i):
-    ret = {}
-    #i = Image.open(fn)
-
+def _extract_gpsinfo(values):
     lat = None
     lon = None
     altitude = None
+    gps_data = {}
+    for t in values:
+        sub_decoded = GPSTAGS.get(t, t)
+        gps_data[sub_decoded] = values[t]
+
+    gps_lat = _get_if_exist(gps_data, "GPSLatitude")
+    gps_lat_ref = _get_if_exist(gps_data, 'GPSLatitudeRef')
+    gps_lon = _get_if_exist(gps_data, 'GPSLongitude')
+    gps_lon_ref = _get_if_exist(gps_data, 'GPSLongitudeRef')
+
+    if gps_lat and gps_lat_ref and gps_lon and gps_lon_ref:
+        lat = _convert_to_degress(gps_lat)
+        if gps_lat_ref != "N":
+            lat = 0 - lat
+
+        lon = _convert_to_degress(gps_lon)
+        if gps_lon_ref != "E":
+            lon = 0 - lon
+
+    altitude = _get_if_exist(gps_data, 'GPSAltitude')
+    if altitude:
+        altitude = _frac_to_float(altitude)
+    return (lat, lon, altitude, gps_data)
+
+
+def _get_exifgps(i):
+    ret = {}
 
     info = i._getexif()
 
     if info:
-        for tag, value in info.items():
+        for tag, values in info.items():
             decoded = TAGS.get(tag, tag)
-            #print "TAG", decoded, value
             if decoded == "GPSInfo":
-                gps_data = {}
-                for t in value:
-                    sub_decoded = GPSTAGS.get(t, t)
-                    gps_data[sub_decoded] = value[t]
-                ret[decoded] = gps_data
-
-                gps_latitude = _get_if_exist(gps_data, "GPSLatitude")
-                gps_latitude_ref = _get_if_exist(gps_data, 'GPSLatitudeRef')
-                gps_longitude = _get_if_exist(gps_data, 'GPSLongitude')
-                gps_longitude_ref = _get_if_exist(gps_data, 'GPSLongitudeRef')
-
-                if gps_latitude and gps_latitude_ref and gps_longitude and gps_longitude_ref:
-                    lat = _convert_to_degress(gps_latitude)
-                    if gps_latitude_ref != "N":
-                        lat = 0 - lat
-
-                    lon = _convert_to_degress(gps_longitude)
-                    if gps_longitude_ref != "E":
-                        lon = 0 - lon
-
-                altitude = _get_if_exist(gps_data, 'GPSAltitude')
-                if altitude:
-                    altitude = _fractToSimple(altitude)
+                lat, lon, altitude, gps_data = _extract_gpsinfo(values)
         #try:
         #    iptc = IptcImagePlugin.getiptcinfo(i)
         #    ret['caption'] = iptc[(2,120)]
@@ -106,6 +100,7 @@ def _get_exifgps(i):
     ret['latitude'] = lat
     ret['longitude'] = lon
     ret['altitude'] = altitude
+    ret[decoded] = gps_data
 
     return ret
 
@@ -126,23 +121,6 @@ class DatePicker(forms.DateInput):
         }
 
 
-#class ImageWidget(forms.FileInput):
-#    """
-#    A ImageField Widget that shows a thumbnail.
-#    """
-#
-#    def __init__(self, attrs={}):
-#        super(ImageWidget, self).__init__(attrs)
-#
-#    def render(self, name, value, attrs=None):
-#        output = []
-#        if value and hasattr(value, "url"):
-#            output.append(('<a rel="facebox" target="_blank" href="%s">'
-#                           '<img class="photo" src="%s" style="height: 100px;" /></a> <br/>'
-#                           % (value.url, value.url)))
-#        output.append(super(ImageWidget, self).render(name, value, attrs))
-#        return mark_safe(u''.join(output))
-
 ImageFormSet = generic_inlineformset_factory(Image, extra=1, can_delete=True)
 
 
@@ -160,7 +138,8 @@ class EarthGeoDataAbstractForm(ModelForm):
     #            latitude = gps_data['latitude']
     #            if longitude and latitude:
     #                try:
-    #                    self.cleaned_data['geometry'] = Point(longitude, latitude)
+    #                    self.cleaned_data['geometry'] =
+    #                        Point(longitude, latitude)
     #                except (ValueError, TypeError):
     #                    msg = _("You have to provide a geometry or a \
     #                             geolocated image (the geolocation data of \
@@ -182,10 +161,7 @@ class EarthGeoDataAbstractForm(ModelForm):
         exclude = ('creator', 'pub_date', )
 
     class Media:
-        css = {
-            'all': ('css/geodata.css', )
-        }
-        js = ('openlayers/OpenLayers.js', )
+        js = ('openlayers/OpenLayers.js', 'js/formset.js', )
 
 
 class EarthGeoDataPatrimonyForm(EarthGeoDataAbstractForm):
