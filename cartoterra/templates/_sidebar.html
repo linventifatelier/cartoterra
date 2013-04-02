@@ -4,7 +4,7 @@
 <ul class="nav nav-list">
   <li class="nav-header">{% trans "Recommendations" %}</li>
   {% comment %}
-  <li><a href="{% url "profile_detail" "admin" %}"><img src="{% static "img/patrimony.png" %}" width="15" height="15" /> {% trans "Admin" %}</a></li>
+  <li><a href="{% url "profile_detail" "admin" %}"><img src="{% static "img/map.png" %}" width="15" height="15" /> {% trans "Admin" %}</a></li>
   {% endcomment %}
 
   <li class="nav-header">{% trans "External RSS Feeds" %}</li>
@@ -18,16 +18,16 @@
 
   <li class="nav-header">{% trans "Last modifications" %}</li>
   <li class="patrimony-rss">
-    <a rel="rss" href="{% url "feed_patrimony" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" /> {% trans "Patrimonies" %} <img src="{% static "img/patrimony.png" %}" width="15" heigth="15" /></a>
+    <a rel="rss" href="{% url "feed_patrimony" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" /> {% trans "Patrimonies" %} </a>
   </li>
   <li class="construction-rss">
-    <a rel="rss" href="{% url "feed_construction" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" /> {% trans "Constructions" %} <img src="{% static "img/construction.png" %}" width="15" heigth="15" /></a>
+    <a rel="rss" href="{% url "feed_construction" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" /> {% trans "Constructions" %} </a>
   </li>
   <li class="meeting-rss">
-    <a rel="rss" href="{% url "feed_meeting" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" /> {% trans "Meetings" %} <img src="{% static "img/meeting.png" %}" width="15" heigth="15" /></a>
+    <a rel="rss" href="{% url "feed_meeting" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" /> {% trans "Meetings" %} </a>
   </li>
   <li class="actor-rss">
-    <a rel="rss" href="{% url "feed_actor" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" /> {% trans "Actors" %} <img src="{% static "img/actor.png" %}" width="15" heigth="15" /></a>
+    <a rel="rss" href="{% url "feed_actor" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" /> {% trans "Actors" %} </a>
   </li>
 
   <li class="nav-header"></li>

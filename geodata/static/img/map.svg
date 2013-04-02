@@ -15,10 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="map1.svg"
-   inkscape:export-filename="/Users/gregoirepaccoud/Desktop/LOGOS/map1.png"
-   inkscape:export-xdpi="22.61306"
-   inkscape:export-ydpi="22.61306"
+   sodipodi:docname="map.svg"
+   inkscape:export-filename="/Users/gregoirepaccoud/Documents/WEB/geowiki/GWrepoLocal1/earthbuilding/geodata/static/img/map.png"
+   inkscape:export-xdpi="11.72"
+   inkscape:export-ydpi="11.72"
    enable-background="new">
   <defs
      id="defs4">
@@ -94,15 +94,15 @@
     <linearGradient
        id="linearGradient3620">
       <stop
-         style="stop-color:#b4b4a0;stop-opacity:0.96470588;"
+         style="stop-color:#776350;stop-opacity:0.5138889;"
          offset="0"
          id="stop3622" />
       <stop
          id="stop3630"
-         offset="0.5"
-         style="stop-color:#a0a0a0;stop-opacity:0.95686275;" />
+         offset="0.33333334"
+         style="stop-color:#967327;stop-opacity:0.70833331;" />
       <stop
-         style="stop-color:#b48057;stop-opacity:0.9137255;"
+         style="stop-color:#776350;stop-opacity:1;"
          offset="1"
          id="stop3624" />
     </linearGradient>
@@ -414,11 +414,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="356.46537"
+     inkscape:zoom="0.35"
+     inkscape:cx="255.39394"
      inkscape:cy="633.28936"
      inkscape:document-units="px"
-     inkscape:current-layer="layer6"
+     inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:snap-global="false"
      inkscape:window-width="1276"
@@ -444,7 +444,7 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="rectangle"
-     style="display:inline">
+     style="display:none">
     <rect
        style="fill:#000000;fill-opacity:0.70817117;stroke:none;display:inline"
        id="rect3723"
@@ -460,7 +460,7 @@
      style="display:inline">
     <path
        sodipodi:type="arc"
-       style="fill:url(#radialGradient3698);fill-opacity:1;stroke:#000000;stroke-width:1.16354787;stroke-miterlimit:4;stroke-opacity:0.94181818;stroke-dasharray:none"
+       style="fill:url(#radialGradient3698);fill-opacity:1;stroke:#000000;stroke-width:5.28885422;stroke-miterlimit:4;stroke-opacity:0.94181817999999995;stroke-dasharray:none"
        id="path3613-7"
        sodipodi:cx="290.35715"
        sodipodi:cy="357.00504"
@@ -474,7 +474,7 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="transparence rond"
-     style="display:inline">
+     style="display:none">
     <path
        sodipodi:type="arc"
        style="fill:url(#radialGradient3717);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
@@ -516,7 +516,7 @@
          transform="translate(27.142857,-264.28571)">
         <path
            transform="translate(34.285714,335.71429)"
-           d="m 367.69551,670.52454 c 0,28.45248 -23.06529,51.51778 -51.51778,51.51778 -28.45248,0 -51.51778,-23.0653 -51.51778,-51.51778 0,-28.45249 23.0653,-51.51778 51.51778,-51.51778 28.45249,0 51.51778,23.06529 51.51778,51.51778 z"
+           d="m 367.69551,670.52454 a 51.51778,51.51778 0 1 1 -103.03556,0 51.51778,51.51778 0 1 1 103.03556,0 z"
            sodipodi:ry="51.51778"
            sodipodi:rx="51.51778"
            sodipodi:cy="670.52454"
@@ -571,7 +571,7 @@
      inkscape:groupmode="layer"
      id="layer1"
      inkscape:label="WOrk"
-     style="display:inline">
+     style="display:none">
     <path
        sodipodi:type="arc"
        style="fill:none;stroke:#000000;stroke-width:1.50602269;stroke-miterlimit:4;stroke-opacity:0.78431373;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
