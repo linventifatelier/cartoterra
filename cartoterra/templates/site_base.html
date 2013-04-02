@@ -55,16 +55,17 @@ navbar-fixed-top navbar-inverse
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/events_h25_txt.png" %}" width="15" height="15" /><b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="{% url "show_meeting_all" %}"><img src="{% static "img/event_h25.png" %}" width="15" height="15" /> {% trans "All meetings" %}</a></li>
-        <li><a href="{% url "show_meeting_seminar" %}"><img src="{% static "img/event_dot.png" %}" width="15" height="15" /> {% trans "Seminar" %}</a></li>
-        <li><a href="{% url "show_meeting_colloquium" %}"><img src="{% static "img/event_dot.png" %}" width="15" height="15" /> {% trans "Colloquium" %}</a></li>
-        <li><a href="{% url "show_meeting_conference" %}"><img src="{% static "img/event_dot_hover.png" %}" width="15" height="15" /> {% trans "Conference" %}</a></li>
-        <li><a href="{% url "show_meeting_festival" %}"><img src="{% static "img/event_dot_hover.png" %}" width="15" height="15" /> {% trans "Festival" %}</a></li>
+        <li><a href="{% url "show_event_of_type" "seminar" %}"><img src="{% static "img/event_dot.png" %}" width="15" height="15" /> {% trans "Seminar" %}</a></li>
+        <li><a href="{% url "show_event_of_type" "colloquium" %}"><img src="{% static "img/event_dot.png" %}" width="15" height="15" /> {% trans "Colloquium" %}</a></li>
+        <li><a href="{% url "show_event_of_type" "conference" %}"><img src="{% static "img/event_dot_hover.png" %}" width="15" height="15" /> {% trans "Conference" %}</a></li>
+        <li><a href="{% url "show_event_of_type" "festival" %}"><img src="{% static "img/event_dot_hover.png" %}" width="15" height="15" /> {% trans "Festival" %}</a></li>
       </ul>
     </li>
     <li id="tab_actor" class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/stakeholders_h25_txt.png" %}" width="124" height="25" /><b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="{% url "show_actor_all" %}"><img src="{% static "img/stakeholder_dot.png" %}" width="15" height="15" /> {% trans "All actors" %}</a></li>
+        <li><a href="{% url "show_stakeholder_of_role" "architect" %}"><img src="{% static "img/stakeholder_dot.png" %}" width="15" height="15" /> {% trans "Architects" %}</a></li>
       </ul>
     </li>
 </ul>

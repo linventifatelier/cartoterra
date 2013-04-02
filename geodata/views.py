@@ -108,6 +108,14 @@ class GeoJSONWorksiteDetailView(GeoJSONDetailView):
 class GeoJSONEventListView(GeoJSONListView):
     model = Event
 
+    def get_queryset(self):
+        queryset = super(GeoJSONEventListView, self).get_queryset()
+        event_type = self.kwargs.get('event_type', None)
+        if event_type:
+            return queryset.filter(event_type__ident_name__iexact=event_type)
+        else:
+            return queryset
+
 
 class GeoJSONEventDetailView(GeoJSONDetailView):
     model = Event
@@ -115,6 +123,14 @@ class GeoJSONEventDetailView(GeoJSONDetailView):
 
 class GeoJSONStakeholderListView(GeoJSONListView):
     model = Stakeholder
+
+    def get_queryset(self):
+        queryset = super(GeoJSONStakeholderListView, self).get_queryset()
+        role = self.kwargs.get('role', None)
+        if role:
+            return queryset.filter(role__ident_name__iexact=role)
+        else:
+            return queryset
 
 
 class GeoJSONStakeholderDetailView(GeoJSONDetailView):
@@ -239,6 +255,14 @@ class EventListView(EventMixin, GeoDataListView):
     }
     map_layers = [meetings]
 
+    def get_queryset(self):
+        queryset = super(EventListView, self).get_queryset()
+        event_type = self.kwargs.get('type', None)
+        if event_type:
+            return queryset.filter(event_type__ident_name__iexact=event_type)
+        else:
+            return queryset
+
 
 class StakeholderListView(StakeholderMixin, GeoDataListView):
     """Returns a template to present all actors."""
@@ -253,6 +277,14 @@ class StakeholderListView(StakeholderMixin, GeoDataListView):
         'url': 'geojson/',
     }
     map_layers = [actors]
+
+    def get_queryset(self):
+        queryset = super(StakeholderListView, self).get_queryset()
+        role = self.kwargs.get('role', None)
+        if role:
+            return queryset.filter(role__ident_name__iexact=role)
+        else:
+            return queryset
 
 
 class GeoDataAllMixin(object):

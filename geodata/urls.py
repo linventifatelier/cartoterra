@@ -59,24 +59,14 @@ urlpatterns = patterns(
                 participative=False))),
     url(r'^meeting/all/geojson/$', views.GeoJSONEventListView.as_view(),
         name="geojson_meeting_list"),
-    url(r'^meeting/seminar/geojson/$',
-        views.GeoJSONEventListView.as_view(
-            queryset=models.Event.objects.filter(
-                event_type__ident_name__icontains='seminar'))),
-    url(r'^meeting/colloquium/geojson/$',
-        views.GeoJSONEventListView.as_view(
-            queryset=models.Event.objects.filter(
-                event_type__ident_name__icontains='colloquium'))),
-    url(r'^meeting/conference/geojson/$',
-        views.GeoJSONEventListView.as_view(
-            queryset=models.Event.objects.filter(
-                event_type__ident_name__icontains='conference'))),
-    url(r'^meeting/festival/geojson/$',
-        views.GeoJSONEventListView.as_view(
-            queryset=models.Event.objects.filter(
-                event_type__ident_name__icontains='festival'))),
+    url(r'^meeting/type/(?P<type>[a-zA-Z0-9_\-]+)/geojson/$',
+        views.GeoJSONEventListView.as_view(),
+        name="geojson_event_of_type"),
     url(r'^actor/all/geojson/$', views.GeoJSONStakeholderListView.as_view(),
         name="geojson_actor_list"),
+    url(r'^actor/role/(?P<role>[a-zA-Z0-9_\-]+)/geojson/$',
+        views.GeoJSONStakeholderListView.as_view(),
+        name="geojson_stakeholder_of_role"),
     url(r'^patrimony/all/$', views.BuildingListView.as_view(),
         name="show_patrimony_all"),
     url(r'^patrimony/contemporary/$',
@@ -117,30 +107,16 @@ urlpatterns = patterns(
         name="show_construction"),
     url(r'^meeting/all/$', views.EventListView.as_view(),
         name="show_meeting_all"),
-    url(r'^meeting/seminar/$',
-        views.EventListView.as_view(
-            queryset=models.Event.objects.filter(
-                event_type__ident_name__icontains='seminar')),
-        name="show_meeting_seminar"),
-    url(r'^meeting/colloquium/$',
-        views.EventListView.as_view(
-            queryset=models.Event.objects.filter(
-                event_type__ident_name__icontains='colloquium')),
-        name="show_meeting_colloquium"),
-    url(r'^meeting/conference/$',
-        views.EventListView.as_view(
-            queryset=models.Event.objects.filter(
-                event_type__ident_name__icontains='conference')),
-        name="show_meeting_conference"),
-    url(r'^meeting/festival/$',
-        views.EventListView.as_view(
-            queryset=models.Event.objects.filter(
-                event_type__ident_name__icontains='festival')),
-        name="show_meeting_festival"),
+    url(r'^meeting/type/(?P<type>[a-zA-Z0-9_\-]+)/$',
+        views.EventListView.as_view(),
+        name="show_event_of_type"),
     url(r'^meeting/(?P<pk>\d+)/$', views.EventDetailView.as_view(),
         name="show_meeting"),
     url(r'^actor/all/$', views.StakeholderListView.as_view(),
         name="show_actor_all"),
+    url(r'^actor/role/(?P<role>[a-zA-Z0-9_\-]+)/$',
+        views.StakeholderListView.as_view(),
+        name="show_stakeholder_of_role"),
     url(r'^actor/(?P<pk>\d+)/$', views.StakeholderDetailView.as_view(),
         name="show_actor"),
     url(r'^patrimony/(?P<pk>\d+)/edit/$', views.BuildingUpdateView.as_view(),
