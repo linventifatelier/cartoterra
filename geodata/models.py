@@ -56,7 +56,7 @@ class EarthTechnique(models.Model):
 class Image(models.Model):
     #image = ImageField(upload_to='img/geodata', blank=True, null=True)
     original = models.ImageField(upload_to='img/geodata')
-    legend = models.CharField(_("legend"), max_length=50, blank=True,
+    legend = models.CharField(_("caption"), max_length=50, blank=True,
                               null=True)
     image = ImageSpecField(image_field='original',
                            processors=[ResizeToFill(300, 300)],
