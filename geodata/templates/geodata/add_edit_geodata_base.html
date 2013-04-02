@@ -2,14 +2,13 @@
 {% load staticfiles %}
 {% load i18n %}
 
-{% block extra_style %}
+{% block form_extra_style %}
 {{ form.media.css }}
 {% endblock %}
 
 
-{% block extra_script %}
+{% block form_extra_script %}
 {{ form.media.js }}
-<script type="text/javascript" src="{% static "js/formset.js" %}"></script>
 {% endblock %}
 
 {% block head_title %}{% endblock %}

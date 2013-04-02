@@ -161,10 +161,7 @@ class EarthGeoDataAbstractForm(ModelForm):
         exclude = ('creator', 'pub_date', )
 
     class Media:
-        css = {
-            'all': ('css/geodata.css', )
-        }
-        js = ('openlayers/OpenLayers.js', )
+        js = ('openlayers/OpenLayers.js', 'js/formset.js', )
 
 
 class EarthGeoDataPatrimonyForm(EarthGeoDataAbstractForm):

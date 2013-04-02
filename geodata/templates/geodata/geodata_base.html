@@ -1,9 +1,21 @@
 {% extends "site_base.html" %}
 {% load i18n %}
 {% load breadcrumbs %}
+{% load static %}
 
 {% block breadcrumbs %}
 {% breadcrumb_url 'Home' "home" %}
 {% block breadcrumbs_extra %}
+{% endblock %}
+{% endblock %}
+
+{% block extra_style %}
+<link rel="stylesheet" href="{% static "css/geodata.css" %}" type="text/css">
+{% block form_extra_style %}
+{% endblock %}
+{% endblock %}
+
+{% block extra_script %}
+{% block form_extra_script %}
 {% endblock %}
 {% endblock %}
