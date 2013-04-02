@@ -145,7 +145,7 @@ class Building(GeoDataAbstract):
     techniques = models.ManyToManyField(EarthTechnique,
                                         verbose_name=_("techniques"),
                                         blank=True, null=True)
-    unesco = models.BooleanField(_("unesco"), default=False)
+    unesco = models.BooleanField(_("world heritage"), default=False)
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
     stakeholder = models.ManyToManyField(Stakeholder,
