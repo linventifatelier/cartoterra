@@ -99,9 +99,9 @@ class ProfileDetailView(DetailView):
 
         patrimonies = {
             'name': "Patrimonies %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/patrimony.png",
-            'graphic_width': 20,
-            'graphic_height': 20,
+            'external_graphic': settings.STATIC_URL + "img/buildings_dot.png",
+            'graphic_width': 10,
+            'graphic_height': 10,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
             'url': reverse_lazy('geojson_profile_creator_patrimony',
@@ -109,9 +109,9 @@ class ProfileDetailView(DetailView):
         }
         constructions = {
             'name': "Constructions %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/construction.png",
-            'graphic_width': 20,
-            'graphic_height': 20,
+            'external_graphic': settings.STATIC_URL + "img/construction_dot.png",
+            'graphic_width': 10,
+            'graphic_height': 10,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
             'url': reverse_lazy('geojson_profile_creator_construction',
@@ -119,9 +119,9 @@ class ProfileDetailView(DetailView):
         }
         meetings = {
             'name': "Meetings %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/meeting.png",
-            'graphic_width': 20,
-            'graphic_height': 20,
+            'external_graphic': settings.STATIC_URL + "img/event_dot.png",
+            'graphic_width': 10,
+            'graphic_height': 10,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
             'url': reverse_lazy('geojson_profile_creator_meeting',
@@ -129,9 +129,9 @@ class ProfileDetailView(DetailView):
         }
         actors = {
             'name': "Actors %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/actor.png",
-            'graphic_width': 20,
-            'graphic_height': 20,
+            'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
+            'graphic_width': 10,
+            'graphic_height': 10,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
             'url': reverse_lazy('geojson_profile_creator_actor',
@@ -139,9 +139,9 @@ class ProfileDetailView(DetailView):
         }
         recommendations_patrimonies = {
             'name': "Recommendations %s: Patrimonies" % username,
-            'external_graphic': settings.STATIC_URL + "img/patrimony.png",
-            'graphic_width': 10,
-            'graphic_height': 10,
+            'external_graphic': settings.STATIC_URL + "img/building_icon_h25.png",
+            'graphic_width': 15,
+            'graphic_height': 15,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
             'url': reverse_lazy('geojson_profile_recommend_patrimony',
@@ -149,9 +149,9 @@ class ProfileDetailView(DetailView):
         }
         recommendations_constructions = {
             'name': "Recommendations %s: Constructions" % username,
-            'external_graphic': settings.STATIC_URL + "img/construction.png",
-            'graphic_width': 10,
-            'graphic_height': 10,
+            'external_graphic': settings.STATIC_URL + "img/construction_icon_h25.png",
+            'graphic_width': 15,
+            'graphic_height': 15,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
             'url': reverse_lazy('geojson_profile_recommend_construction',
@@ -159,9 +159,9 @@ class ProfileDetailView(DetailView):
         }
         recommendations_meetings = {
             'name': "Recommendations %s: Meetings" % username,
-            'external_graphic': settings.STATIC_URL + "img/meeting.png",
-            'graphic_width': 10,
-            'graphic_height': 10,
+            'external_graphic': settings.STATIC_URL + "img/event_icon_h25.png",
+            'graphic_width': 15,
+            'graphic_height': 15,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
             'url': reverse_lazy('geojson_profile_recommend_meeting',
@@ -169,9 +169,9 @@ class ProfileDetailView(DetailView):
         }
         recommendations_actors = {
             'name': "Recommendations %s: Actors" % username,
-            'external_graphic': settings.STATIC_URL + "img/actor.png",
-            'graphic_width': 10,
-            'graphic_height': 10,
+            'external_graphic': settings.STATIC_URL + "img/stakeholder_icon_h25.png",
+            'graphic_width': 15,
+            'graphic_height': 15,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
             'url': reverse_lazy('geojson_profile_recommend_actor',
