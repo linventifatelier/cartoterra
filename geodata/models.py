@@ -14,6 +14,11 @@ from imagekit.processors import ResizeToFill
 from hvad.models import TranslatableModel, TranslatedFields
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from django.core.validators import RegexValidator
+import re
+
+
+ident_regex = re.compile(r'^[a-zA-Z0-9_\-]+$')
 
 
 class EarthTechnique(models.Model):
@@ -93,8 +98,11 @@ class GeoDataAbstract(models.Model):
 class EarthRole(TranslatableModel):
     """Stakeholder role"""
     #name = models.CharField(_("name"), max_length=50)
-    ident_name = models.CharField(_("Identification name"), max_length=255,
-                                  unique=True)
+    ident_name = models.CharField(_("Identification name"), max_length=50,
+                                  unique=True,
+                                  validators=[
+                                      RegexValidator(regex=ident_regex)
+                                  ])
 
     translations = TranslatedFields(
         name=models.CharField(_("Translated name"), max_length=255,
@@ -162,8 +170,11 @@ class Building(GeoDataAbstract):
 class EventType(TranslatableModel):
     """Event type"""
     #name = models.CharField(_("name"), max_length=50)
-    ident_name = models.CharField(_("Identification name"), max_length=255,
-                                  unique=True)
+    ident_name = models.CharField(_("Identification name"), max_length=50,
+                                  unique=True,
+                                  validators=[
+                                      RegexValidator(regex=ident_regex)
+                                  ])
 
     translations = TranslatedFields(
         name=models.CharField(_("Translated name"), max_length=255, blank=True,
