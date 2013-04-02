@@ -19,33 +19,33 @@ class Migration(SchemaMigration):
         db.create_table(u'profiles_profile_r_patrimony', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('profile', models.ForeignKey(orm[u'profiles.profile'], null=False)),
-            ('earthgeodatapatrimony', models.ForeignKey(orm[u'geodata.earthgeodatapatrimony'], null=False))
+            ('building', models.ForeignKey(orm[u'geodata.building'], null=False))
         ))
-        db.create_unique(u'profiles_profile_r_patrimony', ['profile_id', 'earthgeodatapatrimony_id'])
+        db.create_unique(u'profiles_profile_r_patrimony', ['profile_id', 'building_id'])
 
         # Adding M2M table for field r_construction on 'Profile'
         db.create_table(u'profiles_profile_r_construction', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('profile', models.ForeignKey(orm[u'profiles.profile'], null=False)),
-            ('earthgeodataconstruction', models.ForeignKey(orm[u'geodata.earthgeodataconstruction'], null=False))
+            ('worksite', models.ForeignKey(orm[u'geodata.worksite'], null=False))
         ))
-        db.create_unique(u'profiles_profile_r_construction', ['profile_id', 'earthgeodataconstruction_id'])
+        db.create_unique(u'profiles_profile_r_construction', ['profile_id', 'worksite_id'])
 
         # Adding M2M table for field r_meeting on 'Profile'
         db.create_table(u'profiles_profile_r_meeting', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('profile', models.ForeignKey(orm[u'profiles.profile'], null=False)),
-            ('earthgeodatameeting', models.ForeignKey(orm[u'geodata.earthgeodatameeting'], null=False))
+            ('event', models.ForeignKey(orm[u'geodata.event'], null=False))
         ))
-        db.create_unique(u'profiles_profile_r_meeting', ['profile_id', 'earthgeodatameeting_id'])
+        db.create_unique(u'profiles_profile_r_meeting', ['profile_id', 'event_id'])
 
         # Adding M2M table for field r_actor on 'Profile'
         db.create_table(u'profiles_profile_r_actor', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('profile', models.ForeignKey(orm[u'profiles.profile'], null=False)),
-            ('earthgeodataactor', models.ForeignKey(orm[u'geodata.earthgeodataactor'], null=False))
+            ('stakeholder', models.ForeignKey(orm[u'geodata.stakeholder'], null=False))
         ))
-        db.create_unique(u'profiles_profile_r_actor', ['profile_id', 'earthgeodataactor_id'])
+        db.create_unique(u'profiles_profile_r_actor', ['profile_id', 'stakeholder_id'])
 
 
     def backwards(self, orm):
@@ -102,53 +102,8 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'geodata.earthgeodataactor': {
-            'Meta': {'object_name': 'EarthGeoDataActor'},
-            'contact': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
-            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'geometry': ('django.contrib.gis.db.models.fields.PointField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 3, 30, 0, 0)'}),
-            'role': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthRole']", 'null': 'True', 'blank': 'True'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
-        },
-        u'geodata.earthgeodataconstruction': {
-            'Meta': {'object_name': 'EarthGeoDataConstruction'},
-            'actor': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthGeoDataActor']", 'null': 'True', 'blank': 'True'}),
-            'contact': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
-            'credit_creator': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'geometry': ('django.contrib.gis.db.models.fields.PointField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'inauguration_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'participative': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 3, 30, 0, 0)'}),
-            'techniques': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthTechnique']", 'null': 'True', 'blank': 'True'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
-        },
-        u'geodata.earthgeodatameeting': {
-            'Meta': {'object_name': 'EarthGeoDataMeeting'},
-            'actor': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthGeoDataActor']", 'null': 'True', 'blank': 'True'}),
-            'beginning_date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 3, 30, 0, 0)'}),
-            'contact': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
-            'credit_creator': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'end_date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 3, 30, 0, 0)'}),
-            'geometry': ('django.contrib.gis.db.models.fields.PointField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'meeting_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geodata.EarthMeetingType']", 'null': 'True', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 3, 30, 0, 0)'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
-        },
-        u'geodata.earthgeodatapatrimony': {
-            'Meta': {'object_name': 'EarthGeoDataPatrimony'},
-            'actor': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthGeoDataActor']", 'null': 'True', 'blank': 'True'}),
+        u'geodata.building': {
+            'Meta': {'object_name': 'Building'},
             'architects': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'contact': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
@@ -158,15 +113,11 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'inauguration_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 3, 30, 0, 0)'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 4, 2, 0, 0)'}),
+            'stakeholder': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.Stakeholder']", 'null': 'True', 'blank': 'True'}),
             'techniques': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthTechnique']", 'null': 'True', 'blank': 'True'}),
             'unesco': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
-        },
-        u'geodata.earthmeetingtype': {
-            'Meta': {'object_name': 'EarthMeetingType'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ident_name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
         },
         u'geodata.earthrole': {
             'Meta': {'object_name': 'EarthRole'},
@@ -180,6 +131,27 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
         },
+        u'geodata.event': {
+            'Meta': {'object_name': 'Event'},
+            'beginning_date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 4, 2, 0, 0)'}),
+            'contact': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
+            'credit_creator': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'end_date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 4, 2, 0, 0)'}),
+            'event_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['geodata.EventType']", 'null': 'True', 'blank': 'True'}),
+            'geometry': ('django.contrib.gis.db.models.fields.PointField', [], {'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 4, 2, 0, 0)'}),
+            'stakeholder': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.Stakeholder']", 'null': 'True', 'blank': 'True'}),
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
+        },
+        u'geodata.eventtype': {
+            'Meta': {'object_name': 'EventType'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'ident_name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
+        },
         u'geodata.image': {
             'Meta': {'ordering': "['id']", 'object_name': 'Image'},
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
@@ -188,13 +160,41 @@ class Migration(SchemaMigration):
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'original': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'})
         },
+        u'geodata.stakeholder': {
+            'Meta': {'object_name': 'Stakeholder'},
+            'contact': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'geometry': ('django.contrib.gis.db.models.fields.PointField', [], {'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 4, 2, 0, 0)'}),
+            'role': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthRole']", 'null': 'True', 'blank': 'True'}),
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
+        },
+        u'geodata.worksite': {
+            'Meta': {'object_name': 'Worksite'},
+            'contact': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
+            'credit_creator': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'geometry': ('django.contrib.gis.db.models.fields.PointField', [], {'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'inauguration_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'participative': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 4, 2, 0, 0)'}),
+            'stakeholder': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.Stakeholder']", 'null': 'True', 'blank': 'True'}),
+            'techniques': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthTechnique']", 'null': 'True', 'blank': 'True'}),
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
+        },
         u'profiles.profile': {
             'Meta': {'object_name': 'Profile'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'r_actor': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthGeoDataActor']", 'null': 'True', 'blank': 'True'}),
-            'r_construction': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthGeoDataConstruction']", 'null': 'True', 'blank': 'True'}),
-            'r_meeting': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthGeoDataMeeting']", 'null': 'True', 'blank': 'True'}),
-            'r_patrimony': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.EarthGeoDataPatrimony']", 'null': 'True', 'blank': 'True'}),
+            'r_actor': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.Stakeholder']", 'null': 'True', 'blank': 'True'}),
+            'r_construction': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.Worksite']", 'null': 'True', 'blank': 'True'}),
+            'r_meeting': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.Event']", 'null': 'True', 'blank': 'True'}),
+            'r_patrimony': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['geodata.Building']", 'null': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
         }
     }

@@ -48,20 +48,6 @@ class EarthTechnique(models.Model):
         return self.name
 
 
-#class EarthArchitect(models.Model):
-#    """A model for earthbuilding architect type (toto, vernacular, (...)?)."""
-#    name = models.CharField(_("name"), max_length=50)
-#    user = models.ForeignKey(User, verbose_name=_("user"), blank=True,
-#                             null=True)
-#    description = models.TextField(_("description"), blank=True, null=True)
-#
-#    def get_model(self):
-#        return EarthArchitect
-#
-#    def __unicode__(self):
-#        return self.name
-
-
 class Image(models.Model):
     #image = ImageField(upload_to='img/geodata', blank=True, null=True)
     original = models.ImageField(upload_to='img/geodata')
@@ -83,13 +69,12 @@ class Image(models.Model):
         ordering = ["id"]
 
 
-class EarthGeoDataAbstract(models.Model):
+class GeoDataAbstract(models.Model):
     """An abstract spatial model for earthbuilding geodata."""
     name = models.CharField(_("name"), max_length=50)
     pub_date = models.DateTimeField(_("creation date"), default=now())
     creator = models.ForeignKey(User, verbose_name=_("creator"))
     description = models.TextField(_("description"), blank=True, null=True)
-    #image = ImageField(upload_to='img/geodata', blank=True, null=True)
     image = generic.GenericRelation(Image)
     url = models.URLField(_("website"), blank=True, null=True)
     contact = models.TextField(_("contact"), blank=True, null=True)
@@ -106,7 +91,7 @@ class EarthGeoDataAbstract(models.Model):
 
 
 class EarthRole(TranslatableModel):
-    """Actor role"""
+    """Stakeholder role"""
     #name = models.CharField(_("name"), max_length=50)
     ident_name = models.CharField(_("Identification name"), max_length=255,
                                   unique=True)
@@ -126,27 +111,23 @@ class EarthRole(TranslatableModel):
         #return str(self.id)
 
 
-class EarthGeoDataActor(EarthGeoDataAbstract):
-    """A spatial model for earthbuilding actors."""
+class Stakeholder(GeoDataAbstract):
+    """A spatial model for stakholders."""
     role = models.ManyToManyField(EarthRole,
                                   verbose_name=_("role"),
                                   blank=True, null=True)
 
     class Meta:
-        verbose_name = _("actor")
-        verbose_name_plural = _("actors")
+        verbose_name = _("stakeholder")
+        verbose_name_plural = _("stakeholders")
 
     @models.permalink
     def get_absolute_url(self):
         return ("show_actor", [self.id])
 
 
-#class ActorImage(AbstractImage):
-#    geodata = models.ForeignKey(EarthGeoDataActor, related_name='image')
-
-
-class EarthGeoDataPatrimony(EarthGeoDataAbstract):
-    """A spatial model for earthbuilding patrimony geodata."""
+class Building(GeoDataAbstract):
+    """A spatial model for building geodata."""
     #architects = models.ManyToManyField(EarthArchitect,
     #                                    verbose_name=_("architects"),
     #                                    blank=True, null=True)
@@ -158,28 +139,28 @@ class EarthGeoDataPatrimony(EarthGeoDataAbstract):
     unesco = models.BooleanField(_("unesco"), default=False)
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
-    actor = models.ManyToManyField(EarthGeoDataActor,
-                                   verbose_name=_("actor"),
-                                   blank=True, null=True)
+    stakeholder = models.ManyToManyField(Stakeholder,
+                                         verbose_name=_("stakeholder"),
+                                         blank=True, null=True)
 
     class Meta:
-        verbose_name = _("patrimony")
-        verbose_name_plural = _("patrimonies")
+        verbose_name = _("building")
+        verbose_name_plural = _("buildings")
 
     def get_model(self):
-        return EarthGeoDataPatrimony
+        return Building
 
     @models.permalink
     def get_absolute_url(self):
         return ("show_patrimony", [self.id])
 
     def contemporary_status(self):
-        """Returns the contemporary status of a meeting."""
+        """Returns the contemporary status of a building."""
         return self.inauguration_date <= date.today() + timedelta(days=3650)
 
 
-class EarthMeetingType(TranslatableModel):
-    """Meeting type"""
+class EventType(TranslatableModel):
+    """Event type"""
     #name = models.CharField(_("name"), max_length=50)
     ident_name = models.CharField(_("Identification name"), max_length=255,
                                   unique=True)
@@ -190,7 +171,7 @@ class EarthMeetingType(TranslatableModel):
     )
 
     def get_model(self):
-        return EarthMeetingType
+        return EventType
 
     def __unicode__(self):
         return self.ident_name
@@ -199,8 +180,8 @@ class EarthMeetingType(TranslatableModel):
         #return str(self.id)
 
 
-class EarthGeoDataConstruction(EarthGeoDataAbstract):
-    """A spatial model for earthbuilding construction geodata."""
+class Worksite(GeoDataAbstract):
+    """A spatial model for worksite geodata."""
     credit_creator = models.BooleanField(_("credit creator"), default=True)
     participative = models.BooleanField(_("participative"), default=False)
     techniques = models.ManyToManyField(EarthTechnique,
@@ -208,46 +189,46 @@ class EarthGeoDataConstruction(EarthGeoDataAbstract):
                                         blank=True, null=True)
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
-    actor = models.ManyToManyField(EarthGeoDataActor,
-                                   verbose_name=_("actor"),
-                                   blank=True, null=True)
+    stakeholder = models.ManyToManyField(Stakeholder,
+                                         verbose_name=_("stakeholder"),
+                                         blank=True, null=True)
 
     class Meta:
-        verbose_name = _("construction")
-        verbose_name_plural = _("constructions")
+        verbose_name = _("worksite")
+        verbose_name_plural = _("worksites")
 
     def get_model(self):
-        return EarthGeoDataConstruction
+        return Worksite
 
     @models.permalink
     def get_absolute_url(self):
         return ("show_construction", [self.id])
 
 
-class EarthGeoDataMeeting(EarthGeoDataAbstract):
-    """A spatial model for earthbuilding patrimony geodata."""
+class Event(GeoDataAbstract):
+    """A spatial model for event geodata."""
     credit_creator = models.BooleanField(_("credit creator"), default=True)
-    meeting_type = models.ForeignKey(EarthMeetingType,
-                                     verbose_name=_("meeting type"),
-                                     blank=True, null=True)
+    event_type = models.ForeignKey(EventType,
+                                   verbose_name=_("event type"),
+                                   blank=True, null=True)
     beginning_date = models.DateField(_("beginning date"),
                                       default=date.today())
     end_date = models.DateField(_("end date"), default=date.today())
-    actor = models.ManyToManyField(EarthGeoDataActor,
-                                   verbose_name=_("actor"),
-                                   blank=True, null=True)
+    stakeholder = models.ManyToManyField(Stakeholder,
+                                         verbose_name=_("stakeholder"),
+                                         blank=True, null=True)
 
     class Meta:
-        verbose_name = _("meeting")
-        verbose_name_plural = _("meetings")
+        verbose_name = _("event")
+        verbose_name_plural = _("events")
 
     def get_model(self):
-        return EarthGeoDataMeeting
+        return Event
 
     @models.permalink
     def get_absolute_url(self):
         return ("show_meeting", [self.id])
 
     def ended_status(self):
-        """Says if a meeting is ended or not."""
+        """Says if an event is ended or not."""
         return self.beginning_date <= date.today()

@@ -1,6 +1,7 @@
 """Geodata administration interface."""
 from django.contrib.gis import admin
-from models import *
+from models import Building, Worksite, Event, Stakeholder, Image, \
+    EventType, EarthTechnique, EarthRole
 #from django.conf import settings
 #from stdimage import StdImageField
 from imagewidget import AdminImageWidget
@@ -93,7 +94,7 @@ class EarthTechniqueAdmin(admin.ModelAdmin):
 admin.site.register(EarthTechnique, EarthTechniqueAdmin)
 
 
-class EarthMeetingTypeAdmin(hvadadmin.TranslatableAdmin):
+class EventTypeAdmin(hvadadmin.TranslatableAdmin):
     """EarthMeetingType administration interface."""
     #list_display = ['ident_name']
     #list_filter = ['ident_name']
@@ -104,7 +105,7 @@ class EarthMeetingTypeAdmin(hvadadmin.TranslatableAdmin):
         #('Techniques', {'fields': (('name', 'description', 'image', 'url'))}),
     )
 
-admin.site.register(EarthMeetingType, EarthMeetingTypeAdmin)
+admin.site.register(EventType, EventTypeAdmin)
 
 
 class ImageInline(GenericTabularInline):
@@ -115,7 +116,7 @@ class ImageInline(GenericTabularInline):
 
 #class EarthGeoDataAbstractAdmin(MyOSMAdmin):
 #class EarthGeoDataAbstractAdmin(admin.OSMGeoAdmin):
-class EarthGeoDataAbstractAdmin(EarthOSMAdmin):
+class GeoDataAbstractAdmin(EarthOSMAdmin):
     """EarthGeoData abstract administration interface."""
     list_display = ('name', 'pub_date', 'creator')
     list_filter = ('name', 'pub_date', 'creator')
@@ -142,7 +143,7 @@ class EarthGeoDataAbstractAdmin(EarthOSMAdmin):
         abstract = True
 
 
-class EarthGeoDataActorAdmin(EarthGeoDataAbstractAdmin):
+class StakeholderAdmin(GeoDataAbstractAdmin):
     """EarthGeoDataActor administration interface."""
     list_display = ('name', 'pub_date', 'creator')
     list_filter = ('name', 'pub_date', 'creator', 'role')
@@ -156,67 +157,70 @@ class EarthGeoDataActorAdmin(EarthGeoDataAbstractAdmin):
         ('Editable Map View', {'fields': ('geometry', )}),
     )
 
-admin.site.register(EarthGeoDataActor, EarthGeoDataActorAdmin)
+admin.site.register(Stakeholder, StakeholderAdmin)
 
 
-class EarthGeoDataPatrimonyAdmin(EarthGeoDataAbstractAdmin):
+class BuildingAdmin(GeoDataAbstractAdmin):
     """EarthGeoDataPatrimony administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator', 'unesco')
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
                    'inauguration_date', 'architects', 'techniques', 'unesco',
-                   'actor')
+                   'stakeholder')
     search_fields = ['creator__username', 'name', 'techniques', 'architects',
-                     'actor']
+                     'stakeholder']
     date_hierarchy = 'pub_date'
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date',
                                              'inauguration_date', 'creator',
                                              'credit_creator', 'architects',
-                                             'techniques', 'actor', 'unesco',
-                                             'description', 'url',
+                                             'techniques', 'stakeholder',
+                                             'unesco', 'description', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
 
-admin.site.register(EarthGeoDataPatrimony, EarthGeoDataPatrimonyAdmin)
+admin.site.register(Building, BuildingAdmin)
 
 
-class EarthGeoDataMeetingAdmin(EarthGeoDataAbstractAdmin):
+class EventAdmin(GeoDataAbstractAdmin):
     """EarthGeoDataMeeting administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator',
-                    'meeting_type', 'beginning_date', 'end_date', )
+                    'event_type', 'beginning_date', 'end_date', )
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
-                   'meeting_type', 'beginning_date', 'end_date', 'actor')
-    search_fields = ['creator__username', 'name', 'meeting_type', 'actor']
+                   'event_type', 'beginning_date', 'end_date',
+                   'stakeholder')
+    search_fields = ['creator__username', 'name', 'event_type',
+                     'stakeholder']
     date_hierarchy = 'beginning_date'
     fieldsets = (
-        ('Location Attributes', {'fields': (('name', 'meeting_type',
+        ('Location Attributes', {'fields': (('name', 'event_type',
                                              'pub_date', 'beginning_date',
                                              'end_date', 'creator',
-                                             'credit_creator', 'actor',
+                                             'credit_creator', 'stakeholder',
                                              'description', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
 
-admin.site.register(EarthGeoDataMeeting, EarthGeoDataMeetingAdmin)
+admin.site.register(Event, EventAdmin)
 
 
-class EarthGeoDataConstructionAdmin(EarthGeoDataAbstractAdmin):
+class WorksiteAdmin(GeoDataAbstractAdmin):
     """EarthGeoDataConstruction administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator',
                     'participative', )
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
-                   'participative', 'inauguration_date', 'techniques', 'actor')
-    search_fields = ['creator__username', 'name', 'techniques', 'actor']
+                   'participative', 'inauguration_date', 'techniques',
+                   'stakeholder')
+    search_fields = ['creator__username', 'name', 'techniques', 'stakeholder']
     date_hierarchy = 'pub_date'
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date', 'creator',
-                                             'credit_creator', 'actor',
+                                             'credit_creator', 'stakeholder',
                                              'participative', 'techniques',
                                              'description', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
 
-admin.site.register(EarthGeoDataConstruction, EarthGeoDataConstructionAdmin)
+admin.site.register(Worksite, WorksiteAdmin)

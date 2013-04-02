@@ -20,20 +20,20 @@ class GeoJSONProfileCreatorListView(GeoJSONProfileCreatorMixin, BaseListView):
     pass
 
 
-class GeoJSONProfileCreatorPatrimonyListView(GeoJSONProfileCreatorListView):
-    model = models.EarthGeoDataPatrimony
+class GeoJSONProfileCreatorBuildingListView(GeoJSONProfileCreatorListView):
+    model = models.Building
 
 
-class GeoJSONProfileCreatorConstructionListView(GeoJSONProfileCreatorListView):
-    model = models.EarthGeoDataConstruction
+class GeoJSONProfileCreatorWorksiteListView(GeoJSONProfileCreatorListView):
+    model = models.Worksite
 
 
-class GeoJSONProfileCreatorMeetingListView(GeoJSONProfileCreatorListView):
-    model = models.EarthGeoDataMeeting
+class GeoJSONProfileCreatorEventListView(GeoJSONProfileCreatorListView):
+    model = models.Event
 
 
-class GeoJSONProfileCreatorActorListView(GeoJSONProfileCreatorListView):
-    model = models.EarthGeoDataActor
+class GeoJSONProfileCreatorStakeholderListView(GeoJSONProfileCreatorListView):
+    model = models.Stakeholder
 
 
 class GeoJSONProfileRecommendListView(GeoJSONListView):
@@ -41,43 +41,45 @@ class GeoJSONProfileRecommendListView(GeoJSONListView):
         return get_object_or_404(Profile, user__username=self.kwargs['slug'])
 
 
-class GeoJSONProfileRecommendPatrimonyListView(
+class GeoJSONProfileRecommendBuildingListView(
         GeoJSONProfileRecommendListView):
-    model = models.EarthGeoDataPatrimony
+    model = models.Building
 
     def get_queryset(self, **kwargs):
-        queryset = super(GeoJSONProfileRecommendPatrimonyListView,
+        queryset = super(GeoJSONProfileRecommendBuildingListView,
                          self).get_queryset(**kwargs)
         profile = self.get_profile()
         return queryset.filter(id__in=profile.r_patrimony.all())
 
 
-class GeoJSONProfileRecommendConstructionListView(
+class GeoJSONProfileRecommendWorksiteListView(
         GeoJSONProfileRecommendListView):
-    model = models.EarthGeoDataConstruction
+    model = models.Worksite
 
     def get_queryset(self, **kwargs):
-        queryset = super(GeoJSONProfileRecommendConstructionListView,
+        queryset = super(GeoJSONProfileRecommendWorksiteListView,
                          self).get_queryset(**kwargs)
         profile = self.get_profile()
         return queryset.filter(id__in=profile.r_construction.all())
 
 
-class GeoJSONProfileRecommendMeetingListView(GeoJSONProfileRecommendListView):
-    model = models.EarthGeoDataMeeting
+class GeoJSONProfileRecommendEventListView(GeoJSONProfileRecommendListView):
+    model = models.Event
 
     def get_queryset(self, **kwargs):
-        queryset = super(GeoJSONProfileRecommendMeetingListView,
+        queryset = super(GeoJSONProfileRecommendEventListView,
                          self).get_queryset(**kwargs)
         profile = self.get_profile()
         return queryset.filter(id__in=profile.r_meeting.all())
 
 
-class GeoJSONProfileRecommendActorListView(GeoJSONProfileRecommendListView):
-    model = models.EarthGeoDataActor
+class GeoJSONProfileRecommendStakeholderListView(
+    GeoJSONProfileRecommendListView
+):
+    model = models.Stakeholder
 
     def get_queryset(self, **kwargs):
-        queryset = super(GeoJSONProfileRecommendActorListView,
+        queryset = super(GeoJSONProfileRecommendStakeholderListView,
                          self).get_queryset(**kwargs)
         profile = self.get_profile()
         return queryset.filter(id__in=profile.r_actor.all())

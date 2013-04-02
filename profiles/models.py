@@ -1,10 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from geodata.models import EarthGeoDataPatrimony, EarthGeoDataConstruction, \
-    EarthGeoDataMeeting, EarthGeoDataActor
+from geodata.models import Building, Worksite, Event, Stakeholder
 from django.db.models.signals import post_save
-from account.models import *
 
 
 class Profile(models.Model):
@@ -17,30 +15,30 @@ class Profile(models.Model):
     #website = models.URLField(_("website"), null=True, blank=True,
     #                          verify_exists=False)
     r_patrimony = models.ManyToManyField(
-        EarthGeoDataPatrimony,
-        verbose_name=_("patrimony recommendations"),
+        Building,
+        verbose_name=_("building recommendations"),
         null=True, blank=True)
     r_construction = models.ManyToManyField(
-        EarthGeoDataConstruction,
-        verbose_name=_("construction recommendations"),
+        Worksite,
+        verbose_name=_("worksite recommendations"),
         null=True, blank=True)
     r_meeting = models.ManyToManyField(
-        EarthGeoDataMeeting,
-        verbose_name=_("meeting recommendations"),
+        Event,
+        verbose_name=_("event recommendations"),
         null=True, blank=True)
     r_actor = models.ManyToManyField(
-        EarthGeoDataActor,
-        verbose_name=_("actor recommendations"),
+        Stakeholder,
+        verbose_name=_("stakeholder recommendations"),
         null=True, blank=True)
 
     def recommends(self, geodata):
-        if isinstance(geodata, EarthGeoDataPatrimony):
+        if isinstance(geodata, Building):
             return self.r_patrimony.filter(id=geodata.id).exists()
-        elif isinstance(geodata, EarthGeoDataConstruction):
+        elif isinstance(geodata, Worksite):
             return self.r_construction.filter(id=geodata.id).exists()
-        elif isinstance(geodata, EarthGeoDataMeeting):
+        elif isinstance(geodata, Event):
             return self.r_meeting.filter(id=geodata.id).exists()
-        elif isinstance(geodata, EarthGeoDataActor):
+        elif isinstance(geodata, Stakeholder):
             return self.r_actor.filter(id=geodata.id).exists()
         else:
             return False

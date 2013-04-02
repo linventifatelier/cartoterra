@@ -4,12 +4,11 @@ from django.contrib.gis.feeds import GeoRSSFeed
 from django.utils.translation import ugettext_lazy as _
 #from django.contrib.gis.feeds import Feed
 from django.conf import settings
-from geodata.models import EarthGeoDataPatrimony, EarthGeoDataConstruction,\
-    EarthGeoDataMeeting
+from geodata.models import Building, Worksite, Event, Stakeholder
 
 
-class PatrimonyFeed(Feed):
-    """A feed presenting changes and additions on EarthGeoDataPatrimony."""
+class BuildingFeed(Feed):
+    """A feed presenting changes and additions on Building."""
     title = settings.SITE_NAME + " patrimony news."
     link = "/"
     description = _("Updates on changes and additions to patrimonies of " +
@@ -24,7 +23,7 @@ class PatrimonyFeed(Feed):
         return item.geometry
 
     def items(self):
-        return EarthGeoDataPatrimony.objects.order_by('-pub_date')[:20]
+        return Building.objects.order_by('-pub_date')[:20]
 
     def item_title(self, item):
         return item.name
@@ -33,8 +32,8 @@ class PatrimonyFeed(Feed):
         return item.description
 
 
-class ConstructionFeed(Feed):
-    """A feed presenting changes and additions on EarthGeoDataConstruction."""
+class WorksiteFeed(Feed):
+    """A feed presenting changes and additions on Worksite."""
     title = _(settings.SITE_NAME + " construction news.")
     link = "/"
     description = _("Updates on changes and additions to constructions of " +
@@ -49,7 +48,7 @@ class ConstructionFeed(Feed):
         return item.geometry
 
     def items(self):
-        return EarthGeoDataConstruction.objects.order_by('-pub_date')[:20]
+        return Worksite.objects.order_by('-pub_date')[:20]
 
     def item_title(self, item):
         return item.name
@@ -58,8 +57,8 @@ class ConstructionFeed(Feed):
         return item.description
 
 
-class MeetingFeed(Feed):
-    """A feed presenting changes and additions on EarthGeoDataMeeting."""
+class EventFeed(Feed):
+    """A feed presenting changes and additions on Event."""
     title = _(settings.SITE_NAME + " meeting news.")
     link = "/"
     description = _("Updates on changes and additions to meetings of " +
@@ -74,7 +73,7 @@ class MeetingFeed(Feed):
         return item.geometry
 
     def items(self):
-        return EarthGeoDataMeeting.objects.order_by('-pub_date')[:20]
+        return Event.objects.order_by('-pub_date')[:20]
 
     def item_title(self, item):
         return item.name
@@ -83,8 +82,8 @@ class MeetingFeed(Feed):
         return item.description
 
 
-class ActorFeed(Feed):
-    """A feed presenting changes and additions on EarthGeoDataActor."""
+class StakeholderFeed(Feed):
+    """A feed presenting changes and additions on Stakeholder."""
     title = _(settings.SITE_NAME + " actor news.")
     link = "/"
     description = _("Updates on changes and additions to actors of " +
@@ -99,7 +98,7 @@ class ActorFeed(Feed):
         return item.geometry
 
     def items(self):
-        return EarthGeoDataMeeting.objects.order_by('-pub_date')[:20]
+        return Stakeholder.objects.order_by('-pub_date')[:20]
 
     def item_title(self, item):
         return item.name

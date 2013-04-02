@@ -1,57 +1,72 @@
 from haystack import indexes
 from haystack import site
-from geodata.models import EarthGeoDataPatrimony
-from geodata.models import EarthGeoDataConstruction
-from geodata.models import EarthGeoDataMeeting
+from geodata.models import Building, Worksite, Event, Stakeholder
 from django.utils.timezone import now
 
 
-class EarthGeoDataPatrimonyIndex(indexes.SearchIndex):
+class BuildingIndex(indexes.SearchIndex):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name')
     author = indexes.CharField(model_attr='creator')
     pub_date = indexes.DateTimeField(model_attr='pub_date')
 
     def get_model(self):
-        return EarthGeoDataPatrimony
+        return Building
 
     def index_queryset(self):
         "Used when the entire index for model is updated."
-        return EarthGeoDataPatrimony.objects.filter(pub_date__lte=now())
+        return Building.objects.filter(pub_date__lte=now())
 
 
-site.register(EarthGeoDataPatrimony, EarthGeoDataPatrimonyIndex)
+site.register(Building, BuildingIndex)
 
 
-class EarthGeoDataConstructionIndex(indexes.SearchIndex):
+class WorksiteIndex(indexes.SearchIndex):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name')
     author = indexes.CharField(model_attr='creator')
     pub_date = indexes.DateTimeField(model_attr='pub_date')
 
     def get_model(self):
-        return EarthGeoDataConstruction
+        return Worksite
 
     def index_queryset(self):
         "Used when the entire index for model is updated."
-        return EarthGeoDataConstruction.objects.filter(pub_date__lte=now())
+        return Worksite.objects.filter(pub_date__lte=now())
 
 
-site.register(EarthGeoDataConstruction, EarthGeoDataConstructionIndex)
+site.register(Worksite, WorksiteIndex)
 
 
-class EarthGeoDataMeetingIndex(indexes.SearchIndex):
+class EventIndex(indexes.SearchIndex):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name')
     author = indexes.CharField(model_attr='creator')
     pub_date = indexes.DateTimeField(model_attr='pub_date')
 
     def get_model(self):
-        return EarthGeoDataMeeting
+        return Event
 
     def index_queryset(self):
         "Used when the entire index for model is updated."
-        return EarthGeoDataMeeting.objects.filter(pub_date__lte=now())
+        return Event.objects.filter(pub_date__lte=now())
 
 
-site.register(EarthGeoDataMeeting, EarthGeoDataMeetingIndex)
+site.register(Event, EventIndex)
+
+
+class StakeholderIndex(indexes.SearchIndex):
+    text = indexes.CharField(document=True, use_template=True)
+    name = indexes.CharField(model_attr='name')
+    author = indexes.CharField(model_attr='creator')
+    pub_date = indexes.DateTimeField(model_attr='pub_date')
+
+    def get_model(self):
+        return Stakeholder
+
+    def index_queryset(self):
+        "Used when the entire index for model is updated."
+        return Stakeholder.objects.filter(pub_date__lte=now())
+
+
+site.register(Stakeholder, StakeholderIndex)

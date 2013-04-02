@@ -2,8 +2,7 @@
 
 #from django import forms
 import floppyforms as forms
-from models import EarthGeoDataAbstract, EarthGeoDataPatrimony,\
-    EarthGeoDataConstruction, EarthGeoDataMeeting, EarthGeoDataActor,\
+from models import GeoDataAbstract, Building, Worksite, Event, Stakeholder, \
     Image
 from django.forms import ModelForm
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -124,7 +123,7 @@ class DatePicker(forms.DateInput):
 ImageFormSet = generic_inlineformset_factory(Image, extra=1, can_delete=True)
 
 
-class EarthGeoDataAbstractForm(ModelForm):
+class GeoDataAbstractForm(ModelForm):
     geometry = forms.CharField(widget=GeoDataWidget())
     #geometry = forms.CharField(widget=GeodataWidget())
     #def clean(self):
@@ -157,40 +156,40 @@ class EarthGeoDataAbstractForm(ModelForm):
     #    return self.cleaned_data
 
     class Meta:
-        model = EarthGeoDataAbstract
+        model = GeoDataAbstract
         exclude = ('creator', 'pub_date', )
 
     class Media:
         js = ('openlayers/OpenLayers.js', 'js/formset.js', )
 
 
-class EarthGeoDataPatrimonyForm(EarthGeoDataAbstractForm):
+class BuildingForm(GeoDataAbstractForm):
     inauguration_date = forms.DateField(widget=DatePicker, required=False)
 
     class Meta:
-        model = EarthGeoDataPatrimony
+        model = Building
         exclude = ('creator', 'pub_date', )
 
 
-class EarthGeoDataConstructionForm(EarthGeoDataAbstractForm):
+class WorksiteForm(GeoDataAbstractForm):
     inauguration_date = forms.DateField(widget=DatePicker, required=False)
 
     class Meta:
-        model = EarthGeoDataConstruction
+        model = Worksite
         exclude = ('creator', 'pub_date', )
 
 
-class EarthGeoDataMeetingForm(EarthGeoDataAbstractForm):
+class EventForm(GeoDataAbstractForm):
     beginning_date = forms.DateField(widget=DatePicker)
     end_date = forms.DateField(widget=DatePicker)
 
     class Meta:
-        model = EarthGeoDataMeeting
+        model = Event
         exclude = ('creator', 'pub_date', )
 
 
-class EarthGeoDataActorForm(EarthGeoDataAbstractForm):
+class StakeholderForm(GeoDataAbstractForm):
 
     class Meta:
-        model = EarthGeoDataActor
+        model = Stakeholder
         exclude = ('creator', 'pub_date', )

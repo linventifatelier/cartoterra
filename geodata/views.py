@@ -1,10 +1,9 @@
 """GeoData views."""
 
 from django.utils.translation import ugettext_lazy as _
-from models import EarthGeoDataPatrimony, EarthGeoDataConstruction,\
-    EarthGeoDataMeeting, EarthGeoDataActor
-from forms import EarthGeoDataPatrimonyForm, EarthGeoDataConstructionForm,\
-    EarthGeoDataMeetingForm, EarthGeoDataActorForm, ImageFormSet
+from models import Building, Worksite, Event, Stakeholder
+from forms import BuildingForm, WorksiteForm, EventForm, StakeholderForm, \
+    ImageFormSet
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 from django.contrib import messages
@@ -90,36 +89,36 @@ class GeoJSONListView(GeoJSONFeatureCollectionResponseMixin, BaseListView):
     pass
 
 
-class GeoJSONPatrimonyListView(GeoJSONListView):
-    model = EarthGeoDataPatrimony
+class GeoJSONBuildingListView(GeoJSONListView):
+    model = Building
 
 
-class GeoJSONPatrimonyDetailView(GeoJSONDetailView):
-    model = EarthGeoDataPatrimony
+class GeoJSONBuildingDetailView(GeoJSONDetailView):
+    model = Building
 
 
-class GeoJSONConstructionListView(GeoJSONListView):
-    model = EarthGeoDataConstruction
+class GeoJSONWorksiteListView(GeoJSONListView):
+    model = Worksite
 
 
-class GeoJSONConstructionDetailView(GeoJSONDetailView):
-    model = EarthGeoDataConstruction
+class GeoJSONWorksiteDetailView(GeoJSONDetailView):
+    model = Worksite
 
 
-class GeoJSONMeetingListView(GeoJSONListView):
-    model = EarthGeoDataMeeting
+class GeoJSONEventListView(GeoJSONListView):
+    model = Event
 
 
-class GeoJSONMeetingDetailView(GeoJSONDetailView):
-    model = EarthGeoDataMeeting
+class GeoJSONEventDetailView(GeoJSONDetailView):
+    model = Event
 
 
-class GeoJSONActorListView(GeoJSONListView):
-    model = EarthGeoDataActor
+class GeoJSONStakeholderListView(GeoJSONListView):
+    model = Stakeholder
 
 
-class GeoJSONActorDetailView(GeoJSONDetailView):
-    model = EarthGeoDataActor
+class GeoJSONStakeholderDetailView(GeoJSONDetailView):
+    model = Stakeholder
 
 
 class GeoDataMixin(object):
@@ -134,7 +133,7 @@ class GeoDataMixin(object):
         return context
 
 
-class PatrimonyMixin(object):
+class BuildingMixin(object):
     geodata_detail_url = "show_patrimony"
     geodata_list_url = "show_patrimony_all"
     geodata_add_url = "add_patrimony"
@@ -143,7 +142,7 @@ class PatrimonyMixin(object):
     geodata_recommend_url = "toggle_rec_patrimony"
 
 
-class ConstructionMixin(object):
+class WorksiteMixin(object):
     geodata_detail_url = "show_construction"
     geodata_list_url = "show_construction_all"
     geodata_add_url = "add_construction"
@@ -152,7 +151,7 @@ class ConstructionMixin(object):
     geodata_recommend_url = "toggle_rec_construction"
 
 
-class MeetingMixin(object):
+class EventMixin(object):
     geodata_detail_url = "show_meeting"
     geodata_list_url = "show_meeting_all"
     geodata_add_url = "add_meeting"
@@ -161,7 +160,7 @@ class MeetingMixin(object):
     geodata_recommend_url = "toggle_rec_meeting"
 
 
-class ActorMixin(object):
+class StakeholderMixin(object):
     geodata_detail_url = "show_actor"
     geodata_list_url = "show_actor_all"
     geodata_add_url = "add_actor"
@@ -196,9 +195,9 @@ class GeoDataListView(GeoDataMultipleObjectsMixin, GeoDataMapMixin, ListView):
     pass
 
 
-class PatrimonyListView(PatrimonyMixin, GeoDataListView):
+class BuildingListView(BuildingMixin, GeoDataListView):
     """Returns a template to present all patrimonies."""
-    model = EarthGeoDataPatrimony
+    model = Building
     patrimonies = {
         'name': "Patrimonies",
         'external_graphic': settings.STATIC_URL + "img/patrimony.png",
@@ -211,9 +210,9 @@ class PatrimonyListView(PatrimonyMixin, GeoDataListView):
     map_layers = [patrimonies]
 
 
-class ConstructionListView(ConstructionMixin, GeoDataListView):
+class WorksiteListView(WorksiteMixin, GeoDataListView):
     """Returns a template to present all constructions."""
-    model = EarthGeoDataConstruction
+    model = Worksite
     constructions = {
         'name': "Constructions",
         'external_graphic': settings.STATIC_URL + "img/construction.png",
@@ -226,9 +225,9 @@ class ConstructionListView(ConstructionMixin, GeoDataListView):
     map_layers = [constructions]
 
 
-class MeetingListView(MeetingMixin, GeoDataListView):
+class EventListView(EventMixin, GeoDataListView):
     """Returns a template to present all meetings."""
-    model = EarthGeoDataMeeting
+    model = Event
     meetings = {
         'name': "Meetings",
         'external_graphic': settings.STATIC_URL + "img/meeting.png",
@@ -241,9 +240,9 @@ class MeetingListView(MeetingMixin, GeoDataListView):
     map_layers = [meetings]
 
 
-class ActorListView(ActorMixin, GeoDataListView):
+class StakeholderListView(StakeholderMixin, GeoDataListView):
     """Returns a template to present all actors."""
-    model = EarthGeoDataActor
+    model = Stakeholder
     actors = {
         'name': "Actors",
         'external_graphic': settings.STATIC_URL + "img/actor.png",
@@ -334,9 +333,9 @@ class GeoDataDetailView(GeoDataDetailMixin, DetailView):
     pass
 
 
-class PatrimonyDetailView(PatrimonyMixin, GeoDataDetailView):
+class BuildingDetailView(BuildingMixin, GeoDataDetailView):
     """Returns a template to present one patrimony."""
-    model = EarthGeoDataPatrimony
+    model = Building
     patrimony = {
         'name': "Patrimony",
         'external_graphic': settings.STATIC_URL + "img/patrimony.png",
@@ -349,9 +348,9 @@ class PatrimonyDetailView(PatrimonyMixin, GeoDataDetailView):
     map_layers = [patrimony]
 
 
-class ConstructionDetailView(ConstructionMixin, GeoDataDetailView):
+class WorksiteDetailView(WorksiteMixin, GeoDataDetailView):
     """Returns a template to present one construction."""
-    model = EarthGeoDataConstruction
+    model = Worksite
     construction = {
         'name': "Construction",
         'external_graphic': settings.STATIC_URL + "img/construction.png",
@@ -364,9 +363,9 @@ class ConstructionDetailView(ConstructionMixin, GeoDataDetailView):
     map_layers = [construction]
 
 
-class MeetingDetailView(MeetingMixin, GeoDataDetailView):
+class EventDetailView(EventMixin, GeoDataDetailView):
     """Returns a template to present one meeting."""
-    model = EarthGeoDataMeeting
+    model = Event
     meeting = {
         'name': "Meeting",
         'external_graphic': settings.STATIC_URL + "img/meeting.png",
@@ -379,9 +378,9 @@ class MeetingDetailView(MeetingMixin, GeoDataDetailView):
     map_layers = [meeting]
 
 
-class ActorDetailView(ActorMixin, GeoDataDetailView):
+class StakeholderDetailView(StakeholderMixin, GeoDataDetailView):
     """Returns a template to present one actor."""
-    model = EarthGeoDataActor
+    model = Stakeholder
     actor = {
         'name': "Actor",
         'external_graphic': settings.STATIC_URL + "img/actor.png",
@@ -442,24 +441,24 @@ class GeoDataCreateView(GeoDataSingleObjectMixin, GeoDataMixin, CreateView):
         return super(GeoDataCreateView, self).dispatch(*args, **kwargs)
 
 
-class PatrimonyCreateView(PatrimonyMixin, GeoDataCreateView):
-    model = EarthGeoDataPatrimony
-    form_class = EarthGeoDataPatrimonyForm
+class BuildingCreateView(BuildingMixin, GeoDataCreateView):
+    model = Building
+    form_class = BuildingForm
 
 
-class ConstructionCreateView(ConstructionMixin, GeoDataCreateView):
-    model = EarthGeoDataConstruction
-    form_class = EarthGeoDataConstructionForm
+class WorksiteCreateView(WorksiteMixin, GeoDataCreateView):
+    model = Worksite
+    form_class = WorksiteForm
 
 
-class MeetingCreateView(MeetingMixin, GeoDataCreateView):
-    model = EarthGeoDataMeeting
-    form_class = EarthGeoDataMeetingForm
+class EventCreateView(EventMixin, GeoDataCreateView):
+    model = Event
+    form_class = EventForm
 
 
-class ActorCreateView(ActorMixin, GeoDataCreateView):
-    model = EarthGeoDataActor
-    form_class = EarthGeoDataActorForm
+class StakeholderCreateView(StakeholderMixin, GeoDataCreateView):
+    model = Stakeholder
+    form_class = StakeholderForm
 
 
 class GeoDataUpdateView(GeoDataSingleObjectMixin, GeoDataMixin, UpdateView):
@@ -514,27 +513,27 @@ class GeoDataUpdateView(GeoDataSingleObjectMixin, GeoDataMixin, UpdateView):
         return super(GeoDataUpdateView, self).dispatch(*args, **kwargs)
 
 
-class PatrimonyUpdateView(PatrimonyMixin, GeoDataUpdateView):
-    model = EarthGeoDataPatrimony
-    form_class = EarthGeoDataPatrimonyForm
+class BuildingUpdateView(BuildingMixin, GeoDataUpdateView):
+    model = Building
+    form_class = BuildingForm
     template_name = 'edit_patrimony.html'
 
 
-class ConstructionUpdateView(ConstructionMixin, GeoDataUpdateView):
-    model = EarthGeoDataConstruction
-    form_class = EarthGeoDataConstructionForm
+class WorksiteUpdateView(WorksiteMixin, GeoDataUpdateView):
+    model = Worksite
+    form_class = WorksiteForm
     template_name = 'edit_construction.html'
 
 
-class MeetingUpdateView(MeetingMixin, GeoDataUpdateView):
-    model = EarthGeoDataMeeting
-    form_class = EarthGeoDataMeetingForm
+class EventUpdateView(EventMixin, GeoDataUpdateView):
+    model = Event
+    form_class = EventForm
     template_name = 'edit_meeting.html'
 
 
-class ActorUpdateView(ActorMixin, GeoDataUpdateView):
-    model = EarthGeoDataActor
-    form_class = EarthGeoDataActorForm
+class StakeholderUpdateView(StakeholderMixin, GeoDataUpdateView):
+    model = Stakeholder
+    form_class = StakeholderForm
     template_name = 'edit_actor.html'
 
 
@@ -569,24 +568,24 @@ class GeoDataDeleteView(GeoDataSingleObjectMixin, GeoDataMixin, DeleteView):
         return super(GeoDataDeleteView, self).dispatch(*args, **kwargs)
 
 
-class PatrimonyDeleteView(PatrimonyMixin, GeoDataDeleteView):
-    model = EarthGeoDataPatrimony
-    form_class = EarthGeoDataPatrimonyForm
+class BuildingDeleteView(BuildingMixin, GeoDataDeleteView):
+    model = Building
+    form_class = BuildingForm
 
 
-class ConstructionDeleteView(ConstructionMixin, GeoDataDeleteView):
-    model = EarthGeoDataConstruction
-    form_class = EarthGeoDataConstructionForm
+class WorksiteDeleteView(WorksiteMixin, GeoDataDeleteView):
+    model = Worksite
+    form_class = WorksiteForm
 
 
-class MeetingDeleteView(MeetingMixin, GeoDataDeleteView):
-    model = EarthGeoDataMeeting
-    form_class = EarthGeoDataMeetingForm
+class EventDeleteView(EventMixin, GeoDataDeleteView):
+    model = Event
+    form_class = EventForm
 
 
-class ActorDeleteView(ActorMixin, GeoDataDeleteView):
-    model = EarthGeoDataActor
-    form_class = EarthGeoDataActorForm
+class StakeholderDeleteView(StakeholderMixin, GeoDataDeleteView):
+    model = Stakeholder
+    form_class = StakeholderForm
 
 
 class GeoDataError(Exception):
@@ -598,13 +597,13 @@ class ToggleRecommendationView(SingleObjectMixin, View):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         profile = request.user.profile
-        if isinstance(self.object, EarthGeoDataPatrimony):
+        if isinstance(self.object, Building):
             recommendations = profile.r_patrimony
-        elif isinstance(self.object, EarthGeoDataConstruction):
+        elif isinstance(self.object, Worksite):
             recommendations = profile.r_construction
-        elif isinstance(self.object, EarthGeoDataMeeting):
+        elif isinstance(self.object, Event):
             recommendations = profile.r_meeting
-        elif isinstance(self.object, EarthGeoDataActor):
+        elif isinstance(self.object, Stakeholder):
             recommendations = profile.r_actor
         else:
             raise GeoDataError
@@ -637,17 +636,17 @@ class ToggleRecommendationView(SingleObjectMixin, View):
         return super(ToggleRecommendationView, self).dispatch(*args, **kwargs)
 
 
-class ToggleRecommendationPatrimonyView(ToggleRecommendationView):
-    model = EarthGeoDataPatrimony
+class ToggleRecommendationBuildingView(ToggleRecommendationView):
+    model = Building
 
 
-class ToggleRecommendationConstructionView(ToggleRecommendationView):
-    model = EarthGeoDataConstruction
+class ToggleRecommendationWorksiteView(ToggleRecommendationView):
+    model = Worksite
 
 
-class ToggleRecommendationMeetingView(ToggleRecommendationView):
-    model = EarthGeoDataMeeting
+class ToggleRecommendationEventView(ToggleRecommendationView):
+    model = Event
 
 
-class ToggleRecommendationActorView(ToggleRecommendationView):
-    model = EarthGeoDataActor
+class ToggleRecommendationStakeholderView(ToggleRecommendationView):
+    model = Stakeholder
