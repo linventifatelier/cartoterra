@@ -14,10 +14,6 @@ import haystack
 haystack.autodiscover()
 
 
-from dajaxice.core import dajaxice_autodiscover, dajaxice_config
-dajaxice_autodiscover()
-
-
 urlpatterns = patterns(
     "",
     url(r'^$', BigMapView.as_view(), name="home"),
@@ -33,7 +29,6 @@ urlpatterns = patterns(
     url(r'^searchbis/',
         search_view_factory(view_class=SearchView, form_class=ModelSearchForm),
         name="searchbis"),
-    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

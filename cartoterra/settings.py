@@ -102,7 +102,6 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     #"django.contrib.staticfiles.finders.LegacyAppDirectoriesFinder",
     "compressor.finders.CompressorFinder",
-    "dajaxice.finders.DajaxiceFinder",
 ]
 
 # Make this unique, and don't share it with anybody.
@@ -175,8 +174,6 @@ INSTALLED_APPS = [
     "django.contrib.markup",
 
     "django.contrib.gis",
-    "dajaxice",
-    "dajax",
     "south",
     #"sorl.thumbnail",
     "urli18n",

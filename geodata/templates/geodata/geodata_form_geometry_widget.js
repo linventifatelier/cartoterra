@@ -1,3 +1,30 @@
+function searchNominatim(search_terms) {
+  var nominatimSearchUrl = "http://nominatim.openstreetmap.org/search?q=";
+  var format = "json";
+  var acceptlanguage = "en";
+  var addressdetails = 1;
+  var limit = 5;
+  var params = "&format=" + format + "&accept-language=" + acceptlanguage + "&addressdetails=" + addressdetails + "&limit=" + limit;
+  var url = nominatimSearchUrl + search_terms + params;
+
+  $.ajax({
+    url: url,
+    dataType: "json",
+    type: 'GET',
+    success: function (resp) {
+        var items = [];
+        $.each(resp, function(key, val) {
+          items.push('<option value=' + val.display_name + ' lat=' + val.lat + ' lon=' + val.lon + ' minlat=' + val.boundingbox[0] + ' maxlat=' + val.boundingbox[1] + ' minlon=' + val.boundingbox[2] + ' maxlon=' + val.boundingbox[3] + '>' + val.display_name + ' ' + val.lat + ':' + val.lon + '</option>');
+        });
+        console.debug(items);
+        $('#search_results').html(items.join(''));
+    },
+    error: function(e) {
+        alert('Error: '+e);
+    }  
+  });
+}
+
 function updatePoint(lat,lon) {
   var point = "POINT(" + lon + " " + lat + ")";
   var wkt = {{ module }}.read_wkt(point);
@@ -28,5 +55,11 @@ function panToLatLonBoundingBox(lat,lon,minlat,maxlat,minlon,maxlon,wkt) {
   {{ module }}.map.panTo(lonLat, 2);
 
   updatePoint(lonLat.lat,lonLat.lon);
+}
+
+function selectEntry(lat, lon, minlat, maxlat, minlon, maxlon) {
+  $('#latitude').html(lat);
+  $('#longitude').html(lon);
+  panToLatLonBoundingBox(lat, lon, minlat, maxlat, minlon, maxlon);
 }
 

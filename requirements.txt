@@ -36,8 +36,6 @@ eventlet==0.12.1
 psycogreen==1.0
 Markdown==2.3.1
 django-knowledge==0.1.1
-django-dajaxice==0.5.5
-django-dajax==0.9.2
 celery==3.0.17
 django-celery==3.0.17
 celery-haystack==0.7.2
