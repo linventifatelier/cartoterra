@@ -67,13 +67,24 @@
         {% if geodata.image.all|length > 1 %}{% trans "Images" %}{% else %}{% trans "Image" %}{% endif %}:
         <div class="imageRow">
         <div class="set">
-        {% for image in geodata.image.all %}
-            {% with image.thumbnail as im %}
-            <a href="{{ image.display.url }}" rel="lightbox-journey" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" /></a>
-	    {% endwith %}
-        {% empty %}
-            {% trans "No image provided yet." %}
-        {% endfor %}
+        {% if geodata.image.all %}
+          <table>
+            <tr>
+            {% for image in geodata.image.all %}
+            {% if forloop.counter0|divisibleby:"7" %}
+            </tr>
+            <tr>
+            {% endif %}
+              <td>
+                {% with image.thumbnail as im %}
+                <a href="{{ image.display.url }}" rel="lightbox-journey" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" /></a>
+	        {% endwith %}
+              </td>
+            {% endfor %}
+            </tr>
+          </table>
+        {% else %}{% trans "No image provided yet." %}
+        {% endif %}
         </div>
         </div>
     </p>
