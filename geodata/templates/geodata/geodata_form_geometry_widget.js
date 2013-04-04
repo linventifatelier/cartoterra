@@ -1,3 +1,33 @@
+$.fn.spin = function(opts) {
+  this.each(function() {
+    var $this = $(this),
+    spinner = $this.data('spinner');
+    if (spinner) spinner.stop();
+    if (opts !== false) {
+      opts = $.extend({color: $this.css('color')}, opts);
+      spinner = new Spinner(opts).spin(this);
+      $this.data('spinner', spinner);
+    }
+  });
+  return this;
+};
+
+$(function() {
+  $(".spinner-link").bind('click change',function() {
+    var opts = {
+      lines: 12, // The number of lines to draw
+      length: 7, // The length of each line
+      width: 5, // The line thickness
+      radius: 10, // The radius of the inner circle
+      color: '#fff', // #rbg or #rrggbb
+      speed: 1, // Rounds per second
+      trail: 66, // Afterglow percentage
+      shadow: true // Whether to render a shadow
+    };
+    $("#spin").show().spin(opts);
+  });
+});
+
 function searchNominatim(search_terms) {
   var nominatimSearchUrl = "http://nominatim.openstreetmap.org/search?q=";
   var format = "json";
@@ -18,6 +48,7 @@ function searchNominatim(search_terms) {
         });
         console.debug(items);
         $('#search_results').html(items.join(''));
+        $("#spin").spin(false);
     },
     error: function(e) {
         alert('Error: '+e);

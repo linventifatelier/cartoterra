@@ -46,8 +46,9 @@
   </div>
 
   <label class="label" for="search_terms">{% trans "Nominatim Search" %}</label>
+  <label id="spin" style="display:none;"></label>
   <div>
-    <input type="text" class="span3 spinner-link" value="" placeholder="{% trans "Search" %}" id="search_terms" class="span3" >
+    <input type="text" class="span3" value="" placeholder="{% trans "Search" %}" id="search_terms" class="span3" >
     <input type="button" class="btn spinner-link" value="{% trans "Geolocate this address!" %}" onclick="searchNominatim(search_terms.value)">
   </div>
 

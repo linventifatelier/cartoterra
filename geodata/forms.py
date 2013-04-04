@@ -160,7 +160,7 @@ class GeoDataAbstractForm(ModelForm):
         exclude = ('creator', 'pub_date', )
 
     class Media:
-        js = ('openlayers/OpenLayers.js', 'js/formset.js', )
+        js = ('openlayers/OpenLayers.js', 'js/formset.js', 'js/spin.min.js', )
 
 
 class BuildingForm(GeoDataAbstractForm):
