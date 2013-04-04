@@ -1,0 +1,9 @@
+{{ object.name }}
+{{ object.name }}
+{{ object.name }}
+{{ object.name }}
+
+{{ object.author }}
+{{ object.author }}
+
+{{ object.description }}
