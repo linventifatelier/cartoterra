@@ -216,7 +216,7 @@ class BuildingListView(BuildingMixin, GeoDataListView):
     """Returns a template to present all patrimonies."""
     model = Building
     patrimonies = {
-        'name': "Patrimonies",
+        'name': "Buildings",
         'external_graphic': settings.STATIC_URL + "img/building_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -231,7 +231,7 @@ class WorksiteListView(WorksiteMixin, GeoDataListView):
     """Returns a template to present all constructions."""
     model = Worksite
     constructions = {
-        'name': "Constructions",
+        'name': "Worksites",
         'external_graphic': settings.STATIC_URL + "img/construction_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -246,7 +246,7 @@ class EventListView(EventMixin, GeoDataListView):
     """Returns a template to present all meetings."""
     model = Event
     meetings = {
-        'name': "Meetings",
+        'name': "Events",
         'external_graphic': settings.STATIC_URL + "img/event_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -269,7 +269,7 @@ class StakeholderListView(StakeholderMixin, GeoDataListView):
     """Returns a template to present all actors."""
     model = Stakeholder
     actors = {
-        'name': "Actors",
+        'name': "People",
         'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -305,7 +305,7 @@ class BigMapView(GeoDataAllView):
     template_name = 'geodata/geodata_bigmap.html'
     module = "bigmap"
     patrimonies = {
-        'name': "Patrimonies",
+        'name': "Buildings",
         'external_graphic': settings.STATIC_URL + "img/building_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -314,7 +314,7 @@ class BigMapView(GeoDataAllView):
         'url': reverse_lazy('geojson_patrimony_list'),
     }
     constructions = {
-        'name': "Constructions",
+        'name': "Worksites",
         'external_graphic': settings.STATIC_URL + "img/construction_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -323,7 +323,7 @@ class BigMapView(GeoDataAllView):
         'url': reverse_lazy('geojson_construction_list'),
     }
     meetings = {
-        'name': "Meetings",
+        'name': "Events",
         'external_graphic': settings.STATIC_URL + "img/event_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -332,7 +332,7 @@ class BigMapView(GeoDataAllView):
         'url': reverse_lazy('geojson_meeting_list'),
     }
     actors = {
-        'name': "Actors",
+        'name': "People",
         'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -370,7 +370,7 @@ class BuildingDetailView(BuildingMixin, GeoDataDetailView):
     """Returns a template to present one patrimony."""
     model = Building
     patrimony = {
-        'name': "Patrimony",
+        'name': "Building",
         'external_graphic': settings.STATIC_URL + "img/building_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -385,7 +385,7 @@ class WorksiteDetailView(WorksiteMixin, GeoDataDetailView):
     """Returns a template to present one construction."""
     model = Worksite
     construction = {
-        'name': "Construction",
+        'name': "Worksite",
         'external_graphic': settings.STATIC_URL + "img/construction_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -400,7 +400,7 @@ class EventDetailView(EventMixin, GeoDataDetailView):
     """Returns a template to present one meeting."""
     model = Event
     meeting = {
-        'name': "Meeting",
+        'name': "Event",
         'external_graphic': settings.STATIC_URL + "img/event_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -415,7 +415,7 @@ class StakeholderDetailView(StakeholderMixin, GeoDataDetailView):
     """Returns a template to present one actor."""
     model = Stakeholder
     actor = {
-        'name': "Actor",
+        'name': "People",
         'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
