@@ -1,0 +1,41 @@
+{% extends "geodata/geodata_base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load breadcrumbs %}
+
+
+{% block extra_head %}
+{% endblock %}
+
+{% block breadcrumbs_extra %}
+{% breadcrumb "Search" %}
+{% endblock %}
+
+{% block head_title %}{% trans "Search" %}{% endblock %}
+
+{% block body_class %}search{% endblock %}
+
+{% block body %}
+
+  <form class="form-inline" method="get" action=".">{% csrf_token %}
+    <fieldset class="control-group">
+      {{ form.q }}
+      <button class="btn btn-primary" type="submit">{% trans "Go" %}</button>
+    </fieldset> 
+  </form>
+
+
+{% if page.object_list %}
+    <ol>
+        {% for result in page.object_list %}
+            <li>
+                <a href='{{ result.object.get_absolute_url }}'>{{ result.object.name }}</a>
+                <div>{{ result.object.description|truncatechars:100 }}</div>
+            </li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <p>{% trans "No results found." %}</p>
+{% endif %}
+
+{% endblock %}
