@@ -10,7 +10,7 @@ from django.utils.timezone import now
 #from image import AutoImageField
 #import os
 from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill
+from imagekit.processors import ResizeToFill, ResizeToFit
 from hvad.models import TranslatableModel, TranslatedFields
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
@@ -57,6 +57,10 @@ class EarthTechnique(models.Model):
 class Image(models.Model):
     #image = ImageField(upload_to='img/geodata', blank=True, null=True)
     original = models.ImageField(upload_to='img/geodata')
+    display = ImageSpecField(image_field='original',
+                             processors=[ResizeToFit(800, 800)],
+                             format='JPEG',
+                             options={'quality': 80})
     legend = models.CharField(_("caption"), max_length=50, blank=True,
                               null=True)
     image = ImageSpecField(image_field='original',

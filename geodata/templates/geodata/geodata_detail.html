@@ -69,7 +69,7 @@
         <div class="set">
         {% for image in geodata.image.all %}
             {% with image.thumbnail as im %}
-            <a href="{{ image.original.url }}" rel="lightbox-journey" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" /></a>
+            <a href="{{ image.display.url }}" rel="lightbox-journey" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" /></a>
 	    {% endwith %}
         {% empty %}
             {% trans "No image provided yet." %}
