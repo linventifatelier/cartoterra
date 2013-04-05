@@ -725,7 +725,7 @@ class GeoJSONProfileRecommendBuildingListView(
         queryset = super(GeoJSONProfileRecommendBuildingListView,
                          self).get_queryset(**kwargs)
         profile = self.get_profile()
-        return queryset.filter(id__in=profile.r_patrimony.all())
+        return queryset.filter(id__in=profile.r_building.all())
 
 
 class GeoJSONProfileRecommendWorksiteListView(
@@ -736,7 +736,7 @@ class GeoJSONProfileRecommendWorksiteListView(
         queryset = super(GeoJSONProfileRecommendWorksiteListView,
                          self).get_queryset(**kwargs)
         profile = self.get_profile()
-        return queryset.filter(id__in=profile.r_construction.all())
+        return queryset.filter(id__in=profile.r_worksite.all())
 
 
 class GeoJSONProfileRecommendEventListView(GeoJSONProfileRecommendListView):
@@ -746,7 +746,7 @@ class GeoJSONProfileRecommendEventListView(GeoJSONProfileRecommendListView):
         queryset = super(GeoJSONProfileRecommendEventListView,
                          self).get_queryset(**kwargs)
         profile = self.get_profile()
-        return queryset.filter(id__in=profile.r_meeting.all())
+        return queryset.filter(id__in=profile.r_event.all())
 
 
 class GeoJSONProfileRecommendStakeholderListView(
@@ -758,7 +758,7 @@ class GeoJSONProfileRecommendStakeholderListView(
         queryset = super(GeoJSONProfileRecommendStakeholderListView,
                          self).get_queryset(**kwargs)
         profile = self.get_profile()
-        return queryset.filter(id__in=profile.r_actor.all())
+        return queryset.filter(id__in=profile.r_stakeholder.all())
 
 
 class ProfileDetailView(DetailView):
