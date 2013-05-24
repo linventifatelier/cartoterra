@@ -73,13 +73,13 @@ navbar-fixed-top navbar-inverse
 <ul class="nav pull-right">
     <li id="tab_search">
       <form class="navbar-search" action="/search/?q=">
-        <input type="text" class="search-query" name="q" id="id_q" placeholder="{% trans "Search Earth GeoDatas" %}">
+        <input type="text" class="search-query" name="q" id="id_q" placeholder="{% trans "Search cartoterra.net" %}">
       </form>
     </li>
 
 {% if user.is_authenticated %}
     <li id="tab_add" class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/add.png" %}" width="20" height="20" /><b class="caret"></b></a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-plus-sign icon-white" height="15px" width="15px"></i><b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="{% url "add_patrimony" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" /> {% trans "Patrimony" %}</a></li>
         <li><a href="{% url "add_construction" %}"><img src="{% static "img/construction_icon_h25.png" %}" width="15" height="15" /> {% trans "Construction" %}</a></li>

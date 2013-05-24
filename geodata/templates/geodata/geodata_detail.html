@@ -8,13 +8,14 @@
 
 {% block extra_geodata_toolbox %}
     {% if user|can_edit_geodata:geodata %}
-        <li id="tab_edit"><a href="{% url geodata_edit_url geodata.pk %}"><img src="{% static "img/edit.png" %}" width="15" height="15" /></a></li>                    
-        <li id="tab_delete"><a href="{% url geodata_delete_url geodata.pk %}"><img src="{% static "img/delete.png" %}" width="15" height="15" /></a></li>              
+        <li id="tab_edit"><a href="{% url geodata_edit_url geodata.pk %}"><i class="icon-edit icon-white" width="15" height="15"></i></a></li>                    
+        <li id="tab_delete"><a href="{% url geodata_delete_url geodata.pk %}"><i class="icon-trash icon-white" width="15" height="15"></i></a></li> 
+        <li class="divider"></li>             
     {% endif %}
     {% if user|recommends_geodata:geodata %}
-        <li id="tab_recommend"><a href="{% url geodata_recommend_url geodata.pk %}"><img src="{% static "img/recommend_on.png" %}" width="15" height="15" /></a></li>     
+        <li id="tab_recommend"><a href="{% url geodata_recommend_url geodata.pk %}"><i class="icon-remove icon-white" width="15" height="15"></i></a></li>     
     {% else %}
-        <li id="tab_recommend"><a href="{% url geodata_recommend_url geodata.pk %}"><img src="{% static "img/recommend_off.png" %}" width="15" height="15" /></a></li>     
+        <li id="tab_recommend"><a href="{% url geodata_recommend_url geodata.pk %}"><i class="icon-thumbs-up icon-white" width="15" height="15"></i></a></li>     
     {% endif %}
 {% endblock %}
 
