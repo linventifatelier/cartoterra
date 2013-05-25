@@ -487,7 +487,7 @@ msgid "All meetings"
 msgstr ""
 
 #: templates/_nav.html:38
-msgid "Search cartoterra.net"
+msgid "Search cartoterra"
 msgstr ""
 
 #: templates/_nav.html:63

@@ -98,6 +98,22 @@ input[type="color"],
 	color:#2e801a;
 }
 
+.navbar .nav > li
+{
+  float: left;
+  padding-top: 20px;
+}
+
+/*.navbar .nav > li > a
+{
+  float: none;
+  padding-top: 30px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  color: #777777;
+  text-shadow: #ffffff;
+}*/
 	
 /* BLOCKS */
 
