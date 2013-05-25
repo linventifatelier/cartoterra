@@ -23,11 +23,11 @@
         {% endcomment %}
     </p>
     <p>
-        {% trans "Actors" %}:
-        {% if geodata.actor.all %}
+        {% trans "People" %}:
+        {% if geodata.stakeholder.all %}
             <ul>
-            {% for actor in geodata.actor.all %}
-                <li>{{ actor.name }} {% if actor.role.all %}({{ actor.role.all|join:", " }}){% endif %}</li>
+            {% for person in geodata.stakeholder.all %}
+                <li>{{ person.name }} {% if person.role.all %}({{ person.role.all|join:", " }}){% endif %}</li>
             {% endfor %}
             </ul>
         {% else %}
@@ -48,7 +48,7 @@
     </p>
 
     <p>
-        {% trans "UNESCO patrimony" %}:
+        {% trans "UNESCO building" %}:
         {% if geodata.unesco %}
             {% trans "Yes!" %}
         {% else %}

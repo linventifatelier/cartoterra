@@ -10,15 +10,15 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1052.3622"
-   height="744.09448"
+   width="210mm"
+   height="297mm"
    id="svg2"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="construction-icon.svg"
-   inkscape:export-filename="/Users/gregoirepaccoud/Documents/WEB/geowiki/GWrepoLocal1/earthbuilding/geodata/static/img/construction_icon_h25.png"
-   inkscape:export-xdpi="11.720065"
-   inkscape:export-ydpi="11.720065">
+   sodipodi:docname="worksite-dot.svg"
+   inkscape:export-filename="/Users/gregoirepaccoud/Documents/WEB/geowiki/GWrepoLocal1/earthbuilding/geodata/static/img/worksite_dot-hover.png"
+   inkscape:export-xdpi="7.0300002"
+   inkscape:export-ydpi="7.0300002">
   <defs
      id="defs4">
     <linearGradient
@@ -35,15 +35,15 @@
     <linearGradient
        id="linearGradient3620">
       <stop
-         style="stop-color:#bbad8d;stop-opacity:1;"
+         style="stop-color:#bbad8d;stop-opacity:0.79020977;"
          offset="0"
          id="stop3622" />
       <stop
          id="stop3630"
-         offset="0"
-         style="stop-color:#967327;stop-opacity:0.98601401;" />
+         offset="0.51282054"
+         style="stop-color:#967327;stop-opacity:0.8741259;" />
       <stop
-         style="stop-color:#caa75a;stop-opacity:0.78823531;"
+         style="stop-color:#caa75a;stop-opacity:1;"
          offset="1"
          id="stop3624" />
     </linearGradient>
@@ -83,13 +83,13 @@
     <radialGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3711"
-       id="radialGradient2833"
-       gradientUnits="userSpaceOnUse"
+       id="radialGradient3717"
        cx="345"
        cy="408.79074"
        fx="345"
        fy="408.79074"
-       r="122.14286" />
+       r="122.14286"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -98,29 +98,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="133.07409"
-     inkscape:cy="499.29961"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="36.066484"
+     inkscape:cy="580.11182"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:snap-global="false"
      inkscape:window-width="1276"
      inkscape:window-height="756"
-     inkscape:window-x="1920"
-     inkscape:window-y="837"
-     inkscape:window-maximized="1"
-     showguides="true"
-     inkscape:guide-bbox="true">
-    <sodipodi:guide
-       orientation="0,1"
-       position="168.69548,653.5687"
-       id="guide2835" />
-    <sodipodi:guide
-       orientation="0,1"
-       position="104.04571,462.64987"
-       id="guide2837" />
-  </sodipodi:namedview>
+     inkscape:window-x="173"
+     inkscape:window-y="113"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -136,88 +125,37 @@
   <g
      inkscape:groupmode="layer"
      id="layer2"
-     inkscape:label="rond"
-     style="display:inline"
-     transform="translate(0,-308.2677)">
+     inkscape:label="Calque"
+     style="display:inline">
     <path
        sodipodi:type="arc"
-       style="fill:url(#radialGradient3698);fill-opacity:1;stroke:#000000;stroke-width:5.28885412;stroke-miterlimit:4;stroke-opacity:0.94181818;stroke-dasharray:none"
+       style="fill:url(#radialGradient3698);fill-opacity:1.0;stroke:#000000;stroke-width:5.28885422000000016;stroke-miterlimit:4;stroke-opacity:0.94181817999999995;stroke-dasharray:none"
        id="path3613-7"
        sodipodi:cx="290.35715"
        sodipodi:cy="357.00504"
        sodipodi:rx="99.64286"
        sodipodi:ry="99.64286"
        d="m 390.00001,357.00504 a 99.64286,99.64286 0 1 1 -199.28572,0 99.64286,99.64286 0 1 1 199.28572,0 z"
-       transform="matrix(0.93824307,0,0,0.95257998,-66.517314,154.67937)"
+       transform="matrix(0.93824307,0,0,0.95257998,71.482686,66.679369)"
        mask="none" />
   </g>
   <g
+     inkscape:label="Calque 1"
      inkscape:groupmode="layer"
-     id="layer5"
-     inkscape:label="texte"
-     style="display:none">
-    <text
-       transform="translate(0,-308.2677)"
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
-       x="353.55338"
-       y="547.28589"
-       id="text2839"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan2841"
-         x="353.55338"
-         y="547.28589"
-         style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#cd6602;fill-opacity:1;font-family:Futura;-inkscape-font-specification:Futura Medium Condensed">Worksites</tspan></text>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer3"
-     inkscape:label="rectangle"
-     style="display:none"
-     transform="translate(0,-308.2677)">
-    <rect
-       style="fill:#ab894d;fill-opacity:0.45525291;stroke:none;display:inline"
-       id="rect3723"
-       width="298.50009"
-       height="259.60919"
-       x="196.43407"
-       y="275.55487" />
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer4"
-     inkscape:label="flou noir"
-     style="display:none"
-     transform="translate(0,-308.2677)">
+     id="layer1"
+     style="opacity:0.55;display:inline">
     <path
        sodipodi:type="arc"
-       style="fill:url(#radialGradient2833);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       style="fill:url(#radialGradient3717);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path2816"
        sodipodi:cx="345"
        sodipodi:cy="408.79074"
        sodipodi:rx="122.14286"
        sodipodi:ry="122.14286"
-       d="m 467.14286,408.79074 c 0,67.45764 -54.68522,122.14286 -122.14286,122.14286 -67.45764,0 -122.14286,-54.68522 -122.14286,-122.14286 0,-67.45764 54.68522,-122.14286 122.14286,-122.14286 67.45764,0 122.14286,54.68522 122.14286,122.14286 z"
-       transform="matrix(1,0,0,-1,-138,903.58148)" />
-  </g>
-  <g
-     inkscape:label="dessin"
-     inkscape:groupmode="layer"
-     id="layer1"
-     style="display:inline"
-     transform="translate(0,-308.2677)">
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:0.87937742;stroke:#000100;stroke-width:1.3224498;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       id="path3613"
-       sodipodi:cx="290.35715"
-       sodipodi:cy="357.00504"
-       sodipodi:rx="99.64286"
-       sodipodi:ry="99.64286"
-       d="m 390.00001,357.00504 a 99.64286,99.64286 0 1 1 -199.28572,0 99.64286,99.64286 0 1 1 199.28572,0 z"
-       transform="matrix(0.92473119,0,0,0.93548387,-62.502305,162.3183)"
-       mask="none"
-       clip-path="url(#clipPath3688)" />
+       d="m 467.14286,408.79074 a 122.14286,122.14286 0 1 1 -244.28572,0 122.14286,122.14286 0 1 1 244.28572,0 z"
+       transform="matrix(1,0,0,-1,0,815.58148)"
+       inkscape:export-filename="/Users/gregoirepaccoud/Documents/WEB/geowiki/GWrepoLocal1/earthbuilding/geodata/static/img/worksite.png"
+       inkscape:export-xdpi="11.052632"
+       inkscape:export-ydpi="11.052632" />
   </g>
 </svg>

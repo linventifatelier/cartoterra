@@ -9,9 +9,9 @@ from geodata.models import Building, Worksite, Event, Stakeholder
 
 class BuildingFeed(Feed):
     """A feed presenting changes and additions on Building."""
-    title = settings.SITE_NAME + " patrimony news."
+    title = settings.SITE_NAME + " building news."
     link = "/"
-    description = _("Updates on changes and additions to patrimonies of " +
+    description = _("Updates on changes and additions to buildings of " +
                     settings.SITE_NAME + ".")
 
     feed_type = GeoRSSFeed
@@ -34,9 +34,9 @@ class BuildingFeed(Feed):
 
 class WorksiteFeed(Feed):
     """A feed presenting changes and additions on Worksite."""
-    title = _(settings.SITE_NAME + " construction news.")
+    title = _(settings.SITE_NAME + " worksite news.")
     link = "/"
-    description = _("Updates on changes and additions to constructions of " +
+    description = _("Updates on changes and additions to worksites of " +
                     settings.SITE_NAME + ".")
 
     feed_type = GeoRSSFeed
@@ -59,9 +59,9 @@ class WorksiteFeed(Feed):
 
 class EventFeed(Feed):
     """A feed presenting changes and additions on Event."""
-    title = _(settings.SITE_NAME + " meeting news.")
+    title = _(settings.SITE_NAME + " event news.")
     link = "/"
-    description = _("Updates on changes and additions to meetings of " +
+    description = _("Updates on changes and additions to events of " +
                     settings.SITE_NAME + ".")
 
     feed_type = GeoRSSFeed
@@ -84,9 +84,9 @@ class EventFeed(Feed):
 
 class StakeholderFeed(Feed):
     """A feed presenting changes and additions on Stakeholder."""
-    title = _(settings.SITE_NAME + " actor news.")
+    title = _(settings.SITE_NAME + " people news.")
     link = "/"
-    description = _("Updates on changes and additions to actors of " +
+    description = _("Updates on changes and additions to people of " +
                     settings.SITE_NAME + ".")
 
     feed_type = GeoRSSFeed

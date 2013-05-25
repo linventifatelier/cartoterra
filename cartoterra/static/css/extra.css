@@ -66,7 +66,7 @@ input[type="color"],
 }
 /* HEADER */
 
-.patrimonies {
+.buildings {
 	font-family:arial, helvetica, sans-serif;
 	font-size:1.2em;
 	font-weight:bold;
@@ -74,7 +74,7 @@ input[type="color"],
 	color:#912419;
 }
 
-.constructions {
+.worksites {
 		font-family:arial, helvetica, sans-serif;
 	font-size:1.2em;
 	font-weight:bold;
@@ -82,7 +82,7 @@ input[type="color"],
 	color:#cea80a;
 }
 
-.meetings {
+.events {
 		font-family:arial, helvetica, sans-serif;
 	font-size:1.2em;
 	font-weight:bold;
@@ -90,7 +90,7 @@ input[type="color"],
 	color:#494591;
 }
 
-.actors {
+.people {
 		font-family:arial, helvetica, sans-serif;
 	font-size:1.2em;
 	font-weight:bold;
