@@ -3,11 +3,11 @@
 
 {% block body_geodata_extra %}
     <p>
-        {% trans "Actors" %}:
-        {% if geodata.actor.all %}
+        {% trans "People" %}:
+        {% if geodata.people.all %}
             <ul>
-            {% for actor in geodata.actor.all %}
-                <li>{{ actor.name }} {% if actor.role.all %}({{ actor.role.all|join:", " }}){% endif %}</li>
+            {% for person in geodata.stakeholder.all %}
+                <li>{{ person.name }} {% if person.role.all %}({{ person.role.all|join:", " }}){% endif %}</li>
             {% endfor %}
             </ul>
         {% else %}
@@ -28,7 +28,7 @@
     </p>
 
     <p>
-        {% trans "Participative construction" %}:
+        {% trans "Participative worksite" %}:
         {% if geodata.participative %}
             {% trans "Yes!" %}
         {% else %}

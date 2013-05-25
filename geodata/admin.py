@@ -95,7 +95,7 @@ admin.site.register(EarthTechnique, EarthTechniqueAdmin)
 
 
 class EventTypeAdmin(hvadadmin.TranslatableAdmin):
-    """EarthMeetingType administration interface."""
+    """EarthEventType administration interface."""
     #list_display = ['ident_name']
     #list_filter = ['ident_name']
     #search_fields = ['name']
@@ -144,7 +144,7 @@ class GeoDataAbstractAdmin(EarthOSMAdmin):
 
 
 class StakeholderAdmin(GeoDataAbstractAdmin):
-    """EarthGeoDataActor administration interface."""
+    """EarthGeoDataStakeholder administration interface."""
     list_display = ('name', 'pub_date', 'creator')
     list_filter = ('name', 'pub_date', 'creator', 'role')
     search_fields = ['creator__username', 'name', 'role']
@@ -161,7 +161,7 @@ admin.site.register(Stakeholder, StakeholderAdmin)
 
 
 class BuildingAdmin(GeoDataAbstractAdmin):
-    """EarthGeoDataPatrimony administration interface."""
+    """EarthGeoDataBuilding administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator', 'unesco')
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
                    'inauguration_date', 'architects', 'techniques', 'unesco',
@@ -183,7 +183,7 @@ admin.site.register(Building, BuildingAdmin)
 
 
 class EventAdmin(GeoDataAbstractAdmin):
-    """EarthGeoDataMeeting administration interface."""
+    """EarthGeoDataEvent administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator',
                     'event_type', 'beginning_date', 'end_date', )
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
@@ -206,7 +206,7 @@ admin.site.register(Event, EventAdmin)
 
 
 class WorksiteAdmin(GeoDataAbstractAdmin):
-    """EarthGeoDataConstruction administration interface."""
+    """EarthGeoDataWorksite administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator',
                     'participative', )
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',

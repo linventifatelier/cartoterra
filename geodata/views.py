@@ -151,39 +151,39 @@ class GeoDataMixin(object):
 
 
 class BuildingMixin(object):
-    geodata_detail_url = "show_patrimony"
-    geodata_list_url = "show_patrimony_all"
-    geodata_add_url = "add_patrimony"
-    geodata_edit_url = "edit_patrimony"
-    geodata_delete_url = "delete_patrimony"
-    geodata_recommend_url = "toggle_rec_patrimony"
+    geodata_detail_url = "show_building"
+    geodata_list_url = "show_building_all"
+    geodata_add_url = "add_building"
+    geodata_edit_url = "edit_building"
+    geodata_delete_url = "delete_building"
+    geodata_recommend_url = "toggle_rec_building"
 
 
 class WorksiteMixin(object):
-    geodata_detail_url = "show_construction"
-    geodata_list_url = "show_construction_all"
-    geodata_add_url = "add_construction"
-    geodata_edit_url = "edit_construction"
-    geodata_delete_url = "delete_construction"
-    geodata_recommend_url = "toggle_rec_construction"
+    geodata_detail_url = "show_worksite"
+    geodata_list_url = "show_worksite_all"
+    geodata_add_url = "add_worksite"
+    geodata_edit_url = "edit_worksite"
+    geodata_delete_url = "delete_worksite"
+    geodata_recommend_url = "toggle_rec_worksite"
 
 
 class EventMixin(object):
-    geodata_detail_url = "show_meeting"
-    geodata_list_url = "show_meeting_all"
-    geodata_add_url = "add_meeting"
-    geodata_edit_url = "edit_meeting"
-    geodata_delete_url = "delete_meeting"
-    geodata_recommend_url = "toggle_rec_meeting"
+    geodata_detail_url = "show_event"
+    geodata_list_url = "show_event_all"
+    geodata_add_url = "add_event"
+    geodata_edit_url = "edit_event"
+    geodata_delete_url = "delete_event"
+    geodata_recommend_url = "toggle_rec_event"
 
 
 class StakeholderMixin(object):
-    geodata_detail_url = "show_actor"
-    geodata_list_url = "show_actor_all"
-    geodata_add_url = "add_actor"
-    geodata_edit_url = "edit_actor"
-    geodata_delete_url = "delete_actor"
-    geodata_recommend_url = "toggle_rec_actor"
+    geodata_detail_url = "show_people"
+    geodata_list_url = "show_people_all"
+    geodata_add_url = "add_people"
+    geodata_edit_url = "edit_people"
+    geodata_delete_url = "delete_people"
+    geodata_recommend_url = "toggle_rec_people"
 
 
 class GeoDataMapMixin(GeoDataMixin):
@@ -213,9 +213,9 @@ class GeoDataListView(GeoDataMultipleObjectsMixin, GeoDataMapMixin, ListView):
 
 
 class BuildingListView(BuildingMixin, GeoDataListView):
-    """Returns a template to present all patrimonies."""
+    """Returns a template to present all buildings."""
     model = Building
-    patrimonies = {
+    buildings = {
         'name': "Buildings",
         'external_graphic': settings.STATIC_URL + "img/building_dot.png",
         'graphic_width': 10,
@@ -224,28 +224,28 @@ class BuildingListView(BuildingMixin, GeoDataListView):
         'stroke_color': '#008800',
         'url': 'geojson/',
     }
-    map_layers = [patrimonies]
+    map_layers = [buildings]
 
 
 class WorksiteListView(WorksiteMixin, GeoDataListView):
-    """Returns a template to present all constructions."""
+    """Returns a template to present all worksites."""
     model = Worksite
-    constructions = {
+    worksites = {
         'name': "Worksites",
-        'external_graphic': settings.STATIC_URL + "img/construction_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/worksite_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': 'geojson/',
     }
-    map_layers = [constructions]
+    map_layers = [worksites]
 
 
 class EventListView(EventMixin, GeoDataListView):
-    """Returns a template to present all meetings."""
+    """Returns a template to present all events."""
     model = Event
-    meetings = {
+    events = {
         'name': "Events",
         'external_graphic': settings.STATIC_URL + "img/event_dot.png",
         'graphic_width': 10,
@@ -254,7 +254,7 @@ class EventListView(EventMixin, GeoDataListView):
         'stroke_color': '#008800',
         'url': 'geojson/',
     }
-    map_layers = [meetings]
+    map_layers = [events]
 
     def get_queryset(self):
         queryset = super(EventListView, self).get_queryset()
@@ -266,9 +266,9 @@ class EventListView(EventMixin, GeoDataListView):
 
 
 class StakeholderListView(StakeholderMixin, GeoDataListView):
-    """Returns a template to present all actors."""
+    """Returns a template to present all stakeholders."""
     model = Stakeholder
-    actors = {
+    people = {
         'name': "People",
         'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
         'graphic_width': 10,
@@ -277,7 +277,7 @@ class StakeholderListView(StakeholderMixin, GeoDataListView):
         'stroke_color': '#008800',
         'url': 'geojson/',
     }
-    map_layers = [actors]
+    map_layers = [people]
 
     def get_queryset(self):
         queryset = super(StakeholderListView, self).get_queryset()
@@ -301,46 +301,46 @@ class GeoDataAllView(GeoDataAllMixin, TemplateView):
 
 
 class BigMapView(GeoDataAllView):
-    """Returns a template to present all patrimonies."""
+    """Returns a template to present all buildings."""
     template_name = 'geodata/geodata_bigmap.html'
     module = "bigmap"
-    patrimonies = {
+    buildings = {
         'name': "Buildings",
         'external_graphic': settings.STATIC_URL + "img/building_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url': reverse_lazy('geojson_patrimony_list'),
+        'url': reverse_lazy('geojson_building_list'),
     }
-    constructions = {
+    worksites = {
         'name': "Worksites",
-        'external_graphic': settings.STATIC_URL + "img/construction_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/worksite_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url': reverse_lazy('geojson_construction_list'),
+        'url': reverse_lazy('geojson_worksite_list'),
     }
-    meetings = {
+    events = {
         'name': "Events",
         'external_graphic': settings.STATIC_URL + "img/event_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url': reverse_lazy('geojson_meeting_list'),
+        'url': reverse_lazy('geojson_event_list'),
     }
-    actors = {
+    people = {
         'name': "People",
         'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url': reverse_lazy('geojson_actor_list'),
+        'url': reverse_lazy('geojson_people_list'),
     }
-    map_layers = [patrimonies, constructions, meetings, actors]
+    map_layers = [buildings, worksites, events, people]
 
 
 class GeoDataSingleObjectMixin(object):
@@ -367,9 +367,9 @@ class GeoDataDetailView(GeoDataDetailMixin, DetailView):
 
 
 class BuildingDetailView(BuildingMixin, GeoDataDetailView):
-    """Returns a template to present one patrimony."""
+    """Returns a template to present one building."""
     model = Building
-    patrimony = {
+    building = {
         'name': "Building",
         'external_graphic': settings.STATIC_URL + "img/building_dot.png",
         'graphic_width': 10,
@@ -378,28 +378,28 @@ class BuildingDetailView(BuildingMixin, GeoDataDetailView):
         'stroke_color': '#008800',
         'url': 'geojson/',
     }
-    map_layers = [patrimony]
+    map_layers = [building]
 
 
 class WorksiteDetailView(WorksiteMixin, GeoDataDetailView):
-    """Returns a template to present one construction."""
+    """Returns a template to present one worksite."""
     model = Worksite
-    construction = {
+    worksite = {
         'name': "Worksite",
-        'external_graphic': settings.STATIC_URL + "img/construction_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/worksite_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
         'url': 'geojson/',
     }
-    map_layers = [construction]
+    map_layers = [worksite]
 
 
 class EventDetailView(EventMixin, GeoDataDetailView):
-    """Returns a template to present one meeting."""
+    """Returns a template to present one event."""
     model = Event
-    meeting = {
+    event = {
         'name': "Event",
         'external_graphic': settings.STATIC_URL + "img/event_dot.png",
         'graphic_width': 10,
@@ -408,13 +408,13 @@ class EventDetailView(EventMixin, GeoDataDetailView):
         'stroke_color': '#008800',
         'url': 'geojson/',
     }
-    map_layers = [meeting]
+    map_layers = [event]
 
 
 class StakeholderDetailView(StakeholderMixin, GeoDataDetailView):
-    """Returns a template to present one actor."""
+    """Returns a template to present one stakeholder."""
     model = Stakeholder
-    actor = {
+    people = {
         'name': "People",
         'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
         'graphic_width': 10,
@@ -423,7 +423,7 @@ class StakeholderDetailView(StakeholderMixin, GeoDataDetailView):
         'stroke_color': '#008800',
         'url': 'geojson/',
     }
-    map_layers = [actor]
+    map_layers = [people]
 
 
 error_message = _("Please correct the errors below.")
@@ -549,25 +549,21 @@ class GeoDataUpdateView(GeoDataSingleObjectMixin, GeoDataMixin, UpdateView):
 class BuildingUpdateView(BuildingMixin, GeoDataUpdateView):
     model = Building
     form_class = BuildingForm
-    template_name = 'edit_patrimony.html'
 
 
 class WorksiteUpdateView(WorksiteMixin, GeoDataUpdateView):
     model = Worksite
     form_class = WorksiteForm
-    template_name = 'edit_construction.html'
 
 
 class EventUpdateView(EventMixin, GeoDataUpdateView):
     model = Event
     form_class = EventForm
-    template_name = 'edit_meeting.html'
 
 
 class StakeholderUpdateView(StakeholderMixin, GeoDataUpdateView):
     model = Stakeholder
     form_class = StakeholderForm
-    template_name = 'edit_actor.html'
 
 
 class GeoDataDeleteView(GeoDataSingleObjectMixin, GeoDataMixin, DeleteView):
@@ -762,7 +758,7 @@ class GeoJSONProfileRecommendStakeholderListView(
 
 
 class ProfileDetailView(DetailView):
-    """Returns a template to present all patrimonies of a given profile."""
+    """Returns a template to present all buildings of a given profile."""
     #template_name = 'profilemap.html'
     module = "profilemap"
     model = Profile
@@ -775,91 +771,91 @@ class ProfileDetailView(DetailView):
                                     user__username=self.kwargs['slug'])
         username = profile.user.username
 
-        patrimonies = {
-            'name': "Patrimonies %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/patrimony.png",
+        buildings = {
+            'name': "Buildings %s" % username,
+            'external_graphic': settings.STATIC_URL + "img/building.png",
             'graphic_width': 20,
             'graphic_height': 20,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
-            'url': reverse_lazy('geojson_profile_creator_patrimony',
+            'url': reverse_lazy('geojson_profile_creator_building',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
-        constructions = {
-            'name': "Constructions %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/construction.png",
+        worksites = {
+            'name': "Worksites %s" % username,
+            'external_graphic': settings.STATIC_URL + "img/worksite.png",
             'graphic_width': 20,
             'graphic_height': 20,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
-            'url': reverse_lazy('geojson_profile_creator_construction',
+            'url': reverse_lazy('geojson_profile_creator_worksite',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
-        meetings = {
-            'name': "Meetings %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/meeting.png",
+        events = {
+            'name': "Events %s" % username,
+            'external_graphic': settings.STATIC_URL + "img/event.png",
             'graphic_width': 20,
             'graphic_height': 20,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
-            'url': reverse_lazy('geojson_profile_creator_meeting',
+            'url': reverse_lazy('geojson_profile_creator_event',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
-        actors = {
-            'name': "Actors %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/actor.png",
+        people = {
+            'name': "People %s" % username,
+            'external_graphic': settings.STATIC_URL + "img/stakeholder.png",
             'graphic_width': 20,
             'graphic_height': 20,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
-            'url': reverse_lazy('geojson_profile_creator_actor',
+            'url': reverse_lazy('geojson_profile_creator_people',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
-        recommendations_patrimonies = {
-            'name': "Recommendations %s: Patrimonies" % username,
-            'external_graphic': settings.STATIC_URL + "img/patrimony.png",
+        recommendations_buildings = {
+            'name': "Recommendations %s: Buildings" % username,
+            'external_graphic': settings.STATIC_URL + "img/building.png",
             'graphic_width': 10,
             'graphic_height': 10,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
-            'url': reverse_lazy('geojson_profile_recommend_patrimony',
+            'url': reverse_lazy('geojson_profile_recommend_building',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
-        recommendations_constructions = {
-            'name': "Recommendations %s: Constructions" % username,
-            'external_graphic': settings.STATIC_URL + "img/construction.png",
+        recommendations_worksites = {
+            'name': "Recommendations %s: Worksites" % username,
+            'external_graphic': settings.STATIC_URL + "img/worksite.png",
             'graphic_width': 10,
             'graphic_height': 10,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
-            'url': reverse_lazy('geojson_profile_recommend_construction',
+            'url': reverse_lazy('geojson_profile_recommend_worksite',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
-        recommendations_meetings = {
-            'name': "Recommendations %s: Meetings" % username,
-            'external_graphic': settings.STATIC_URL + "img/meeting.png",
+        recommendations_events = {
+            'name': "Recommendations %s: Events" % username,
+            'external_graphic': settings.STATIC_URL + "img/event.png",
             'graphic_width': 10,
             'graphic_height': 10,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
-            'url': reverse_lazy('geojson_profile_recommend_meeting',
+            'url': reverse_lazy('geojson_profile_recommend_event',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
-        recommendations_actors = {
-            'name': "Recommendations %s: Actors" % username,
-            'external_graphic': settings.STATIC_URL + "img/actor.png",
+        recommendations_people = {
+            'name': "Recommendations %s: People" % username,
+            'external_graphic': settings.STATIC_URL + "img/stakeholder.png",
             'graphic_width': 10,
             'graphic_height': 10,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
-            'url': reverse_lazy('geojson_profile_recommend_actor',
+            'url': reverse_lazy('geojson_profile_recommend_people',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
-        context['map_layers'] = [patrimonies, constructions, meetings, actors,
-                                 recommendations_patrimonies,
-                                 recommendations_constructions,
-                                 recommendations_meetings,
-                                 recommendations_actors]
+        context['map_layers'] = [buildings, worksites, events, people,
+                                 recommendations_buildings,
+                                 recommendations_worksites,
+                                 recommendations_events,
+                                 recommendations_people]
         context['module'] = self.module
         return context
 

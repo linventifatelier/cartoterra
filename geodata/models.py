@@ -101,7 +101,7 @@ class GeoDataAbstract(models.Model):
 
 
 class EarthRole(TranslatableModel):
-    """Stakeholder role"""
+    """People role"""
     #name = models.CharField(_("name"), max_length=50)
     ident_name = models.CharField(_("Identification name"), max_length=50,
                                   unique=True,
@@ -125,18 +125,18 @@ class EarthRole(TranslatableModel):
 
 
 class Stakeholder(GeoDataAbstract):
-    """A spatial model for stakholders."""
+    """A spatial model for people."""
     role = models.ManyToManyField(EarthRole,
                                   verbose_name=_("role"),
                                   blank=True, null=True)
 
     class Meta:
-        verbose_name = _("stakeholder")
-        verbose_name_plural = _("stakeholders")
+        verbose_name = _("people")
+        verbose_name_plural = _("people")
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_actor", [self.id])
+        return ("show_people", [self.id])
 
 
 class Building(GeoDataAbstract):
@@ -153,7 +153,7 @@ class Building(GeoDataAbstract):
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
     stakeholder = models.ManyToManyField(Stakeholder,
-                                         verbose_name=_("stakeholder"),
+                                         verbose_name=_("people"),
                                          blank=True, null=True)
 
     class Meta:
@@ -165,7 +165,7 @@ class Building(GeoDataAbstract):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_patrimony", [self.id])
+        return ("show_building", [self.id])
 
     def contemporary_status(self):
         """Returns the contemporary status of a building."""
@@ -206,7 +206,7 @@ class Worksite(GeoDataAbstract):
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
     stakeholder = models.ManyToManyField(Stakeholder,
-                                         verbose_name=_("stakeholder"),
+                                         verbose_name=_("people"),
                                          blank=True, null=True)
 
     class Meta:
@@ -218,7 +218,7 @@ class Worksite(GeoDataAbstract):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_construction", [self.id])
+        return ("show_worksite", [self.id])
 
 
 class Event(GeoDataAbstract):
@@ -231,7 +231,7 @@ class Event(GeoDataAbstract):
                                       default=date.today())
     end_date = models.DateField(_("end date"), default=date.today())
     stakeholder = models.ManyToManyField(Stakeholder,
-                                         verbose_name=_("stakeholder"),
+                                         verbose_name=_("people"),
                                          blank=True, null=True)
 
     class Meta:
@@ -243,7 +243,7 @@ class Event(GeoDataAbstract):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_meeting", [self.id])
+        return ("show_event", [self.id])
 
     def ended_status(self):
         """Says if an event is ended or not."""
@@ -276,7 +276,7 @@ class Profile(models.Model):
         null=True, blank=True)
     r_stakeholder = models.ManyToManyField(
         Stakeholder,
-        verbose_name=_("stakeholder recommendations"),
+        verbose_name=_("people recommendations"),
         related_name="recommended_by",
         null=True, blank=True)
 
