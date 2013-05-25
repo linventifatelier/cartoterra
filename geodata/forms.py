@@ -111,11 +111,11 @@ class DatePicker(forms.DateInput):
 
     class Media:
         js = (
-            'jquery-ui/js/jquery-ui-1.9.1.custom.min.js',
+            'js/jquery-ui-1.10.3.custom.min.js',
         )
         css = {
             'all': (
-                'jquery-ui/css/ui-lightness/jquery-ui-1.9.1.custom.min.css',
+                'css/ui-lightness/jquery-ui-1.10.3.custom.min.css',
             )
         }
 
