@@ -71,7 +71,9 @@ input[type="color"],
 	font-size:1.2em;
 	font-weight:bold;
 	vertical-align:middle;
-	color:#912419;
+	text-shadow:#333 1px 1px 1px;
+	color:#bbaa99;
+	//color:#912419;
 }
 
 .worksites {
@@ -79,7 +81,9 @@ input[type="color"],
 	font-size:1.2em;
 	font-weight:bold;
 	vertical-align:middle;
-	color:#cea80a;
+	text-shadow:#333 1px 1px 1px;
+	color:#bbaa99;
+	//color:#cea80a;
 }
 
 .events {
@@ -87,7 +91,9 @@ input[type="color"],
 	font-size:1.2em;
 	font-weight:bold;
 	vertical-align:middle;
-	color:#494591;
+	text-shadow:#333 1px 1px 1px;
+	color:#bbaa99;
+	//color:#494591;
 }
 
 .people {
@@ -95,7 +101,9 @@ input[type="color"],
 	font-size:1.2em;
 	font-weight:bold;
 	vertical-align:middle;
-	color:#2e801a;
+	text-shadow:#333 1px 1px 1px;
+	color:#bbaa99;
+	//color:#2e801a;
 }
 
 .navbar .nav > li
