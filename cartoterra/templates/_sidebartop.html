@@ -1,11 +1,21 @@
 {% load i18n %}
 {% load static from staticfiles %}
 
-<div class="btn-toolbar">
-  <div class="btn-group">
-    <a class="btn" href="#"><i class="icon-heart"></i></a>
-    <a class="btn" href="#"><i class="icon-pencil"></i></a>
-    <a class="btn" href="#"><i class="icon-info-sign"></i></a>
-    <a class="btn" href="#"><i class="icon-comment"></i></a>
-  </div>   
-</div>
+
+    {% if user.is_authenticated %}
+    <li id="tab_add" class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-plus-sign icon-white" height="25px" width="25px"></i><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" /> {% trans "Building" %}</a></li>
+        <li><a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" /> {% trans "Worksite" %}</a></li>
+        <li><a href="{% url "add_event" %}"><img src="{% static "img/event_icon_h25.png" %}" width="15" height="15" /> {% trans "Event" %}</a></li>
+        <li><a href="{% url "add_people" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" /> {% trans "People" %}</a></li>
+      </ul>
+    </li>
+    {% block extra_geodata_toolbox %}
+    {% endblock %}
+        {% comment %}
+    <li id="tab_notices"><a href="{% url "notification_notices" %}">{% trans "Notices" %}{% if notice_unseen_count %} ({{ notice_unseen_count }}){% endif %}</a></li>
+    {% endcomment %}
+{% endif %}
+
