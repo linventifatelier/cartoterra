@@ -47,7 +47,7 @@
 
 	{% if data.image %}
             {% with image.thumbnail as im %}
-	        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" />
+	        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" />
 	    {% endwith %}
 	{% endif %}
 

@@ -10,10 +10,10 @@
 
 
       <ul class="dropdown-menu">
-        <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" /> {% trans "Building" %}</a></li>
-        <li><a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" /> {% trans "Worksite" %}</a></li>
-        <li><a href="{% url "add_event" %}"><img src="{% static "img/event_icon_h25.png" %}" width="15" height="15" /> {% trans "Event" %}</a></li>
-        <li><a href="{% url "add_people" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" /> {% trans "People" %}</a></li>
+        <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Building" %}" /> {% trans "Building" %}</a></li>
+        <li><a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Worksite" %}" /> {% trans "Worksite" %}</a></li>
+        <li><a href="{% url "add_event" %}"><img src="{% static "img/event_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Event" %}" /> {% trans "Event" %}</a></li>
+        <li><a href="{% url "add_people" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add People" %}" /> {% trans "People" %}</a></li>
       </ul>
     </div>
     {% block extra_geodata_toolbox %}

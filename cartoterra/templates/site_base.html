@@ -12,13 +12,13 @@
 {% endblock %}
 
 
-{% block site_brand %}<a class="brand" href="{% url "home" %}"><div style="height:45px; overflow:visible;"><img style="border-width:0" src="{% static "img/cartoterra.png" %}" /></div></a>{% endblock %}
+{% block site_brand %}<a class="brand" href="{% url "home" %}"><div style="height:45px; overflow:visible;"><img style="border-width:0" src="{% static "img/cartoterra.png" %}" alt="site-logo" /></div></a>{% endblock %}
 
 {% comment %}
 <div id='langbar' style='text-align:right;padding-top:5px;'>
     <form name='langform' style='margin:0px;display:inline;width:200px' action='/i18n/setlang/' method='POST'>
         {% for LANG in LANGUAGES  %}
-            <img src='{{ MEDIA_URL }}img/flags/{{ LANG.0 }}.png' title="{% trans LANG.1 %}" style='margin:5px;cursor:pointer' onclick="document.langform.language.value='{{ LANG.0 }}';document.langform.submit();">
+            <img src='{{ MEDIA_URL }}img/flags/{{ LANG.0 }}.png' title="{% trans LANG.1 %}" alt="lang" style='margin:5px;cursor:pointer' onclick="document.langform.language.value='{{ LANG.0 }}';document.langform.submit();">
         {% endfor %}
 	<input name='language' type=hidden value="{{ LANGUAGE_CODE }}">
 	current LANG : {{ LANGUAGE_CODE }}
@@ -34,38 +34,38 @@ navbar-fixed-top navbar-inverse
 {% block nav %}
 <ul class="nav">{% spaceless %}
     <li id="tab_building" class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/building_icon_h25.png" %}" width="25" height="25" /><span class="buildings"> {% trans "Buildings" %}</span><b class="caret"></b></a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/building_icon_h25.png" %}" width="25" height="25" alt="" /><span class="buildings"> {% trans "Buildings" %}</span><b class="caret"></b></a>
       <ul class="dropdown-menu">
-        <li><a href="{% url "show_building_all" %}"><img src="{% static "img/building_icon_h25.png" %}" width="10" height="10" /> {% trans "All buildings" %}</a></li>
-        <li><a href="{% url "show_building_unesco" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" /> {% trans "World Heritage" %}</a></li>
-        <li><a href="{% url "show_building_contemporary" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" /> {% trans "Contemporary" %}</a></li>
-        <li><a href="{% url "show_building_vernacular" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" /> {% trans "Heritage" %}</a></li>
-        <li><a href="{% url "show_building_normal" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" /> {% trans "Other" %}</a></li>
+        <li><a href="{% url "show_building_all" %}"><img src="{% static "img/building_icon_h25.png" %}" width="10" height="10" alt="" /> {% trans "All buildings" %}</a></li>
+        <li><a href="{% url "show_building_unesco" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" alt="" /> {% trans "World Heritage" %}</a></li>
+        <li><a href="{% url "show_building_contemporary" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" alt="" /> {% trans "Contemporary" %}</a></li>
+        <li><a href="{% url "show_building_vernacular" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" alt="" /> {% trans "Heritage" %}</a></li>
+        <li><a href="{% url "show_building_normal" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" alt="" /> {% trans "Other" %}</a></li>
       </ul>
     </li>
     <li id="tab_worksite" class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/worksite_icon_h25.png" %}" width="25" height="25" /><span class="worksites"> {% trans "Worksites" %}</span><b class="caret"></b></a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/worksite_icon_h25.png" %}" width="25" height="25" alt="" /><span class="worksites"> {% trans "Worksites" %}</span><b class="caret"></b></a>
       <ul class="dropdown-menu">
-        <li><a href="{% url "show_worksite_all" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="10" height="10" /> {% trans "All worksites" %}</a></li>
-        <li><a href="{% url "show_worksite_participative" %}"><img src="{% static "img/worksite_dot.png" %}" width="10" height="10" /> {% trans "Participative" %}</a></li>
-        <li><a href="{% url "show_worksite_normal" %}"><img src="{% static "img/worksite_dot.png" %}" width="10" height="10" /> {% trans "Normal" %}</a></li>
+        <li><a href="{% url "show_worksite_all" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="10" height="10" alt="" /> {% trans "All worksites" %}</a></li>
+        <li><a href="{% url "show_worksite_participative" %}"><img src="{% static "img/worksite_dot.png" %}" width="10" height="10" alt="" /> {% trans "Participative" %}</a></li>
+        <li><a href="{% url "show_worksite_normal" %}"><img src="{% static "img/worksite_dot.png" %}" width="10" height="10" alt="" /> {% trans "Normal" %}</a></li>
       </ul>
     </li>
     <li id="tab_event" class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/event_icon_h25.png" %}" width="25" height="25" /><span class="events"> {% trans "Events" %}</span><b class="caret"></b></a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/event_icon_h25.png" %}" width="25" height="25" alt="" /><span class="events"> {% trans "Events" %}</span><b class="caret"></b></a>
       <ul class="dropdown-menu">
-        <li><a href="{% url "show_event_all" %}"><img src="{% static "img/event_icon_h25.png" %}" width="10" height="10" /> {% trans "All events" %}</a></li>
-        <li><a href="{% url "show_event_of_type" "seminar" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" /> {% trans "Seminar" %}</a></li>
-        <li><a href="{% url "show_event_of_type" "training" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" /> {% trans "Training" %}</a></li>
-        <li><a href="{% url "show_event_of_type" "conference" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" /> {% trans "Conference" %}</a></li>
-        <li><a href="{% url "show_event_of_type" "exhibition" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" /> {% trans "Exhibition" %}</a></li>
+        <li><a href="{% url "show_event_all" %}"><img src="{% static "img/event_icon_h25.png" %}" width="10" height="10" alt="" /> {% trans "All events" %}</a></li>
+        <li><a href="{% url "show_event_of_type" "seminar" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" alt="" /> {% trans "Seminar" %}</a></li>
+        <li><a href="{% url "show_event_of_type" "training" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" alt="" /> {% trans "Training" %}</a></li>
+        <li><a href="{% url "show_event_of_type" "conference" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" alt="" /> {% trans "Conference" %}</a></li>
+        <li><a href="{% url "show_event_of_type" "exhibition" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" alt="" /> {% trans "Exhibition" %}</a></li>
       </ul>
     </li>
     <li id="tab_people" class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="25" height="25" /><span class="people"> {% trans "People" %}</span><b class="caret"></b></a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="25" height="25" alt="" /><span class="people"> {% trans "People" %}</span><b class="caret"></b></a>
       <ul class="dropdown-menu">
-        <li><a href="{% url "show_people_all" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="10" height="10" /> {% trans "All people" %}</a></li>
-        <li><a href="{% url "show_people_of_role" "architect" %}"><img src="{% static "img/stakeholder_dot.png" %}" width="10" height="10" /> {% trans "Architects" %}</a></li>
+        <li><a href="{% url "show_people_all" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="10" height="10" alt="" /> {% trans "All people" %}</a></li>
+        <li><a href="{% url "show_people_of_role" "architect" %}"><img src="{% static "img/stakeholder_dot.png" %}" width="10" height="10" alt="" /> {% trans "Architects" %}</a></li>
       </ul>
     </li>
 </ul>
@@ -79,6 +79,8 @@ navbar-fixed-top navbar-inverse
 
 {% endspaceless %}</ul>
 {% endblock %}
+
+{% block body_id %}body{% endblock %}
 
 {% block body %}
 {% endblock %}

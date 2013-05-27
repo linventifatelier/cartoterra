@@ -78,7 +78,7 @@
             {% endif %}
               <td>
                 {% with image.thumbnail as im %}
-                <a href="{{ image.display.url }}" rel="lightbox-journey" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" /></a>
+                <a href="{{ image.display.url }}" rel="lightbox-journey" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" /></a>
 	        {% endwith %}
               </td>
             {% endfor %}
