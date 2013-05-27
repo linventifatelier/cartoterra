@@ -4,7 +4,7 @@ from geodata.models import Building, Worksite, Event, Stakeholder
 from django.utils.timezone import now
 
 
-class BuildingIndex(indexes.SearchIndex):
+class BuildingIndex(indexes.RealTimeSearchIndex):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name')
     author = indexes.CharField(model_attr='creator')
@@ -21,7 +21,7 @@ class BuildingIndex(indexes.SearchIndex):
 site.register(Building, BuildingIndex)
 
 
-class WorksiteIndex(indexes.SearchIndex):
+class WorksiteIndex(indexes.RealTimeSearchIndex):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name')
     author = indexes.CharField(model_attr='creator')
@@ -38,7 +38,7 @@ class WorksiteIndex(indexes.SearchIndex):
 site.register(Worksite, WorksiteIndex)
 
 
-class EventIndex(indexes.SearchIndex):
+class EventIndex(indexes.RealTimeSearchIndex):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name')
     author = indexes.CharField(model_attr='creator')
@@ -55,7 +55,7 @@ class EventIndex(indexes.SearchIndex):
 site.register(Event, EventIndex)
 
 
-class StakeholderIndex(indexes.SearchIndex):
+class StakeholderIndex(indexes.RealTimeSearchIndex):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name')
     author = indexes.CharField(model_attr='creator')
