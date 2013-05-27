@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block body_geodata_extra %}
-    <p>
+    <div>
         {% trans "People" %}:
         {% if geodata.people.all %}
             <ul>
@@ -13,8 +13,8 @@
         {% else %}
             {% trans "not provided" %}.
         {% endif %}
-    </p>
-    <p>
+    </div>
+    <div>
         {% trans "Techniques" %}:
         {% if geodata.techniques.all %}
             <ul>
@@ -25,14 +25,14 @@
         {% else %}
             {% trans "not provided" %}.
         {% endif %}
-    </p>
+    </div>
 
-    <p>
+    <div>
         {% trans "Participative worksite" %}:
         {% if geodata.participative %}
             {% trans "Yes!" %}
         {% else %}
             {% trans "No." %}
         {% endif %}
-    </p>
+    </div>
 {% endblock %}

@@ -2,14 +2,14 @@
 {% load i18n %}
 
 {% block body_geodata_extra %}
-    <p>
+    <div>
         {% trans "Event type" %}: {{ geodata.get_event_type_display }}
-    </p>
+    </div>
 
-    <p>
+    <div>
         {% trans "Dates" %}: {{ geodata.beginning_date }} - {{ geodata.end_date }}
-    </p>
-    <p>
+    </div>
+    <div>
         {% trans "People" %}:
         {% if geodata.stakeholder.all %}
             <ul>
@@ -20,5 +20,5 @@
         {% else %}
             {% trans "not provided" %}.
         {% endif %}
-    </p>
+    </div>
 {% endblock %}
