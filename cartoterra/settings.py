@@ -160,9 +160,6 @@ TEMPLATE_DIRS = [
 ]
 
 INSTALLED_APPS = [
-    # Bug haystack :(
-    "haystack",
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -187,6 +184,7 @@ INSTALLED_APPS = [
     "hvad",
     "knowledge",
     "imagekit",
+    "haystack",
 
     # theme
     "pinax_theme_bootstrap_account",
@@ -278,10 +276,9 @@ EMAIL_DEBUG = DEBUG
 OPENLAYERS = posixpath.join(STATIC_URL, "js/openlayers/OpenLayers.js")
 
 
-HAYSTACK_SITECONF = 'cartoterra.urls'
-HAYSTACK_SEARCH_ENGINE = 'xapian'
 here = os.path.dirname(os.path.abspath(__file__))
 HAYSTACK_XAPIAN_PATH = here + '/search_index'
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 HAYSTACK_CONNECTIONS = {
     'default': {

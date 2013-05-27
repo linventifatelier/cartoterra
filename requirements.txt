@@ -26,7 +26,7 @@ Pillow==1.7.8
 South==0.8.1
 django-stdimage==0.2.2
 django-urli18n==0.1
-django-haystack==1.2.7
+django-haystack==2.0.0
 xapian-haystack==1.1.5beta
 django-hvad==0.3
 django-floppyforms==1.1

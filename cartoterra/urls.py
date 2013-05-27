@@ -10,9 +10,6 @@ from geodata.views import BigMapView
 from haystack.forms import ModelSearchForm
 from haystack.views import SearchView, search_view_factory
 
-import haystack
-haystack.autodiscover()
-
 
 urlpatterns = patterns(
     "",
