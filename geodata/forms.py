@@ -112,6 +112,7 @@ class DatePicker(forms.DateInput):
     class Media:
         js = (
             'js/jquery-ui-1.10.3.custom.min.js',
+            'js/modernizr.custom.min.js',
         )
         css = {
             'all': (
