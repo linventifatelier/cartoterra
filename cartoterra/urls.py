@@ -10,6 +10,8 @@ from geodata.views import BigMapView
 from haystack.forms import ModelSearchForm
 from haystack.views import SearchView, search_view_factory
 
+import cartoterra.views
+
 
 urlpatterns = patterns(
     "",
@@ -19,6 +21,8 @@ urlpatterns = patterns(
     #    include('django.views.i18n.null_javascript_catalog')),
     url(r"^geodata/", include("geodata.urls")),
     url(r"^admin/", include(admin.site.urls)),
+    url(r"^account/signup/$", cartoterra.views.SignupView.as_view(),
+        name="account_signup"),
     url(r"^account/", include("account.urls")),
     url(r'^knowledge/', include('knowledge.urls')),
     url(r"^announcements/", include("announcements.urls")),
