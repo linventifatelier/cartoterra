@@ -4,13 +4,21 @@
 {% load i18n %}
 {% load static from staticfiles %}
 
+{% block style_base %}
+    <link href="{% static "pinax/css/theme.css" %}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/bootstrap-responsive.css" %}" rel="stylesheet">
+    <link href="{% static "css/extra.css" %}" rel="stylesheet">
+    <link href="{% static "css/site_tabs.css" %}" rel="stylesheet">
+    {% block extra_style %}{% endblock %}
+{% endblock %}
+
 {% block extra_head_base %}
+    <script src="{% block jquery_src %}{% static "pinax/js/jquery.js" %}{% endblock %}"></script>
+    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "pinax/js/theme.js" %}"></script>
     {% block extra_head %}{% endblock %}
 {% endblock %}
-
-{% block extra_style %}
-{% endblock %}
-
 
 {% block site_brand %}<a class="brand" href="{% url "home" %}"><div style="height:45px; overflow:visible;"><img style="border-width:0" src="{% static "img/cartoterra.png" %}" alt="site-logo" /></div></a>{% endblock %}
 
@@ -76,18 +84,72 @@ navbar-fixed-top navbar-inverse
         <input type="text" class="search-query" name="q" id="id_q" placeholder="{% trans "Search cartoterra" %}">
       </form>
     </li>
-
+</ul>
 {% endspaceless %}</ul>
 {% endblock %}
 
 {% block body_id %}body{% endblock %}
 
-{% block body %}
+{% block body_base %}
+<div class="container">
+    {% include "_messages.html" %}
+    <div class="container-fluid row">
+        <div class="container-fluid span2">
+            <div class="row">
+                <div class="container-fluid span2 content">
+                    <ul class="nav">
+                    {% if user.is_authenticated %}
+                        <li id="tab_add" class="dropdown">
+                          
+                        <div class="btn-group">
+                    	    <a class="btn btn-block btn-inverse dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-plus-sign icon-white"></i> Add   <span class="caret"></span></a>
+                    
+                            <ul class="dropdown-menu">
+                              <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Building" %}" /> {% trans "Building" %}</a></li>
+                              <li><a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Worksite" %}" /> {% trans "Worksite" %}</a></li>
+                              <li><a href="{% url "add_event" %}"><img src="{% static "img/event_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Event" %}" /> {% trans "Event" %}</a></li>
+                              <li><a href="{% url "add_people" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add People" %}" /> {% trans "People" %}</a></li>
+                            </ul>
+                        </div>
+                        {% block extra_geodata_toolbox %}
+                        {% endblock %}
+                        {% comment %}
+                        <li id="tab_notices"><a href="{% url "notification_notices" %}">{% trans "Notices" %}{% if notice_unseen_count %} ({{ notice_unseen_count }}){% endif %}</a></li>
+                        {% endcomment %}
+                    {% endif %}
+                    </ul>
+                </div>
+                <div class="container-fluid span2 well">
+                {% include "_sidebar.html" %}
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid span8 content">
+          {% block breadcrumb_base %}
+          <ul class="breadcrumb">
+            {% block breadcrumbs %}
+            {% endblock %}
+          </ul>
+          {% endblock %}
+          {% block body %}
+            {% block content %}
+            {% endblock %}
+          {% endblock %}
+        </div>
+    </div>
+    {% block footer_base %}
+        <hr />
+        <footer>
+            {% block footer %}{% include "_footer.html" %}{% endblock %}
+        </footer>
+    {% endblock %}
+</div>
 {% endblock %}
 
-{% block footer %}
-    {% include "_footer.html" %}
+
+{% block script_base %}
 {% endblock %}
+
 
 {% block extra_body_base %}
     {% analytics %}
