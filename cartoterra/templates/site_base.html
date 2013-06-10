@@ -20,8 +20,8 @@
 
     <script type='text/javascript'>
        $(document).ready(function () {
-       if ($("[rel=tooltip]").length) {
-       $("[rel=tooltip]").tooltip();
+       if ($("[class~=cartoterra-tooltip]").length) {
+       $("[class~=cartoterra-tooltip]").tooltip();
        }
      });
     </script>
@@ -96,7 +96,7 @@ navbar-fixed-top navbar-inverse
       </form>
     </li>
 </ul>
-{% endspaceless %}</ul>
+{% endspaceless %}
 {% endblock %}
 
 {% block body_id %}body{% endblock %}
@@ -111,7 +111,7 @@ navbar-fixed-top navbar-inverse
           <div class="text-center">
           {% if user.is_authenticated %}
               <div class="btn-group text-left">
-                <a class="btn btn-inverse" data-toggle="dropdown" href="#" rel="tooltip" title="{% trans "Add geodata" %}"><i class="icon-plus-sign icon-white"></i> <span class="caret"></span></a>
+                <a class="btn btn-inverse cartoterra-tooltip" data-toggle="dropdown" href="#" title="{% trans "Add geodata" %}"><i class="icon-plus-sign icon-white"></i> <span class="caret"></span></a>
           
                 <ul class="dropdown-menu">
                   <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Building" %}" /> {% trans "Building" %}</a></li>

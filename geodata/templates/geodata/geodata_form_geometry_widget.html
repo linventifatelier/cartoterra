@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block extrastyle %}
-<style type="text/css">
+<style type="text/css" scoped>
   #{{ id }}_map { width: {{ map_width }}px; height: {{ map_height }}px; }
   #{{ id }}_map .aligned label { float:inherit; }
   #{{ id }}_admin_map { position: relative; vertical-align: top; float: {{ LANGUAGE_BIDI|yesno:"right,left" }}; }
@@ -48,7 +48,7 @@
   <label class="label" for="search_terms">{% trans "Nominatim Search" %}</label>
   <label id="spin" style="display:none;"></label>
   <div>
-    <input type="text" class="span3" value="" placeholder="{% trans "Search" %}" id="search_terms" class="span3" >
+    <input type="text" class="span3" value="" placeholder="{% trans "Search" %}" id="search_terms">
     <input type="button" class="btn spinner-link" value="{% trans "Geolocate this address!" %}" onclick="searchNominatim(search_terms.value)">
   </div>
 
