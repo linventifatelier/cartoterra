@@ -27,7 +27,7 @@ South==0.8.1
 django-stdimage==0.2.2
 django-urli18n==0.1
 django-haystack==2.0.0
-xapian-haystack==1.1.5beta
+-e git+https://github.com/notanumber/xapian-haystack.git@master#egg=xapian-haystack
 django-hvad==0.3
 django-floppyforms==1.1
 django-rosetta==0.7.2
