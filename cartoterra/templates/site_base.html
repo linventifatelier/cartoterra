@@ -6,8 +6,8 @@
 
 {% block style_base %}
     <link href="{% static "pinax/css/theme.css" %}" rel="stylesheet">
-    <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
-    <link href="{% static "bootstrap/css/bootstrap-responsive.css" %}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "bootstrap/css/bootstrap-responsive.min.css" %}" rel="stylesheet">
     <link href="{% static "css/extra.css" %}" rel="stylesheet">
     <link href="{% static "css/site_tabs.css" %}" rel="stylesheet">
     {% block extra_style %}{% endblock %}
@@ -17,6 +17,14 @@
     <script src="{% block jquery_src %}{% static "pinax/js/jquery.js" %}{% endblock %}"></script>
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
     <script src="{% static "pinax/js/theme.js" %}"></script>
+  <script type='text/javascript'>
+     $(document).ready(function () {
+     if ($("[rel=tooltip]").length) {
+     $("[rel=tooltip]").tooltip();
+     }
+   });
+  </script>
+
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
@@ -91,40 +99,37 @@ navbar-fixed-top navbar-inverse
 {% block body_id %}body{% endblock %}
 
 {% block body_base %}
+
 <div class="container">
     {% include "_messages.html" %}
-    <div class="container-fluid row">
-        <div class="container-fluid span2">
-            <div class="row">
-                <div class="container-fluid span2 content">
-                    <ul class="nav">
-                    {% if user.is_authenticated %}
-                        <li id="tab_add" class="dropdown">
-                          
-                        <div class="btn-group">
-                    	    <a class="btn btn-block btn-inverse dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-plus-sign icon-white"></i> Add   <span class="caret"></span></a>
-                    
-                            <ul class="dropdown-menu">
-                              <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Building" %}" /> {% trans "Building" %}</a></li>
-                              <li><a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Worksite" %}" /> {% trans "Worksite" %}</a></li>
-                              <li><a href="{% url "add_event" %}"><img src="{% static "img/event_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Event" %}" /> {% trans "Event" %}</a></li>
-                              <li><a href="{% url "add_people" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add People" %}" /> {% trans "People" %}</a></li>
-                            </ul>
-                        </div>
-                        {% block extra_geodata_toolbox %}
-                        {% endblock %}
-                        {% comment %}
-                        <li id="tab_notices"><a href="{% url "notification_notices" %}">{% trans "Notices" %}{% if notice_unseen_count %} ({{ notice_unseen_count }}){% endif %}</a></li>
-                        {% endcomment %}
-                    {% endif %}
-                    </ul>
-                </div>
-                <div class="container-fluid span2 well">
-                {% include "_sidebar.html" %}
-                </div>
-            </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="text-center">
+          {% if user.is_authenticated %}
+              <div class="btn-group text-left">
+                <a class="btn btn-inverse" data-toggle="dropdown" href="#" rel="tooltip" title="{% trans "Add geodata" %}"><i class="icon-plus-sign icon-white"></i> <span class="caret"></span></a>
+          
+                <ul class="dropdown-menu">
+                  <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Building" %}" /> {% trans "Building" %}</a></li>
+                  <li><a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Worksite" %}" /> {% trans "Worksite" %}</a></li>
+                  <li><a href="{% url "add_event" %}"><img src="{% static "img/event_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Event" %}" /> {% trans "Event" %}</a></li>
+                  <li><a href="{% url "add_people" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add People" %}" /> {% trans "People" %}</a></li>
+                </ul>
+                {% block extra_geodata_toolbox %}
+                {% endblock %}
+                {% comment %}
+                <li id="tab_notices"><a href="{% url "notification_notices" %}">{% trans "Notices" %}{% if notice_unseen_count %} ({{ notice_unseen_count }}){% endif %}</a></li>
+                {% endcomment %}
+              </div>
+          {% endif %}
+          </div>
+          <br>
+          <div class="well well-large">
+          {% include "_sidebar.html" %}
+          </div>
         </div>
-        <div class="container-fluid span8 content">
+        <div class="span9">
           {% block breadcrumb_base %}
           <ul class="breadcrumb">
             {% block breadcrumbs %}
@@ -136,6 +141,7 @@ navbar-fixed-top navbar-inverse
             {% endblock %}
           {% endblock %}
         </div>
+      </div>
     </div>
     {% block footer_base %}
         <hr />
