@@ -11,15 +11,11 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="span12">
-            <form method="POST" action="{% url "account_logout" %}" class="form">{% csrf_token %}
-                <legend>{% trans "Log out" %}</legend>
-                <p>{% trans "Are you sure you want to log out?" %}</p>
-                <fieldset class="form-actions">
-                    <button type="submit" class="btn btn-primary">{% trans "Log out" %}</button>
-                </fieldset>
-            </form>
-        </div>
-    </div>
+<form method="POST" action="{% url "account_logout" %}" class="form">{% csrf_token %}
+    <legend>{% trans "Log out" %}</legend>
+    <p>{% trans "Are you sure you want to log out?" %}</p>
+    <fieldset class="form-actions">
+        <button type="submit" class="btn btn-primary">{% trans "Log out" %}</button>
+    </fieldset>
+</form>
 {% endblock %}
