@@ -8,14 +8,13 @@
 
 {% block extra_geodata_toolbox %}
     {% if user|can_edit_geodata:geodata %}
-        <li id="tab_edit"><a href="{% url geodata_edit_url geodata.pk %}"><i class="icon-edit icon-white" width="15" height="15"></i></a></li>                    
-        <li id="tab_delete"><a href="{% url geodata_delete_url geodata.pk %}"><i class="icon-trash icon-white" width="15" height="15"></i></a></li> 
-        <li class="divider"></li>             
+    <a class="btn btn-inverse" rel="tooltip" title="{% trans "Edit" %}" href="{% url geodata_edit_url geodata.pk %}"><i class="icon-edit icon-white" width="15" height="15"></i></a>
+    <a class="btn btn-inverse" rel="tooltip" title="{% trans "Delete" %}" href="{% url geodata_delete_url geodata.pk %}"><i class="icon-trash icon-white" width="15" height="15"></i></a>
     {% endif %}
     {% if user|recommends_geodata:geodata %}
-        <li id="tab_recommend"><a href="{% url geodata_recommend_url geodata.pk %}"><i class="icon-remove icon-white" width="15" height="15"></i></a></li>     
+    <a class="btn btn-inverse" rel="tooltip" title="{% trans "Toggle Recommend OFF" %}" href="{% url geodata_recommend_url geodata.pk %}"><i class="icon-remove icon-white" width="15" height="15"></i></a>
     {% else %}
-        <li id="tab_recommend"><a href="{% url geodata_recommend_url geodata.pk %}"><i class="icon-thumbs-up icon-white" width="15" height="15"></i></a></li>     
+    <a class="btn btn-inverse" rel="tooltip" title="{% trans "Toggle Recommend ON" %}" href="{% url geodata_recommend_url geodata.pk %}"><i class="icon-thumbs-up icon-white" width="15" height="15"></i></a>
     {% endif %}
 {% endblock %}
 
@@ -63,6 +62,8 @@
 
     {% block body_geodata_extra %}
     {% endblock %}
+
+    <div dropdown-toggle="tooltip" title="test">test</div>
 
     {% if geodata.image.all|length > 1 %}{% trans "Images" %}{% else %}{% trans "Image" %}{% endif %}:
     <div class="set" id="gallery">
