@@ -773,7 +773,8 @@ class ProfileDetailView(DetailView):
 
         buildings = {
             'name': "Buildings %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/building.png",
+            'external_graphic': settings.STATIC_URL +
+            "img/building_icon_h25.png",
             'graphic_width': 20,
             'graphic_height': 20,
             'fill_color': '#00FF00',
@@ -783,7 +784,8 @@ class ProfileDetailView(DetailView):
         }
         worksites = {
             'name': "Worksites %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/worksite.png",
+            'external_graphic': settings.STATIC_URL +
+            "img/worksite_icon_h25.png",
             'graphic_width': 20,
             'graphic_height': 20,
             'fill_color': '#00FF00',
@@ -793,7 +795,7 @@ class ProfileDetailView(DetailView):
         }
         events = {
             'name': "Events %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/event.png",
+            'external_graphic': settings.STATIC_URL + "img/event_icon_h25.png",
             'graphic_width': 20,
             'graphic_height': 20,
             'fill_color': '#00FF00',
@@ -803,7 +805,8 @@ class ProfileDetailView(DetailView):
         }
         people = {
             'name': "People %s" % username,
-            'external_graphic': settings.STATIC_URL + "img/stakeholder.png",
+            'external_graphic': settings.STATIC_URL +
+            "img/stakeholder_icon_h25.png",
             'graphic_width': 20,
             'graphic_height': 20,
             'fill_color': '#00FF00',
@@ -813,7 +816,7 @@ class ProfileDetailView(DetailView):
         }
         recommendations_buildings = {
             'name': "Recommendations %s: Buildings" % username,
-            'external_graphic': settings.STATIC_URL + "img/building.png",
+            'external_graphic': settings.STATIC_URL + "img/building_dot.png",
             'graphic_width': 10,
             'graphic_height': 10,
             'fill_color': '#00FF00',
@@ -823,7 +826,7 @@ class ProfileDetailView(DetailView):
         }
         recommendations_worksites = {
             'name': "Recommendations %s: Worksites" % username,
-            'external_graphic': settings.STATIC_URL + "img/worksite.png",
+            'external_graphic': settings.STATIC_URL + "img/worksite_dot.png",
             'graphic_width': 10,
             'graphic_height': 10,
             'fill_color': '#00FF00',
@@ -833,7 +836,7 @@ class ProfileDetailView(DetailView):
         }
         recommendations_events = {
             'name': "Recommendations %s: Events" % username,
-            'external_graphic': settings.STATIC_URL + "img/event.png",
+            'external_graphic': settings.STATIC_URL + "img/event_dot.png",
             'graphic_width': 10,
             'graphic_height': 10,
             'fill_color': '#00FF00',
@@ -843,7 +846,8 @@ class ProfileDetailView(DetailView):
         }
         recommendations_people = {
             'name': "Recommendations %s: People" % username,
-            'external_graphic': settings.STATIC_URL + "img/stakeholder.png",
+            'external_graphic': settings.STATIC_URL +
+            "img/stakeholder_dot.png",
             'graphic_width': 10,
             'graphic_height': 10,
             'fill_color': '#00FF00',
