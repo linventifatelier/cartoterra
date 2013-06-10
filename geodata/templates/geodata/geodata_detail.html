@@ -77,15 +77,19 @@
     </div>
 
     {% if geodata.description %}
+    <div>
         {% trans "Description" %}:<br>
         {{ geodata.description }}
+    </div>
     {% endif %}
 
-    {% trans "Contacts" %}:
-    <ul>
-        {% if geodata.credit_creator %}<li>{% trans "User" %}: <address><a href="{% url "profile_detail" geodata.creator %}">{{ geodata.creator }}</a></address></li>{% endif %}
-        {% if geodata.url %}<li>{% trans "Website" %}: <a href={{ geodata.url }}>{{ geodata.url }}</a></li>{% endif %}
-        {% if geodata.contact %}<li>{% trans "Other contact information" %}: <address>{{ geodata.contact }}</address></li>{% endif %}
-    </ul>
+    <div>
+      {% trans "Contacts" %}:
+      <ul>
+          {% if geodata.credit_creator %}<li>{% trans "User" %}: <address><a href="{% url "profile_detail" geodata.creator %}">{{ geodata.creator }}</a></address></li>{% endif %}
+          {% if geodata.url %}<li>{% trans "Website" %}: <a href={{ geodata.url }}>{{ geodata.url }}</a></li>{% endif %}
+          {% if geodata.contact %}<li>{% trans "Other contact information" %}: <address>{{ geodata.contact }}</address></li>{% endif %}
+      </ul>
+    </div>
 
 {% endblock %}
