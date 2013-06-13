@@ -6,18 +6,17 @@
 {% block head_title %}{% trans "Sign up" %}{% endblock %}
 
 {% block body %}
-<form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" class="form-horizontal"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-    <legend>{% trans "Sign up" %}</legend>
-    <fieldset>
-        {% csrf_token %}
+<form id="signup_form" method="post" action="{% url "account_signup" %}" class="form-horizontal"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
+    <fieldset name="signup">
+        <legend>{% trans "Sign up" %}</legend>
         {{ form|as_bootstrap }}
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
-        </div>
     </fieldset>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
+    </div>
 </form>
 {% include "account/_signup_sidebar.html" %}
 {% endblock %}
