@@ -15,7 +15,7 @@ get_popup_content = function(feature){
 {{ module }}_init = function(){
     {{ module }}.bounds = new OpenLayers.Bounds();
     
-    {{ module }}.map = new OpenLayers.Map('{{ module }}_map');
+    {{ module }}.map = new OpenLayers.Map('{{ module }}_map', {theme: null});
     
     {{ module }}.base_layer = new OpenLayers.Layer.OSM("OpenStreetMap (Mapnik)");
 
