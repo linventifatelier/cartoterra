@@ -22,7 +22,36 @@ div.olControlZoomPanel {
     top: 15px;
     left: 15px;
 }
-
+.olControlLayerSwitcher {
+    top: 5px;
+}
+.olPopupCloseBox {
+    background: none;
+    position: relative;
+}
+.olPopupCloseBox:before {
+    content: "\f057";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: #000;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 0px;
+    left: 0;
+}
+.olPopup {
+    background-color: #ffffff;
+    opacity: 0.5;
+    border: 1px solid black;
+}
+.olControlLayerSwitcher .layersDiv {
+    background: #130085; /* fallback for IE - IE6 requires background shorthand*/
+    background: rgba(0, 60, 136, 0.5);
+}
 /* incompatibility bootstrap/openlayers */
 img.olTileImage {
     max-width: none;

@@ -43,7 +43,7 @@ get_popup_content = function(feature){
             'featureselected':function(evt){
                 var feature = evt.feature;
                 console.log(feature);
-                var popup = new OpenLayers.Popup.FramedCloud("popup",
+                var popup = new OpenLayers.Popup.Anchored("popup",
                     OpenLayers.LonLat.fromString(feature.geometry.toShortString()),
                     null,
                     get_popup_content(feature),
