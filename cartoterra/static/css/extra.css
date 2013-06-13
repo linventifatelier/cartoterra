@@ -33,7 +33,7 @@ h6 {
 }
 
 .page-header {
-  border-bottom: 1pxpx solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
 }
 
 hr {
@@ -73,7 +73,6 @@ input[type="color"],
 	vertical-align:middle;
 	text-shadow:#333 1px 1px 1px;
 	color:#bbaa99;
-	//color:#912419;
 }
 
 .worksites {
@@ -83,7 +82,6 @@ input[type="color"],
 	vertical-align:middle;
 	text-shadow:#333 1px 1px 1px;
 	color:#bbaa99;
-	//color:#cea80a;
 }
 
 .events {
@@ -93,7 +91,6 @@ input[type="color"],
 	vertical-align:middle;
 	text-shadow:#333 1px 1px 1px;
 	color:#bbaa99;
-	//color:#494591;
 }
 
 .people {
@@ -103,7 +100,6 @@ input[type="color"],
 	vertical-align:middle;
 	text-shadow:#333 1px 1px 1px;
 	color:#bbaa99;
-	//color:#2e801a;
 }
 
 .navbar .nav > li
@@ -131,7 +127,7 @@ input[type="color"],
 }
 
 li.well {
-	color: 4d1f1a;
+	color: #4d1f1a;
 }
 
 .nav-header {
