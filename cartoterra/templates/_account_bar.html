@@ -3,29 +3,21 @@
 {% load account_tags %}
 <ul class="nav pull-right">
     {% if request.user.is_authenticated %}
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                {% user_display request.user %}
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="{% url "profile_detail" user.username %}"><i class="icon-user"></i> {% trans "My profile" %}</a></li>
-                <li><a href="{% url "account_settings" %}"><i class="icon-wrench"></i> Settings</a></li>
-                {% if user.is_superuser or user|in_group:"translators" %}
-                    <li><a href="{% url "rosetta-home" %}"><i class="icon-flag"></i> {% trans "Translator" %}</a></li>
-                {% endif %}
-                {% if user.is_staff %}
-                    <li><a href="/admin/"><i class="icon-cog"></i> {% trans "Admin" %}</a></li>
-                {% endif %}
-                <li class="divider"></li>
-                <li><a href="{% url "account_logout" %}"><i class="icon-off"></i> Log out</a></li>
-            </ul>
-        </li>
+    <li><a href="{% url "profile_detail" user.username %}" class="tooltip-cartoterra" title="{% trans "My Profile" %}"><i class="icon-user"></i> {% user_display request.user %}</a></li>
+    <li><a href="{% url "account_settings" %}" class="tooltip-cartoterra" title="{% trans "Settings"%}"><i class="icon-wrench"></i></a></li>
+    {% if user.is_superuser or user|in_group:"translators" %}
+    <li><a href="{% url "rosetta-home" %}" class="tooltip-cartoterra" title="{% trans "Translator" %}"><i class="icon-flag"></i></a></li>
+    {% endif %}
+    {% if user.is_staff %}
+    <li><a href="/admin/" class="tooltip-cartoterra" title="{% trans "Admin" %}"><i class="icon-cog"></i></a></li>
+    {% endif %}
+    <li class="divider"></li>
+    <li><a href="{% url "account_logout" %}" class="tooltip-cartoterra" title="{% trans "Log out" %}"><i class="icon-off"></i></a></li>
     {% else %}
-        <li><a href="{% url "account_login" %}">Log in</a></li>
-        {% if ACCOUNT_OPEN_SIGNUP %}
-            <li class="navbar-text">or</li>
-            <li><a href="{% url "account_signup" %}">Sign up</a></li>
-        {% endif %}
+    <li><a href="{% url "account_login" %}">{% trans "Log in" %}</a></li>
+    {% if ACCOUNT_OPEN_SIGNUP %}
+    <li class="navbar-text">or</li>
+    <li><a href="{% url "account_signup" %}">{% trans "Sign up" %}</a></li>
+    {% endif %}
     {% endif %}
 </ul>

@@ -1,11 +1,11 @@
 {% load i18n %}
 {% load static from staticfiles %}
-
-<div class="partners">
-  <img alt="partners" style="border-width:0" height="80" src="{% static "img/logobanner.png" %}" />
-</div>
-
-<div class="legal">
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="{% static "img/cc_88x31.png" %}" /></a><br /><a href="{% url "home" %}"><span property="dct:title">{{ SITE_NAME }}</span></a> {% trans "by" %} <a href="https://linventifatelier.gueux.org" property="cc:attributionName" rel="cc:attributionURL">
- &lt;L'Inventif Atelier&gt; </a> {% trans "is licensed under a" %} <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.  
+<div class="row-fluid">
+  <div class="partners span5 text-left">
+    <img alt="partners" style="border-width:0" height="80" src="{% static "img/logobanner.png" %}" />
+  </div>
+  
+  <div class="legal span7 text-right">
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="{% static "img/cc_88x31.png" %}" /></a><br /><a href="{% url "home" %}"><span property="dct:title">{{ SITE_NAME }}</span></a> {% trans "by" %}<a href="https://linventifatelier.gueux.org" property="cc:attributionName" rel="cc:attributionURL"> &lt;L'Inventif Atelier&gt; </a> {% trans "is licensed under a" %} <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.  
+  </div>
 </div>

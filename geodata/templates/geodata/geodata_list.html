@@ -1,32 +1,7 @@
-{% extends "geodata/geodata_base.html" %}
+{% extends "geodata/geodata_bigmap_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
 {% load breadcrumbs %}
-
-
-{% block extra_head %}
-<style type="text/css">
-    #{{ module }}_map { width: 100%; height: 400px; }
-</style>
-
-<script type="text/javascript" src="{% static "openlayers/OpenLayers.js" %}"></script>
-
-<script type="text/javascript">
-//<![CDATA[
-{% include "geodata/geodata_map.js" %}
-//]]>
-</script>
-
-<!--[if IE]>
-<style type="text/css">
-  /* This fixes the mouse offset issues in IE. */
-  #{{ id }}_admin_map { position: static; vertical-align: top; }
-  /* `font-size: 0` fixes the 1px border between tiles, but borks LayerSwitcher.
-      Thus, this is disabled until a better fix is found.
-  #{{ id }}_map { width: {{ map_width }}px; height: {{ map_height }}px; font-size: 0; } */
-</style>
-<![endif]-->
-{% endblock %}
 
 {% block breadcrumbs_extra %}
 {% breadcrumb geodata_verbose_name_plural %}
@@ -37,8 +12,7 @@
 {% block body_class %}{{ geodata_verbose_name_plural }}{% endblock %}
 
 {% block body %}
-  <div id="{{ module }}_map"></div>
-  <script type="text/javascript">{% block init_function %}{{ module }}_init();{% endblock %}</script>
+  {{ block.super }}
 
   <ul>
     {% for data in object_list %}
