@@ -17,7 +17,7 @@ gunicorn==0.17.4
 setproctitle==1.1.7
 psycopg2==2.5
 PPyGIS==0.2
-Pillow==1.7.8
+Pillow==2.2.1
 South==0.8.1
 django-stdimage==0.2.2
 django-urli18n==0.1
