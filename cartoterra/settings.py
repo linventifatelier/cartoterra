@@ -192,6 +192,7 @@ INSTALLED_APPS = [
     # external
     "account",
     "compressor",
+    "metron",
 
     # project
     "geodata",
