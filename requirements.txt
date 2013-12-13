@@ -14,7 +14,7 @@ virtualenv==1.10.1
 Fabric==1.6.1
 gunicorn==0.17.4
 setproctitle==1.1.8
-psycopg2==2.5
+psycopg2==2.5.1
 PPyGIS==0.2
 Pillow==2.2.1
 South==0.8.1
