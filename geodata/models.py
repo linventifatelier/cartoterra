@@ -57,17 +57,17 @@ class EarthTechnique(models.Model):
 class Image(models.Model):
     #image = ImageField(upload_to='img/geodata', blank=True, null=True)
     original = models.ImageField(upload_to='img/geodata')
-    display = ImageSpecField(image_field='original',
+    display = ImageSpecField(source='original',
                              processors=[ResizeToFit(800, 800)],
                              format='JPEG',
                              options={'quality': 80})
     legend = models.CharField(_("caption"), max_length=50, blank=True,
                               null=True)
-    image = ImageSpecField(image_field='original',
+    image = ImageSpecField(source='original',
                            processors=[ResizeToFill(300, 300)],
                            format='JPEG',
                            options={'quality': 80})
-    thumbnail = ImageSpecField(image_field='original',
+    thumbnail = ImageSpecField(source='original',
                                processors=[ResizeToFill(100, 100)],
                                format='JPEG',
                                options={'quality': 60})
