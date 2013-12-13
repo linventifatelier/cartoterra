@@ -3,7 +3,6 @@ from django.contrib.gis import admin
 from models import Building, Worksite, Event, Stakeholder, Image, \
     EventType, EarthTechnique, EarthRole, Profile
 #from django.conf import settings
-#from stdimage import StdImageField
 from imagewidget import AdminImageWidget
 #from forms import EarthGeoDataAbstractForm
 #from sorl.thumbnail.admin import AdminImageMixin

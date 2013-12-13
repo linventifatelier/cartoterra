@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from datetime import timedelta, date
 from django.utils.timezone import now
-#from stdimage import StdImageField
 #from image import AutoImageField
 #import os
 from imagekit.models import ImageSpecField
