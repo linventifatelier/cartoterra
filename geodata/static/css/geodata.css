@@ -64,12 +64,12 @@ div.olMapViewport {
 }
 .map-toolbox .geodata-toolbox {
     position: absolute; 
-    bottom: 0;
-    left: 20px;
+    top: 10px;
+    left: 400px;
 }
 .map-toolbox .geodata-list {
     position: absolute; 
-    top: 0;
+    top: 10px;
     left: 60px;
 }
 .btn-geodata {

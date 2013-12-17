@@ -8,14 +8,20 @@
 
 {% block extra_geodata_toolbox %}
     {% if user|can_edit_geodata:geodata %}
-    <a class="btn btn-inverse btn-geodata tooltip-geodata" title="{% trans "Edit" %}" href="{% url geodata_edit_url geodata.pk %}"><i class="icon-edit icon-white"></i></a>
-    <a class="btn btn-inverse btn-geodata tooltip-geodata" title="{% trans "Delete" %}" href="{% url geodata_delete_url geodata.pk %}"><i class="icon-trash icon-white"></i></a>
+    <div class="btn-group">
+      <a class="btn btn-geodata tooltip-geodata" title="{% trans "Edit" %}" href="{% url geodata_edit_url geodata.pk %}"><span class="glyphicon glyphicon-edit white"></span></a>
+    </div>
+    <div class="btn-group">
+      <a class="btn btn-geodata tooltip-geodata" title="{% trans "Delete" %}" href="{% url geodata_delete_url geodata.pk %}"><span class="glyphicon glyphicon-trash white"></span></a>
+    </div>
     {% endif %}
+    <div class="btn-group">
     {% if user|recommends_geodata:geodata %}
-    <a class="btn btn-inverse btn-geodata tooltip-geodata" title="{% trans "Toggle Recommend OFF" %}" href="{% url geodata_recommend_url geodata.pk %}"><i class="icon-remove icon-white"></i></a>
+      <a class="btn btn-geodata tooltip-geodata" title="{% trans "Toggle Recommend OFF" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-remove white"></span></a>
     {% else %}
-    <a class="btn btn-inverse btn-geodata tooltip-geodata" title="{% trans "Toggle Recommend ON" %}" href="{% url geodata_recommend_url geodata.pk %}"><i class="icon-thumbs-up icon-white"></i></a>
+      <a class="btn btn-geodata tooltip-geodata" title="{% trans "Toggle Recommend ON" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-thumbs-up white"></span></a>
     {% endif %}
+    </div>
 {% endblock %}
 
 {% block extra_extra_head %}

@@ -1,18 +1,18 @@
 {% load i18n %}
 {% load in_group %}
 {% load account_tags %}
-<ul class="nav pull-right">
+<ul class="navbar-nav nav navbar-right">
     {% if request.user.is_authenticated %}
-    <li><a href="{% url "profile_detail" user.username %}" class="tooltip-cartoterra" title="{% trans "My Profile" %}"><i class="fa fa-user"></i> {% user_display request.user %}</a></li>
-    <li><a href="{% url "account_settings" %}" class="tooltip-cartoterra" title="{% trans "Settings"%}"><i class="fa fa-wrench"></i></a></li>
+    <li><a href="{% url "profile_detail" user.username %}" class="tooltip-cartoterra" title="{% trans "My Profile" %}"><span class="glyphicon glyphicon-user"></span> {% user_display request.user %}</a></li>
+    <li><a href="{% url "account_settings" %}" class="tooltip-cartoterra" title="{% trans "Settings"%}"><span class="glyphicon glyphicon-wrench"></span></a></li>
     {% if user.is_superuser or user|in_group:"translators" %}
-    <li><a href="{% url "rosetta-home" %}" class="tooltip-cartoterra" title="{% trans "Translator" %}"><i class="fa fa-flag"></i></a></li>
+    <li><a href="{% url "rosetta-home" %}" class="tooltip-cartoterra" title="{% trans "Translator" %}"><span class="glyphicon glyphicon-flag"></span></a></li>
     {% endif %}
     {% if user.is_staff %}
-    <li><a href="/admin/" class="tooltip-cartoterra" title="{% trans "Admin" %}"><i class="fa fa-cog"></i></a></li>
+    <li><a href="/admin/" class="tooltip-cartoterra" title="{% trans "Admin" %}"><span class="glyphicon glyphicon-cog"></span></a></li>
     {% endif %}
     <li class="divider"></li>
-    <li><a href="{% url "account_logout" %}" class="tooltip-cartoterra" title="{% trans "Log out" %}"><i class="fa fa-power-off"></i></a></li>
+    <li><a href="{% url "account_logout" %}" class="tooltip-cartoterra" title="{% trans "Log out" %}"><span class="glyphicon glyphicon-off"></span></a></li>
     {% else %}
     <li><a href="{% url "account_login" %}">{% trans "Log in" %}</a></li>
     {% if ACCOUNT_OPEN_SIGNUP %}

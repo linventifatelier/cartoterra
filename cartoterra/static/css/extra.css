@@ -98,26 +98,19 @@ input[type="color"],
   color:#bbaa99;
 }
 
-.form-search {
+.cartoterra-navbar-search {
   position: relative;
 }
 
-.form-search .search-query {
-  padding-left: 29px !important;
+.cartoterra-navbar-search input {
+  padding-left: 30px;
 }
 
-.form-search .icon-search {
+.cartoterra-navbar-search span {
   position: absolute;
-  top: 7px;
-  left: 11px;
+  padding: 10px 12px;
 }
 
-.navbar .nav > li
-{
-  float: left;
-  padding-top: 20px;
-}
-	
 /* BLOCKS */
 .well {
   background-color: #eae3dc;
@@ -170,18 +163,66 @@ section {
 }
 
 /* FOOTER */
-#footer {
-  margin-top: 20px;
+html, body {
+  height: 100%;
 }
+
+#wrap {
+  min-height:100%;
+  height: auto;
+  margin: 0 auto -6em;
+  padding: 0 0 6em;
+}
+
+.footer {
+  height: 6em;
+  background-color:#000000;
+  clear: both;
+}
+
 .partners {
-  margin-top: 15px;
+  margin-top: 1em;
   width : auto;
-  overflow: hidden; 
-  border-bottom: 1px dotted black;
+  text-align: left;
 }
+
 .legal {
-  margin-top:15px;
-  height: 50px;
-  font-size: small;
-  border-bottom: 1px dotted black;
+  margin-top: 1em;
+  font-size: 0.8em;
+  text-align: right;
+}
+
+.white, .white a {
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .tooltip {
+      display: none !important;
+  }
+  .footer {
+    height: 10em;
+    clear: both;
+  }
+  #wrap {
+    margin: 0 auto -10em;
+    padding: 0 0 10em;
+  }
+  .partners {
+    margin-top: 1em;
+    width : auto;
+  }
+  .partners > img {
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .legal {
+    margin-top: 1em;
+    font-size: 0.8em;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
