@@ -31,4 +31,4 @@ redis==2.8.0
 django-redis-sessions==0.4.0
 django-redis-cache==0.10.0
 django-imagekit==3.0.4
-pilkit==1.1.5
+pilkit==1.1.6
