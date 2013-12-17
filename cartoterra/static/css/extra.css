@@ -196,6 +196,15 @@ html, body {
   color: #fff;
 }
 
+.cartoterra-header {
+  background-color: rgb(34,34,34);
+}
+
+.navbar {
+  margin-bottom: 0px;
+  border: 2px solid;
+}
+
 @media (max-width: 767px) {
   .tooltip {
       display: none !important;

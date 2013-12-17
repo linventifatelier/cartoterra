@@ -42,6 +42,8 @@
                             {% block site_brand %}<a class="navbar-brand" href="{% url "home" %}">{{ SITE_NAME }}</a>{% endblock %}
                         </div>
                         <div class="collapse navbar-collapse">
+                          <ul class="nav navbar-nav navbar-right">
+                            {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
                             {% block nav %}
                                 {% comment %}
                                     <ul class="nav">
@@ -50,7 +52,7 @@
                                     </ul>
                                 {% endcomment %}
                             {% endblock %}
-                            {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
+                          </ul>
                         </div>
                         {% endblock %}
                   </div> 

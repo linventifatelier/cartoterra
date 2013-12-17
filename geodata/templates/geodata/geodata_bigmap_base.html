@@ -5,7 +5,7 @@
 
 {% block extra_head %}
 <style type="text/css">
-    #{{ module }}_map { width: 100%; height: 400px; }
+    #{{ module }}_map { height: 500px; }
 </style>
 
 <script type="text/javascript" src="{% static "openlayers/OpenLayers.js" %}"></script>
@@ -79,7 +79,7 @@
   <div class="geodata-toolbox">
     <div class="btn-toolbar btn-toolbar2">
       <div class="btn-group">
-        <a href="#" class="btn btn-geodata tooltip-geodata" title="{% trans "Add geodata" %}" data-toggle="dropdown"><span class="glyphicon glyphicon-plus-sign white"></span> <span class="caret white"></span></a>
+        <a href="#" class="btn btn-geodata dropdown-toggle tooltip-geodata" title="{% trans "Add geodata" %}" data-toggle="dropdown"><span class="glyphicon glyphicon-plus-sign white"></span> <span class="caret white"></span></a>
         <ul class="dropdown-menu">
           <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Building" %}" /> {% trans "Building" %}</a></li>
           <li><a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Worksite" %}" /> {% trans "Worksite" %}</a></li>
