@@ -13,7 +13,7 @@ gunicorn==18.0
 setproctitle==1.1.8
 psycopg2==2.5.1
 PPyGIS==0.2
--e git+https://github.com/python-imaging/Pillow.git@master#egg=Pillow
+Pillow==2.2.2
 South==0.8.4
 django-urli18n==0.1
 django-haystack==2.0.0
