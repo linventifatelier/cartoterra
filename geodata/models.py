@@ -226,6 +226,8 @@ class Event(GeoDataAbstract):
     event_type = models.ForeignKey(EventType,
                                    verbose_name=_("event type"),
                                    blank=True, null=True)
+    unesco_chair = models.BooleanField(_("UNESCO Chair Earthen Architecture"),
+                                       default=False)
     beginning_date = models.DateField(_("beginning date"),
                                       default=date.today())
     end_date = models.DateField(_("end date"), default=date.today())
@@ -282,6 +284,8 @@ class Profile(models.Model):
     class Meta:
         permissions = (
             ("world_heritage", _("Can modify world heritage properties")),
+            ("unesco_chair",
+             _("Can modify UNESCO Chair Earthen Architecture")),
         )
 
     def recommends(self, geodata):

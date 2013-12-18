@@ -5,7 +5,14 @@
     <div>
         {% trans "Event type" %}: {{ geodata.get_event_type_display }}
     </div>
-
+    <div>
+        {% trans "UNESCO Chair Earthen Architecture" %}:
+        {% if geodata.unesco_chair %}
+            {% trans "Yes!" %}
+        {% else %}
+            {% trans "No." %}
+        {% endif %}
+    </div>
     <div>
         {% trans "Dates" %}: {{ geodata.beginning_date }} - {{ geodata.end_date }}
     </div>
