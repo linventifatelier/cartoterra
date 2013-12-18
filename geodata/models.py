@@ -279,6 +279,11 @@ class Profile(models.Model):
         related_name="recommended_by",
         null=True, blank=True)
 
+    class Meta:
+        permissions = (
+            ("world_heritage", _("Can modify world heritage properties")),
+        )
+
     def recommends(self, geodata):
         if isinstance(geodata, Building):
             return self.r_building.filter(id=geodata.id).exists()

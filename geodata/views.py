@@ -429,7 +429,17 @@ class StakeholderDetailView(StakeholderMixin, GeoDataDetailView):
 error_message = _("Please correct the errors below.")
 
 
-class GeoDataCreateView(GeoDataSingleObjectMixin, GeoDataMixin, CreateView):
+class UserFormViewMixin(object):
+    def get_form_kwargs(self):
+        kwargs = super(UserFormViewMixin, self).get_form_kwargs()
+        kwargs.update({
+            'user': self.request.user
+        })
+        return kwargs
+
+
+class GeoDataCreateView(GeoDataSingleObjectMixin, GeoDataMixin,
+                        UserFormViewMixin, CreateView):
     context_object_name = 'geodata'
     template_name_suffix = '_add_form'
 
@@ -494,7 +504,8 @@ class StakeholderCreateView(StakeholderMixin, GeoDataCreateView):
     form_class = StakeholderForm
 
 
-class GeoDataUpdateView(GeoDataSingleObjectMixin, GeoDataMixin, UpdateView):
+class GeoDataUpdateView(GeoDataSingleObjectMixin, GeoDataMixin,
+                        UserFormViewMixin, UpdateView):
     context_object_name = 'geodata'
     template_name_suffix = '_edit_form'
 

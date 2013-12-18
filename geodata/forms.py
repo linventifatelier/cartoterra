@@ -167,6 +167,22 @@ class GeoDataAbstractForm(ModelForm):
 class BuildingForm(GeoDataAbstractForm):
     inauguration_date = forms.DateField(widget=DatePicker, required=False)
 
+    def __init__(self, user=None, *args, **kwargs):
+        super(BuildingForm, self).__init__(*args, **kwargs)
+        if not user.has_perm('profile.world_heritage'):
+            self.fields['unesco'].widget.attrs['disabled'] = 'disabled'
+        self._user = user
+
+    def clean_unesco(self):
+        if self._user.has_perm('profile.world_heritage'):
+            return self.cleaned_data.get('unesco')
+        else:
+            instance = getattr(self, 'instance', None)
+            if instance and instance.pk:
+                return instance.unesco
+            else:
+                return self.fields['unesco'].initial
+
     class Meta:
         model = Building
         exclude = ('creator', 'pub_date', )
