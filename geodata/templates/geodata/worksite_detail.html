@@ -3,8 +3,8 @@
 
 {% block body_geodata_extra %}
     <div>
-        {% trans "People" %}:
-        {% if geodata.people.all %}
+        {% trans "Stakeholders" %}:
+        {% if geodata.stakeholder.all %}
             <ul>
             {% for person in geodata.stakeholder.all %}
                 <li>{{ person.name }} {% if person.role.all %}({{ person.role.all|join:", " }}){% endif %}</li>

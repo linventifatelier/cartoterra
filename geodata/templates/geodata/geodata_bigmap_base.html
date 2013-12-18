@@ -65,10 +65,10 @@
           </ul>
       </div>
       <div class="btn-group">
-          <a href="#" class="btn btn-inverse btn-geodata dropdown-toggle tooltip-geodata" title="{% trans "People" %}" data-toggle="dropdown"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="25" height="25" alt="" /><span class="people"></span><b class="caret"></b></a>
+          <a href="#" class="btn btn-inverse btn-geodata dropdown-toggle tooltip-geodata" title="{% trans "Stakeholder" %}" data-toggle="dropdown"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="25" height="25" alt="" /><span class="stakeholders"></span><b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="{% url "show_people_all" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="10" height="10" alt="" /> {% trans "All people" %}</a></li>
-            <li><a href="{% url "show_people_of_role" "architect" %}"><img src="{% static "img/stakeholder_dot.png" %}" width="10" height="10" alt="" /> {% trans "Architects" %}</a></li>
+            <li><a href="{% url "show_stakeholder_all" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="10" height="10" alt="" /> {% trans "All stakeholders" %}</a></li>
+            <li><a href="{% url "show_stakeholder_of_role" "architect" %}"><img src="{% static "img/stakeholder_dot.png" %}" width="10" height="10" alt="" /> {% trans "Architects" %}</a></li>
           </ul>
       </div>
     </div>
@@ -83,7 +83,7 @@
           <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Building" %}" /> {% trans "Building" %}</a></li>
           <li><a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Worksite" %}" /> {% trans "Worksite" %}</a></li>
           <li><a href="{% url "add_event" %}"><img src="{% static "img/event_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Event" %}" /> {% trans "Event" %}</a></li>
-          <li><a href="{% url "add_people" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add People" %}" /> {% trans "People" %}</a></li>
+          <li><a href="{% url "add_stakeholder" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Stakeholder" %}" /> {% trans "Stakeholder" %}</a></li>
         </ul>
       </div>
       {% block extra_geodata_toolbox %}

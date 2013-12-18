@@ -178,12 +178,12 @@ class EventMixin(object):
 
 
 class StakeholderMixin(object):
-    geodata_detail_url = "show_people"
-    geodata_list_url = "show_people_all"
-    geodata_add_url = "add_people"
-    geodata_edit_url = "edit_people"
-    geodata_delete_url = "delete_people"
-    geodata_recommend_url = "toggle_rec_people"
+    geodata_detail_url = "show_stakeholder"
+    geodata_list_url = "show_stakeholder_all"
+    geodata_add_url = "add_stakeholder"
+    geodata_edit_url = "edit_stakeholder"
+    geodata_delete_url = "delete_stakeholder"
+    geodata_recommend_url = "toggle_rec_stakeholder"
 
 
 class GeoDataMapMixin(GeoDataMixin):
@@ -268,8 +268,8 @@ class EventListView(EventMixin, GeoDataListView):
 class StakeholderListView(StakeholderMixin, GeoDataListView):
     """Returns a template to present all stakeholders."""
     model = Stakeholder
-    people = {
-        'name': "People",
+    stakeholders = {
+        'name': "Stakeholders",
         'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -277,7 +277,7 @@ class StakeholderListView(StakeholderMixin, GeoDataListView):
         'stroke_color': '#008800',
         'url': 'geojson/',
     }
-    map_layers = [people]
+    map_layers = [stakeholders]
 
     def get_queryset(self):
         queryset = super(StakeholderListView, self).get_queryset()
@@ -331,16 +331,16 @@ class BigMapView(GeoDataAllView):
         'stroke_color': '#008800',
         'url': reverse_lazy('geojson_event_list'),
     }
-    people = {
-        'name': "People",
+    stakeholders = {
+        'name': "Stakeholders",
         'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
         'stroke_color': '#008800',
-        'url': reverse_lazy('geojson_people_list'),
+        'url': reverse_lazy('geojson_stakeholder_list'),
     }
-    map_layers = [buildings, worksites, events, people]
+    map_layers = [buildings, worksites, events, stakeholders]
 
 
 class GeoDataSingleObjectMixin(object):
@@ -414,8 +414,8 @@ class EventDetailView(EventMixin, GeoDataDetailView):
 class StakeholderDetailView(StakeholderMixin, GeoDataDetailView):
     """Returns a template to present one stakeholder."""
     model = Stakeholder
-    people = {
-        'name': "People",
+    stakeholders = {
+        'name': "Stakeholders",
         'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
         'graphic_width': 10,
         'graphic_height': 10,
@@ -423,7 +423,7 @@ class StakeholderDetailView(StakeholderMixin, GeoDataDetailView):
         'stroke_color': '#008800',
         'url': 'geojson/',
     }
-    map_layers = [people]
+    map_layers = [stakeholders]
 
 
 error_message = _("Please correct the errors below.")
@@ -814,15 +814,15 @@ class ProfileDetailView(DetailView):
             'url': reverse_lazy('geojson_profile_creator_event',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
-        people = {
-            'name': "People %s" % username,
+        stakeholders = {
+            'name': "Stakeholdrs %s" % username,
             'external_graphic': settings.STATIC_URL +
             "img/stakeholder_icon_h25.png",
             'graphic_width': 20,
             'graphic_height': 20,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
-            'url': reverse_lazy('geojson_profile_creator_people',
+            'url': reverse_lazy('geojson_profile_creator_stakeholder',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
         recommendations_buildings = {
@@ -855,22 +855,22 @@ class ProfileDetailView(DetailView):
             'url': reverse_lazy('geojson_profile_recommend_event',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
-        recommendations_people = {
-            'name': "Recommendations %s: People" % username,
+        recommendations_stakeholders = {
+            'name': "Recommendations %s: Stakeholders" % username,
             'external_graphic': settings.STATIC_URL +
             "img/stakeholder_dot.png",
             'graphic_width': 10,
             'graphic_height': 10,
             'fill_color': '#00FF00',
             'stroke_color': '#008800',
-            'url': reverse_lazy('geojson_profile_recommend_people',
+            'url': reverse_lazy('geojson_profile_recommend_stakeholder',
                                 kwargs={'slug': self.kwargs['slug']}),
         }
-        context['map_layers'] = [buildings, worksites, events, people,
+        context['map_layers'] = [buildings, worksites, events, stakeholders,
                                  recommendations_buildings,
                                  recommendations_worksites,
                                  recommendations_events,
-                                 recommendations_people]
+                                 recommendations_stakeholders]
         context['module'] = self.module
         return context
 

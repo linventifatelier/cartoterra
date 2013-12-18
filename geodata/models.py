@@ -132,12 +132,11 @@ class Stakeholder(GeoDataAbstract):
                                        default=False)
 
     class Meta:
-        verbose_name = _("people")
-        verbose_name_plural = _("people")
+        verbose_name = _("stakeholder")
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_people", [self.id])
+        return ("show_stakeholder", [self.id])
 
 
 class Building(GeoDataAbstract):
@@ -154,7 +153,7 @@ class Building(GeoDataAbstract):
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
     stakeholder = models.ManyToManyField(Stakeholder,
-                                         verbose_name=_("people"),
+                                         verbose_name=_("stakeholder"),
                                          blank=True, null=True)
 
     class Meta:
@@ -207,7 +206,7 @@ class Worksite(GeoDataAbstract):
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
     stakeholder = models.ManyToManyField(Stakeholder,
-                                         verbose_name=_("people"),
+                                         verbose_name=_("stakeholder"),
                                          blank=True, null=True)
 
     class Meta:
@@ -240,7 +239,7 @@ class Event(GeoDataAbstract):
         EarthRole, verbose_name=_("Type of stakeholders"), blank=True,
         null=True)
     stakeholder = models.ManyToManyField(Stakeholder,
-                                         verbose_name=_("people"),
+                                         verbose_name=_("stakeholder"),
                                          blank=True, null=True)
 
     class Meta:
@@ -285,7 +284,7 @@ class Profile(models.Model):
         null=True, blank=True)
     r_stakeholder = models.ManyToManyField(
         Stakeholder,
-        verbose_name=_("people recommendations"),
+        verbose_name=_("stakeholder recommendations"),
         related_name="recommended_by",
         null=True, blank=True)
 

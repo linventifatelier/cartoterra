@@ -84,9 +84,9 @@ class EventFeed(Feed):
 
 class StakeholderFeed(Feed):
     """A feed presenting changes and additions on Stakeholder."""
-    title = _(settings.SITE_NAME + " people news.")
+    title = _(settings.SITE_NAME + " stakeholder news.")
     link = "/"
-    description = _("Updates on changes and additions to people of " +
+    description = _("Updates on changes and additions to stakeholders of " +
                     settings.SITE_NAME + ".")
 
     feed_type = GeoRSSFeed
