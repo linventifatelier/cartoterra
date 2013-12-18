@@ -1,11 +1,6 @@
 {% extends "geodata/geodata_bigmap_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
-{% load breadcrumbs %}
-
-{% block breadcrumbs_extra %}
-{% breadcrumb geodata_verbose_name_plural %}
-{% endblock %}
 
 {% block head_title %}{% trans "List" %}: {% block head_geodata_type %}{{ geodata_verbose_name_plural }}{% endblock%}{% endblock %}
 
@@ -30,5 +25,4 @@
     </li>
     {% endfor %}
   </ul>
-
 {% endblock %}

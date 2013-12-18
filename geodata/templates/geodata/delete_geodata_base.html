@@ -1,11 +1,8 @@
 {% extends "geodata/geodata_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
-{% load breadcrumbs %}
-
 
 {% block extra_head %}{{ form.media }}{% endblock %}
-
 
 {% block head_title %}{% trans "Delete"%} {% block head_geodata_type %}{% endblock %} "{{ geodata }}"{% endblock %}
 
@@ -13,7 +10,6 @@
 
 {% block body %}
     <h1>{% trans "Delete"%} {% block body_geodata_type %}{% endblock %} "{{ geodata }}"?</h1>
-
 
     <form method="post" action=".">{% csrf_token %}
       <fieldset class="form-actions">
@@ -24,10 +20,4 @@
 
     {% block body_geodata_extra %}
     {% endblock %}
-{% endblock %}
-
-{% block breadcrumbs_extra %}
-{% breadcrumb_url geodata_verbose_name_plural geodata_list_url %}
-{% breadcrumb_url geodata.name geodata_detail_url geodata.id %}
-{% breadcrumb 'Delete' %}
 {% endblock %}

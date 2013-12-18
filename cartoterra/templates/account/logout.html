@@ -1,14 +1,8 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
-{% load breadcrumbs %}
 
 {% block head_title %}{% trans "Log out" %}{% endblock %}
-
-{% block breadcrumbs %}
-{% breadcrumb_url 'Home' "home" %}
-{% breadcrumb 'Logout' %}
-{% endblock %}
 
 {% block body %}
 <form method="POST" action="{% url "account_logout" %}" class="form">{% csrf_token %}

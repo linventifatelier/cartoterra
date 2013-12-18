@@ -70,12 +70,6 @@
     <div id="main" class="container">
       <div class="text-center">
         {% include "_messages.html" %}
-        {% block breadcrumb_base %}
-        <ul class="breadcrumb">
-          {% block breadcrumbs %}
-          {% endblock %}
-        </ul>
-        {% endblock %}
       </div>
       {% block body %}
         {% block content %}

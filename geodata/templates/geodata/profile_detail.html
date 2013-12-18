@@ -1,17 +1,10 @@
 {% extends "geodata/geodata_bigmap_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
-{% load breadcrumbs %}
 
 {% block head_title %}{% trans "All GeoData" %}{% endblock %}
 
 {% block body_class %}place{% endblock %}
-
-{% block breadcrumbs %}
-{% breadcrumb_url 'Home' "home" %}
-{% breadcrumb_url 'Profiles' "profile_list" %}
-{% breadcrumb object.user.username %}
-{% endblock %}
 
 {% block body %}
   {{ block.super }}

@@ -3,7 +3,6 @@
 {% load i18n %}
 {% load can_edit_geodata %}
 {% load recommends_geodata %}
-{% load breadcrumbs %}
 
 
 {% block extra_geodata_toolbox %}
@@ -27,11 +26,6 @@
 {% block extra_extra_head %}
 <link rel="stylesheet" href="{% static "slimbox/css/slimbox2.css" %}" type="text/css" media="screen" />
 <script type="text/javascript" src="{% static "slimbox/js/slimbox2.js" %}"></script>
-{% endblock %}
-
-{% block breadcrumbs_extra %}
-{% breadcrumb_url geodata_verbose_name_plural geodata_list_url %}
-{% breadcrumb geodata.name %}
 {% endblock %}
 
 {% block head_title %}{% block head_geodata_type %}{{ geodata_verbose_name }}{% endblock %}: {{ geodata.name }}{% endblock %}
