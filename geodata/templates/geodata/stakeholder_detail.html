@@ -3,6 +3,18 @@
 
 {% block body_geodata_extra %}
     <div>
+        {% trans "Roles" %}:
+        {% if geodata.role.all %}
+            <ul>
+            {% for role in geodata.role.all %}
+                <li>{{ role }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            {% trans "not provided" %}.
+        {% endif %}
+    </div>
+    <div>
         {% trans "UNESCO Chair Earthen Architecture" %}:
         {% if geodata.unesco_chair %}
             {% trans "Yes!" %}
