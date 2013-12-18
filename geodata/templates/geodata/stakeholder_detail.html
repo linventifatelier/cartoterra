@@ -2,4 +2,12 @@
 {% load i18n %}
 
 {% block body_geodata_extra %}
+    <div>
+        {% trans "UNESCO Chair Earthen Architecture" %}:
+        {% if geodata.unesco_chair %}
+            {% trans "Yes!" %}
+        {% else %}
+            {% trans "No." %}
+        {% endif %}
+    </div>
 {% endblock %}

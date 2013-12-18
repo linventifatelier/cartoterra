@@ -128,6 +128,8 @@ class Stakeholder(GeoDataAbstract):
     role = models.ManyToManyField(EarthRole,
                                   verbose_name=_("role"),
                                   blank=True, null=True)
+    unesco_chair = models.BooleanField(_("UNESCO Chair Earthen Architecture"),
+                                       default=False)
 
     class Meta:
         verbose_name = _("people")

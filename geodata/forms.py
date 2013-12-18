@@ -223,6 +223,22 @@ class EventForm(GeoDataAbstractForm):
 
 class StakeholderForm(GeoDataAbstractForm):
 
+    def __init__(self, user=None, *args, **kwargs):
+        super(StakeholderForm, self).__init__(*args, **kwargs)
+        if not user.has_perm('profile.unesco_chair'):
+            self.fields['unesco_chair'].widget.attrs['disabled'] = 'disabled'
+        self._user = user
+
+    def clean_unesco_chair(self):
+        if self._user.has_perm('profile.unesco_chair'):
+            return self.cleaned_data.get('unesco_chair')
+        else:
+            instance = getattr(self, 'instance', None)
+            if instance and instance.pk:
+                return instance.unesco_chair
+            else:
+                return self.fields['unesco_chair'].initial
+
     class Meta:
         model = Stakeholder
         exclude = ('creator', 'pub_date', )
