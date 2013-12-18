@@ -100,7 +100,7 @@ class GeoDataAbstract(models.Model):
 
 
 class EarthRole(TranslatableModel):
-    """People role"""
+    """Stakeholder role"""
     #name = models.CharField(_("name"), max_length=50)
     ident_name = models.CharField(_("Identification name"), max_length=50,
                                   unique=True,
@@ -124,7 +124,7 @@ class EarthRole(TranslatableModel):
 
 
 class Stakeholder(GeoDataAbstract):
-    """A spatial model for people."""
+    """A spatial model for stakeholders."""
     role = models.ManyToManyField(EarthRole,
                                   verbose_name=_("role"),
                                   blank=True, null=True)
@@ -233,6 +233,9 @@ class Event(GeoDataAbstract):
     beginning_date = models.DateField(_("beginning date"),
                                       default=date.today())
     end_date = models.DateField(_("end date"), default=date.today())
+    number_of_stakeholders = models.PositiveIntegerField(
+        _("Number of stakeholders"), blank=True,
+        null=True)
     stakeholder = models.ManyToManyField(Stakeholder,
                                          verbose_name=_("people"),
                                          blank=True, null=True)

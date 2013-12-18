@@ -17,7 +17,15 @@
         {% trans "Dates" %}: {{ geodata.beginning_date }} - {{ geodata.end_date }}
     </div>
     <div>
-        {% trans "People" %}:
+        {% trans "Number of stakeholders" %}:
+        {% if geodata.number_of_stakeholders %}
+            {{ geodata.number_of_stakeholders }}
+        {% else %}
+            {% trans "not provided" %}.
+        {% endif %}
+    </div>
+    <div>
+        {% trans "Cartoterra.net stakeholders" %}:
         {% if geodata.stakeholder.all %}
             <ul>
             {% for person in geodata.stakeholder.all %}
