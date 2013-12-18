@@ -8,12 +8,13 @@ from imagewidget import AdminImageWidget
 #from sorl.thumbnail.admin import AdminImageMixin
 #from sorl.thumbnail import get_thumbnail
 #from widget import AdminImageFieldWithThumbWidget
-
 #ADMIN_THUMBS_SIZE = '60x60'
 #from nani import admin
 from hvad import admin as hvadadmin
 from django.contrib.contenttypes.generic import GenericTabularInline
 from imagekit.admin import AdminThumbnail
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 
 
 # class MyModelAdmin(admin.ModelAdmin):
@@ -225,4 +226,14 @@ class WorksiteAdmin(GeoDataAbstractAdmin):
 admin.site.register(Worksite, WorksiteAdmin)
 
 
-admin.site.register(Profile)
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+
+
+class UserAdmin(UserAdmin):
+    inlines = (ProfileInline, )
+
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
