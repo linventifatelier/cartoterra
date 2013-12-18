@@ -461,6 +461,7 @@ class GeoDataCreateView(GeoDataSingleObjectMixin, GeoDataMixin,
         image_formset.instance = self.object
         if image_formset.is_valid():
             self.object.save()
+            form.save_m2m()
             image_formset.save()
             messages.add_message(
                 self.request, messages.SUCCESS,
@@ -533,6 +534,7 @@ class GeoDataUpdateView(GeoDataSingleObjectMixin, GeoDataMixin,
         #image_formset.instance = self.object
         if image_formset.is_valid():
             self.object.save()
+            form.save_m2m()
             image_formset.save()
             messages.add_message(
                 self.request, messages.SUCCESS,
