@@ -25,11 +25,23 @@
         {% endif %}
     </div>
     <div>
+        {% trans "Type of stakeholders" %}:
+        {% if geodata.type_of_stakeholders.all %}
+            <ul>
+            {% for role in geodata.type_of_stakeholders.all %}
+                <li>{{ role }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            {% trans "not provided" %}.
+        {% endif %}
+    </div>
+    <div>
         {% trans "Cartoterra.net stakeholders" %}:
         {% if geodata.stakeholder.all %}
             <ul>
             {% for person in geodata.stakeholder.all %}
-                <li>{{ person.name }} {% if person.role.all %}({{ person.role.all|join:", " }}){% endif %}</li>
+                <li><a href="{{ person.get_absolute_url }}">{{ person.name }}{% if person.role.all %} ({{ person.role.all|join:", " }}){% endif %}</a></li>
             {% endfor %}
             </ul>
         {% else %}

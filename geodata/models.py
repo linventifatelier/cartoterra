@@ -236,6 +236,9 @@ class Event(GeoDataAbstract):
     number_of_stakeholders = models.PositiveIntegerField(
         _("Number of stakeholders"), blank=True,
         null=True)
+    type_of_stakeholders = models.ManyToManyField(
+        EarthRole, verbose_name=_("Type of stakeholders"), blank=True,
+        null=True)
     stakeholder = models.ManyToManyField(Stakeholder,
                                          verbose_name=_("people"),
                                          blank=True, null=True)
