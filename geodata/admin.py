@@ -152,6 +152,7 @@ class StakeholderAdmin(GeoDataAbstractAdmin):
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date',
                                              'creator', 'role',
+                                             'unesco_chair',
                                              'description', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
@@ -195,7 +196,10 @@ class EventAdmin(GeoDataAbstractAdmin):
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'event_type',
                                              'pub_date', 'beginning_date',
-                                             'end_date', 'creator',
+                                             'end_date', 'unesco_chair',
+                                             'number_of_stakeholders',
+                                             'type_of_stakeholders',
+                                             'creator',
                                              'credit_creator', 'stakeholder',
                                              'description', 'url',
                                              'contact'))}),
