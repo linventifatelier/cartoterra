@@ -191,6 +191,9 @@ class BuildingForm(GeoDataAbstractForm):
 class WorksiteForm(GeoDataAbstractForm):
     inauguration_date = forms.DateField(widget=DatePicker, required=False)
 
+    def __init__(self, user=None, *args, **kwargs):
+        super(WorksiteForm, self).__init__(*args, **kwargs)
+
     class Meta:
         model = Worksite
         exclude = ('creator', 'pub_date', )
