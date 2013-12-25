@@ -29,13 +29,12 @@ $(function() {
 });
 
 function searchNominatim(search_terms) {
-  var nominatimSearchUrl = "http://nominatim.openstreetmap.org/search?q=";
+  var nominatimSearchUrl = "https://open.mapquestapi.com/nominatim/v1/search.php?";
   var format = "json";
-  var acceptlanguage = "en";
   var addressdetails = 1;
   var limit = 5;
-  var params = "&format=" + format + "&accept-language=" + acceptlanguage + "&addressdetails=" + addressdetails + "&limit=" + limit;
-  var url = nominatimSearchUrl + search_terms + params;
+  var params = "&format=" + format + "&addressdetails=" + addressdetails + "&limit=" + limit;
+  var url = nominatimSearchUrl + params + '&q=' + search_terms;
 
   $.ajax({
     url: url,
@@ -93,4 +92,3 @@ function selectEntry(lat, lon, minlat, maxlat, minlon, maxlon) {
   $('#longitude').html(lon);
   panToLatLonBoundingBox(lat, lon, minlat, maxlat, minlon, maxlon);
 }
-
