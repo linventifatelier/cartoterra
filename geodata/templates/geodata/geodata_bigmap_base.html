@@ -3,15 +3,17 @@
 {% load i18n %}
 
 {% block extra_head %}
+<link href="{% static "css/ol.css" %}" type="text/css" rel="stylesheet">
+
 <style type="text/css">
     #{{ module }}_map { height: 500px; }
 </style>
 
-<script type="text/javascript" src="{% static "openlayers/OpenLayers.js" %}"></script>
+<script type="text/javascript" src="{% static "js/ol.js" %}"></script>
 
 <script type="text/javascript">
 //<![CDATA[
-{% include "geodata/geodata_map.js" %}
+{% include "geodata/bigmap.js" %}
 //]]>
 </script>
 
@@ -32,6 +34,7 @@
 {% block body %}
 <div class="map-toolbox">
   <div class="geodata-map" id="{{ module }}_map"></div>
+  <div id="{{ module }}_info"></div>
   <script type="text/javascript">{% block init_function %}{{ module }}_init();{% endblock %}</script>
 
   <div class="geodata-list">
