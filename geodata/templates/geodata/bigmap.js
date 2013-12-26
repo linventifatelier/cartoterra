@@ -1,15 +1,8 @@
 {% load l10n %}
 
 {% block vars %}var {{ module }} = {};
-{{ module }}.map = null; {{ module }}.controls = null; {{ module }}.panel = null; {{ module }}.bounds = null; {{ module }}.layers = {};
+{{ module }}.map = null; {{ module }}.controls = null; {{ module }}.panel = null; {{ module }}.bounds = null; {{ module }}.layers = {}; {{ module }}.info = null;
 {% endblock %}
-
-var info = $('#{{ module }}_info');
-info.tooltip({
-  animation: false,
-  trigger: 'manual'
-});
-
 
 {{ module }}_init = function(){
     var base_layer = new ol.layer.Tile({
@@ -44,38 +37,59 @@ info.tooltip({
         })
     });
 
-var displayFeatureInfo = function(pixel) {
-  info.css({
-    left: pixel[0] + 'px',
-    top: (pixel[1] - 15) + 'px'
-  });
-  {{ module }}.map.getFeatures({
-    pixel: pixel,
-    layers: [{% for layer in map_layers %}, {{ module }}.layers[{{ forloop.counter0 }}]{% endfor %}],
-    success: function(layerFeatures) {
-      var feature = layerFeatures[0][0];
-      console.debug("test");
-      if (feature) {
-        info.tooltip('hide')
-            .attr('data-original-title', feature.get('name'))
-            .tooltip('fixTitle')
-            .tooltip('show');
-      } else {
-        info.tooltip('hide');
-      }
-    }
-  });
-};
+    {{ module }}.info = $('#{{ module }}_info');
 
-//$({{ module }}.map.getViewport()).on('mousemove', function(evt) {
-//  var pixel = map.getEventPixel(evt.originalEvent);
-//  displayFeatureInfo(pixel);
-//});
+    {{ module }}.info.popover({
+      animation: false,
+      placement: 'top',
+      html: true,
+      trigger: 'manual'
+    });
 
+    var displayFeatureInfo = function(pixel) {
+      {{ module }}.info.css({
+        left: pixel[0] + 'px',
+        top: (pixel[1] - 5) + 'px'
+      });
+      {{ module }}.map.getFeatures({
+        pixel: pixel,
+        layers: [{% for layer in map_layers %}{% if forloop.first %}{% else %}, {% endif %}{{ module }}.layers[{{ forloop.counter0 }}]{% endfor %}],
+        success: function(layerFeatures) {
+          var feature = layerFeatures[0][0];
+          if (feature) {
+            {{ module }}.info.popover('hide')
+                .attr('data-original-title', feature.e.name)
+                .attr('data-content', "<img src=\""  + feature.e.image + "\">")
+                .popover('show');
+          } else {
+            {{ module }}.info.popover('hide');
+          }
+        }
+      });
+    };
 
-{{ module }}.map.on('click', function(evt) {
-    var pixel = evt.getPixel();
-    displayFeatureInfo(pixel);
-});
+    var goToFeature = function(pixel) {
+      {{ module }}.map.getFeatures({
+        pixel: pixel,
+        layers: [{% for layer in map_layers %}{% if forloop.first %}{% else %}, {% endif %}{{ module }}.layers[{{ forloop.counter0 }}]{% endfor %}],
+        success: function(layerFeatures) {
+          var feature = layerFeatures[0][0];
+          if (feature) {
+            window.location.href = feature.e.url;
+          } else {
+          }
+        }
+      });
+    };
+
+    $({{ module }}.map.getViewport()).on('mousemove', function(evt) {
+      var pixel = {{ module }}.map.getEventPixel(evt.originalEvent);
+      displayFeatureInfo(pixel);
+    });
+
+    $({{ module }}.map.getViewport()).on('click', function(evt) {
+      var pixel = {{ module }}.map.getEventPixel(evt.originalEvent);
+      goToFeature(pixel);
+    });
 
 }
