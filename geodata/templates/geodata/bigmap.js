@@ -1,7 +1,7 @@
 {% load l10n %}
 
 {% block vars %}var {{ module }} = {};
-{{ module }}.map = null; {{ module }}.controls = null; {{ module }}.panel = null; {{ module }}.bounds = null; {{ module }}.layers = {}; {{ module }}.info = null;
+{{ module }}.map = null; {{ module }}.controls = null; {{ module }}.panel = null; {{ module }}.bounds = null; {{ module }}.layers = {}; {{ module }}.info = null; {{ module }}.popoverTopLimit = 120; {{ module }}.popup = null;
 {% endblock %}
 
 {{ module }}_init = function(){
@@ -21,7 +21,18 @@
                     url: '{{ layer.external_graphic }}',
                 })
             ]
-        })
+        }),
+        transformFeatureInfo: function(features) {
+            if (features.length > 0) {
+                var content = {};
+                content.name = features[0].get('name');
+                content.url = features[0].get('url');
+                content.image = features[0].get('image');
+                content.geometry = features[0].getGeometry();
+                content.coordinates = features[0].getGeometry().getCoordinates();
+                return content;
+            };
+        }
     });
     {% endfor %}
 
@@ -41,35 +52,66 @@
 
     {{ module }}.info.popover({
       animation: false,
-      placement: 'top',
+      placement: 'bottom',
+      //placement: function (context, source) {
+      //  var position = $(source).position();
+      //  if (position.top < {{ module }}.popoverTopLimit){
+      //      return "bottom";
+      //  }
+      //  return "top";
+      //},
       html: true,
       trigger: 'manual'
     });
 
-    var displayFeatureInfo = function(pixel) {
-      {{ module }}.info.css({
-        left: pixel[0] + 'px',
-        top: (pixel[1] - 5) + 'px'
-      });
-      {{ module }}.map.getFeatures({
+    {{ module }}.popup = new ol.Overlay({
+        element: document.getElementById('{{ module }}_info')
+    });
+    {{ module }}.map.addOverlay({{ module }}.popup);
+
+    $({{ module }}.map.getViewport()).on('mousemove', function(evt) {
+      var pixel = {{ module }}.map.getEventPixel(evt.originalEvent);
+      var position = {{ module }}.map.getEventCoordinate(evt.originalEvent);
+      {{ module }}.map.getFeatureInfo({
         pixel: pixel,
         layers: [{% for layer in map_layers %}{% if forloop.first %}{% else %}, {% endif %}{{ module }}.layers[{{ forloop.counter0 }}]{% endfor %}],
         success: function(layerFeatures) {
-          var flattenFeatures = [].concat.apply([], layerFeatures);
+          var flattenFeatures = [];
+          for (i = 0; i < layerFeatures.length; i++ ) {
+              if (layerFeatures[i]) {
+                 flattenFeatures = flattenFeatures.concat(layerFeatures[i]);
+              }
+          }
           var feature = flattenFeatures[0];
           if (feature) {
+            //var offsetTop = 0;
+            //if (pixel[1] < {{ module }}.popoverTopLimit) {
+            //  offsetTop = 5;
+            //} else {
+            //  offsetTop = -5;
+            //};
+            //{{ module }}.info.css({
+            //  left: pixel[0] + 'px',
+            //  top: (pixel[1] + offsetTop) + 'px'
+            //});
+            {{ module }}.popup.setPosition(feature.coordinates);
+            var content = "";
+            if (feature.image) {
+                content = "<a href=\"" + feature.url + "\"><img src=\""  + feature.image + "\"></a>"
+            };
             {{ module }}.info.popover('hide')
-                .attr('data-original-title', feature.e.name)
-                .attr('data-content', "<img src=\""  + feature.e.image + "\">")
+                .attr('data-original-title', "<a href=\"" + feature.url + "\">"  + feature.name + "</a>")
+                .attr('data-content', content)
                 .popover('show');
           } else {
             {{ module }}.info.popover('hide');
           }
         }
       });
-    };
+    });
 
-    var goToFeature = function(pixel) {
+    $({{ module }}.map.getViewport()).on('click', function(evt) {
+      var pixel = {{ module }}.map.getEventPixel(evt.originalEvent);
       {{ module }}.map.getFeatures({
         pixel: pixel,
         layers: [{% for layer in map_layers %}{% if forloop.first %}{% else %}, {% endif %}{{ module }}.layers[{{ forloop.counter0 }}]{% endfor %}],
@@ -82,16 +124,5 @@
           }
         }
       });
-    };
-
-    $({{ module }}.map.getViewport()).on('mousemove', function(evt) {
-      var pixel = {{ module }}.map.getEventPixel(evt.originalEvent);
-      displayFeatureInfo(pixel);
     });
-
-    $({{ module }}.map.getViewport()).on('click', function(evt) {
-      var pixel = {{ module }}.map.getEventPixel(evt.originalEvent);
-      goToFeature(pixel);
-    });
-
 }
