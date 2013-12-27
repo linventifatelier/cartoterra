@@ -55,7 +55,8 @@
         pixel: pixel,
         layers: [{% for layer in map_layers %}{% if forloop.first %}{% else %}, {% endif %}{{ module }}.layers[{{ forloop.counter0 }}]{% endfor %}],
         success: function(layerFeatures) {
-          var feature = layerFeatures[0][0];
+          var flattenFeatures = [].concat.apply([], layerFeatures);
+          var feature = flattenFeatures[0];
           if (feature) {
             {{ module }}.info.popover('hide')
                 .attr('data-original-title', feature.e.name)
@@ -73,7 +74,8 @@
         pixel: pixel,
         layers: [{% for layer in map_layers %}{% if forloop.first %}{% else %}, {% endif %}{{ module }}.layers[{{ forloop.counter0 }}]{% endfor %}],
         success: function(layerFeatures) {
-          var feature = layerFeatures[0][0];
+          var flattenFeatures = [].concat.apply([], layerFeatures);
+          var feature = flattenFeatures[0];
           if (feature) {
             window.location.href = feature.e.url;
           } else {
