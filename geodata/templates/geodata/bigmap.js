@@ -53,13 +53,7 @@
     {{ module }}.info.popover({
       animation: false,
       placement: 'bottom',
-      //placement: function (context, source) {
-      //  var position = $(source).position();
-      //  if (position.top < {{ module }}.popoverTopLimit){
-      //      return "bottom";
-      //  }
-      //  return "top";
-      //},
+      container: '#{{ module }}_map',
       html: true,
       trigger: 'manual'
     });
@@ -84,17 +78,7 @@
           }
           var feature = flattenFeatures[0];
           if (feature) {
-            //var offsetTop = 0;
-            //if (pixel[1] < {{ module }}.popoverTopLimit) {
-            //  offsetTop = 5;
-            //} else {
-            //  offsetTop = -5;
-            //};
-            //{{ module }}.info.css({
-            //  left: pixel[0] + 'px',
-            //  top: (pixel[1] + offsetTop) + 'px'
-            //});
-            {{ module }}.popup.setPosition(feature.coordinates);
+            {{ module }}.popup.setPosition([feature.coordinates[0], feature.coordinates[1] - 150000]);
             var content = "";
             if (feature.image) {
                 content = "<a href=\"" + feature.url + "\"><img src=\""  + feature.image + "\"></a>"
