@@ -1,0 +1,19 @@
+/*
+#main {
+  height: 100%;
+}
+*/
+#main {
+  overflow: auto;
+  padding-bottom: 0px;
+}
+
+.map-toolbox {
+  padding-bottom: 6em;
+}
+
+@media (max-width: 767px) {
+  .map-toolbox {
+    padding-bottom: 10em;
+  }
+}

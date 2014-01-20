@@ -9,20 +9,17 @@
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
     <link href="{% static "css/extra.css" %}" rel="stylesheet">
     <link href="{% static "css/site_tabs.css" %}" rel="stylesheet">
+
+    <!-- Sticky footer -->
+    <!--[if !IE 7]>
+        <style type="text/css">
+                #wrap {display:table;height:100%}
+        </style>
+    <![endif]-->
     {% block extra_style %}{% endblock %}
 {% endblock %}
 
 {% block extra_head_base %}
-    <script src="{% block jquery_src %}{% static "js/jquery.min.js" %}{% endblock %}"></script>
-    <script src="{% static "js/bootstrap.min.js" %}"></script>
-    <script type='text/javascript'>
-       $(document).ready(function () {
-       if ($("[class~=tooltip-cartoterra]").length) {
-       $("[class~=tooltip-cartoterra]").tooltip({placement:'bottom'});
-       }
-     });
-    </script>
-    {% block extra_script %}{% endblock %}
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
@@ -47,16 +44,20 @@
       </div>
     </li>
     <li id="tab_search">
-      <form class="navbar-form navbar-search form-search" action="/search/?q=">
+      <div class="col-xs-4 col-md-12 col-sm-12">
+      <form class="cartoterra-navbar-form-search navbar-form navbar-search" action="/search/?q=">
         <div class="cartoterra-navbar-search">
           <span class="glyphicon glyphicon-search icon-search"></span>
           <input type="text" class="search-query form-control" name="q" id="id_q" placeholder="{% trans "Search cartoterra" %}">
         </div>
       </form>
+      </div>
     </li>
 {% endblock %}
 
 {% block body_id %}body{% endblock %}
+
+{% block body_class %}fill{% endblock %}
 
 {% block body_base %}
 {% if request.user.is_authenticated %}
@@ -67,26 +68,42 @@
       </div>
     </div>
 {% endif %}
-    <div id="main" class="container">
-      <div class="text-center">
-        {% include "_messages.html" %}
-      </div>
+    <div class="text-center">
+      {% include "_messages.html" %}
+    </div>
+    {% block bigmap %}
+    {% endblock %}
+    <div id="main">
+      <div class="container">
       {% block body %}
         {% block content %}
         {% endblock %}
       {% endblock %}
+      </div>
     </div>
+    {% block footer_bigmap %}
+    {% endblock %}
 {% endblock %}
 
 {% block footer_base %}
-  <footer class="footer">
+  <div id="footer" class="footer">
     <div class="container">
       {% block footer %}{% include "_footer.html" %}{% endblock %}
     </div>
-  </footer>
+  </div>
 {% endblock %}
 
 {% block script_base %}
+    <script src="{% block jquery_src %}{% static "js/jquery.min.js" %}{% endblock %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script type='text/javascript'>
+       $(document).ready(function () {
+       if ($("[class~=tooltip-cartoterra]").length) {
+       $("[class~=tooltip-cartoterra]").tooltip({placement:'bottom'});
+       }
+     });
+    </script>
+    {% block extra_script %}{% endblock %}
 {% endblock %}
 
 {% block extra_body_base %}

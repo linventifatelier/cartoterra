@@ -1,0 +1,32 @@
+.map-toolbox {
+  display: block;
+  position: relative;
+  z-index: 200;
+  height: 500px;
+}
+
+.geodata-bigmap {
+  display: inline;
+  width: 100%;
+}
+
+#wrap {
+  min-height:100%;
+  height: auto;
+  width: 100%;
+  position: relative;
+}
+
+#wrap {
+  padding-bottom: auto;
+}
+
+@media (max-width: 767px) {
+  #wrap {
+    padding-bottom: auto;
+  }
+}
+
+.map-toolbox {
+  padding-bottom: 0px;
+}

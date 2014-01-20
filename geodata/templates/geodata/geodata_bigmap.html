@@ -2,10 +2,26 @@
 {% load staticfiles %}
 {% load i18n %}
 
+{% block extra_extra_style %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "css/bigmap-only.css" %}" type="text/css" />
+{% endblock %}
+
 {% block head_title %}{% trans "All GeoData" %}{% endblock %}
 
 {% block body_class %}place{% endblock %}
 
 {% block body %}
 {{ block.super }}
+{% endblock %}
+
+{% block footer_bigmap %}
+<div id="footer" class="footer footer-bigmap">
+  <div class="container">
+    {% block footer %}{% include "_footer.html" %}{% endblock %}
+  </div>
+</div>
+{% endblock %}
+
+{% block footer_base %}
 {% endblock %}

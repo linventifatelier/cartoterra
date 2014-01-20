@@ -1,0 +1,26 @@
+.map-toolbox {
+  margin-top: -110px;
+}
+
+.ol-zoom {
+  top: 118px;
+}
+
+.map-toolbox .geodata-list {
+  top: 120px;
+}
+
+
+@media (max-width: 767px) {
+  .map-toolbox {
+    margin-top: -150px;
+  }
+
+  .ol-zoom {
+    top: 158px;
+  }
+
+  .map-toolbox .geodata-list {
+    top: 160px;
+  }
+}

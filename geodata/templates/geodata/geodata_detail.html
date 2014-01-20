@@ -7,25 +7,32 @@
 
 {% block extra_geodata_toolbox %}
     {% if user|can_edit_geodata:geodata %}
-    <div class="btn-group">
-      <a class="btn btn-geodata tooltip-geodata" title="{% trans "Edit" %}" href="{% url geodata_edit_url geodata.pk %}"><span class="glyphicon glyphicon-edit white"></span></a>
-    </div>
-    <div class="btn-group">
-      <a class="btn btn-geodata tooltip-geodata" title="{% trans "Delete" %}" href="{% url geodata_delete_url geodata.pk %}"><span class="glyphicon glyphicon-trash white"></span></a>
-    </div>
+    <li>
+      <a class="tooltip-geodata" title="{% trans "Edit" %}" href="{% url geodata_edit_url geodata.pk %}"><span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}</a>
+    </li>
+    <li>
+      <a class="tooltip-geodata" title="{% trans "Delete" %}" href="{% url geodata_delete_url geodata.pk %}"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete" %}</a>
+    </li>
     {% endif %}
-    <div class="btn-group">
+    <li>
     {% if user|recommends_geodata:geodata %}
-      <a class="btn btn-geodata tooltip-geodata" title="{% trans "Toggle Recommend OFF" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-remove white"></span></a>
+      <a class="tooltip-geodata" title="{% trans "Recommend ON" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-thumbs-up"></span> {% trans "Recommend ON" %}</a>
     {% else %}
-      <a class="btn btn-geodata tooltip-geodata" title="{% trans "Toggle Recommend ON" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-thumbs-up white"></span></a>
+      <a class="tooltip-geodata" title="{% trans "Recommend OFF" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-thumbs-down"></span> {% trans "Recommend OFF" %}</a>
     {% endif %}
-    </div>
+    </li>
 {% endblock %}
 
-{% block extra_extra_head %}
+{% block extra_extra_style %}
+<link rel="stylesheet" href="{% static "css/bigmap.css" %}" type="text/css" />
+<link rel="stylesheet" href="{% static "css/detail.css" %}" type="text/css" />
 <link rel="stylesheet" href="{% static "slimbox/css/slimbox2.css" %}" type="text/css" media="screen" />
+{% endblock %}
+
+{% block extra_script %}
+{{ block.super }}
 <script type="text/javascript" src="{% static "slimbox/js/slimbox2.js" %}"></script>
+<script type="text/javascript">jQuery("#gallery a").slimbox();</script>
 {% endblock %}
 
 {% block head_title %}{% block head_geodata_type %}{{ geodata_verbose_name }}{% endblock %}: {{ geodata.name }}{% endblock %}
@@ -48,7 +55,6 @@
         <a href="{{ image.display.url }}" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" /></a>
             {% endwith %}
         {% endfor %}
-        <script type="text/javascript">jQuery("#gallery a").slimbox();</script>
       {% else %}{% trans "No image provided yet." %}
       {% endif %}
       </div>

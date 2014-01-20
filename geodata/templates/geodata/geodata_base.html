@@ -10,13 +10,7 @@
 {% endblock %}
 
 {% block extra_script %}
-<script type='text/javascript'>
-   $(document).ready(function () {
-   if ($("[class~=tooltip-geodata]").length) {
-   $("[class~=tooltip-geodata]").tooltip();
-   }
- });
-</script>
+{{ block.super }}
 {% block form_extra_script %}
 {% endblock %}
 {% endblock %}

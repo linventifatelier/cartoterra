@@ -1,76 +1,3 @@
-.olControlAttribution {
-    font-size: 10px;
-    text-align: right;
-    color: #eeeeee;
-    background: #130085; /* fallback for IE - IE6 requires background shorthand*/
-    background: rgba(0, 60, 136, 0.3);
-    filter: alpha(opacity=30);
-    font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
-    padding: 2px 4px;
-    border-radius: 5px 0 0 0;
-    bottom: 0;
-    right: 0;
-}
-.olControlAttribution a {
-    color: #eeeeee;
-    font-weight: bold;
-}
-.olControlZoom a:hover {
-    color: white;
-}
-div.olControlZoomPanel {
-    top: 15px;
-    left: 15px;
-}
-.olControlLayerSwitcher {
-    top: 5px;
-    content: "\f057";
-}
-.olPopupCloseBox {
-    background: none;
-    position: relative;
-}
-.olPopupCloseBox:before {
-    content: "\f057";
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-    color: #000;
-    font-size: 18px;
-    padding-right: 0.5em;
-    position: absolute;
-    top: 0px;
-    left: 0;
-}
-.olPopup {
-    background-color: #ffffff;
-    opacity: 0.5;
-    border: 1px solid black;
-}
-.olControlLayerSwitcher .layersDiv {
-    background: #130085; /* fallback for IE - IE6 requires background shorthand*/
-    background: rgba(0, 60, 136, 0.5);
-}
-/* incompatibility bootstrap/openlayers */
-img.olTileImage {
-    max-width: none;
-}   
-div.olMapViewport {
-    z-index: 0;
-}
-.map-toolbox {
-    position: relative; 
-}
-.map-toolbox .geodata-toolbox {
-    position: absolute; 
-    top: 10px;
-    left: 400px;
-}
-.map-toolbox .geodata-list {
-    position: absolute; 
-    top: 10px;
-    left: 60px;
-}
 .btn-geodata {
     background: #130085; /* fallback for IE - IE6 requires background shorthand*/
     background: rgba(0, 60, 136, 0.5);
@@ -98,4 +25,15 @@ div.olMapViewport {
     border-top-right-radius: 4px;
     -moz-border-radius-bottomright: 4px;
     -moz-border-radius-topright: 4px;    
+}
+.accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+.accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }

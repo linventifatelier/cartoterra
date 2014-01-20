@@ -9,6 +9,21 @@
 
 {% block form_extra_script %}
 {{ form.media.js }}
+
+<script type="text/javascript">
+<!--
+$(function () {
+    $('.add-row').click(function() {
+      return addForm(this, 'geodata-image-content_type-object_id');
+    });
+    {% comment %}
+    $('.delete-row').click(function() {
+      return deleteForm(this, 'geodata-image-content_type-object_id');
+    })
+    {% endcomment %}
+})
+//-->
+</script>
 {% endblock %}
 
 {% block head_title %}{% endblock %}
@@ -36,20 +51,6 @@
       </fieldset>
       {% endfor %}
       
-      <script type="text/javascript">
-      <!--
-      $(function () {
-          $('.add-row').click(function() {
-            return addForm(this, 'geodata-image-content_type-object_id');
-          });
-          {% comment %}
-          $('.delete-row').click(function() {
-            return deleteForm(this, 'geodata-image-content_type-object_id');
-          })
-          {% endcomment %}
-      })
-      //-->
-      </script>
           {% comment %}
       {{ image_formset }}
           {% endcomment %}
