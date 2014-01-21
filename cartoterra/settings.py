@@ -176,7 +176,6 @@ INSTALLED_APPS = [
     #"easy_thumbnails",
     #"admin_langswitch",
     #"django_evolution",
-    "floppyforms",
     "gunicorn",
     "rosetta",
     "hvad",

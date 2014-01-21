@@ -1,7 +1,6 @@
 """GeoData forms."""
 
-#from django import forms
-import floppyforms as forms
+from django import forms
 from models import GeoDataAbstract, Building, Worksite, Event, Stakeholder, \
     Image
 from django.forms import ModelForm
