@@ -6,7 +6,7 @@ from models import GeoDataAbstract, Building, Worksite, Event, Stakeholder, \
     Image
 from django.forms import ModelForm
 from PIL.ExifTags import TAGS, GPSTAGS
-from geodata.widgets import GeoDataWidget
+from geodata.widgets import GeoDataWidget, BootstrapDatePicker
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 import logging
 
@@ -106,21 +106,6 @@ def _get_exifgps(i):
 ##############################################
 
 
-class DatePicker(forms.DateInput):
-    template_name = 'datepicker.html'
-
-    class Media:
-        js = (
-            'js/jquery-ui-1.10.3.custom.min.js',
-            'js/modernizr.custom.min.js',
-        )
-        css = {
-            'all': (
-                'css/ui-lightness/jquery-ui-1.10.3.custom.min.css',
-            )
-        }
-
-
 ImageFormSet = generic_inlineformset_factory(Image, extra=1, can_delete=True)
 
 
@@ -165,7 +150,8 @@ class GeoDataAbstractForm(ModelForm):
 
 
 class BuildingForm(GeoDataAbstractForm):
-    inauguration_date = forms.DateField(widget=DatePicker, required=False)
+    inauguration_date = forms.DateField(widget=BootstrapDatePicker,
+                                        required=False)
 
     def __init__(self, user=None, *args, **kwargs):
         super(BuildingForm, self).__init__(*args, **kwargs)
@@ -189,7 +175,8 @@ class BuildingForm(GeoDataAbstractForm):
 
 
 class WorksiteForm(GeoDataAbstractForm):
-    inauguration_date = forms.DateField(widget=DatePicker, required=False)
+    inauguration_date = forms.DateField(widget=BootstrapDatePicker,
+                                        required=False)
 
     def __init__(self, user=None, *args, **kwargs):
         super(WorksiteForm, self).__init__(*args, **kwargs)
@@ -200,8 +187,8 @@ class WorksiteForm(GeoDataAbstractForm):
 
 
 class EventForm(GeoDataAbstractForm):
-    beginning_date = forms.DateField(widget=DatePicker)
-    end_date = forms.DateField(widget=DatePicker)
+    beginning_date = forms.DateField(widget=BootstrapDatePicker)
+    end_date = forms.DateField(widget=BootstrapDatePicker)
 
     def __init__(self, user=None, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
