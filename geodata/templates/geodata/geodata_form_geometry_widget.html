@@ -1,48 +1,27 @@
 {% load static %}
 {% load i18n %}
 
-{% block extrastyle %}
-<style type="text/css" scoped>
-  #{{ id }}_map { width: {{ map_width }}px; height: {{ map_height }}px; }
-  #{{ id }}_map .aligned label { float:inherit; }
-  #{{ id }}_map { position: relative; vertical-align: top; float: {{ LANGUAGE_BIDI|yesno:"right,left" }}; }
-  {% if not display_wkt %}#{{ id }} { display: none; }{% endif %}
-  .olControlEditingToolbar .olControlModifyFeatureItemActive { 
-     background-image: url("{% static "admin/img/gis/move_vertex_on.png" %}");
-     background-repeat: no-repeat;
-  }
-  .olControlEditingToolbar .olControlModifyFeatureItemInactive { 
-     background-image: url("{% static "admin/img/gis/move_vertex_off.png" %}");
-     background-repeat: no-repeat;
-  }
+<style type="text/css">{% block map_css %}
+    #{{ id }}_map { width: {{ map_width }}px; height: {{ map_height }}px; }
+    #{{ id }}_map .aligned label { float: inherit; }
+    #{{ id }}_div_map { position: relative; vertical-align: top; float: {{ LANGUAGE_BIDI|yesno:"right,left" }}; }
+    {% if not display_raw %}#{{ id }} { display: none; }{% endif %}
+    .olControlEditingToolbar .olControlModifyFeatureItemActive {
+        background-image: url("{{ STATIC_URL }}admin/img/gis/move_vertex_on.png");
+        background-repeat: no-repeat;
+    }
+    .olControlEditingToolbar .olControlModifyFeatureItemInactive {
+        background-image: url("{{ STATIC_URL }}admin/img/gis/move_vertex_off.png");
+        background-repeat: no-repeat;
+    }{% endblock %}
 </style>
-<!--[if IE]>
-<style type="text/css">
-  /* This fixes the mouse offset issues in IE. */
-  #{{ id }}_map { position: static; vertical-align: top; }
-  /* `font-size: 0` fixes the 1px border between tiles, but borks LayerSwitcher.
-      Thus, this is disabled until a better fix is found.
-  #{{ id }}_map { width: {{ map_width }}px; height: {{ map_height }}px; font-size: 0; } */
-</style>
-<![endif]-->
-{% endblock %}
 
-<script type="text/javascript">
-//<![CDATA[
-{% block openlayers %}{% include "gis/admin/osm.js" %}{% endblock %}
-//]]>
-</script>
-<script type="text/javascript">
-//<![CDATA[
-{% block geodata_openlayers %}{% include "geodata/geodata_form_geometry_widget.js" %}{% endblock %}
-//]]>
-</script>
-
+<div id="{{ id }}_div_map">
   <label class="label">{% trans "Latitude/Longitude" %}</label>
   <div>
-    <input type="text" class="span2 spinner-link" value="" placeholder="{% trans "Latitude" %}" id="latitude">
-    <input type="text" class="span2 spinner-link" value="" placeholder="{% trans "Longitude" %}" id="longitude">
-    <input type="button" class="btn spinner-link" value="{% trans "Update map" %}" onclick="panToLatLonZoom($('#latitude').val(), $('#longitude').val(), 12);">
+    <input type="text" class="span2" value="" placeholder="{% trans "Latitude" %}" id="latitude">
+    <input type="text" class="span2" value="" placeholder="{% trans "Longitude" %}" id="longitude">
+    <input type="button" class="btn" value="{% trans "Update map" %}" onclick="panToLatLonZoom($('#latitude').val(), $('#longitude').val(), 12);">
   </div>
 
   <label class="label" for="search_terms">{% trans "Nominatim Search Courtesy of" %} <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="{% static "img/mq_logo.png" %}"></label>
@@ -56,8 +35,8 @@
     <select class="span5" id="search_results" onclick="selectEntry($('#search_results option:selected').attr('lat'), $('#search_results option:selected').attr('lon'), $('#search_results option:selected').attr('minlat'), $('#search_results option:selected').attr('maxlat'), $('#search_results option:selected').attr('minlon'), $('#search_results option:selected').attr('maxlon'))" size="4"></select>
   </div>
 
-<div id="{{ id }}_map"{% if LANGUAGE_BIDI %} dir="ltr"{% endif %}></div>
-<a href="javascript:{{ module }}.clearFeatures()">{% trans "Delete all Features" %}</a>
-{% if display_wkt %}<p> WKT debugging window:</p>{% endif %}
-<textarea id="{{ id }}" class="vWKTField required" cols="150" rows="10" name="{{ name }}">{{ wkt }}</textarea>
-<script type="text/javascript">{% block init_function %}{{ module }}.init();{% endblock %}</script>
+    <div id="{{ id }}_map"></div>
+    <span class="clear_features"><a href="javascript:{{ module }}.clearFeatures()">Delete all Features</a></span>
+    {% if display_raw %}<p>Debugging window (serialized value):</p>{% endif %}
+    <textarea id="{{ id }}" class="vSerializedField required" cols="150" rows="10" name="{{ name }}">{{ serialized }}</textarea>
+</div>

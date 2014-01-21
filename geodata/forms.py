@@ -9,6 +9,7 @@ from PIL.ExifTags import TAGS, GPSTAGS
 from geodata.widgets import GeoDataWidget, BootstrapDatePicker
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 import logging
+from django.contrib.gis.forms.fields import PointField
 
 logger = logging.getLogger(__name__)
 
@@ -110,7 +111,7 @@ ImageFormSet = generic_inlineformset_factory(Image, extra=1, can_delete=True)
 
 
 class GeoDataAbstractForm(ModelForm):
-    geometry = forms.CharField(widget=GeoDataWidget())
+    geometry = PointField(widget=GeoDataWidget())
     #geometry = forms.CharField(widget=GeodataWidget())
     #def clean(self):
     #    super(MapModelForm, self).clean()
@@ -146,7 +147,7 @@ class GeoDataAbstractForm(ModelForm):
         exclude = ('creator', 'pub_date', )
 
     class Media:
-        js = ('openlayers/OpenLayers.js', 'js/formset.js', 'js/spin.min.js', )
+        js = ('js/formset.js', )
 
 
 class BuildingForm(GeoDataAbstractForm):
