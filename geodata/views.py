@@ -40,10 +40,10 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
         m = self.get_object()
         data = {'crs':
                 {
-                    "type": "link",
+                    "type": "name",
                     "properties": {
-                        "href": "http://spatialreference.org/ref/epsg/4326/",
-                        "type": "proj4"}
+                        "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+                    }
                 },
                 'type': "Feature",
                 'geometry': json.loads(m.geometry.geojson),
@@ -63,10 +63,10 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
         queryset = self.get_queryset()
         data = {'crs':
                 {
-                    "type": "link",
+                    "type": "name",
                     "properties": {
-                        "href": "http://spatialreference.org/ref/epsg/4326/",
-                        "type": "proj4"}
+                        "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+                    }
                 },
                 'type': "FeatureCollection",
                 'features':
