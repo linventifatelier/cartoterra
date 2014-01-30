@@ -1,7 +1,6 @@
 {% extends 'django_knowledge/inner.html' %}
 
 {% load i18n %}
-{% load markup %}
 {% load knowledge_tags %}
 
 {% block title %}{{ question.title }}{% endblock title %}
@@ -22,7 +21,7 @@
         &nbsp;{{ question.added }}
       </span></h5>
 
-      {{ question.body|striptags|markdown }}
+      {{ question.body|striptags }}
 
       {% include "django_knowledge/mod_bar.html" with allowed_mods=allowed_mods.question type="question" node=question %}
     </div>
@@ -47,7 +46,7 @@
           &nbsp;{{ response.added }}
         </span></h5>
 
-        {{ response.body|striptags|markdown }}
+        {{ response.body|striptags }}
 
         {% include "django_knowledge/mod_bar.html" with allowed_mods=allowed_mods.response type="response" node=response %}
       </div>
