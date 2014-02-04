@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-10 20:20+0200\n"
+"POT-Creation-Date: 2014-02-04 14:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,28 +43,80 @@ msgstr ""
 msgid "French"
 msgstr ""
 
-#: cartoterra/templates/_account_bar.html:12
+#: cartoterra/templates/404.html:5
+msgid "Not Found"
+msgstr ""
+
+#: cartoterra/templates/404.html:9
+msgid "Page not found"
+msgstr ""
+
+#: cartoterra/templates/404.html:10
+msgid "We're sorry but that page could not be found."
+msgstr ""
+
+#: cartoterra/templates/500.html:5
+msgid "Server Error"
+msgstr ""
+
+#: cartoterra/templates/500.html:9
+msgid "Something went wrong"
+msgstr ""
+
+#: cartoterra/templates/500.html:10
+msgid ""
+"We're sorry but a server error has occurred. We've been notified and will "
+"look into it as soon as possible."
+msgstr ""
+
+#: cartoterra/templates/_account_bar.html:5
 #, fuzzy
-msgid "My profile"
+msgid "My Profile"
 msgstr "Profil"
 
-#: cartoterra/templates/_account_bar.html:15
+#: cartoterra/templates/_account_bar.html:6
+#: cartoterra/templates/account/base.html:10
+msgid "Settings"
+msgstr ""
+
+#: cartoterra/templates/_account_bar.html:8
 msgid "Translator"
 msgstr ""
 
-#: cartoterra/templates/_account_bar.html:18
+#: cartoterra/templates/_account_bar.html:11
 msgid "Admin"
 msgstr "Admin"
 
-#: cartoterra/templates/_footer.html:9
+#: cartoterra/templates/_account_bar.html:14
+#: cartoterra/templates/account/logout.html:5
+#: cartoterra/templates/account/logout.html:9
+#: cartoterra/templates/account/logout.html:12
+msgid "Log out"
+msgstr ""
+
+#: cartoterra/templates/_account_bar.html:16
+#: cartoterra/templates/account/login.html:6
+#: cartoterra/templates/account/login.html:19
+msgid "Log in"
+msgstr ""
+
+#: cartoterra/templates/_account_bar.html:19
+#: cartoterra/templates/account/signup.html:6
+#: cartoterra/templates/account/signup.html:11
+#: cartoterra/templates/account/signup.html:18
+#, fuzzy
+msgid "Sign up"
+msgstr "Inscription"
+
+#: cartoterra/templates/_footer.html:12
 msgid "by"
 msgstr ""
 
-#: cartoterra/templates/_footer.html:10
+#: cartoterra/templates/_footer.html:12
 msgid "is licensed under a"
 msgstr ""
 
-#: cartoterra/templates/_help.html:4
+#: cartoterra/templates/_help.html:3
 msgid "Help!"
 msgstr ""
 
@@ -77,150 +129,43 @@ msgid "Last changes"
 msgstr ""
 
 #: cartoterra/templates/_sidebar.html:14
-#: cartoterra/templates/site_base.html:56
+#: geodata/templates/geodata/geodata_bigmap_base.html:46
 msgid "Buildings"
 msgstr ""
 
 #: cartoterra/templates/_sidebar.html:17
-#: cartoterra/templates/site_base.html:66
+#: geodata/templates/geodata/geodata_bigmap_base.html:62
 msgid "Worksites"
 msgstr ""
 
 #: cartoterra/templates/_sidebar.html:20
-#: cartoterra/templates/site_base.html:74
+#: geodata/templates/geodata/geodata_bigmap_base.html:76
 msgid "Events"
 msgstr ""
 
 #: cartoterra/templates/_sidebar.html:23
-#: cartoterra/templates/site_base.html:84
-#: cartoterra/templates/site_base.html:120
 #: geodata/templates/geodata/building_detail.html:27
-#: geodata/templates/geodata/event_detail.html:13
+#: geodata/templates/geodata/geodata_bigmap_base.html:92
 #: geodata/templates/geodata/worksite_detail.html:6
-msgid "People"
+msgid "Stakeholders"
 msgstr ""
 
 #: cartoterra/templates/_sidebar.html:30
-msgid "Cartoterra.net is a database for earth architecture:"
+msgid "Cartoterra.net is a database for earth architecture"
 msgstr ""
 
 #: cartoterra/templates/_sidebar.html:31
 msgid "Create your account and share contacts, images, events, ..."
 msgstr ""
 
-#: cartoterra/templates/_sidebar.html:33
-msgid "This website is under development:"
-msgstr ""
-
-#: cartoterra/templates/_sidebar.html:34
-msgid "you can contact us by clicking the HELP! button for any question"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:58
-msgid "All buildings"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:59
-msgid "World Heritage"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:60
-msgid "Contemporary"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:61
-msgid "Heritage"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:62
-msgid "Other"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:68
-msgid "All worksites"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:69
-msgid "Participative"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:70
-msgid "Normal"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:76
-msgid "All events"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:77
-msgid "Seminar"
-msgstr "séminaire"
-
-#: cartoterra/templates/site_base.html:78
-msgid "Training"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:79
-msgid "Conference"
-msgstr "conférence"
-
-#: cartoterra/templates/site_base.html:80
-msgid "Exhibition"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:86
-msgid "All people"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:87
-#: geodata/templates/geodata/building_detail.html:8
-msgid "Architects"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:95
+#: cartoterra/templates/site_base.html:51
 msgid "Search cartoterra"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:114
-msgid "Add geodata"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:117
-msgid "Add Building"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:117
-msgid "Building"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:118
-msgid "Add Worksite"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:118
-msgid "Worksite"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:119
-msgid "Add Event"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:119
-msgid "Event"
-msgstr ""
-
-#: cartoterra/templates/site_base.html:120
-msgid "Add People"
 msgstr ""
 
 #: cartoterra/templates/account/base.html:9
 #, fuzzy
 msgid "Account"
 msgstr "Compte"
-
-#: cartoterra/templates/account/base.html:10
-msgid "Settings"
-msgstr ""
 
 #: cartoterra/templates/account/base.html:11
 #: cartoterra/templates/account/password_change.html:6
@@ -245,7 +190,7 @@ msgid "Confirm email address <b>%(email)s</b>?"
 msgstr ""
 
 #: cartoterra/templates/account/email_confirm.html:14
-#: geodata/templates/geodata/delete_geodata_base.html:20
+#: geodata/templates/geodata/delete_geodata_base.html:16
 msgid "Confirm"
 msgstr ""
 
@@ -273,26 +218,15 @@ msgstr ""
 msgid "You have confirmed <b>%(email)s</b>"
 msgstr ""
 
-#: cartoterra/templates/account/login.html:7
-#: cartoterra/templates/account/login.html:24
-msgid "Log in"
-msgstr ""
-
-#: cartoterra/templates/account/login.html:16
+#: cartoterra/templates/account/login.html:11
 msgid "Log in to an existing account"
 msgstr ""
 
-#: cartoterra/templates/account/login.html:23
+#: cartoterra/templates/account/login.html:18
 msgid "Forgot your password?"
 msgstr ""
 
-#: cartoterra/templates/account/logout.html:6
-#: cartoterra/templates/account/logout.html:15
-#: cartoterra/templates/account/logout.html:18
-msgid "Log out"
-msgstr ""
-
-#: cartoterra/templates/account/logout.html:16
+#: cartoterra/templates/account/logout.html:10
 msgid "Are you sure you want to log out?"
 msgstr ""
 
@@ -369,13 +303,6 @@ msgid ""
 "used.  Please request a <a href=\"%(url)s\">new password reset</a>."
 msgstr ""
 
-#: cartoterra/templates/account/signup.html:6
-#: cartoterra/templates/account/signup.html:10
-#: cartoterra/templates/account/signup.html:18
-#, fuzzy
-msgid "Sign up"
-msgstr "Inscription"
-
 #: cartoterra/templates/account/signup_closed.html:6
 #: cartoterra/templates/account/signup_closed.html:9
 msgid "Sign up closed"
@@ -437,7 +364,7 @@ msgstr ""
 msgid "Please log in to ask a question."
 msgstr ""
 
-#: cartoterra/templates/django_knowledge/base.html:14
+#: cartoterra/templates/django_knowledge/base.html:13
 msgid "Support Center"
 msgstr ""
 
@@ -459,7 +386,7 @@ msgid "Start typing your question here."
 msgstr ""
 
 #: cartoterra/templates/django_knowledge/list.html:20
-#: geodata/templates/search/search.html:38
+#: geodata/templates/search/search.html:33
 msgid "No results found."
 msgstr ""
 
@@ -485,8 +412,8 @@ msgid "accepted"
 msgstr ""
 
 #: cartoterra/templates/django_knowledge/question_list.html:5
-#: cartoterra/templates/django_knowledge/thread.html:19
-#: cartoterra/templates/django_knowledge/thread.html:44
+#: cartoterra/templates/django_knowledge/thread.html:18
+#: cartoterra/templates/django_knowledge/thread.html:43
 msgid "staff"
 msgstr ""
 
@@ -510,28 +437,28 @@ msgstr ""
 msgid "Return to homepage."
 msgstr ""
 
-#: cartoterra/templates/django_knowledge/thread.html:20
-#: cartoterra/templates/django_knowledge/thread.html:45 geodata/models.py:256
+#: cartoterra/templates/django_knowledge/thread.html:19
+#: cartoterra/templates/django_knowledge/thread.html:44 geodata/models.py:264
 msgid "user"
 msgstr "utilisateur"
 
-#: cartoterra/templates/django_knowledge/thread.html:41
+#: cartoterra/templates/django_knowledge/thread.html:40
 msgid "accepted answer"
 msgstr ""
 
-#: cartoterra/templates/django_knowledge/thread.html:42
+#: cartoterra/templates/django_knowledge/thread.html:41
 msgid "poster"
 msgstr ""
 
-#: cartoterra/templates/django_knowledge/thread.html:56
+#: cartoterra/templates/django_knowledge/thread.html:55
 msgid "No responses yet."
 msgstr ""
 
-#: cartoterra/templates/django_knowledge/thread.html:69
+#: cartoterra/templates/django_knowledge/thread.html:68
 msgid "This question has been closed."
 msgstr ""
 
-#: cartoterra/templates/django_knowledge/thread.html:71
+#: cartoterra/templates/django_knowledge/thread.html:70
 msgid "Please log in to respond."
 msgstr ""
 
@@ -585,6 +512,100 @@ msgid ""
 "    %(name)s team"
 msgstr ""
 
+#: cartoterra/templates/pagination/builtin_pagination.html:10
+#: cartoterra/templates/pagination/builtin_pagination.html:13
+#: cartoterra/templates/pagination/django_pagination_pagination.html:9
+#: cartoterra/templates/pagination/django_pagination_pagination.html:12
+msgid "Previous"
+msgstr ""
+
+#: cartoterra/templates/pagination/builtin_pagination.html:19
+#: cartoterra/templates/pagination/builtin_pagination.html:21
+#: cartoterra/templates/pagination/django_pagination_pagination.html:22
+#: cartoterra/templates/pagination/django_pagination_pagination.html:24
+msgid "Next"
+msgstr ""
+
+#: django-hvad/hvad/admin.py:92
+msgid "all translations"
+msgstr ""
+
+#: django-hvad/hvad/admin.py:255
+#, python-format
+msgid "The %(name)s \"%(obj)s\" was deleted successfully."
+msgstr ""
+
+#: django-hvad/hvad/admin.py:268
+#, python-format
+msgid "Cannot delete %(name)s"
+msgstr ""
+
+#: django-hvad/hvad/admin.py:270
+msgid "Are you sure?"
+msgstr ""
+
+#: django-hvad/hvad/templates/admin/hvad/change_form.html:38
+#: django-hvad/hvad/templates/admin/hvad/change_form.html:40
+#: django-hvad/hvad/templates/admin/hvad/deletion_not_allowed.html:10
+#: django-hvad/hvad/templates/admin/hvad/includes/translation_tabs.html:6
+#: django-hvad/hvad/templates/admin/hvad/includes/translation_tabs.html:8
+#: django-hvad/nani/templates/admin/nani/change_form.html:38
+#: django-hvad/nani/templates/admin/nani/change_form.html:40
+#: django-hvad/nani/templates/admin/nani/deletion_not_allowed.html:10
+#: django-hvad/nani/templates/admin/nani/includes/translation_tabs.html:6
+#: django-hvad/nani/templates/admin/nani/includes/translation_tabs.html:8
+#, fuzzy
+msgid "Delete Translation"
+msgstr "Effacer le mot de passe"
+
+#: django-hvad/hvad/templates/admin/hvad/deletion_not_allowed.html:6
+#: django-hvad/nani/templates/admin/nani/deletion_not_allowed.html:6
+msgid "Home"
+msgstr ""
+
+#: django-hvad/hvad/templates/admin/hvad/deletion_not_allowed.html:15
+#, python-format
+msgid ""
+"Deletion of the %(language_name)s translation of %(object_name)s "
+"'%(escaped_object)s' is not allowed, because it is the last available "
+"translation of this instance."
+msgstr ""
+
+#: django-hvad/hvad/templates/admin/hvad/edit_inline/stacked.html:10
+#: django-hvad/hvad/templates/admin/hvad/edit_inline/tabular.html:30
+#: django-hvad/nani/templates/admin/nani/edit_inline/stacked.html:10
+#: django-hvad/nani/templates/admin/nani/edit_inline/tabular.html:30
+msgid "View on site"
+msgstr ""
+
+#: django-hvad/hvad/templates/admin/hvad/edit_inline/stacked.html:68
+#: django-hvad/hvad/templates/admin/hvad/edit_inline/tabular.html:115
+#: django-hvad/nani/templates/admin/nani/edit_inline/stacked.html:68
+#: django-hvad/nani/templates/admin/nani/edit_inline/tabular.html:115
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr ""
+
+#: django-hvad/hvad/templates/admin/hvad/edit_inline/stacked.html:71
+#: django-hvad/hvad/templates/admin/hvad/edit_inline/tabular.html:118
+#: django-hvad/nani/templates/admin/nani/edit_inline/stacked.html:71
+#: django-hvad/nani/templates/admin/nani/edit_inline/tabular.html:118
+msgid "Remove"
+msgstr ""
+
+#: django-hvad/hvad/templates/admin/hvad/edit_inline/tabular.html:17
+#: django-hvad/nani/templates/admin/nani/edit_inline/tabular.html:17
+msgid "Delete?"
+msgstr ""
+
+#: django-hvad/nani/templates/admin/nani/deletion_not_allowed.html:15
+#, python-format
+msgid ""
+"Deletion of the the %(language_name)s translation of %(object_name)s "
+"'%(escaped_object)s' is not allowed, because it is the last available "
+"translation of this instance."
+msgstr ""
+
 #: geodata/feeds.py:14
 msgid "Updates on changes and additions to buildings of "
 msgstr ""
@@ -606,61 +627,67 @@ msgid "Updates on changes and additions to events of "
 msgstr ""
 
 #: geodata/feeds.py:87
-msgid " people news."
+msgid " stakeholder news."
 msgstr ""
 
 #: geodata/feeds.py:89
-msgid "Updates on changes and additions to people of "
+msgid "Updates on changes and additions to stakeholders of "
 msgstr ""
 
 #: geodata/imagewidget.py:68
 msgid "Change:"
 msgstr ""
 
-#: geodata/models.py:27 geodata/models.py:84
+#: geodata/models.py:26 geodata/models.py:83
 msgid "name"
 msgstr ""
 
-#: geodata/models.py:28 geodata/models.py:87
+#: geodata/models.py:27 geodata/models.py:86
 msgid "description"
 msgstr ""
 
-#: geodata/models.py:48 geodata/models.py:89
+#: geodata/models.py:47 geodata/models.py:88
 msgid "website"
 msgstr ""
 
-#: geodata/models.py:64
+#: geodata/models.py:63
 #, fuzzy
 msgid "caption"
 msgstr "localisation"
 
-#: geodata/models.py:85
+#: geodata/models.py:84
 msgid "creation date"
 msgstr "date de création"
 
-#: geodata/models.py:86
+#: geodata/models.py:85
 msgid "creator"
 msgstr "créateur"
 
-#: geodata/models.py:90
+#: geodata/models.py:89
 msgid "contact"
 msgstr ""
 
-#: geodata/models.py:106 geodata/models.py:178
+#: geodata/models.py:105 geodata/models.py:178
 msgid "Identification name"
 msgstr ""
 
-#: geodata/models.py:113 geodata/models.py:185
+#: geodata/models.py:112 geodata/models.py:185
 msgid "Translated name"
 msgstr ""
 
-#: geodata/models.py:130
+#: geodata/models.py:129
 msgid "role"
 msgstr ""
 
-#: geodata/models.py:134 geodata/models.py:135 geodata/models.py:156
-#: geodata/models.py:209 geodata/models.py:234
-msgid "people"
+#: geodata/models.py:131 geodata/models.py:230
+#: geodata/templates/geodata/event_detail.html:9
+#: geodata/templates/geodata/stakeholder_detail.html:18
+msgid "UNESCO Chair Earthen Architecture"
+msgstr ""
+
+#: geodata/models.py:135 geodata/models.py:156 geodata/models.py:209
+#: geodata/models.py:242
+msgid "stakeholder"
 msgstr ""
 
 #: geodata/models.py:147 geodata/models.py:201 geodata/models.py:226
@@ -707,102 +734,126 @@ msgstr ""
 msgid "event type"
 msgstr ""
 
-#: geodata/models.py:230
+#: geodata/models.py:232
 msgid "beginning date"
 msgstr ""
 
-#: geodata/models.py:232
+#: geodata/models.py:234
 msgid "end date"
 msgstr ""
 
-#: geodata/models.py:238
+#: geodata/models.py:236 geodata/templates/geodata/event_detail.html:20
+msgid "Number of stakeholders"
+msgstr ""
+
+#: geodata/models.py:239 geodata/templates/geodata/event_detail.html:28
+msgid "Type of stakeholders"
+msgstr ""
+
+#: geodata/models.py:246
 msgid "event"
 msgstr ""
 
-#: geodata/models.py:239
+#: geodata/models.py:247
 msgid "events"
 msgstr ""
 
-#: geodata/models.py:264
+#: geodata/models.py:272
 #, fuzzy
 msgid "building recommendations"
 msgstr "recommandations événements"
 
-#: geodata/models.py:269
+#: geodata/models.py:277
 #, fuzzy
 msgid "worksite recommendations"
 msgstr "recommandations patrimoine"
 
-#: geodata/models.py:274
+#: geodata/models.py:282
 #, fuzzy
 msgid "event recommendations"
 msgstr "recommandations événements"
 
-#: geodata/models.py:279
+#: geodata/models.py:287
 #, fuzzy
-msgid "people recommendations"
+msgid "stakeholder recommendations"
 msgstr "recommandations événements"
+
+#: geodata/models.py:293
+msgid "Can modify world heritage properties"
+msgstr ""
+
+#: geodata/models.py:295
+msgid "Can modify UNESCO Chair Earthen Architecture"
+msgstr ""
 
 #: geodata/views.py:429
 msgid "Please correct the errors below."
 msgstr "merci de corriger les erreurs ci-dessous"
 
-#: geodata/views.py:457
+#: geodata/views.py:468
 #, python-format
 msgid "Successfully added %(modelname)s \"%(name)s\"."
 msgstr "ajout effectué : %(modelname)s \"%(name)s\"."
 
-#: geodata/views.py:528
+#: geodata/views.py:541
 #, python-format
 msgid "Successfully edited %(modelname)s \"%(name)s\"."
 msgstr ""
 
-#: geodata/views.py:580
+#: geodata/views.py:593
 #, python-format
 msgid "Successfully deleted %(modelname)s \"%(name)s\"."
 msgstr ""
 
-#: geodata/views.py:645
+#: geodata/views.py:658
 #, fuzzy, python-format
 msgid ""
 "Successfully removed %(modelname)s \"%(name)s\" from your                 "
 "recommendations."
 msgstr "ajout effectué : %(modelname)s \"%(name)s\"."
 
-#: geodata/views.py:655
+#: geodata/views.py:668
 #, fuzzy, python-format
 msgid ""
 "Successfully added %(modelname)s \"%(name)s\" to your                 "
 "recommendations."
 msgstr "ajout effectué : %(modelname)s \"%(name)s\"."
 
-#: geodata/templates/geodata/add_edit_geodata_base.html:60
-#: geodata/templates/geodata/geodata_detail.html:66
+#: geodata/templates/geodata/add_edit_geodata_base.html:61
+#: geodata/templates/geodata/geodata_detail.html:50
 msgid "Images"
 msgstr ""
 
-#: geodata/templates/geodata/add_edit_geodata_base.html:82
+#: geodata/templates/geodata/add_edit_geodata_base.html:83
 msgid "Add more images"
 msgstr ""
 
-#: geodata/templates/geodata/add_edit_geodata_base.html:91
+#: geodata/templates/geodata/add_edit_geodata_base.html:92
 msgid "Submit"
 msgstr ""
 
-#: geodata/templates/geodata/add_edit_geodata_base.html:92
-#: geodata/templates/geodata/delete_geodata_base.html:21
+#: geodata/templates/geodata/add_edit_geodata_base.html:93
+#: geodata/templates/geodata/delete_geodata_base.html:17
 msgid "Cancel"
 msgstr ""
 
-#: geodata/templates/geodata/add_geodata_base.html:5
-#: geodata/templates/geodata/add_geodata_base.html:7
+#: geodata/templates/geodata/add_geodata_base.html:4
+#: geodata/templates/geodata/add_geodata_base.html:6
 msgid "Add"
+msgstr ""
+
+#: geodata/templates/geodata/building_detail.html:8
+#: geodata/templates/geodata/geodata_bigmap_base.html:98
+msgid "Architects"
 msgstr ""
 
 #: geodata/templates/geodata/building_detail.html:35
 #: geodata/templates/geodata/building_detail.html:47
 #: geodata/templates/geodata/building_detail.html:65
-#: geodata/templates/geodata/event_detail.html:21
+#: geodata/templates/geodata/event_detail.html:24
+#: geodata/templates/geodata/event_detail.html:36
+#: geodata/templates/geodata/event_detail.html:48
+#: geodata/templates/geodata/stakeholder_detail.html:14
 #: geodata/templates/geodata/worksite_detail.html:14
 #: geodata/templates/geodata/worksite_detail.html:26
 msgid "not provided"
@@ -814,15 +865,19 @@ msgid "Techniques"
 msgstr ""
 
 #: geodata/templates/geodata/building_detail.html:52
-msgid "UNESCO building"
+msgid "World heritage"
 msgstr ""
 
 #: geodata/templates/geodata/building_detail.html:54
+#: geodata/templates/geodata/event_detail.html:11
+#: geodata/templates/geodata/stakeholder_detail.html:20
 #: geodata/templates/geodata/worksite_detail.html:33
 msgid "Yes!"
 msgstr ""
 
 #: geodata/templates/geodata/building_detail.html:56
+#: geodata/templates/geodata/event_detail.html:13
+#: geodata/templates/geodata/stakeholder_detail.html:22
 #: geodata/templates/geodata/worksite_detail.html:35
 msgid "No."
 msgstr ""
@@ -831,14 +886,14 @@ msgstr ""
 msgid "Inauguration date"
 msgstr ""
 
-#: geodata/templates/geodata/delete_geodata_base.html:10
-#: geodata/templates/geodata/delete_geodata_base.html:15
-#: geodata/templates/geodata/geodata_detail.html:12
+#: geodata/templates/geodata/delete_geodata_base.html:7
+#: geodata/templates/geodata/delete_geodata_base.html:12
+#: geodata/templates/geodata/geodata_detail.html:14
 msgid "Delete"
 msgstr ""
 
-#: geodata/templates/geodata/edit_geodata_base.html:5
-#: geodata/templates/geodata/edit_geodata_base.html:7
+#: geodata/templates/geodata/edit_geodata_base.html:4
+#: geodata/templates/geodata/edit_geodata_base.html:6
 #: geodata/templates/geodata/geodata_detail.html:11
 msgid "Edit"
 msgstr ""
@@ -847,99 +902,203 @@ msgstr ""
 msgid "Event type"
 msgstr ""
 
-#: geodata/templates/geodata/event_detail.html:10
+#: geodata/templates/geodata/event_detail.html:17
 msgid "Dates"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_bigmap.html:32
-#: geodata/templates/geodata/profile_detail.html:34
+#: geodata/templates/geodata/event_detail.html:40
+msgid "Cartoterra.net stakeholders"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap.html:10
+#: geodata/templates/geodata/profile_detail.html:5
 msgid "All GeoData"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_detail.html:15
-msgid "Toggle Recommend OFF"
+#: geodata/templates/geodata/geodata_bigmap_base.html:51
+msgid "All buildings"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_detail.html:17
-msgid "Toggle Recommend ON"
+#: geodata/templates/geodata/geodata_bigmap_base.html:52
+msgid "World Heritage"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_detail.html:66
+#: geodata/templates/geodata/geodata_bigmap_base.html:53
+msgid "Contemporary"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:54
+msgid "Heritage"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:55
+msgid "Other"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:67
+msgid "All worksites"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:68
+msgid "Participative"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:69
+msgid "Normal"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:81
+msgid "All events"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:82
+msgid "Seminar"
+msgstr "séminaire"
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:83
+msgid "Training"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:84
+msgid "Conference"
+msgstr "conférence"
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:85
+msgid "Exhibition"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:97
+msgid "All stakeholders"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:107
+msgid "Toolbox"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:113
+msgid "Add geodata"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:115
+msgid "Add Building"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:115
+msgid "Building"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:116
+msgid "Add Worksite"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:116
+msgid "Worksite"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:117
+msgid "Add Event"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:117
+msgid "Event"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:118
+msgid "Add Stakeholder"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_bigmap_base.html:118
+msgid "Stakeholder"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_detail.html:19
+msgid "Recommend ON"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_detail.html:21
+msgid "Recommend OFF"
+msgstr ""
+
+#: geodata/templates/geodata/geodata_detail.html:50
 msgid "Image"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_detail.html:75
+#: geodata/templates/geodata/geodata_detail.html:58
 msgid "No image provided yet."
 msgstr ""
 
-#: geodata/templates/geodata/geodata_detail.html:80
+#: geodata/templates/geodata/geodata_detail.html:65
 msgid "Description"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_detail.html:84
+#: geodata/templates/geodata/geodata_detail.html:71
 msgid "Contacts"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_detail.html:86
+#: geodata/templates/geodata/geodata_detail.html:73
 msgid "User"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_detail.html:87
+#: geodata/templates/geodata/geodata_detail.html:74
 msgid "Website"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_detail.html:88
+#: geodata/templates/geodata/geodata_detail.html:75
 msgid "Other contact information"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:41
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:20
 msgid "Latitude/Longitude"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:43
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:22
 msgid "Latitude"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:44
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:23
 msgid "Longitude"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:45
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:24
 msgid "Update map"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:48
-msgid "Nominatim Search"
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:27
+msgid "Nominatim Search Courtesy of"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:51
-#: geodata/templates/search/search.html:14
-msgid "Search"
-msgstr ""
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:30
+#, fuzzy
+msgid "Address"
+msgstr "Addresses email"
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:52
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:31
 msgid "Geolocate this address!"
 msgstr ""
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:60
-msgid "Delete all Features"
-msgstr ""
-
-#: geodata/templates/geodata/geodata_list.html:35
+#: geodata/templates/geodata/geodata_list.html:5
 msgid "List"
 msgstr ""
 
-#: geodata/templates/geodata/profile_list.html:12
+#: geodata/templates/geodata/profile_list.html:9
 #, fuzzy
 msgid "List of profiles"
 msgstr "Profil"
+
+#: geodata/templates/geodata/stakeholder_detail.html:6
+msgid "Roles"
+msgstr ""
 
 #: geodata/templates/geodata/worksite_detail.html:31
 #, fuzzy
 msgid "Participative worksite"
 msgstr "participatif"
 
-#: geodata/templates/search/search.html:23
+#: geodata/templates/search/search.html:9
+msgid "Search"
+msgstr ""
+
+#: geodata/templates/search/search.html:18
 msgid "Go"
 msgstr ""
 
@@ -1032,9 +1191,6 @@ msgstr ""
 
 #~ msgid "Login"
 #~ msgstr "Authentification"
-
-#~ msgid "E-Mail Addresses"
-#~ msgstr "Addresses email"
 
 #~ msgid "OpenID Associations"
 #~ msgstr "Associations OpenID"
