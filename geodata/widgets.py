@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.gis.forms.widgets import OSMWidget
 from django.forms.widgets import DateInput
 
@@ -5,11 +6,14 @@ from django.forms.widgets import DateInput
 class GeoDataWidget(OSMWidget):
     template_name = 'geodata/geodata_form_geometry_widget.html'
 
-    class Media:
-        js = (
-            'js/spin.min.js',
-            'js/form-geometry.js',
-        )
+    def _media(self):
+        return forms.Media(js=('openlayers/OpenLayers.js',
+                               'js/OpenStreetMap.js',
+                               'gis/js/OLMapWidget.js',
+                               'js/spin.min.js',
+                               'js/form-geometry.js'))
+
+    media = property(_media)
 
 
 class BootstrapDatePicker(DateInput):
