@@ -60,7 +60,7 @@ class Image(models.Model):
                              processors=[ResizeToFit(800, 800)],
                              format='JPEG',
                              options={'quality': 80})
-    legend = models.CharField(_("caption"), max_length=50, blank=True,
+    legend = models.CharField(_("caption"), max_length=100, blank=True,
                               null=True)
     image = ImageSpecField(source='original',
                            processors=[ResizeToFill(300, 300)],
@@ -80,7 +80,7 @@ class Image(models.Model):
 
 class GeoDataAbstract(models.Model):
     """An abstract spatial model for earthbuilding geodata."""
-    name = models.CharField(_("name"), max_length=50)
+    name = models.CharField(_("name"), max_length=100)
     pub_date = models.DateTimeField(_("creation date"), default=now())
     creator = models.ForeignKey(User, verbose_name=_("creator"))
     description = models.TextField(_("description"), blank=True, null=True)
