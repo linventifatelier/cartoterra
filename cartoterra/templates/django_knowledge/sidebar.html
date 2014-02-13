@@ -20,7 +20,7 @@
 
 <ul>
   {% for category in categories %}
-    <li><a href="{% url "knowledge_list_category category.slug" %}">{{ category.title }}</a></li>
+    <li><a href="{% url "knowledge_list_category" category.slug %}">{{ category.title }}</a></li>
   {% endfor %}
 </ul>
 
