@@ -17,9 +17,10 @@ var base_layer = new ol.layer.Tile({
 
 {{ module }}.layers[{{ forloop.counter0 }}] = new ol.layer.Vector({
     source: new ol.source.GeoJSON({
+        projection: 'EPSG:3857',
         url: '{{ layer.url }}'
     }),
-    styleFunction: function(feature, resolution) {
+    style: function(feature, resolution) {
         return {{ module }}.layerstyle[{{ forloop.counter0 }}];
     }
 });
@@ -29,7 +30,7 @@ var base_layer = new ol.layer.Tile({
     layers: [
         base_layer{% for layer in map_layers %}, {{ module }}.layers[{{ forloop.counter0 }}]{% endfor %}
     ],
-    renderer: ol.RendererHint.CANVAS,
+    renderer: 'canvas',
     target: document.getElementById('{{ module }}_map'),
     view: new ol.View2D({
       center: [-2400000, 3000000],
