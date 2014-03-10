@@ -53,10 +53,9 @@ var base_layer = new ol.layer.Tile({
 });
 {{ module }}.map.addOverlay({{ module }}.popup);
 
-$({{ module }}.map.getViewport()).on('mousemove', function(evt) {
-  var pixel = {{ module }}.map.getEventPixel(evt.originalEvent);
+{{ module }}.map.on('mousemove', function(evt) {
   var allFeaturesAtPixel = [];
-  {{ module }}.map.forEachFeatureAtPixel(pixel, function(feature) {
+  {{ module }}.map.forEachFeatureAtPixel(evt.pixel, function(feature) {
     allFeaturesAtPixel.push(feature);
   });
 
@@ -78,10 +77,9 @@ $({{ module }}.map.getViewport()).on('mousemove', function(evt) {
   }
 });
 
-$({{ module }}.map.getViewport()).on('click', function(evt) {
-  var pixel = {{ module }}.map.getEventPixel(evt.originalEvent);
+{{ module }}.map.on('click', function(evt) {
   var allFeaturesAtPixel = [];
-  {{ module }}.map.forEachFeatureAtPixel(pixel, function(feature) {
+  {{ module }}.map.forEachFeatureAtPixel(evt.pixel, function(feature) {
     allFeaturesAtPixel.push(feature);
   });
 
