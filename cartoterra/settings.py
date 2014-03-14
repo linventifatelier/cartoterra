@@ -126,6 +126,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
     "account.context_processors.account",
+    "cartoterra.context_processors.site_name"
     #"announcements.context_processors.site_wide_announcements",
 ]
 

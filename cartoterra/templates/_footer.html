@@ -6,10 +6,13 @@
       <img alt="partners" height="50" src="{% static "img/logobanner.png" %}" />
     </div>
   </div>
-  
   <div class="col-md-5 col-md-offset-2 col-sm-6 col-xs-12">
     <div class="legal">
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" src="{% static "img/cc_88x31.png" %}" /></a><br /><a href="{% url "home" %}"><span property="dct:title">{{ SITE_NAME }}</span></a> {% trans "by" %}<a href="https://linventifatelier.gueux.org" property="cc:attributionName" rel="cc:attributionURL"> &lt;L'Inventif Atelier&gt; </a> {% trans "is licensed under a" %} <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.  
+      <a href="{% url "home" %}">{{ SITE_NAME }}</a> {% trans "is licensed under" %} <a target="_blank" rel="license" href="http://opendatacommons.org/licenses/odbl/1.0/">Open Database License (ODbL)</a>
+      <br />
+      {% trans "Website created by" %}<a href="mailto:felix.sipma@no-log.org">&lt;Félix Sipma&gt;</a>
+      <br />
+      <a target="_blank" rel="code" href="https://github.com/linventifatelier/cartoterra">{% trans "site code under GPL-3+" %}</a>
     </div>
   </div>
 </div>
