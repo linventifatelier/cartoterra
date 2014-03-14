@@ -1,30 +1,30 @@
-######################################################################
-Cartoterra project: Geolocalization of data related to earth building.
-######################################################################
+# Cartoterra project: Geolocalization of data related to earth building.
 
-:Author:  Félix Sipma
-:Date:    2014-01-22
-:License: CC-By-NC-SA
+## Website
 
+https://cartoterra.net
 
-Installation
-============
+## License
 
-Development
------------
+See COPYRIGHT file.
 
-Requirements
-++++++++++++
-python2.7
-virtualenv
-pip
-GEOS
-GDAL
-PROJ.4
-spatialite
+## Installation
 
-Procedure
-+++++++++
+### Development
+
+#### Requirements
+
+- python2.7
+- virtualenv
+- pip
+- GEOS
+- GDAL
+- PROJ.4
+- spatialite
+
+#### Procedure
+
+```shell
 $ virtualenv ~/cartoterra-env
 $ source ~/cartoterra-env/bin/activate
 (cartoterra-env)$ cd /path/to/your/cartoterra/repo
@@ -35,3 +35,8 @@ $ source ~/cartoterra-env/bin/activate
 (cartoterra-env)$ python manage.py migrate --settings=settings.development
 (cartoterra-env)$ python manage.py createsuperuser --settings=settings.development
 (cartoterra-env)$ python manage.py runserver --settings=settings.development
+```
+
+## Author
+
+Félix Sipma felix.sipma@no-log.org
