@@ -29,14 +29,6 @@ Copyright: 2012 Stefan Petre
 Comment: Improvements by Andrew Rowls + contributors
 License: Apache-2.0
 
-Files: geodata/static/css/ui-lightness/* geodata/static/js/jquery-ui*
-Copyright: © 2013 jQuery Foundation and other contributors, http://jqueryui.com/
-License: MIT
-
-Files: geodata/static/js/modernizr*
-Copyright: © 2009–2013
-License: MIT
-
 Files: geodata/static/js/spin.min.js
 Copyright: © 2011 Felix Gnass <fgnass@neteye.de>
 License: MIT
