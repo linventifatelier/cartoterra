@@ -13,7 +13,7 @@
     <!-- Sticky footer -->
     <!--[if !IE 7]>
         <style type="text/css">
-                #wrap {display:table;height:100%}
+          #wrap {display:table;height:100%}
         </style>
     <![endif]-->
     {% block extra_style %}{% endblock %}
@@ -60,14 +60,6 @@
 {% block body_class %}fill{% endblock %}
 
 {% block body_base %}
-{% if request.user.is_authenticated %}
-{% else %}
-    <div class="cartoterra-header text-center">
-      <div class="container">
-        {% include "_sidebar.html" %}
-      </div>
-    </div>
-{% endif %}
     <div class="text-center">
       {% include "_messages.html" %}
     </div>

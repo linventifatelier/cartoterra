@@ -35,8 +35,11 @@ var base_layer = new ol.layer.Tile({
     view: new ol.View2D({
       center: [-2400000, 3000000],
       zoom: 2
-    })
+    }),
+    controls: [new ol.control.Attribution(), new ol.control.Logo()]
 });
+
+{{ module }}.map.addControl(new ol.control.Zoom({target : document.getElementById('{{ module }}_controls')}));
 
 {{ module }}.info = $('#{{ module }}_info');
 

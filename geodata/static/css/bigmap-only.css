@@ -15,5 +15,6 @@
 @media (max-width: 767px) {
   .map-toolbox {
     padding-bottom: 10em;
+    min-height: 700px;
   }
 }

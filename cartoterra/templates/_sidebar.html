@@ -1,30 +1,12 @@
 {% load i18n %}
 {% load static from staticfiles %}
-<!--
+{% comment %}
 <ul class="nav nav-list">
   <li class="nav-header">{% trans "Recommendations" %}</li>
-  {% comment %}
   <li><a href="{% url "profile_detail" "admin" %}"><img src="{% static "img/map.png" %}" width="15" height="15" alt="" /> {% trans "Admin" %}</a></li>
-  {% endcomment %}
-
-
-  <li class="nav-header">{% trans "Last changes" %}</li>
-  <li class="building-rss">
-    <a rel="rss" href="{% url "feed_building" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="" /> {% trans "Buildings" %} </a>
-  </li>
-  <li class="worksite-rss">
-    <a rel="rss" href="{% url "feed_worksite" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="" /> {% trans "Worksites" %} </a>
-  </li>
-  <li class="event-rss">
-    <a rel="rss" href="{% url "feed_event" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="" /> {% trans "Events" %} </a>
-  </li>
-  <li class="stakeholder-rss">
-    <a rel="rss" href="{% url "feed_stakeholder" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="" /> {% trans "Stakeholders" %} </a>
-  </li>
-
-  <li class="nav-header"></li>
-  {% include "_help.html" %}
 </ul>
--->
+{% endcomment %}
 <h2>{% trans "Cartoterra.net is a database for earth architecture" %}</h2>
-<h2><small>{% trans "Create your account and share contacts, images, events, ..." %}</small></h2>
+<a href="{% url "account_signup" %}">
+    <h2><small>{% trans "Create your account and share contacts, images, events, ..." %}</small></h2>
+</a>

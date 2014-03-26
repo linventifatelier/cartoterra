@@ -113,7 +113,6 @@ input[type="color"],
 
 .cartoterra-header {
   background-color: rgba(34,34,34,0.7);
-  height: 110px;
   z-index: 300;
   width: 100%;
   position: relative;
@@ -174,6 +173,7 @@ html, body {
   height: 6em;
   background-color: #eae3dc;
   clear: both;
+  z-index: 500;
 }
 
 body:before {
@@ -222,9 +222,6 @@ body:before {
     height: 10em;
     background-color: #eae3dc;
     clear: both;
-  }
-  .cartoterra-header {
-    height: 150px;
   }
   .partners {
     margin-top: 1em;

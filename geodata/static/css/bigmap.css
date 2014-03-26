@@ -7,10 +7,21 @@
   position: relative;
   z-index: 200;
   height: 92%;
+  min-height: 500px;
+}
+
+.map-toolbox .map-overlay {
+  z-index: 99999;
+  position: absolute;
+  width: 100%;
+  top: 0px;
+}
+
+.map-toolbox .geodata-side-toolbar {
+  position: relative;
 }
 
 .map-toolbox .geodata-list {
-  z-index: 99999;
   position: absolute;
   top: 10px;
   left: 8px;
