@@ -29,3 +29,8 @@
 .map-toolbox {
   padding-bottom: 0px;
 }
+
+.blueimp-gallery > .prev, .blueimp-gallery > .next {
+  border: none;
+  border-radius: none;
+}

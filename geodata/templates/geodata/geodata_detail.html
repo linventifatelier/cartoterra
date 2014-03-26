@@ -24,15 +24,31 @@
 {% endblock %}
 
 {% block extra_extra_style %}
+<link rel="stylesheet" href="{% static "css/blueimp-gallery.min.css" %}" type="text/css">
 <link rel="stylesheet" href="{% static "css/bigmap.css" %}" type="text/css" />
 <link rel="stylesheet" href="{% static "css/detail.css" %}" type="text/css" />
-<link rel="stylesheet" href="{% static "slimbox/css/slimbox2.css" %}" type="text/css" media="screen" />
 {% endblock %}
 
 {% block extra_script %}
 {{ block.super }}
-<script type="text/javascript" src="{% static "slimbox/js/slimbox2.js" %}"></script>
-<script type="text/javascript">jQuery("#gallery a").slimbox();</script>
+<script type="text/javascript" src="{% static "js/blueimp-gallery.min.js" %}"></script>
+<script type="text/javascript">
+  document.getElementById('gallery').onclick = function (event) {
+    event = event || window.event;
+    var target = event.target || event.srcElement,
+      link = target.src ? target.parentNode : target,
+      options = {index: link, event: event,
+                 slideshowInterval: 3000,
+                 onclosed: function() {
+                   var controlsClass = this.options.controlsClass;
+                   if (!this.container.hasClass(controlsClass)) {
+                       this.container.addClass(controlsClass);
+                   }
+                }},
+      links = this.getElementsByTagName('a');
+    blueimp.Gallery(links, options);
+  };
+</script>
 {% endblock %}
 
 {% block head_title %}{% block head_geodata_type %}{{ geodata_verbose_name }}{% endblock %}: {{ geodata.name }}{% endblock %}
@@ -46,19 +62,27 @@
     {% block body_geodata_extra %}
     {% endblock %}
 
+    {% if geodata.image.all %}
     <div>
       {% if geodata.image.all|length > 1 %}{% trans "Images" %}{% else %}{% trans "Image" %}{% endif %}:
       <div class="set" id="gallery">
-      {% if geodata.image.all %}
         {% for image in geodata.image.all %}
-            {% with image.thumbnail as im %}
+        {% with image.thumbnail as im %}
         <a href="{{ image.display.url }}" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" /></a>
-            {% endwith %}
+        {% endwith %}
         {% endfor %}
-      {% else %}{% trans "No image provided yet." %}
-      {% endif %}
       </div>
     </div>
+    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+      <div class="slides"></div>
+      <h3 class="title"></h3>
+      <a class="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      <a class="close"><span class="glyphicon glyphicon-remove"></span></a>
+      <a class="play-pause"></a>
+      <ol class="indicator"></ol>
+    </div>
+    {% endif %}
 
     {% if geodata.description %}
     <div>

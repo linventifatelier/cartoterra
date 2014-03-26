@@ -42,8 +42,9 @@ geodata/static/openlayers/*
 Copyright: © 2005-2013 OpenLayers Contributors. All rights reserved.
 License: BSD-2-clause
 
-Files: geodata/static/slimbox/*
-Copyright: © 2007-2013 Christophe Beyls <http://www.digitalia.be>
+Files: geodata/static/js/blueimp-gallery.min.js
+geodata/static/css/blueimp-gallery.min.css geodata/static/img/loading.gif geodata/static/img/play-pause.* geodata/static/img/error.* geodata/static/img/video-play.*
+Copyright: © 2013 Sebastian Tschan https://blueimp.net
 License: MIT
 
 Files: cartoterra/static/img/feed-icon*
