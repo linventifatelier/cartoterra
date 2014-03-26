@@ -231,6 +231,7 @@ body:before {
     width : auto;
   }
   .partners > img {
+    max-width: 100%;
     display: block;
     text-align: center;
     margin-left: auto;
