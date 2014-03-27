@@ -1,11 +1,6 @@
-/*
-#main {
-  height: 100%;
-}
-*/
 #main {
   overflow: auto;
-  padding-bottom: 0px;
+  padding-bottom: 0;
 }
 
 .map-toolbox {

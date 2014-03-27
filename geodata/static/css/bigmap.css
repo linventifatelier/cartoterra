@@ -14,7 +14,7 @@
   z-index: 99999;
   position: absolute;
   width: 100%;
-  top: 0px;
+  top: 0;
 }
 
 .map-toolbox .geodata-side-toolbar {
@@ -25,6 +25,10 @@
   position: absolute;
   top: 10px;
   left: 8px;
+}
+
+.map-toolbox .geodata-list ul {
+  padding-left: 20px;
 }
 
 .geodata-bigmap {

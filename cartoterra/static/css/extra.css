@@ -2,11 +2,6 @@
 -------------------------------------------------- */
 /* Body and structure
 -------------------------------------------------- */
-* {
-  margin:0;
-  padding:0;
-} 
-
 body {
   font-size: 13px;
   color: #333333;
@@ -112,6 +107,7 @@ input[type="color"],
 }
 
 .cartoterra-header {
+  background-color: rgb(34,34,34);
   background-color: rgba(34,34,34,0.7);
   z-index: 300;
   width: 100%;
@@ -121,7 +117,7 @@ input[type="color"],
 .navbar {
   position: relative;
   width: 100%;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 /* BLOCKS */
@@ -148,7 +144,7 @@ section {
   padding-top: 60px;
 }
 .modal form {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 html, body {
@@ -203,7 +199,6 @@ body:before {
 
 /* tooltips */
 .tooltip {
-  positon: relative;
   z-index: 100;
 }
 
