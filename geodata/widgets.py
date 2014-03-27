@@ -29,11 +29,11 @@ class BootstrapDatePicker(DateInput):
 
     class Media:
         js = (
-            'js/bootstrap-datepicker.js',
+            'js/bootstrap-datepicker.min.js',
             'js/form-datepicker.js',
         )
         css = {
             'all': (
-                'css/datepicker3.css',
+                'css/datepicker3.min.css',
             )
         }
