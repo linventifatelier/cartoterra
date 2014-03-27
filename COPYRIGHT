@@ -3,7 +3,7 @@ Source: native package
 
 Files: *
 Copyright: © 2012-2014 Felix Sipma <felix.sipma@no-log.org>
-License: GPL-3+
+License: AGPL-3+
 
 Files: cartoterra/static/fonts/glyphicons-halflings-*
 cartoterra/static/js/bootstrap.min.js cartoterra/static/css/bootstrap*
