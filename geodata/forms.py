@@ -6,7 +6,7 @@ from models import GeoDataAbstract, Building, Worksite, Event, Stakeholder, \
 from django.forms import ModelForm
 from PIL.ExifTags import TAGS, GPSTAGS
 from geodata.widgets import GeoDataWidget, BootstrapDatePicker
-from django.contrib.contenttypes.generic import generic_inlineformset_factory
+from django.contrib.contenttypes.forms import generic_inlineformset_factory
 import logging
 from django.contrib.gis.forms.fields import PointField
 
@@ -85,16 +85,16 @@ def _get_exifgps(i):
             decoded = TAGS.get(tag, tag)
             if decoded == "GPSInfo":
                 lat, lon, altitude, gps_data = _extract_gpsinfo(values)
-        #try:
-        #    iptc = IptcImagePlugin.getiptcinfo(i)
-        #    ret['caption'] = iptc[(2,120)]
-        #    ret['copyright'] = iptc[(2,116)]
-        #    ret['keywords'] = iptc[(2,25)]
-        #except:
-        #    ret['headline'] = None
-        #    ret['caption'] = None
-        #    ret['copyright'] = None
-        #    ret['keywords'] = []
+        # try:
+        #     iptc = IptcImagePlugin.getiptcinfo(i)
+        #     ret['caption'] = iptc[(2,120)]
+        #     ret['copyright'] = iptc[(2,116)]
+        #     ret['keywords'] = iptc[(2,25)]
+        # except:
+        #     ret['headline'] = None
+        #     ret['caption'] = None
+        #     ret['copyright'] = None
+        #     ret['keywords'] = []
 
     ret['latitude'] = lat
     ret['longitude'] = lon
@@ -111,35 +111,35 @@ ImageFormSet = generic_inlineformset_factory(Image, extra=1, can_delete=True)
 
 class GeoDataAbstractForm(ModelForm):
     geometry = PointField(widget=GeoDataWidget())
-    #geometry = forms.CharField(widget=GeodataWidget())
-    #def clean(self):
-    #    super(MapModelForm, self).clean()
-
-    #    if not self.cleaned_data['geometry']:
-    #        if self.cleaned_data['image']:
-    #            im = Image.open(self.cleaned_data['image'])
-    #            gps_data = _get_exifgps(im)
-    #            longitude = gps_data['longitude']
-    #            latitude = gps_data['latitude']
-    #            if longitude and latitude:
-    #                try:
-    #                    self.cleaned_data['geometry'] =
-    #                        Point(longitude, latitude)
-    #                except (ValueError, TypeError):
-    #                    msg = _("You have to provide a geometry or a \
-    #                             geolocated image (the geolocation data of \
-    #                             your image do not seem clean).")
-    #                    self._errors['geometry'] = self.error_class([msg])
-    #            else:
-    #                msg = _("You have to provide a geometry \
-    #                         or a geolocated image (the image you have \
-    #                         provided does not seems to be geolocated).")
-    #                self._errors['geometry'] = self.error_class([msg])
-    #        else:
-    #            msg = _("You have to provide a geometry or a geolocated \
-    #                     image.")
-    #            self._errors['geometry'] = self.error_class([msg])
-    #    return self.cleaned_data
+    # geometry = forms.CharField(widget=GeodataWidget())
+    # def clean(self):
+    #     super(MapModelForm, self).clean()
+    #
+    #     if not self.cleaned_data['geometry']:
+    #         if self.cleaned_data['image']:
+    #             im = Image.open(self.cleaned_data['image'])
+    #             gps_data = _get_exifgps(im)
+    #             longitude = gps_data['longitude']
+    #             latitude = gps_data['latitude']
+    #             if longitude and latitude:
+    #                 try:
+    #                     self.cleaned_data['geometry'] =
+    #                         Point(longitude, latitude)
+    #                 except (ValueError, TypeError):
+    #                     msg = _("You have to provide a geometry or a \
+    #                              geolocated image (the geolocation data of \
+    #                              your image do not seem clean).")
+    #                     self._errors['geometry'] = self.error_class([msg])
+    #             else:
+    #                 msg = _("You have to provide a geometry \
+    #                          or a geolocated image (the image you have \
+    #                          provided does not seems to be geolocated).")
+    #                 self._errors['geometry'] = self.error_class([msg])
+    #         else:
+    #             msg = _("You have to provide a geometry or a geolocated \
+    #                      image.")
+    #             self._errors['geometry'] = self.error_class([msg])
+    #     return self.cleaned_data
 
     class Meta:
         model = GeoDataAbstract

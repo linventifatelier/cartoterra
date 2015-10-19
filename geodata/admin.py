@@ -11,7 +11,7 @@ from imagewidget import AdminImageWidget
 #ADMIN_THUMBS_SIZE = '60x60'
 #from nani import admin
 from hvad import admin as hvadadmin
-from django.contrib.contenttypes.generic import GenericTabularInline
+from django.contrib.contenttypes.admin import GenericTabularInline
 from imagekit.admin import AdminThumbnail
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User

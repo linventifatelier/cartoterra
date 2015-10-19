@@ -1,18 +1,18 @@
 """GeoData models."""
 from django.contrib.gis.db import models
-#from django.conf import settings
-#from profiles.models import Profile
+# from django.conf import settings
+# from profiles.models import Profile
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from datetime import timedelta, date
 from django.utils.timezone import now
-#from image import AutoImageField
-#import os
+# from image import AutoImageField
+# import os
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill, ResizeToFit
 from hvad.models import TranslatableModel, TranslatedFields
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes import fields
 from django.core.validators import RegexValidator
 import re
 from django.db.models.signals import post_save
@@ -21,29 +21,33 @@ from django.db.models.signals import post_save
 ident_regex = re.compile(r'^[a-zA-Z0-9_\-]+$')
 
 
+def today(datetime):
+    datetime().date()
+
+
 class EarthTechnique(models.Model):
     """A model for earthbuilding techniques."""
     name = models.CharField(_("name"), max_length=50)
     description = models.TextField(_("description"), blank=True, null=True)
-    #image = models.TextField(_("image"), blank=True, null=True)
-    #image = models.ImageField(upload_to='img/techniques', blank=True,
-    #null=True)
-    ### image = ImageField(upload_to='img/techniques', blank=True, null=True)
-    #image = ImageWithThumbnailsField(upload_to='img/techniques',
-    #thumbnail={'size': (200, 200)}, blank=True, null=True)
-    #image = ImageField(upload_to='img/techniques', thumbnail={'size': (200,
-    #200)}, blank=True, null=True)
+    # image = models.TextField(_("image"), blank=True, null=True)
+    # image = models.ImageField(upload_to='img/techniques', blank=True,
+    # null=True)
+    # ## image = ImageField(upload_to='img/techniques', blank=True, null=True)
+    # image = ImageWithThumbnailsField(upload_to='img/techniques',
+    # thumbnail={'size': (200, 200)}, blank=True, null=True)
+    # image = ImageField(upload_to='img/techniques', thumbnail={'size': (200,
+    # 200)}, blank=True, null=True)
 
-    #image_display = AutoImageField(upload_to='img/techniques/display',
-    #prepopulate_from='image', size=(300, 300), blank=True, null=True)
-    #image = StdImageField(upload_to='img/techniques', size=(640, 640),
-    #thumbnail_size=(100, 100), blank=True, null=True)
-    #image_display = AutoImageField(upload_to='img/techniques/display',
-    #prepopulate_from='image', size=(640, 640), blank=True, null=True)
-    #fullsize = models.ImageField(upload_to=os.path.join(MEDIA_ROOT,
-    #"img/technique/fullsize"))
-    #display = AutoImageField(upload_to=os.path.join(MEDIA_ROOT,
-    #"img/technique/display"),prepopulate_from='fullsize', size=(300, 300))
+    # image_display = AutoImageField(upload_to='img/techniques/display',
+    # prepopulate_from='image', size=(300, 300), blank=True, null=True)
+    # image = StdImageField(upload_to='img/techniques', size=(640, 640),
+    # thumbnail_size=(100, 100), blank=True, null=True)
+    # image_display = AutoImageField(upload_to='img/techniques/display',
+    # prepopulate_from='image', size=(640, 640), blank=True, null=True)
+    # fullsize = models.ImageField(upload_to=os.path.join(MEDIA_ROOT,
+    # "img/technique/fullsize"))
+    # display = AutoImageField(upload_to=os.path.join(MEDIA_ROOT,
+    # "img/technique/display"),prepopulate_from='fullsize', size=(300, 300))
     url = models.URLField(_("website"), blank=True, null=True)
 
     def get_model(self):
@@ -54,7 +58,7 @@ class EarthTechnique(models.Model):
 
 
 class Image(models.Model):
-    #image = ImageField(upload_to='img/geodata', blank=True, null=True)
+    # image = ImageField(upload_to='img/geodata', blank=True, null=True)
     original = models.ImageField(upload_to='img/geodata')
     display = ImageSpecField(source='original',
                              processors=[ResizeToFit(800, 800)],
@@ -72,7 +76,7 @@ class Image(models.Model):
                                options={'quality': 60})
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = fields.GenericForeignKey('content_type', 'object_id')
 
     class Meta:
         ordering = ["id"]
@@ -81,10 +85,10 @@ class Image(models.Model):
 class GeoDataAbstract(models.Model):
     """An abstract spatial model for earthbuilding geodata."""
     name = models.CharField(_("name"), max_length=100)
-    pub_date = models.DateTimeField(_("creation date"), default=now())
+    pub_date = models.DateTimeField(_("creation date"), default=now)
     creator = models.ForeignKey(User, verbose_name=_("creator"))
     description = models.TextField(_("description"), blank=True, null=True)
-    image = generic.GenericRelation(Image)
+    image = fields.GenericRelation(Image)
     url = models.URLField(_("website"), blank=True, null=True)
     contact = models.TextField(_("contact"), blank=True, null=True)
     geometry = models.PointField(srid=4326, blank=True, null=True)
@@ -101,12 +105,11 @@ class GeoDataAbstract(models.Model):
 
 class EarthRole(TranslatableModel):
     """Stakeholder role"""
-    #name = models.CharField(_("name"), max_length=50)
-    ident_name = models.CharField(_("Identification name"), max_length=50,
-                                  unique=True,
-                                  validators=[
-                                      RegexValidator(regex=ident_regex)
-                                  ])
+    # name = models.CharField(_("name"), max_length=50)
+    ident_name = models.CharField(
+        _("Identification name"), max_length=50, unique=True,
+        validators=[RegexValidator(regex=ident_regex)]
+    )
 
     translations = TranslatedFields(
         name=models.CharField(_("Translated name"), max_length=255,
@@ -118,16 +121,16 @@ class EarthRole(TranslatableModel):
 
     def __unicode__(self):
         return self.ident_name
-        #return self.lazy_translation_getter('name', self.name)
-        #return str(self.safe_translation_getter('name'))
-        #return str(self.id)
+        # return self.lazy_translation_getter('name', self.name)
+        # return str(self.safe_translation_getter('name'))
+        # return str(self.id)
 
 
 class Stakeholder(GeoDataAbstract):
     """A spatial model for stakeholders."""
     role = models.ManyToManyField(EarthRole,
                                   verbose_name=_("role"),
-                                  blank=True, null=True)
+                                  blank=True)
     unesco_chair = models.BooleanField(_("UNESCO Chair Earthen Architecture"),
                                        default=False)
 
@@ -141,20 +144,20 @@ class Stakeholder(GeoDataAbstract):
 
 class Building(GeoDataAbstract):
     """A spatial model for building geodata."""
-    #architects = models.ManyToManyField(EarthArchitect,
-    #                                    verbose_name=_("architects"),
-    #                                    blank=True, null=True)
+    # architects = models.ManyToManyField(EarthArchitect,
+    #                                     verbose_name=_("architects"),
+    #                                     blank=True, null=True)
     credit_creator = models.BooleanField(_("credit creator"), default=True)
     architects = models.TextField(_("architects"), blank=True, null=True)
     techniques = models.ManyToManyField(EarthTechnique,
                                         verbose_name=_("techniques"),
-                                        blank=True, null=True)
+                                        blank=True)
     unesco = models.BooleanField(_("world heritage"), default=False)
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
     stakeholder = models.ManyToManyField(Stakeholder,
                                          verbose_name=_("stakeholder"),
-                                         blank=True, null=True)
+                                         blank=True)
 
     class Meta:
         verbose_name = _("building")
@@ -174,12 +177,11 @@ class Building(GeoDataAbstract):
 
 class EventType(TranslatableModel):
     """Event type"""
-    #name = models.CharField(_("name"), max_length=50)
-    ident_name = models.CharField(_("Identification name"), max_length=50,
-                                  unique=True,
-                                  validators=[
-                                      RegexValidator(regex=ident_regex)
-                                  ])
+    # name = models.CharField(_("name"), max_length=50)
+    ident_name = models.CharField(
+        _("Identification name"), max_length=50, unique=True,
+        validators=[RegexValidator(regex=ident_regex)]
+    )
 
     translations = TranslatedFields(
         name=models.CharField(_("Translated name"), max_length=255, blank=True,
@@ -191,9 +193,9 @@ class EventType(TranslatableModel):
 
     def __unicode__(self):
         return self.ident_name
-        #return self.lazy_translation_getter('name', self.name)
-        #return str(self.safe_translation_getter('name'))
-        #return str(self.id)
+        # return self.lazy_translation_getter('name', self.name)
+        # return str(self.safe_translation_getter('name'))
+        # return str(self.id)
 
 
 class Worksite(GeoDataAbstract):
@@ -202,12 +204,11 @@ class Worksite(GeoDataAbstract):
     participative = models.BooleanField(_("participative"), default=False)
     techniques = models.ManyToManyField(EarthTechnique,
                                         verbose_name=_("techniques"),
-                                        blank=True, null=True)
-    inauguration_date = models.DateField(_("inauguration date"),
-                                         blank=True, null=True)
+                                        blank=True)
+    inauguration_date = models.DateField(_("inauguration date"), blank=True)
     stakeholder = models.ManyToManyField(Stakeholder,
                                          verbose_name=_("stakeholder"),
-                                         blank=True, null=True)
+                                         blank=True)
 
     class Meta:
         verbose_name = _("worksite")
@@ -229,18 +230,16 @@ class Event(GeoDataAbstract):
                                    blank=True, null=True)
     unesco_chair = models.BooleanField(_("UNESCO Chair Earthen Architecture"),
                                        default=False)
-    beginning_date = models.DateField(_("beginning date"),
-                                      default=date.today())
-    end_date = models.DateField(_("end date"), default=date.today())
+    beginning_date = models.DateField(_("beginning date"), default=today(now))
+    end_date = models.DateField(_("end date"), default=today(now))
     number_of_stakeholders = models.PositiveIntegerField(
         _("Number of stakeholders"), blank=True,
         null=True)
     type_of_stakeholders = models.ManyToManyField(
-        EarthRole, verbose_name=_("Type of stakeholders"), blank=True,
-        null=True)
+        EarthRole, verbose_name=_("Type of stakeholders"), blank=True)
     stakeholder = models.ManyToManyField(Stakeholder,
                                          verbose_name=_("stakeholder"),
-                                         blank=True, null=True)
+                                         blank=True)
 
     class Meta:
         verbose_name = _("event")
@@ -262,31 +261,31 @@ class Profile(models.Model):
     user = models.OneToOneField(User,
                                 unique=True,
                                 verbose_name=_('user'))
-    #about = models.TextField(_("about"), null=True, blank=True)
-    #location = models.CharField(_("location"), max_length=40, null=True,
-    #                            blank=True)
-    #website = models.URLField(_("website"), null=True, blank=True,
-    #                          verify_exists=False)
+    # about = models.TextField(_("about"), null=True, blank=True)
+    # location = models.CharField(_("location"), max_length=40, null=True,
+    #                             blank=True)
+    # website = models.URLField(_("website"), null=True, blank=True,
+    #                           verify_exists=False)
     r_building = models.ManyToManyField(
         Building,
         verbose_name=_("building recommendations"),
         related_name="recommended_by",
-        null=True, blank=True)
+        blank=True)
     r_worksite = models.ManyToManyField(
         Worksite,
         verbose_name=_("worksite recommendations"),
         related_name="recommended_by",
-        null=True, blank=True)
+        blank=True)
     r_event = models.ManyToManyField(
         Event,
         verbose_name=_("event recommendations"),
         related_name="recommended_by",
-        null=True, blank=True)
+        blank=True)
     r_stakeholder = models.ManyToManyField(
         Stakeholder,
         verbose_name=_("stakeholder recommendations"),
         related_name="recommended_by",
-        null=True, blank=True)
+        blank=True)
 
     class Meta:
         permissions = (

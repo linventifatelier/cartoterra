@@ -70,7 +70,7 @@ USE_TZ = True
 
 
 LOCALE_PATHS = (
-    os.path.join(PROJECT_ROOT, "locale")
+    os.path.join(PROJECT_ROOT, "locale"),
 )
 
 # Absolute path to the directory that holds media.
@@ -91,16 +91,16 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static")
 STATIC_URL = "/site_media/static/"
 
 # Additional directories which hold static files
-#STATICFILES_DIRS = [
+# STATICFILES_DIRS = [
 #    os.path.join(PROJECT_ROOT, "static"),
-#]
+# ]
 
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    #"django.contrib.staticfiles.finders.LegacyAppDirectoriesFinder",
+    # "django.contrib.staticfiles.finders.LegacyAppDirectoriesFinder",
     "compressor.finders.CompressorFinder",
 ]
 
@@ -127,7 +127,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.contrib.messages.context_processors.messages",
     "account.context_processors.account",
     "cartoterra.context_processors.site_name"
-    #"announcements.context_processors.site_wide_announcements",
+    # "announcements.context_processors.site_wide_announcements",
 ]
 
 
@@ -136,19 +136,19 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    #"django_openid.consumer.SessionConsumer",
+    # "django_openid.consumer.SessionConsumer",
     "django.contrib.messages.middleware.MessageMiddleware",
-    #"django.middleware.locale.LocaleMiddleware",
-    "urli18n.middleware.UrlQuerystringTransformMiddleware",
+    # "django.middleware.locale.LocaleMiddleware",
+    # "urli18n.middleware.UrlQuerystringTransformMiddleware",
     "account.middleware.LocaleMiddleware",
     "account.middleware.TimezoneMiddleware",
 ]
 
-URLI18N_INCLUDE_PATHS = [
-    '/', '/home',
-]
-
-URLI18N_QUERYSTRING_NAME = 'lang'
+# URLI18N_INCLUDE_PATHS = [
+#     '/', '/home',
+# ]
+#
+# URLI18N_QUERYSTRING_NAME = 'lang'
 
 ROOT_URLCONF = "cartoterra.urls"
 
@@ -170,12 +170,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "django.contrib.gis",
-    #"sorl.thumbnail",
-    "urli18n",
-    #"guardian",
-    #"easy_thumbnails",
-    #"admin_langswitch",
-    #"django_evolution",
+    # "sorl.thumbnail",
+    # "urli18n",
+    # "guardian",
+    # "easy_thumbnails",
+    # "admin_langswitch",
+    # "django_evolution",
     "gunicorn",
     "rosetta",
     "hvad",
@@ -193,7 +193,7 @@ INSTALLED_APPS = [
 
     # project
     "geodata",
-    #"profiles",
+    # "profiles",
     "cartoterra",
 ]
 
@@ -240,7 +240,7 @@ ABSOLUTE_URL_OVERRIDES = {
 
 
 AUTHENTICATION_BACKENDS = (
-    #'guardian.backends.ObjectPermissionBackend',
+    # 'guardian.backends.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -248,11 +248,11 @@ ANONYMOUS_USER_ID = -1
 
 
 LOGIN_REDIRECT_URL = '/geodata/profiles/%(username)s/'
-#LOGIN_URL = '/profiles/signin/'
+# LOGIN_URL = '/profiles/signin/'
 LOGIN_URL = 'account/login.html'
-#LOGOUT_URL = '/profiles/signout/'
+# LOGOUT_URL = '/profiles/signout/'
 LOGOUT_URL = 'account/logout.html'
-#NOTIFICATION_LANGUAGE_MODULE = "account.Account"
+# NOTIFICATION_LANGUAGE_MODULE = "account.Account"
 
 ACCOUNT_OPEN_SIGNUP = True
 ACCOUNT_USE_OPENID = False
