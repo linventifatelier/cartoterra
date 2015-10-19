@@ -10,7 +10,7 @@ gunicorn==18.0
 setproctitle==1.1.8
 psycopg2==2.5.2
 PPyGIS==0.2
-Pillow==2.3.0
+Pillow==3.0.0
 django-urli18n==0.1
 django-haystack==2.0.0
 git+https://github.com/notanumber/xapian-haystack.git
