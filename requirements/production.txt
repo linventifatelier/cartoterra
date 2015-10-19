@@ -31,4 +31,3 @@ django-redis-sessions==0.4.0
 django-redis-cache==0.11.1
 django-imagekit==3.2
 pilkit==1.1.6
-git+https://github.com/legrostdg/pysqlite.git
