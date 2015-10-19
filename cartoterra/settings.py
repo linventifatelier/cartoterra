@@ -303,6 +303,8 @@ GEODATA_NOMINATIM_EMAIL = "linventifatelier@gueux.org"
 GEODATA_NOMINATIM_SEARCH = 'http://nominatim.openstreetmap.org/search?%s'
 GEODATA_NOMINATIM_REVERSE = 'http://nominatim.openstreetmap.org/reverse?%s'
 
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
 try:
