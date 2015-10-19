@@ -2,11 +2,11 @@
 
 ## Website
 
-https://cartoterra.net
+[https://cartoterra.net](https://cartoterra.net)
 
 ## License
 
-See COPYRIGHT file.
+See [COPYRIGHT](COPYRIGHT) file.
 
 ## Installation
 
@@ -40,4 +40,4 @@ $ source ~/cartoterra-env/bin/activate
 
 ## Author
 
-Félix Sipma felix.sipma@no-log.org
+Félix Sipma [felix.sipma@no-log.org](mailto:felix.sipma@no-log.org)
