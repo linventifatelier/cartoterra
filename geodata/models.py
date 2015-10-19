@@ -9,7 +9,7 @@ from django.utils.timezone import now
 #from image import AutoImageField
 #import os
 from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill, ResizeToFit
+from pilkit.processors import ResizeToFill, ResizeToFit
 from hvad.models import TranslatableModel, TranslatedFields
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic

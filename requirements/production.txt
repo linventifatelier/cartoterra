@@ -29,5 +29,5 @@ celery-haystack==0.9
 redis==2.9.1
 django-redis-sessions==0.4.0
 django-redis-cache==0.11.1
-django-imagekit==3.2
+django-imagekit==3.2.7
 pilkit==1.1.6
