@@ -170,7 +170,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "django.contrib.gis",
-    "south",
     #"sorl.thumbnail",
     "urli18n",
     #"guardian",
