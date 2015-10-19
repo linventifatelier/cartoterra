@@ -21,6 +21,7 @@ See COPYRIGHT file.
 - GDAL
 - PROJ.4
 - spatialite
+- libsqlite3-mod-spatialite
 
 #### Procedure
 
