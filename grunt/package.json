@@ -1,0 +1,23 @@
+{
+    "name" : "cartoterra",
+    "version" : "0.1.0",
+    "author" : "Félix Sipma",
+    "private" : true,
+
+    "devDependencies" : {
+            "grunt" :                   "~0.4.5",
+            "grunt-contrib-csslint":    "*",
+            "grunt-contrib-cssmin":     "*",
+            "grunt-contrib-sass":       "*",
+            "grunt-contrib-concat":     "*",
+            "grunt-contrib-uglify":     "*",
+            "grunt-contrib-watch":      "*",
+            "grunt-contrib-copy":       "*",
+            "grunt-contrib-clean":      "*",
+            "grunt-cssc":               "*",
+            "grunt-htmlhint":           "*",
+            "grunt-bower-task":         "*",
+            "bower":                    "*",
+            "matchdep":                 "*"
+        }
+}

@@ -2,3 +2,7 @@
 *.db
 .*.swp
 local_settings.py
+grunt/bower_components/
+grunt/build/
+grunt/node_modules/
+grunt/release/

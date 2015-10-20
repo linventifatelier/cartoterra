@@ -22,6 +22,7 @@ See [COPYRIGHT](COPYRIGHT) file.
 - PROJ.4
 - spatialite
 - libsqlite3-mod-spatialite
+- npm
 
 #### Procedure
 
@@ -29,6 +30,10 @@ See [COPYRIGHT](COPYRIGHT) file.
 $ virtualenv ~/cartoterra-env
 $ source ~/cartoterra-env/bin/activate
 (cartoterra-env)$ cd /path/to/your/cartoterra/repo
+(cartoterra-env)$ cd grunt
+(cartoterra-env)$ npm install
+(cartoterra-env)$ grunt
+(cartoterra-env)$ cd ..
 (cartoterra-env)$ pip install -r ./requirements/production.txt
 (cartoterra-env)$ pip install -r ./requirements/development.txt
 (cartoterra-env)$ spatialite cartoterra.db "SELECT InitSpatialMetaData();"
