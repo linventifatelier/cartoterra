@@ -52,12 +52,12 @@ $(function() {
 
 // searchNominatim
 function searchNominatim(search_terms) {
-  var nominatimSearchUrl = "https://open.mapquestapi.com/nominatim/v1/search.php?";
+  var nominatimSearchUrl = "https://nominatim.openstreetmap.org/search?";
   var format = "json";
   var addressdetails = 1;
   var limit = 5;
   var params = "&format=" + format + "&addressdetails=" + addressdetails + "&limit=" + limit;
-  var url = nominatimSearchUrl + params + '&q=' + search_terms;
+  var url = nominatimSearchUrl + 'q=' + search_terms + params;
 
   $.ajax({
     url: url,

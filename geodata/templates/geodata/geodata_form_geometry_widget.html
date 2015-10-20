@@ -24,7 +24,7 @@
     <input type="button" class="btn" value="{% trans "Update map" %}" onclick="panToLatLonZoom($('#latitude').val(), $('#longitude').val(), 12);">
   </div>
 
-  <label class="label" for="search_terms">{% trans "Nominatim Search Courtesy of" %} <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="{% static "img/mq_logo.png" %}"></label>
+  <label class="label" for="search_terms">{% trans "Nominatim Search Courtesy of" %} <a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap <img src="{% static "img/osm_logo.svg" %}" alt="osm_logo" width="16" height="16"></a></label>
   <label id="spin" style="display:none;"></label>
   <div>
     <input type="text" class="span3" value="" placeholder="{% trans "Address" %}" id="search_terms">
