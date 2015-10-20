@@ -7,9 +7,9 @@ import urllib
 
 class Nominatim(object):
     search_url = settings.GEODATA_NOMINATIM_SEARCH or \
-        'http://nominatim.openstreetmap.org/search?%s'
+        'https://nominatim.openstreetmap.org/search?%s'
     reverse_url = settings.GEODATA_NOMINATIM_REVERSE or \
-        'http://nominatim.openstreetmap.org/reverse?%s'
+        'https://nominatim.openstreetmap.org/reverse?%s'
 
     def make_query(self, url, params):
         f = urllib.urlopen(url % urllib.urlencode(params))

@@ -300,8 +300,8 @@ KNOWLEDGE_ALERTS = False
 
 
 GEODATA_NOMINATIM_EMAIL = "linventifatelier@gueux.org"
-GEODATA_NOMINATIM_SEARCH = 'http://nominatim.openstreetmap.org/search?%s'
-GEODATA_NOMINATIM_REVERSE = 'http://nominatim.openstreetmap.org/reverse?%s'
+GEODATA_NOMINATIM_SEARCH = 'https://nominatim.openstreetmap.org/search?%s'
+GEODATA_NOMINATIM_REVERSE = 'https://nominatim.openstreetmap.org/reverse?%s'
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
