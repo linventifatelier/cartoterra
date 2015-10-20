@@ -9,15 +9,6 @@ Files: cartoterra/static/fonts/glyphicons-halflings-* cartoterra/static/js/boots
 Copyright: © 2011-2014 Twitter, Inc.
 License: MIT
 
-Files: geodata/static/css/datepicker3.css geodata/static/js/bootstrap-datepicker.js geodata/static/js/locales/bootstrap-datepicker.*
-Copyright: 2012 Stefan Petre
-Comment: Improvements by Andrew Rowls + contributors
-License: Apache-2.0
-
-Files: geodata/static/js/spin.min.js
-Copyright: © 2011 Felix Gnass <fgnass@neteye.de>
-License: MIT
-
 Files: geodata/static/js/OpenStreetMap.js
 Copyright: © 2007-2011 Tom Hughes, Grant Slater and Christopher Schmidt from the OpenStreetMap team http://openstreetmap.org/
 License: GPL-2
@@ -26,11 +17,6 @@ Files: geodata/static/js/ol.js geodata/static/css/ol.css
 geodata/static/openlayers/*
 Copyright: © 2005-2013 OpenLayers Contributors. All rights reserved.
 License: BSD-2-clause
-
-Files: geodata/static/js/blueimp-gallery.min.js
-geodata/static/css/blueimp-gallery.min.css geodata/static/img/loading.gif geodata/static/img/play-pause.* geodata/static/img/error.* geodata/static/img/video-play.*
-Copyright: © 2013 Sebastian Tschan https://blueimp.net
-License: MIT
 
 Files: cartoterra/static/img/feed-icon*
 Copyright: Mozilla Foundation
