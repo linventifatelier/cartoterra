@@ -34,6 +34,6 @@ class BootstrapDatePicker(DateInput):
         )
         css = {
             'all': (
-                'css/datepicker3.min.css',
+                'css/bootstrap-datepicker3.min.css',
             )
         }

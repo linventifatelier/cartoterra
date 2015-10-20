@@ -51,7 +51,7 @@ module.exports = function(grunt){
 
         csslint: {
             lax: {
-                src: ['bower_components/bootstrap-datepicker/css/datepicker3.css']
+                src: ['bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css']
             },
         },
 
@@ -59,7 +59,7 @@ module.exports = function(grunt){
             minify: {
                 expand: true,
                 flatten: true,
-                src: ['bower_components/bootstrap-datepicker/css/datepicker3.css',
+                src: ['bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css',
                       'bower_components/bootstrap/dist/css/bootstrap.css',
                       'bower_components/blueimp-gallery/css/blueimp-gallery.min.css',
                       ],
@@ -102,7 +102,7 @@ module.exports = function(grunt){
                     {expand: true, flatten: true, src: ['bower_components/blueimp-gallery/img/*'], dest: 'release/geodata/img/'},
                     // bootstrap-datepicker
                     {expand: true, flatten: true, src: ['build/js/bootstrap-datepicker.min.js'], dest: 'release/geodata/js/'},
-                    {expand: true, flatten: true, src: ['build/css/datepicker3.min.js'], dest: 'release/geodata/css/'},
+                    {expand: true, flatten: true, src: ['build/css/bootstrap-datepicker3.min.css'], dest: 'release/geodata/css/'},
                     {expand: true, flatten: true, src: ['bower_components/bootstrap-datepicker/js/locales/*'], dest: 'release/geodata/js/locales/'},
                     // spin.js
                     {expand: true, flatten: true, src: ['build/js/spin.min.js'], dest: 'release/geodata/js/'},
