@@ -20,6 +20,6 @@
     "html5shiv": "~3.7.0",
     "jquery": "1.11",
     "openlayers": "release-2.13.1",
-    "spin.js": "~2.0.0"
+    "spin.js": "~2.3.2"
   }
 }
