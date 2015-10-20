@@ -62,6 +62,9 @@ module.exports = function(grunt){
                 src: ['bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css',
                       'bower_components/bootstrap/dist/css/bootstrap.css',
                       'bower_components/blueimp-gallery/css/blueimp-gallery.min.css',
+                      'bower_components/leaflet/dist/leaflet.css',
+                      'bower_components/leaflet.markercluster/dist/MarkerCluster.css',
+                      'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css',
                       ],
                 dest: 'build/css/',
                 ext: '.min.css'
@@ -83,6 +86,10 @@ module.exports = function(grunt){
                     'build/js/spin.min.js': ['bower_components/spin.js/spin.js'],
                     // openlayers
                     //'build/js/OpenLayers.min.js': ['bower_components/openlayers/build/OpenLayers.js'],
+                    // leaflet
+                    'build/js/leaflet.min.js': ['bower_components/leaflet/dist/leaflet.js'],
+                    // leaflet.markercluster
+                    'build/js/leaflet.markercluster.min.js': ['bower_components/leaflet.markercluster/dist/leaflet.markercluster.js'],
                     // bootstrap
                     'build/js/bootstrap.min.js': ['bower_components/bootstrap/dist/js/bootstrap.min.js'],
                     // html5shiv
@@ -106,6 +113,14 @@ module.exports = function(grunt){
                     {expand: true, flatten: true, src: ['bower_components/bootstrap-datepicker/js/locales/*'], dest: 'release/geodata/js/locales/'},
                     // spin.js
                     {expand: true, flatten: true, src: ['build/js/spin.min.js'], dest: 'release/geodata/js/'},
+                    // leaflet
+                    {expand: true, flatten: true, src: ['build/js/leaflet.min.js'], dest: 'release/geodata/js/'},
+                    {expand: true, flatten: true, src: ['build/css/leaflet.min.css'], dest: 'release/geodata/css/'},
+                    {expand: true, flatten: true, src: ['bower_components/leaflet/dist/images/*'], dest: 'release/geodata/img/'},
+                    // leaflet.markercluster
+                    {expand: true, flatten: true, src: ['build/js/leaflet.markercluster.min.js'], dest: 'release/geodata/js/'},
+                    {expand: true, flatten: true, src: ['build/css/MarkerCluster.min.css'], dest: 'release/geodata/css/'},
+                    {expand: true, flatten: true, src: ['build/css/MarkerCluster.Default.min.css'], dest: 'release/geodata/css/'},
                     // bootstrap
                     {expand: true, flatten: true, src: ['build/js/bootstrap.min.js'], dest: 'release/cartoterra/js/'},
                     {expand: true, flatten: true, src: ['build/css/bootstrap.min.css'], dest: 'release/cartoterra/css/'},
