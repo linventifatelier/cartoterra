@@ -64,7 +64,7 @@ module.exports = function(grunt){
                       'bower_components/blueimp-gallery/css/blueimp-gallery.min.css',
                       'bower_components/leaflet/dist/leaflet.css',
                       'bower_components/leaflet.markercluster/dist/MarkerCluster.css',
-                      'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css',
+                      'build/css/MarkerClusterDefault.css'
                       ],
                 dest: 'build/css/',
                 ext: '.min.css'
@@ -120,7 +120,7 @@ module.exports = function(grunt){
                     // leaflet.markercluster
                     {expand: true, flatten: true, src: ['build/js/leaflet.markercluster.min.js'], dest: 'release/geodata/js/'},
                     {expand: true, flatten: true, src: ['build/css/MarkerCluster.min.css'], dest: 'release/geodata/css/'},
-                    {expand: true, flatten: true, src: ['build/css/MarkerCluster.Default.min.css'], dest: 'release/geodata/css/'},
+                    {expand: true, flatten: true, src: ['build/css/MarkerClusterDefault.min.css'], dest: 'release/geodata/css/'},
                     // bootstrap
                     {expand: true, flatten: true, src: ['build/js/bootstrap.min.js'], dest: 'release/cartoterra/js/'},
                     {expand: true, flatten: true, src: ['build/css/bootstrap.min.css'], dest: 'release/cartoterra/css/'},
@@ -132,6 +132,10 @@ module.exports = function(grunt){
                     {expand: true, flatten: true, src: ['bower_components/jquery/dist/jquery.min.js'], dest: 'release/cartoterra/js/'},
                 ]
             },
+            markercluster: {
+                src: 'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css',
+                dest: 'build/css/MarkerClusterDefault.css'
+            },
             deploy: {
                 files: [
                     {expand: true, cwd: 'release/cartoterra/', src: ['**'], dest: '../cartoterra/static/'},
@@ -141,7 +145,7 @@ module.exports = function(grunt){
         },
     });
 
-    grunt.registerTask('build', ['clean', 'bower:install', 'cssmin', 'uglify', 'copy:main']);
+    grunt.registerTask('build', ['clean', 'bower:install', 'copy:markercluster', 'cssmin', 'uglify', 'copy:main']);
     grunt.registerTask('deploy', ['copy:deploy']);
     grunt.registerTask('default', ['build', 'deploy']);
 

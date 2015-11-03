@@ -4,7 +4,9 @@
 
 {% block extra_style %}
 {{ block.super }}
-<link href="{% static "css/ol.css" %}" type="text/css" rel="stylesheet">
+<link href="{% static "css/leaflet.min.css" %}" type="text/css" rel="stylesheet">
+<link href="{% static "css/MarkerCluster.min.css" %}" type="text/css" rel="stylesheet">
+<link href="{% static "css/MarkerClusterDefault.min.css" %}" type="text/css" rel="stylesheet">
 
 <!--[if IE]>
 <style type="text/css">
@@ -22,7 +24,8 @@
 {% endblock %}
 
 {% block extra_script %}
-<script type="text/javascript" src="{% static "js/ol.js" %}"></script>
+<script type="text/javascript" src="{% static "js/leaflet.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/leaflet.markercluster.min.js" %}"></script>
 <script type="text/javascript">
 //<![CDATA[
 {% include "geodata/bigmap.js" %}
@@ -32,9 +35,29 @@
 {% endblock %}
 
 {% block bigmap %}
+<div class="geodata-info modal fade" id="{{ module }}_info">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 geodata-info-content"></div>
+                    <div class="col-md-6 geodata-info-image"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a class="btn btn-primary geodata-info-detail">Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="map-toolbox">
   <div class="geodata-bigmap" id="{{ module }}_map"></div>
-  <div class="geodata-info" id="{{ module }}_info"></div>
 
   <div class="map-overlay">
   {% if not request.user.is_authenticated %}

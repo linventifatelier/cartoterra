@@ -13,6 +13,7 @@
             "grunt-contrib-uglify":     "*",
             "grunt-contrib-watch":      "*",
             "grunt-contrib-copy":       "*",
+            "grunt-contrib-rename":     "*",
             "grunt-contrib-clean":      "*",
             "grunt-cssc":               "*",
             "grunt-htmlhint":           "*",
