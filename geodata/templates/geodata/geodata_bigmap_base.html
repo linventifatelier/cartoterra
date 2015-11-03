@@ -19,7 +19,7 @@
 <![endif]-->
 
 {% block extra_extra_style %}
-<link href="{% static "css/bigmap.css" %}?v=1.1" type="text/css" rel="stylesheet">
+<link href="{% static "css/bigmap.css" %}?v=1.2" type="text/css" rel="stylesheet">
 {% endblock %}
 {% endblock %}
 
@@ -49,8 +49,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a class="btn btn-primary geodata-info-detail">Details</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                <a class="btn btn-primary geodata-info-detail">{% trans "Details" %}</a>
             </div>
         </div>
     </div>

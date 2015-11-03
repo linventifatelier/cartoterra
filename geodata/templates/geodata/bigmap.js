@@ -16,10 +16,12 @@ function gotoFeature (e) {
 
     var image = ""
     if (feature.properties.image) {
-        image = '<img src=\"' + feature.properties.image + '\" alt=\"' + feature.properties.name + '\">';
+        image = '<img class="img-thumbnail geodata-thumbnail" src=\"' + feature.properties.image + '\" alt=\"' + feature.properties.name + '\">';
+    } else {
+        image = '<div class="img-thumbnail geodata-thumbnail"><span class="glyphicon glyphicon-camera geodata-icon-empty"></span></div>'
     };
-    {{ module }}info.find('.modal-title').html(title);
     {{ module }}info.find('.geodata-info-image').html(image);
+    {{ module }}info.find('.modal-title').html(title);
     {{ module }}info.find('.geodata-info-content').html(feature.properties.name);
     {{ module }}info.find('.geodata-info-detail').attr('href', feature.properties.url);
     {{ module }}info.modal();
