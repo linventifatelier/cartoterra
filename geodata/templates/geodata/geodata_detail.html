@@ -64,17 +64,19 @@
             </h2>
             {% block geodata_detail_title_extra %}{% endblock %}
             {% block extra_geodata_toolbox %}
-            <div class="btn-group">
-                {% if user|can_edit_geodata:geodata %}
-                <a class="tooltip-geodata btn btn-default" title="{% trans "Edit" %}" href="{% url geodata_edit_url geodata.pk %}"><span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}</a>
-                <a class="tooltip-geodata btn btn-default" title="{% trans "Delete" %}" href="{% url geodata_delete_url geodata.pk %}"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete" %}</a>
+                {% if user.is_authenticated %}
+                <div class="btn-group">
+                    {% if user|can_edit_geodata:geodata %}
+                    <a class="tooltip-geodata btn btn-default" title="{% trans "Edit" %}" href="{% url geodata_edit_url geodata.pk %}"><span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}</a>
+                    <a class="tooltip-geodata btn btn-default" title="{% trans "Delete" %}" href="{% url geodata_delete_url geodata.pk %}"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete" %}</a>
+                    {% endif %}
+                    {% if user|recommends_geodata:geodata %}
+                    <a class="tooltip-geodata btn btn-default" title="{% trans "Recommend ON" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-thumbs-up"></span> {% trans "Recommend ON" %}</a>
+                    {% else %}
+                    <a class="tooltip-geodata btn btn-default" title="{% trans "Recommend OFF" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-thumbs-down"></span> {% trans "Recommend OFF" %}</a>
+                    {% endif %}
+                </div>
                 {% endif %}
-                {% if user|recommends_geodata:geodata %}
-                <a class="tooltip-geodata btn btn-default" title="{% trans "Recommend ON" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-thumbs-up"></span> {% trans "Recommend ON" %}</a>
-                {% else %}
-                <a class="tooltip-geodata btn btn-default" title="{% trans "Recommend OFF" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-thumbs-down"></span> {% trans "Recommend OFF" %}</a>
-                {% endif %}
-            </div>
             {% endblock %}
         </div>
         <div class="panel-body">
