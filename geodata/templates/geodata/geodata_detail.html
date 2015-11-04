@@ -33,20 +33,22 @@
 {{ block.super }}
 <script type="text/javascript" src="{% static "js/blueimp-gallery.min.js" %}"></script>
 <script type="text/javascript">
-  document.getElementById('gallery').onclick = function (event) {
-    event = event || window.event;
-    var target = event.target || event.srcElement,
-      link = target.src ? target.parentNode : target,
-      options = {index: link, event: event,
-                 slideshowInterval: 3000,
-                 onclosed: function() {
-                   var controlsClass = this.options.controlsClass;
-                   if (!this.container.hasClass(controlsClass)) {
-                       this.container.addClass(controlsClass);
-                   }
-                }},
-      links = this.getElementsByTagName('a');
-    blueimp.Gallery(links, options);
+  if (document.getElementById('gallery')) {
+    document.getElementById('gallery').onclick = function (event) {
+      event = event || window.event;
+      var target = event.target || event.srcElement,
+        link = target.src ? target.parentNode : target,
+        options = {index: link, event: event,
+                   slideshowInterval: 3000,
+                   onclosed: function() {
+                     var controlsClass = this.options.controlsClass;
+                     if (!this.container.hasClass(controlsClass)) {
+                         this.container.addClass(controlsClass);
+                     }
+                  }},
+        links = this.getElementsByTagName('a');
+      blueimp.Gallery(links, options);
+    };
   };
 </script>
 {% endblock %}
