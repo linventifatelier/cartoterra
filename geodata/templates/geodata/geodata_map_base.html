@@ -5,8 +5,6 @@
 {% block extra_style %}
 {{ block.super }}
 <link href="{% static "css/leaflet.min.css" %}" type="text/css" rel="stylesheet">
-<link href="{% static "css/MarkerCluster.min.css" %}" type="text/css" rel="stylesheet">
-<link href="{% static "css/MarkerClusterDefault.min.css" %}" type="text/css" rel="stylesheet">
 
 <!--[if IE]>
 <style type="text/css">
@@ -21,7 +19,6 @@
 
 {% block extra_script %}
 <script type="text/javascript" src="{% static "js/leaflet.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/leaflet.markercluster.min.js" %}"></script>
 {{ block.super }}
 {% endblock %}
 

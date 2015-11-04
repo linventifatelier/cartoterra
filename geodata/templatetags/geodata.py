@@ -12,3 +12,8 @@ def world_heritage_logo():
 @register.simple_tag
 def unesco_chair_logo():
     return '<img alt="unesco-chair" width="100" src="%s" />' % (static('img/unesco_chair_logo.png'))
+
+
+@register.filter
+def to_leaflet(coords):
+    return '[%s, %s]' % (coords[1], coords[0])

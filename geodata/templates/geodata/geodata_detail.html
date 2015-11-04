@@ -8,7 +8,7 @@
 {{ block.super }}
 <link rel="stylesheet" href="{% static "css/blueimp-gallery.min.css" %}" type="text/css">
 <link rel="stylesheet" href="{% static "css/bigmap.css" %}?v=1.2" type="text/css" />
-<link rel="stylesheet" href="{% static "css/detail.css" %}?v=1.1" type="text/css" />
+<link rel="stylesheet" href="{% static "css/detail.css" %}?v=1.2" type="text/css" />
 {% endblock %}
 
 {% block extra_geodata_toolbox %}
@@ -31,6 +31,11 @@
 
 {% block extra_script %}
 {{ block.super }}
+<script type="text/javascript">
+//<![CDATA[
+{% include "geodata/smallmap.js" %}
+//]]>
+</script>
 <script type="text/javascript" src="{% static "js/blueimp-gallery.min.js" %}"></script>
 <script type="text/javascript">
   if (document.getElementById('gallery')) {
@@ -78,19 +83,26 @@
             {% block geodata_detail_title_extra %}{% endblock %}
         </div>
         <div class="panel-body">
-        {% if geodata.description %}
-            {{ geodata.description }}
-        {% endif %}
+            <div class="row">
+                <div class="col-md-8">
+                {% if geodata.description %}
+                    {{ geodata.description }}
+                {% endif %}
 
-        {% if geodata.image.all %}
-            <div class="set" id="gallery">
-                {% for image in geodata.image.all %}
-                {% with image.thumbnail as im %}
-                <a href="{{ image.display.url }}" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" /></a>
-                {% endwith %}
-                {% endfor %}
+                {% if geodata.image.all %}
+                    <div class="set" id="gallery">
+                        {% for image in geodata.image.all %}
+                        {% with image.thumbnail as im %}
+                        <a href="{{ image.display.url }}" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" /></a>
+                        {% endwith %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                </div>
+                <div class="col-md-4">
+                    <div class="geodata-smallmap" id="{{ module }}_map"></div>
+                </div>
             </div>
-        {% endif %}
         </div>
 
         <table class="table table-striped">
