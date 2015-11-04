@@ -11,7 +11,7 @@ body {
 
 a {
   color: #5268ae;
-} 
+}
 
 p {
   font-size: 16px;
@@ -108,7 +108,7 @@ input[type="color"],
 
 .cartoterra-header {
   background-color: rgb(34,34,34);
-  background-color: rgba(34,34,34,0.7);
+  background-color: rgba(34,34,34,0.90);
   z-index: 300;
   width: 100%;
   position: relative;
@@ -236,4 +236,26 @@ body:before {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+.cartoterra-header.alert {
+  border-radius: 0;
+}
+
+.cartoterra-header h1,
+.cartoterra-header h2,
+.cartoterra-header h3,
+.cartoterra-header h4,
+.cartoterra-header h5,
+.cartoterra-header h6 {
+  color: #ffffff;
+}
+
+.cartoterra-header .close {
+  color: #ffffff;
+  opacity: .5;
+}
+
+.cartoterra-donate {
+  padding-top: 1em;
 }

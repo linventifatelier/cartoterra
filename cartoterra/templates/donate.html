@@ -1,0 +1,44 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block head_title %}{% trans "Donate" %}{% endblock %}
+
+{% block body %}
+<div class="cartoterra-donate text-center">
+    <div class="jumbotron">
+        <h2>
+            {% trans "We need your help to keep Cartoterra.net alive!" %}
+        </h2>
+        <p>
+            {% trans "Please consider donating to sustain Cartoterra.net." %}
+        </p>
+
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <!-- Identify your business so that you can collect the payments. -->
+            <input type="hidden" name="business" value="toto@gmail.com">
+            <!-- Specify a Donate button. -->
+            <input type="hidden" name="cmd" value="_donations">
+            <!-- Specify details about the contribution -->
+            <input type="hidden" name="item_name" value="Donation">
+            <input type="hidden" name="item_number" value="Donation">
+            <div class="form-group">
+                <label for="amount">{% trans "Donation amount:" %}</label>
+                <select name="amount">
+                    <option value="10.00">10.00€</option>
+                    <option value="25.00">20.00€</option>
+                    <option value="50.00">50.00€</option>
+                    <option value="100.00">100.00€</option>
+                    <option value="200.00">200.00€</option>
+                    <option value="500.00">500.00€</option>
+                    <option value="1000.00">1000.00€</option>
+                </select>
+            </div>
+            <input type="hidden" name="currency_code" value="EUR">
+            <!-- Display the payment button. -->
+            <input type="image" name="submit" border="0" src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_cc_147x47.png" alt="PayPal - The safer, easier way to pay online">
+        </form>
+    </div>
+</div>
+{% endblock %}

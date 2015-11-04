@@ -49,6 +49,9 @@
       {% include "_help.html" %}
       </div>
     </li>
+    <li id="tab_donate">
+      <a href="{% url "donate" %}"><span class="glyphicon glyphicon-heart"></span> {% trans "Donate!" %}</a>
+    </li>
     <li id="tab_search">
       <div class="col-xs-4 col-md-12 col-sm-12">
       <form class="cartoterra-navbar-form-search navbar-form navbar-search" action="/search/?q=">
