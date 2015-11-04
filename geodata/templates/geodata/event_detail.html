@@ -15,17 +15,14 @@
         {{ geodata.get_event_type_display }}
     </td>
 </tr>
+{% if geodata.unesco_chair %}
 <tr>
     <th>{% trans "UNESCO Chair Earthen Architecture" %}</th>
     <td>
-    {% if geodata.unesco_chair %}
-        {% trans "Yes!" %}
         {% unesco_chair_logo %}
-    {% else %}
-        {% trans "No." %}
-    {% endif %}
     </td>
 </tr>
+{% endif %}
 <tr>
     <th>{% trans "Dates" %}</th>
     <td>

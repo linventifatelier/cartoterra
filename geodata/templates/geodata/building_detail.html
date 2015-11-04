@@ -55,17 +55,14 @@
     {% endif %}
     </td>
 </tr>
+{% if geodata.unesco %}
 <tr>
     <th>{% trans "World heritage" %}</th>
     <td>
-    {% if geodata.unesco %}
-        {% trans "Yes!" %}
         {% world_heritage_logo %}
-    {% else %}
-        {% trans "No." %}
-    {% endif %}
     </td>
 </tr>
+{% endif %}
 <tr>
     <th>{% trans "Inauguration date" %}</th>
     <td>
