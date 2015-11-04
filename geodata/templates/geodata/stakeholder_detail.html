@@ -2,6 +2,12 @@
 {% load i18n %}
 {% load world_heritage_logo %}
 
+{% block geodata_detail_title_extra %}
+    {% if geodata.unesco_chair %}
+        {% world_heritage_logo %}
+    {% endif %}
+{% endblock %}
+
 {% block body_geodata_extra %}
 <tr>
     <th>{% trans "Roles" %}</th>

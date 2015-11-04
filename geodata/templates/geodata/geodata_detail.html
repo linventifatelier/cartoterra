@@ -73,7 +73,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2>
-                {{ geodata_verbose_name }}: {{ geodata.name }}
+                {{ geodata_verbose_name }}: {{ geodata.name }}{% block geodata_detail_title_extra %}{% endblock %}
             </h2>
         </div>
         <div class="panel-body">
