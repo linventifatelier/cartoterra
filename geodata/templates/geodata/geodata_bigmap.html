@@ -152,23 +152,18 @@
       {% if user.is_authenticated %}
         <div class="panel panel-default">
           <div class="panel-heading">
-            <a href="#collapse-toolbox" class="panel-title accordion-toggle tooltip-geodata collapsed" title="{% trans "Toolbox" %}" data-toggle="collapse" data-parent="#geodata-list">{% trans "Toolbox" %}</a>
+            <a href="#collapse-toolbox" class="panel-title accordion-toggle tooltip-geodata collapsed" title="{% trans "Add a geodata" %}" data-toggle="collapse" data-parent="#geodata-list">{% trans "Add a geodata" %}</a>
           </div>
           <div id="collapse-toolbox" class="panel-collapse collapse">
             <div class="panel-body">
-              <ul>
-                <li>
-                  <a href="#collapse-add" class="accordion-toggle tooltip-geodata collapsed" title="{% trans "Add geodata" %}" data-toggle="collapse" data-parent="#collapse-toolbox"><span class="glyphicon glyphicon-plus-sign"></span> {% trans "Add geodata" %}</a>
-                  <ul id="collapse-add" class="collapse">
-                    <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Building" %}" /> {% trans "Building" %}</a></li>
-                    <li><a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Worksite" %}" /> {% trans "Worksite" %}</a></li>
-                    <li><a href="{% url "add_event" %}"><img src="{% static "img/event_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Event" %}" /> {% trans "Event" %}</a></li>
-                    <li><a href="{% url "add_stakeholder" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Stakeholder" %}" /> {% trans "Stakeholder" %}</a></li>
-                  </ul>
-                </li>
-                {% block extra_geodata_toolbox %}
-                {% endblock %}
+              <ul id="collapse-add">
+                <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Building" %}" /> {% trans "Building" %}</a></li>
+                <li><a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Worksite" %}" /> {% trans "Worksite" %}</a></li>
+                <li><a href="{% url "add_event" %}"><img src="{% static "img/event_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Event" %}" /> {% trans "Event" %}</a></li>
+                <li><a href="{% url "add_stakeholder" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Stakeholder" %}" /> {% trans "Stakeholder" %}</a></li>
               </ul>
+              {% block extra_geodata_toolbox %}
+              {% endblock %}
             </div>
           </div>
         </div>
