@@ -1,10 +1,10 @@
 {% extends "geodata/geodata_detail.html" %}
 {% load i18n %}
-{% load world_heritage_logo %}
+{% load geodata %}
 
 {% block geodata_detail_title_extra %}
     {% if geodata.unesco_chair %}
-        {% world_heritage_logo %}
+        {% unesco_chair_logo %}
     {% endif %}
 {% endblock %}
 
@@ -20,7 +20,7 @@
     <td>
     {% if geodata.unesco_chair %}
         {% trans "Yes!" %}
-        {% world_heritage_logo %}
+        {% unesco_chair_logo %}
     {% else %}
         {% trans "No." %}
     {% endif %}
