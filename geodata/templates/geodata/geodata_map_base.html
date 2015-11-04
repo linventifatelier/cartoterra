@@ -1,0 +1,27 @@
+{% extends "geodata/geodata_base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extra_style %}
+{{ block.super }}
+<link href="{% static "css/leaflet.min.css" %}" type="text/css" rel="stylesheet">
+<link href="{% static "css/MarkerCluster.min.css" %}" type="text/css" rel="stylesheet">
+<link href="{% static "css/MarkerClusterDefault.min.css" %}" type="text/css" rel="stylesheet">
+
+<!--[if IE]>
+<style type="text/css">
+  /* This fixes the mouse offset issues in IE. */
+  #{{ id }}_map { position: static; vertical-align: top; }
+  /* `font-size: 0` fixes the 1px border between tiles, but borks LayerSwitcher.
+      Thus, this is disabled until a better fix is found.
+  #{{ id }}_map { width: {{ map_width }}px; height: {{ map_height }}px; font-size: 0; } */
+</style>
+<![endif]-->
+{% endblock %}
+
+{% block extra_script %}
+<script type="text/javascript" src="{% static "js/leaflet.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/leaflet.markercluster.min.js" %}"></script>
+{{ block.super }}
+{% endblock %}
+

@@ -1,25 +1,31 @@
 {% extends "geodata/geodata_detail.html" %}
 {% load i18n %}
+{% load world_heritage_logo %}
 
 {% block body_geodata_extra %}
-    <div>
-        {% trans "Roles" %}:
-        {% if geodata.role.all %}
-            <ul>
-            {% for role in geodata.role.all %}
-                <li>{{ role }}</li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            {% trans "not provided" %}.
-        {% endif %}
-    </div>
-    <div>
-        {% trans "UNESCO Chair Earthen Architecture" %}:
-        {% if geodata.unesco_chair %}
-            {% trans "Yes!" %}
-        {% else %}
-            {% trans "No." %}
-        {% endif %}
-    </div>
+<tr>
+    <th>{% trans "Roles" %}</th>
+    <td>
+    {% if geodata.role.all %}
+        <ul>
+        {% for role in geodata.role.all %}
+            <li>{{ role }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        {% trans "not provided" %}.
+    {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>{% trans "UNESCO Chair Earthen Architecture" %}</th>
+    <td>
+    {% if geodata.unesco_chair %}
+        {% trans "Yes!" %}
+        {% world_heritage_logo %}
+    {% else %}
+        {% trans "No." %}
+    {% endif %}
+    </td>
+</tr>
 {% endblock %}

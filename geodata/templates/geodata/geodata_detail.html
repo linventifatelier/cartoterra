@@ -1,9 +1,15 @@
-{% extends "geodata/geodata_bigmap_base.html" %}
+{% extends "geodata/geodata_map_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
 {% load can_edit_geodata %}
 {% load recommends_geodata %}
 
+{% block extra_style %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "css/blueimp-gallery.min.css" %}" type="text/css">
+<link rel="stylesheet" href="{% static "css/bigmap.css" %}?v=1.2" type="text/css" />
+<link rel="stylesheet" href="{% static "css/detail.css" %}?v=1.1" type="text/css" />
+{% endblock %}
 
 {% block extra_geodata_toolbox %}
     {% if user|can_edit_geodata:geodata %}
@@ -21,12 +27,6 @@
       <a class="tooltip-geodata" title="{% trans "Recommend OFF" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-thumbs-down"></span> {% trans "Recommend OFF" %}</a>
     {% endif %}
     </li>
-{% endblock %}
-
-{% block extra_extra_style %}
-<link rel="stylesheet" href="{% static "css/blueimp-gallery.min.css" %}" type="text/css">
-<link rel="stylesheet" href="{% static "css/bigmap.css" %}?v=1.2" type="text/css" />
-<link rel="stylesheet" href="{% static "css/detail.css" %}?v=1.1" type="text/css" />
 {% endblock %}
 
 {% block extra_script %}
@@ -59,22 +59,7 @@
 
 {% block body %}
 {{ block.super }}
-    <h1>{% block body_geodata_type %}{{ geodata_verbose_name }}{% endblock %}: {{ geodata.name }}</h1>
-
-    {% block body_geodata_extra %}
-    {% endblock %}
-
     {% if geodata.image.all %}
-    <div>
-      {% if geodata.image.all|length > 1 %}{% trans "Images" %}{% else %}{% trans "Image" %}{% endif %}:
-      <div class="set" id="gallery">
-        {% for image in geodata.image.all %}
-        {% with image.thumbnail as im %}
-        <a href="{{ image.display.url }}" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" /></a>
-        {% endwith %}
-        {% endfor %}
-      </div>
-    </div>
     <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
       <div class="slides"></div>
       <h3 class="title"></h3>
@@ -85,20 +70,41 @@
       <ol class="indicator"></ol>
     </div>
     {% endif %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>
+                {{ geodata_verbose_name }}: {{ geodata.name }}
+            </h2>
+        </div>
+        <div class="panel-body">
+        {% if geodata.description %}
+            {{ geodata.description }}
+        {% endif %}
 
-    {% if geodata.description %}
-    <div>
-        {% trans "Description" %}:<br>
-        {{ geodata.description }}
-    </div>
-    {% endif %}
+        {% if geodata.image.all %}
+            <div class="set" id="gallery">
+                {% for image in geodata.image.all %}
+                {% with image.thumbnail as im %}
+                <a href="{{ image.display.url }}" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" /></a>
+                {% endwith %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        </div>
 
-    <div>
-      {% trans "Contacts" %}:
-      <ul>
-          {% if geodata.credit_creator %}<li>{% trans "User" %}: <address><a href="{% url "profile_detail" geodata.creator %}">{{ geodata.creator }}</a></address></li>{% endif %}
-          {% if geodata.url %}<li>{% trans "Website" %}: <a href={{ geodata.url }}>{{ geodata.url }}</a></li>{% endif %}
-          {% if geodata.contact %}<li>{% trans "Other contact information" %}: <address>{{ geodata.contact }}</address></li>{% endif %}
-      </ul>
+        <table class="table table-striped">
+            {% block body_geodata_extra %}
+            {% endblock %}
+            <tr>
+                <th>{% trans "Contacts" %}</th>
+                <td>
+                    <ul>
+                        {% if geodata.credit_creator %}<li>{% trans "User" %}: <address><a href="{% url "profile_detail" geodata.creator %}">{{ geodata.creator }}</a></address></li>{% endif %}
+                        {% if geodata.url %}<li>{% trans "Website" %}: <a href={{ geodata.url }}>{{ geodata.url }}</a></li>{% endif %}
+                        {% if geodata.contact %}<li>{% trans "Other contact information" %}: <address>{{ geodata.contact }}</address></li>{% endif %}
+                    </ul>
+                </td>
+            </tr>
+        </table>
     </div>
 {% endblock %}

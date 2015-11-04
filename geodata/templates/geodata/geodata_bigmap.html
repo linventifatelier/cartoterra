@@ -1,10 +1,20 @@
-{% extends "geodata/geodata_bigmap_base.html" %}
+{% extends "geodata/geodata_map_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
 
-{% block extra_extra_style %}
+{% block extra_style %}
 {{ block.super }}
+<link rel="stylesheet" href="{% static "css/bigmap.css" %}?v=1.2" type="text/css">
 <link rel="stylesheet" href="{% static "css/bigmap-only.css" %}?v=1.1" type="text/css" />
+{% endblock %}
+
+{% block extra_script %}
+{{ block.super }}
+<script type="text/javascript">
+//<![CDATA[
+{% include "geodata/bigmap.js" %}
+//]]>
+</script>
 {% endblock %}
 
 {% block head_title %}{% trans "All GeoData" %}{% endblock %}
@@ -24,4 +34,144 @@
 {% endblock %}
 
 {% block footer_base %}
+{% endblock %}
+
+{% block bigmap %}
+<div class="geodata-info modal fade" id="{{ module }}_info">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 geodata-info-content"></div>
+                    <div class="col-md-6 geodata-info-image"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                <a class="btn btn-primary geodata-info-detail">{% trans "Details" %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="map-toolbox">
+  <div class="geodata-bigmap" id="{{ module }}_map"></div>
+
+  <div class="map-overlay">
+  {% if not request.user.is_authenticated %}
+    <div class="cartoterra-header text-center">
+      <div class="container">
+        {% include "_sidebar.html" %}
+      </div>
+    </div>
+  {% endif %}
+    <div class="geodata-side-toolbar">
+      <div id="{{ module }}_controls"></div>
+      <div class="geodata-list panel-group" id="geodata-list">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <a href="#collapse-building" class="panel-title accordion-toggle tooltip-geodata collapsed" title="{% trans "Buildings" %}" data-toggle="collapse" data-parent="#geodata-list">
+              <img src="{% static "img/building_icon_h25.png" %}" width="25" height="25" alt="" /> {% trans "Buildings" %}
+            </a>
+          </div>
+          <div id="collapse-building" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul>
+                <li><a href="{% url "show_building_all" %}"><img src="{% static "img/building_icon_h25.png" %}" width="10" height="10" alt="" /> {% trans "All buildings" %}</a></li>
+                <li><a href="{% url "show_building_unesco" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" alt="" /> {% trans "World Heritage" %}</a></li>
+                <li><a href="{% url "show_building_contemporary" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" alt="" /> {% trans "Contemporary" %}</a></li>
+                <li><a href="{% url "show_building_vernacular" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" alt="" /> {% trans "Heritage" %}</a></li>
+                <li><a href="{% url "show_building_normal" %}"><img src="{% static "img/building_dot.png" %}" width="10" height="10" alt="" /> {% trans "Other" %}</a></li>
+              </ul>
+              <div class="geodata-rss">
+                <a rel="rss" href="{% url "feed_building" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="" /> {% trans "Buildings" %}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <a href="#collapse-worksite" class="panel-title accordion-toggle tooltip-geodata collapsed" title="{% trans "Worksites" %}" data-toggle="collapse" data-parent="#geodata-list"><img src="{% static "img/worksite_icon_h25.png" %}" width="25" height="25" alt="" /> {% trans "Worksites" %}</a>
+          </div>
+          <div id="collapse-worksite" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul>
+                <li><a href="{% url "show_worksite_all" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="10" height="10" alt="" /> {% trans "All worksites" %}</a></li>
+                <li><a href="{% url "show_worksite_participative" %}"><img src="{% static "img/worksite_dot.png" %}" width="10" height="10" alt="" /> {% trans "Participative" %}</a></li>
+                <li><a href="{% url "show_worksite_normal" %}"><img src="{% static "img/worksite_dot.png" %}" width="10" height="10" alt="" /> {% trans "Normal" %}</a></li>
+              </ul>
+              <div class="geodata-rss">
+                <a rel="rss" href="{% url "feed_worksite" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="" /> {% trans "Worksites" %}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <a href="#collapse-event" class="panel-title accordion-toggle tooltip-geodata collapsed" title="{% trans "Events" %}" data-toggle="collapse" data-parent="#geodata-list"><img src="{% static "img/event_icon_h25.png" %}" width="25" height="25" alt="" /> {% trans "Events" %}</a>
+          </div>
+          <div id="collapse-event" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul>
+                <li><a href="{% url "show_event_all" %}"><img src="{% static "img/event_icon_h25.png" %}" width="10" height="10" alt="" /> {% trans "All events" %}</a></li>
+                <li><a href="{% url "show_event_of_type" "seminar" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" alt="" /> {% trans "Seminar" %}</a></li>
+                <li><a href="{% url "show_event_of_type" "training" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" alt="" /> {% trans "Training" %}</a></li>
+                <li><a href="{% url "show_event_of_type" "conference" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" alt="" /> {% trans "Conference" %}</a></li>
+                <li><a href="{% url "show_event_of_type" "exhibition" %}"><img src="{% static "img/event_dot.png" %}" width="10" height="10" alt="" /> {% trans "Exhibition" %}</a></li>
+              </ul>
+              <div class="geodata-rss">
+                <a rel="rss" href="{% url "feed_event" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="" /> {% trans "Events" %}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <a href="#collapse-stakeholder" class="panel-title accordion-toggle tooltip-geodata collapsed" title="{% trans "Stakeholders" %}" data-toggle="collapse" data-parent="#geodata-list"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="25" height="25" alt="" /> {% trans "Stakeholders" %}</a>
+          </div>
+          <div id="collapse-stakeholder" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul>
+                <li><a href="{% url "show_stakeholder_all" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="10" height="10" alt="" /> {% trans "All stakeholders" %}</a></li>
+                <li><a href="{% url "show_stakeholder_of_role" "architect" %}"><img src="{% static "img/stakeholder_dot.png" %}" width="10" height="10" alt="" /> {% trans "Architects" %}</a></li>
+              </ul>
+              <div class="geodata-rss">
+                <a rel="rss" href="{% url "feed_stakeholder" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="" /> {% trans "Stakeholders" %}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {% if user.is_authenticated %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <a href="#collapse-toolbox" class="panel-title accordion-toggle tooltip-geodata collapsed" title="{% trans "Toolbox" %}" data-toggle="collapse" data-parent="#geodata-list">{% trans "Toolbox" %}</a>
+          </div>
+          <div id="collapse-toolbox" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul>
+                <li>
+                  <a href="#collapse-add" class="accordion-toggle tooltip-geodata collapsed" title="{% trans "Add geodata" %}" data-toggle="collapse" data-parent="#collapse-toolbox"><span class="glyphicon glyphicon-plus-sign"></span> {% trans "Add geodata" %}</a>
+                  <ul id="collapse-add" class="collapse">
+                    <li><a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Building" %}" /> {% trans "Building" %}</a></li>
+                    <li><a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Worksite" %}" /> {% trans "Worksite" %}</a></li>
+                    <li><a href="{% url "add_event" %}"><img src="{% static "img/event_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Event" %}" /> {% trans "Event" %}</a></li>
+                    <li><a href="{% url "add_stakeholder" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Stakeholder" %}" /> {% trans "Stakeholder" %}</a></li>
+                  </ul>
+                </li>
+                {% block extra_geodata_toolbox %}
+                {% endblock %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

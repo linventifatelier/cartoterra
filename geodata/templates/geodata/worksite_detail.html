@@ -2,37 +2,42 @@
 {% load i18n %}
 
 {% block body_geodata_extra %}
-    <div>
-        {% trans "Stakeholders" %}:
-        {% if geodata.stakeholder.all %}
-            <ul>
-            {% for person in geodata.stakeholder.all %}
-                <li>{{ person.name }} {% if person.role.all %}({{ person.role.all|join:", " }}){% endif %}</li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            {% trans "not provided" %}.
-        {% endif %}
-    </div>
-    <div>
-        {% trans "Techniques" %}:
-        {% if geodata.techniques.all %}
-            <ul>
-            {% for technique in geodata.techniques.all %}
-                <li>{{ technique.name }}</li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            {% trans "not provided" %}.
-        {% endif %}
-    </div>
-
-    <div>
-        {% trans "Participative worksite" %}:
-        {% if geodata.participative %}
-            {% trans "Yes!" %}
-        {% else %}
-            {% trans "No." %}
-        {% endif %}
-    </div>
+<tr>
+    <th>{% trans "Stakeholders" %}</th>
+    <td>
+    {% if geodata.stakeholder.all %}
+        <ul>
+        {% for person in geodata.stakeholder.all %}
+            <li>{{ person.name }} {% if person.role.all %}({{ person.role.all|join:", " }}){% endif %}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        {% trans "not provided" %}.
+    {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>{% trans "Techniques" %}</th>
+    <td>
+    {% if geodata.techniques.all %}
+        <ul>
+        {% for technique in geodata.techniques.all %}
+            <li>{{ technique.name }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        {% trans "not provided" %}.
+    {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>{% trans "Participative worksite" %}</th>
+    <td>
+    {% if geodata.participative %}
+        {% trans "Yes!" %}
+    {% else %}
+        {% trans "No." %}
+    {% endif %}
+    </td>
+</tr>
 {% endblock %}

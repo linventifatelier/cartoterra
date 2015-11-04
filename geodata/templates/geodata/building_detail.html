@@ -1,67 +1,73 @@
 {% extends "geodata/geodata_detail.html" %}
 {% load i18n %}
+{% load world_heritage_logo %}
 
 {% block body_geodata_extra %}
-    <div>
-
-        {% if geodata.architects %}
-            {% trans "Architects" %}:<br>
-            {{ geodata.architects }}
-        {% endif %}
-
-        {% comment %}
-        {% trans "Architects" %}:
-        {% if geodata.architects.all %}
-            <ul>
-            {% for architect in geodata.architects.all %}
-                <li>{{ architect.name }}</li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            {% trans "not provided" %}.
-        {% endif %}
-        {% endcomment %}
-    </div>
-    <div>
-        {% trans "Stakeholders" %}:
-        {% if geodata.stakeholder.all %}
-            <ul>
-            {% for person in geodata.stakeholder.all %}
-                <li>{{ person.name }} {% if person.role.all %}({{ person.role.all|join:", " }}){% endif %}</li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            {% trans "not provided" %}.
-        {% endif %}
-    </div>
-    <div>
-        {% trans "Techniques" %}:
-        {% if geodata.techniques.all %}
-            <ul>
-            {% for technique in geodata.techniques.all %}
-                <li>{{ technique.name }}</li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            {% trans "not provided" %}.
-        {% endif %}
-    </div>
-
-    <div>
-        {% trans "World heritage" %}:
-        {% if geodata.unesco %}
-            {% trans "Yes!" %}
-        {% else %}
-            {% trans "No." %}
-        {% endif %}
-    </div>
-
-    <div>
-        {% trans "Inauguration date" %}:
-        {% if geodata.inauguration_date %}
-	    {{ geodata.inauguration_date }}
-        {% else %}
-            {% trans "not provided" %}.
-        {% endif %}
-    </div>
+{% if geodata.architects %}
+<tr>
+    <th>{% trans "Architects" %}</td>
+    <td>{{ geodata.architects }}</td>
+    {% comment %}
+    {% trans "Architects" %}:
+    {% if geodata.architects.all %}
+        <ul>
+        {% for architect in geodata.architects.all %}
+            <li>{{ architect.name }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        {% trans "not provided" %}.
+    {% endif %}
+    {% endcomment %}
+</tr>
+{% endif %}
+<tr>
+    <th>{% trans "Stakeholders" %}</th>
+    <td>
+    {% if geodata.stakeholder.all %}
+        <ul>
+        {% for person in geodata.stakeholder.all %}
+            <li>{{ person.name }} {% if person.role.all %}({{ person.role.all|join:", " }}){% endif %}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        {% trans "not provided" %}.
+    {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>{% trans "Techniques" %}</th>
+    <td>
+    {% if geodata.techniques.all %}
+        <ul>
+        {% for technique in geodata.techniques.all %}
+            <li>{{ technique.name }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        {% trans "not provided" %}.
+    {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>{% trans "World heritage" %}</th>
+    <td>
+    {% if geodata.unesco %}
+        {% trans "Yes!" %}
+        {% world_heritage_logo %}
+    {% else %}
+        {% trans "No." %}
+    {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>{% trans "Inauguration date" %}</th>
+    <td>
+    {% if geodata.inauguration_date %}
+        {{ geodata.inauguration_date }}
+    {% else %}
+        {% trans "not provided" %}.
+    {% endif %}
+    </td>
+</tr>
 {% endblock %}

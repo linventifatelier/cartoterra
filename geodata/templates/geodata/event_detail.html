@@ -1,51 +1,67 @@
 {% extends "geodata/geodata_detail.html" %}
 {% load i18n %}
+{% load world_heritage_logo %}
 
 {% block body_geodata_extra %}
-    <div>
-        {% trans "Event type" %}: {{ geodata.get_event_type_display }}
-    </div>
-    <div>
-        {% trans "UNESCO Chair Earthen Architecture" %}:
-        {% if geodata.unesco_chair %}
-            {% trans "Yes!" %}
-        {% else %}
-            {% trans "No." %}
-        {% endif %}
-    </div>
-    <div>
-        {% trans "Dates" %}: {{ geodata.beginning_date }} - {{ geodata.end_date }}
-    </div>
-    <div>
-        {% trans "Number of stakeholders" %}:
-        {% if geodata.number_of_stakeholders %}
-            {{ geodata.number_of_stakeholders }}
-        {% else %}
-            {% trans "not provided" %}.
-        {% endif %}
-    </div>
-    <div>
-        {% trans "Type of stakeholders" %}:
-        {% if geodata.type_of_stakeholders.all %}
-            <ul>
-            {% for role in geodata.type_of_stakeholders.all %}
-                <li>{{ role }}</li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            {% trans "not provided" %}.
-        {% endif %}
-    </div>
-    <div>
-        {% trans "Cartoterra.net stakeholders" %}:
-        {% if geodata.stakeholder.all %}
-            <ul>
-            {% for person in geodata.stakeholder.all %}
-                <li><a href="{{ person.get_absolute_url }}">{{ person.name }}{% if person.role.all %} ({{ person.role.all|join:", " }}){% endif %}</a></li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            {% trans "not provided" %}.
-        {% endif %}
-    </div>
+<tr>
+    <th>{% trans "Event type" %}</th>
+    <td>
+        {{ geodata.get_event_type_display }}
+    </td>
+</tr>
+<tr>
+    <th>{% trans "UNESCO Chair Earthen Architecture" %}</th>
+    <td>
+    {% if geodata.unesco_chair %}
+        {% trans "Yes!" %}
+        {% world_heritage_logo %}
+    {% else %}
+        {% trans "No." %}
+    {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>{% trans "Dates" %}</th>
+    <td>
+        {{ geodata.beginning_date }} - {{ geodata.end_date }}
+    </td>
+</tr>
+<tr>
+    <th>{% trans "Number of stakeholders" %}</th>
+    <td>
+    {% if geodata.number_of_stakeholders %}
+        {{ geodata.number_of_stakeholders }}
+    {% else %}
+        {% trans "not provided" %}.
+    {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>{% trans "Type of stakeholders" %}</th>
+    <td>
+    {% if geodata.type_of_stakeholders.all %}
+        <ul>
+        {% for role in geodata.type_of_stakeholders.all %}
+            <li>{{ role }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        {% trans "not provided" %}.
+    {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>{% trans "Stakeholders" %}</th>
+    <td>
+    {% if geodata.stakeholder.all %}
+        <ul>
+        {% for person in geodata.stakeholder.all %}
+            <li><a href="{{ person.get_absolute_url }}">{{ person.name }}{% if person.role.all %} ({{ person.role.all|join:", " }}){% endif %}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        {% trans "not provided" %}.
+    {% endif %}
+    </td>
+</tr>
 {% endblock %}
