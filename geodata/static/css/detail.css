@@ -38,3 +38,7 @@
 .geodata-smallmap {
     height: 200px;
 }
+
+#main {
+    padding-top: 1em;
+}
