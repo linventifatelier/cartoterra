@@ -1,4 +1,5 @@
 from django.views.generic.base import TemplateView
+from django.conf import settings
 import account.views
 import cartoterra.forms
 
@@ -9,3 +10,8 @@ class SignupView(account.views.SignupView):
 
 class DonateView(TemplateView):
     template_name = "donate.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(DonateView, self).get_context_data(**kwargs)
+        context['donate_email'] = settings.GEODATA_PAYPAL_ID
+        return context

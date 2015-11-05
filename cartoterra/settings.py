@@ -303,6 +303,8 @@ GEODATA_NOMINATIM_EMAIL = "linventifatelier@gueux.org"
 GEODATA_NOMINATIM_SEARCH = 'https://nominatim.openstreetmap.org/search?%s'
 GEODATA_NOMINATIM_REVERSE = 'https://nominatim.openstreetmap.org/reverse?%s'
 
+GEODATA_PAYPAL_ID = "felix.sipma@no-log.org"
+
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # local_settings.py can be used to override environment-specific settings
