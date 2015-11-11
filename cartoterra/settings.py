@@ -313,7 +313,9 @@ LEAFLET_CONFIG = {
         'forms': {
             'auto-include': True
         }
-    }
+    },
+    'RESET_VIEW': False,
+    'TILES': 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 }
 
 # local_settings.py can be used to override environment-specific settings
