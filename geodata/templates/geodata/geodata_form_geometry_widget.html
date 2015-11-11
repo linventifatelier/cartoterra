@@ -1,8 +1,15 @@
-{% load static %}
+{% extends "leaflet/widget.html" %}
+{% load leaflet_tags %}
+{% load staticfiles %}
 {% load i18n %}
 
+{% block callback %}
+{{ module }}.geodatamap = map;
+{% endblock callback %}
+
+{% comment %}
 <style type="text/css">{% block map_css %}
-    #{{ id }}_map { width: {{ map_width }}px; height: {{ map_height }}px; }
+    #{{ id_map }} { width: {{ map_width }}px; height: {{ map_height }}px; }
     #{{ id }}_map .aligned label { float: inherit; }
     #{{ id }}_div_map { position: relative; vertical-align: top; float: {{ LANGUAGE_BIDI|yesno:"right,left" }}; }
     {% if not display_raw %}#{{ id }} { display: none; }{% endif %}
@@ -15,28 +22,73 @@
         background-repeat: no-repeat;
     }{% endblock %}
 </style>
+{% endcomment %}
+
+{% block map %}
+<script type="text/javascript">
+    window.addEventListener("map:init",
+        function (e) {
+            var detail = e.detail;
+            var target_map = e.detail.map;
+            target_map.on('map:loadfield', function (me) {
+                if (me.field.store.formfield.value) {
+                    var point = JSON.parse(me.field.store.formfield.value);
+                    var newLatLng = new L.LatLng(point.coordinates[1], point.coordinates[0]);
+                    target_map.setView(newLatLng, 5); // TODO customize zoom level
+                }
+                {{ module }}.geodatalayer = me.field.drawnItems;
+            });
+        }, false);
+
+    function updatePoint(lat,lng) {
+        var point = {
+            type: "Point",
+            coordinates: [lng, lat]
+        };
+        $("#{{ id }}").text(JSON.stringify(point));
+
+        {{ module }}.geodatalayer.clearLayers();
+        var newLatLng = new L.LatLng(lat, lng);
+        {{ module }}.geodatamap.panTo(newLatLng);
+        {{ module }}.geodatamarker = L.marker(newLatLng);
+        {{ module }}.geodatalayer.addLayer({{ module }}.geodatamarker);
+        {{ module }}.geodatamarker.addTo({{ module }}.geodatamap);
+    };
+
+    function updatePointWithZoom(lat,lng,zoom) {
+        updatePoint(lat,lng);
+        {{ module }}.geodatamap.setZoom(zoom);
+    };
+
+    function panToLatLonBoundingBox(lat,lon,minlat,maxlat,minlon,maxlon,wkt) {
+        var southWest = L.latLng(minlat, minlon),
+            northEast = L.latLng(maxlat, maxlon),
+            bounds = L.latLngBounds(southWest, northEast);
+        updatePoint(lat, lon);
+        {{ module }}.geodatamap.fitBounds(bounds);
+    };
+</script>
+
 
 <div id="{{ id }}_div_map">
-  <label class="label">{% trans "Latitude/Longitude" %}</label>
-  <div>
-    <input type="text" class="span2" value="" placeholder="{% trans "Latitude" %}" id="latitude">
-    <input type="text" class="span2" value="" placeholder="{% trans "Longitude" %}" id="longitude">
-    <input type="button" class="btn" value="{% trans "Update map" %}" onclick="panToLatLonZoom($('#latitude').val(), $('#longitude').val(), 12);">
-  </div>
+    <label class="label">{% trans "Latitude/Longitude" %}</label>
+    <div>
+        <input type="text" class="span2" value="" placeholder="{% trans "Latitude" %}" id="{{ id }}_set_latitude">
+        <input type="text" class="span2" value="" placeholder="{% trans "Longitude" %}" id="{{ id }}_set_longitude">
+        <input type="button" class="btn" value="{% trans "Update map" %}" onclick="updatePointWithZoom($('#{{ id }}_set_latitude').val(), $('#{{ id }}_set_longitude').val(), 12);">
+    </div>
 
-  <label class="label" for="search_terms">{% trans "Nominatim Search Courtesy of" %} <a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap <img src="{% static "img/osm_logo.svg" %}" alt="osm_logo" width="16" height="16"></a></label>
-  <label id="spin" style="display:none;"></label>
-  <div>
-    <input type="text" class="span3" value="" placeholder="{% trans "Address" %}" id="search_terms">
-    <input type="button" class="btn spinner-link" value="{% trans "Geolocate this address!" %}" onclick="searchNominatim(search_terms.value)">
-  </div>
+    <label class="label" for="search_terms">{% trans "Nominatim Search Courtesy of" %} <a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap <img src="{% static "img/osm_logo.svg" %}" alt="osm_logo" width="16" height="16"></a></label>
+    <label id="spin" style="display:none;"></label>
+    <div>
+        <input type="text" class="span3" value="" placeholder="{% trans "Address" %}" id="search_terms">
+        <input type="button" class="btn spinner-link" value="{% trans "Geolocate this address!" %}" onclick="searchNominatim(search_terms.value)">
+    </div>
 
-  <div>
-    <select class="span5" id="search_results" onclick="selectEntry($('#search_results option:selected').attr('lat'), $('#search_results option:selected').attr('lon'), $('#search_results option:selected').attr('minlat'), $('#search_results option:selected').attr('maxlat'), $('#search_results option:selected').attr('minlon'), $('#search_results option:selected').attr('maxlon'))" size="4"></select>
-  </div>
+    <div>
+        <select class="span5" id="search_results" onclick="selectEntry($('#search_results option:selected').attr('lat'), $('#search_results option:selected').attr('lon'), $('#search_results option:selected').attr('minlat'), $('#search_results option:selected').attr('maxlat'), $('#search_results option:selected').attr('minlon'), $('#search_results option:selected').attr('maxlon'))" size="4"></select>
+    </div>
 
-    <div id="{{ id }}_map"></div>
-    <span class="clear_features"><a href="javascript:{{ module }}.clearFeatures()">Delete all Features</a></span>
-    {% if display_raw %}<p>Debugging window (serialized value):</p>{% endif %}
-    <textarea id="{{ id }}" class="vSerializedField required" cols="150" rows="10" name="{{ name }}">{{ serialized }}</textarea>
+    {% leaflet_map id_map callback=id_map_callback %}
 </div>
+{% endblock %}

@@ -1,38 +1,14 @@
 """Geodata administration interface."""
-from django.contrib.gis import admin
 from models import Building, Worksite, Event, Stakeholder, Image, \
     EventType, EarthTechnique, EarthRole, Profile
-#from django.conf import settings
-from imagewidget import AdminImageWidget
-#from forms import EarthGeoDataAbstractForm
-#from sorl.thumbnail.admin import AdminImageMixin
-#from sorl.thumbnail import get_thumbnail
-#from widget import AdminImageFieldWithThumbWidget
-#ADMIN_THUMBS_SIZE = '60x60'
-#from nani import admin
-from hvad import admin as hvadadmin
-from django.contrib.contenttypes.admin import GenericTabularInline
-from imagekit.admin import AdminThumbnail
+from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-
-
-# class MyModelAdmin(admin.ModelAdmin):
-# #    model = models.MyModel
-#     list_display = ['image', ]
-
-#     def my_image_thumb(self, obj):
-#         if obj.image:
-#             thumb = get_thumbnail(obj.image.file, ADMIN_THUMBS_SIZE)
-#             return u'<img width="%s" src="%s" />' % (thumb.width, thumb.url)
-#         else:
-#             return "No Image"
-#     my_image_thumb.short_description = 'My Thumbnail'
-#     my_image_thumb.allow_tags = True
-
-
-#class MyModelAdmin(AdminImageMixin, admin.ModelAdmin):
-#    pass
+from django.contrib.contenttypes.admin import GenericTabularInline
+from imagewidget import AdminImageWidget
+from hvad import admin as hvadadmin
+from imagekit.admin import AdminThumbnail
+from leaflet.admin import LeafletGeoAdmin
 
 
 class EarthAdmin(admin.ModelAdmin):
@@ -40,47 +16,27 @@ class EarthAdmin(admin.ModelAdmin):
     image field)."""
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == 'image':
-            #request = kwargs.pop("request", None)
-            #_request = kwargs.pop("request", None)
             kwargs['widget'] = AdminImageWidget
             return db_field.formfield(**kwargs)
         return super(EarthAdmin, self).formfield_for_dbfield(db_field,
                                                              **kwargs)
 
 
-class EarthOSMAdmin(admin.OSMGeoAdmin):
-    """Modified admin.OSMGeoAdmin (include special AdminImageWidget for the
-    image field). TODO: does not work."""
-    #def formfield_for_dbfield(self, db_field, **kwargs):
-    #    if db_field.name == 'image':
-    #        #request = kwargs.pop("request", None)
-    #        _request = kwargs.pop("request", None)
-    #        kwargs['widget'] = AdminImageWidget
-    #        return db_field.formfield(**kwargs)
-    #    return super(EarthOSMAdmin, self).formfield_for_dbfield(db_field,
-    #                                                         **kwargs)
-    openlayers_url = 'openlayers/OpenLayers.js'
-
-
 class EarthRoleAdmin(hvadadmin.TranslatableAdmin):
-#class EarthTechniqueAdmin(MyAdmin):
     """EarthRole administration interface."""
-    #list_display = ['name']
-    #list_filter = ['name']
-    #search_fields = ['name']
+    # list_display = ['name']
+    # list_filter = ['name']
+    # search_fields = ['name']
 
     fieldsets = (
-        #('Roles', {'fields': (('name', ))}),
-        #('Techniques', {'fields': (('name', 'description', 'image', 'url'))}),
+        # ('Roles', {'fields': (('name', ))}),
+        # ('Techniques', {'fields': (('name', 'description', 'image', 'url'))})
     )
 
 admin.site.register(EarthRole, EarthRoleAdmin)
 
 
 class EarthTechniqueAdmin(admin.ModelAdmin):
-#class EarthTechniqueAdmin(MyAdmin):
-#class EarthTechniqueAdmin(MyModelAdmin):
-#class EarthTechniqueAdmin(MyAdmin):
     """EarthTechnique administration interface."""
     list_display = ['name']
     list_filter = ['name']
@@ -88,7 +44,6 @@ class EarthTechniqueAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Techniques', {'fields': (('name', 'description', 'url'))}),
-        #('Techniques', {'fields': (('name', 'description', 'image', 'url'))}),
     )
 
 admin.site.register(EarthTechnique, EarthTechniqueAdmin)
@@ -96,13 +51,13 @@ admin.site.register(EarthTechnique, EarthTechniqueAdmin)
 
 class EventTypeAdmin(hvadadmin.TranslatableAdmin):
     """EarthEventType administration interface."""
-    #list_display = ['ident_name']
-    #list_filter = ['ident_name']
-    #search_fields = ['name']
+    # list_display = ['ident_name']
+    # list_filter = ['ident_name']
+    # search_fields = ['name']
 
     fieldsets = (
-        #('Identification Name', {'fields': (('ident_name', ))}),
-        #('Techniques', {'fields': (('name', 'description', 'image', 'url'))}),
+        # ('Identification Name', {'fields': (('ident_name', ))}),
+        # ('Techniques', {'fields': (('name', 'description', 'image', 'url'))})
     )
 
 admin.site.register(EventType, EventTypeAdmin)
@@ -114,9 +69,7 @@ class ImageInline(GenericTabularInline):
     readonly_fields = ('admin_thumbnail', )
 
 
-#class EarthGeoDataAbstractAdmin(MyOSMAdmin):
-#class EarthGeoDataAbstractAdmin(admin.OSMGeoAdmin):
-class GeoDataAbstractAdmin(EarthOSMAdmin):
+class GeoDataAbstractAdmin(LeafletGeoAdmin):
     """EarthGeoData abstract administration interface."""
     list_display = ('name', 'pub_date', 'creator')
     list_filter = ('name', 'pub_date', 'creator')
@@ -132,11 +85,11 @@ class GeoDataAbstractAdmin(EarthOSMAdmin):
     inlines = [ImageInline]
 
     # Default GeoDjango OpenLayers map options
-    #scrollable = False
-    #map_width = 700
-    #map_height = 325
-    #if settings.OPENLAYERS:
-    #    openlayers_url = settings.OPENLAYERS
+    # scrollable = False
+    # map_width = 700
+    # map_height = 325
+    # if settings.OPENLAYERS:
+    #     openlayers_url = settings.OPENLAYERS
 
     class Meta:
         """Abstract class."""

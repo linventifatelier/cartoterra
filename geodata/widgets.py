@@ -1,19 +1,18 @@
-from django import forms
-from django.contrib.gis.forms.widgets import OSMWidget
 from django.forms.widgets import DateInput
+from leaflet.forms.widgets import LeafletWidget
 
 
-class GeoDataWidget(OSMWidget):
+class GeoDataWidget(LeafletWidget):
+    include_media = True
     template_name = 'geodata/geodata_form_geometry_widget.html'
+    map_width = '500px'
+    map_height = '250px'
 
-    def _media(self):
-        return forms.Media(js=('openlayers/OpenLayers.js',
-                               'js/OpenStreetMap.js',
-                               'gis/js/OLMapWidget.js',
-                               'js/spin.min.js',
-                               'js/form-geometry.js'))
-
-    media = property(_media)
+    class Media:
+        js = [
+            'js/spin.min.js',
+            'js/form-geometry.js',
+        ]
 
 
 class BootstrapDatePicker(DateInput):

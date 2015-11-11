@@ -182,6 +182,7 @@ INSTALLED_APPS = [
     "knowledge",
     "imagekit",
     "haystack",
+    "leaflet",
 
     # theme
     "django_forms_bootstrap",
@@ -306,6 +307,14 @@ GEODATA_NOMINATIM_REVERSE = 'https://nominatim.openstreetmap.org/reverse?%s'
 GEODATA_PAYPAL_ID = "felix.sipma@no-log.org"
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+LEAFLET_CONFIG = {
+    'PLUGINS': {
+        'forms': {
+            'auto-include': True
+        }
+    }
+}
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
