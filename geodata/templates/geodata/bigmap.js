@@ -22,7 +22,7 @@ function gotoFeature (e) {
     };
     {{ module }}info.find('.geodata-info-image').html(image);
     {{ module }}info.find('.modal-title').html(title);
-    {{ module }}info.find('.geodata-info-content').html(feature.properties.name);
+    {{ module }}info.find('.geodata-info-content').html(feature.properties.summary);
     {{ module }}info.find('.geodata-info-detail').attr('href', feature.properties.url);
     {{ module }}info.modal();
 }

@@ -20,6 +20,7 @@ import json
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
+from django.utils.text import Truncator
 
 
 class GeoJSONResponseMixin(object):
@@ -52,7 +53,9 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
                     'pk': m.pk, 'name': m.name,
                     'url': m.get_absolute_url(),
                     'image': m.image.all()[0].thumbnail.url
-                    if m.image.all() else None,
+                        if m.image.all() else None,
+                    'summary':
+                        Truncator(m.description).words(10, truncate=' [...]'),
                 }}
         return json.dumps(data)
 
@@ -70,15 +73,18 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                 },
                 'type': "FeatureCollection",
                 'features':
-                [{'geometry': json.loads(m.geometry.geojson),
-                  'type': "Feature",
-                  'properties':
-                  {
-                      'pk': m.pk, 'name': m.name,
-                      'url': m.get_absolute_url(),
-                      'image': m.image.all()[0].thumbnail.url
-                      if m.image.all() else None,
-                  }} for m in queryset]}
+                [{
+                    'geometry': json.loads(m.geometry.geojson),
+                    'type': "Feature",
+                    'properties':
+                    {
+                        'pk': m.pk, 'name': m.name,
+                        'url': m.get_absolute_url(),
+                        'image': m.image.all()[0].thumbnail.url
+                            if m.image.all() else None,
+                        'summary': Truncator(m.description).words(10, truncate=' [...]'),
+                    }
+                } for m in queryset]}
         return json.dumps(data)
 
 
@@ -347,7 +353,7 @@ class GeoDataSingleObjectMixin(object):
     def get_context_data(self, **kwargs):
         context = super(GeoDataSingleObjectMixin,
                         self).get_context_data(**kwargs)
-        #object = self.get_object()
+        # object = self.get_object()
         context['geodata_verbose_name'] = self.model._meta.verbose_name.title()
         context['geodata_verbose_name_plural'] = \
             self.model._meta.verbose_name_plural.title()
@@ -470,7 +476,7 @@ class GeoDataCreateView(GeoDataSingleObjectMixin, GeoDataMixin,
                  'name': self.object.name, }
             )
             return HttpResponseRedirect(self.get_success_url())
-            #return super(GeoDataCreateView, self).form_valid(form)
+            # return super(GeoDataCreateView, self).form_valid(form)
         else:
             return self.form_invalid(form)
 
@@ -531,7 +537,7 @@ class GeoDataUpdateView(GeoDataSingleObjectMixin, GeoDataMixin,
         self.object = form.save(commit=False)
         context = self.get_context_data()
         image_formset = context['image_formset']
-        #image_formset.instance = self.object
+        # image_formset.instance = self.object
         if image_formset.is_valid():
             self.object.save()
             form.save_m2m()
@@ -543,7 +549,7 @@ class GeoDataUpdateView(GeoDataSingleObjectMixin, GeoDataMixin,
                  'name': self.object.name, }
             )
             return HttpResponseRedirect(self.get_success_url())
-            #return super(GeoDataUpdateView, self).form_valid(form)
+            # return super(GeoDataUpdateView, self).form_valid(form)
         else:
             return self.form_invalid(form)
 
@@ -554,7 +560,7 @@ class GeoDataUpdateView(GeoDataSingleObjectMixin, GeoDataMixin,
         return super(GeoDataUpdateView, self).form_invalid(form)
 
     @method_decorator(login_required)
-    #@method_decorator(user_passes_test(lambda u: u.is_staff))
+    # @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, *args, **kwargs):
         return super(GeoDataUpdateView, self).dispatch(*args, **kwargs)
 
@@ -605,7 +611,7 @@ class GeoDataDeleteView(GeoDataSingleObjectMixin, GeoDataMixin, DeleteView):
             return geodata
 
     @method_decorator(login_required)
-    #@method_decorator(user_passes_test(lambda u: u.is_staff))
+    # @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, *args, **kwargs):
         return super(GeoDataDeleteView, self).dispatch(*args, **kwargs)
 
@@ -670,7 +676,7 @@ class ToggleRecommendationView(SingleObjectMixin, View):
                 {'modelname': force_unicode(self.object._meta.verbose_name),
                  'name': self.object.name, }
             )
-        #return HttpResponse('Success')
+        # return HttpResponse('Success')
         return HttpResponseRedirect(self.object.get_absolute_url())
 
     @method_decorator(login_required)
@@ -772,7 +778,7 @@ class GeoJSONProfileRecommendStakeholderListView(
 
 class ProfileDetailView(DetailView):
     """Returns a template to present all buildings of a given profile."""
-    #template_name = 'profilemap.html'
+    # template_name = 'profilemap.html'
     module = "profilemap"
     model = Profile
     slug_field = 'user__username'
@@ -880,4 +886,4 @@ class ProfileDetailView(DetailView):
 class ProfileListView(ListView):
     """Returns a template to present all profiles."""
     model = Profile
-    #template_name = 'profile_list.html'
+    # template_name = 'profile_list.html'
