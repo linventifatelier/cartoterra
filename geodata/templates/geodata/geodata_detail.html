@@ -71,9 +71,9 @@
                     <a class="tooltip-geodata btn btn-default" title="{% trans "Delete" %}" href="{% url geodata_delete_url geodata.pk %}"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete" %}</a>
                     {% endif %}
                     {% if user|recommends_geodata:geodata %}
-                    <a class="tooltip-geodata btn btn-default" title="{% trans "Recommend ON" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-thumbs-up"></span> {% trans "Recommend ON" %}</a>
+                    <a class="tooltip-geodata btn btn-default" title="{% trans "Recommended" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-eye-open"></span> {% trans "Recommended" %}</a>
                     {% else %}
-                    <a class="tooltip-geodata btn btn-default" title="{% trans "Recommend OFF" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-thumbs-down"></span> {% trans "Recommend OFF" %}</a>
+                    <a class="tooltip-geodata btn btn-default geodata-inactive-text" title="{% trans "Recommend" %}" href="{% url geodata_recommend_url geodata.pk %}"><span class="glyphicon glyphicon-eye-close"></span> {% trans "Click to recommend this geodata" %}</a>
                     {% endif %}
                 </div>
                 {% endif %}

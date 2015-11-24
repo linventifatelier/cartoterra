@@ -52,3 +52,7 @@
 .geodata-icon-empty {
   opacity: 0.25;
 }
+
+.geodata-inactive-text {
+  opacity: 0.5;
+}
