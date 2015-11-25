@@ -43,7 +43,7 @@
     function updatePoint(lat,lng) {
         var point = {
             type: "Point",
-            coordinates: [lng, lat]
+            coordinates: [parseFloat(lng), parseFloat(lat)]
         };
         $("#{{ id }}").text(JSON.stringify(point));
 
