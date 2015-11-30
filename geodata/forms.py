@@ -9,6 +9,8 @@ from geodata.widgets import GeoDataWidget, BootstrapDatePicker
 from django.contrib.contenttypes.forms import generic_inlineformset_factory
 import logging
 from django.contrib.gis.forms.fields import PointField
+from django.utils.translation import ugettext_lazy as _
+
 
 logger = logging.getLogger(__name__)
 
@@ -151,7 +153,8 @@ class GeoDataAbstractForm(ModelForm):
 
 class BuildingForm(GeoDataAbstractForm):
     inauguration_date = forms.DateField(widget=BootstrapDatePicker,
-                                        required=False)
+                                        required=False,
+                                        help_text=_("Put here the inauguration date for a contemporary building if known, ignore otherwise."))
 
     def __init__(self, user=None, *args, **kwargs):
         super(BuildingForm, self).__init__(*args, **kwargs)
