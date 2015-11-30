@@ -6,6 +6,9 @@
     {% if geodata.unesco_chair %}
         {% unesco_chair_logo %}
     {% endif %}
+    {% if geodata.isceah %}
+        {% isceah_logo %}
+    {% endif %}
 {% endblock %}
 
 {% block body_geodata_extra %}
@@ -28,6 +31,14 @@
     <th>{% trans "UNESCO Chair Earthen Architecture" %}</th>
     <td>
         {% unesco_chair_logo %}
+    </td>
+</tr>
+{% endif %}
+{% if geodata.isceah %}
+<tr>
+    <th>{% trans "ISCEAH" %}</th>
+    <td>
+        {% isceah_logo %}
     </td>
 </tr>
 {% endif %}

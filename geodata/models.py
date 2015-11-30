@@ -133,6 +133,7 @@ class Stakeholder(GeoDataAbstract):
                                   blank=True)
     unesco_chair = models.BooleanField(_("UNESCO Chair Earthen Architecture"),
                                        default=False)
+    isceah = models.BooleanField(_("ISCEAH"), default=False)
 
     class Meta:
         verbose_name = _("stakeholder")
@@ -153,6 +154,7 @@ class Building(GeoDataAbstract):
                                         verbose_name=_("techniques"),
                                         blank=True)
     unesco = models.BooleanField(_("world heritage"), default=False)
+    isceah = models.BooleanField(_("ISCEAH"), default=False)
     inauguration_date = models.DateField(_("inauguration date"),
                                          blank=True, null=True)
     stakeholder = models.ManyToManyField(Stakeholder,
@@ -292,6 +294,7 @@ class Profile(models.Model):
             ("world_heritage", _("Can modify world heritage properties")),
             ("unesco_chair",
              _("Can modify UNESCO Chair Earthen Architecture")),
+            ("isceah", _("Can modify ISCEAH properties")),
         )
 
     def recommends(self, geodata):

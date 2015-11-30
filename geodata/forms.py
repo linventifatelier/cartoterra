@@ -157,6 +157,8 @@ class BuildingForm(GeoDataAbstractForm):
         super(BuildingForm, self).__init__(*args, **kwargs)
         if not user.has_perm('profile.world_heritage'):
             self.fields['unesco'].widget.attrs['disabled'] = 'disabled'
+        if not user.has_perm('profile.isceah'):
+            self.fields['isceah'].widget.attrs['disabled'] = 'disabled'
         self._user = user
 
     def clean_unesco(self):
@@ -168,6 +170,16 @@ class BuildingForm(GeoDataAbstractForm):
                 return instance.unesco
             else:
                 return self.fields['unesco'].initial
+
+    def clean_isceah(self):
+        if self._user.has_perm('profile.isceah'):
+            return self.cleaned_data.get('isceah')
+        else:
+            instance = getattr(self, 'instance', None)
+            if instance and instance.pk:
+                return instance.isceah
+            else:
+                return self.fields['isceah'].initial
 
     class Meta:
         model = Building
@@ -217,6 +229,8 @@ class StakeholderForm(GeoDataAbstractForm):
         super(StakeholderForm, self).__init__(*args, **kwargs)
         if not user.has_perm('profile.unesco_chair'):
             self.fields['unesco_chair'].widget.attrs['disabled'] = 'disabled'
+        if not user.has_perm('profile.isceah'):
+            self.fields['isceah'].widget.attrs['disabled'] = 'disabled'
         self._user = user
 
     def clean_unesco_chair(self):
@@ -228,6 +242,16 @@ class StakeholderForm(GeoDataAbstractForm):
                 return instance.unesco_chair
             else:
                 return self.fields['unesco_chair'].initial
+
+    def clean_isceah(self):
+        if self._user.has_perm('profile.isceah'):
+            return self.cleaned_data.get('isceah')
+        else:
+            instance = getattr(self, 'instance', None)
+            if instance and instance.pk:
+                return instance.isceah
+            else:
+                return self.fields['isceah'].initial
 
     class Meta:
         model = Stakeholder

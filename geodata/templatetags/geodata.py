@@ -14,6 +14,11 @@ def unesco_chair_logo():
     return '<img alt="unesco-chair" width="100" src="%s" />' % (static('img/unesco_chair_logo.png'))
 
 
+@register.simple_tag
+def isceah_logo():
+    return '<img alt="isceah" width="60" src="%s" />' % (static('img/isceah.png'))
+
+
 @register.filter
 def to_leaflet(coords):
     return '[%s, %s]' % (coords[1], coords[0])
