@@ -7,81 +7,78 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-04 14:15+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2015-11-30 11:39+0100\n"
+"PO-Revision-Date: 2015-11-30 12:16+0009\n"
+"Last-Translator:   <felix.sipma@no-log.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Translated-Using: django-rosetta 0.7.6\n"
 
 #: cartoterra/forms.py:9
 #, python-format
 msgid ""
 "        I hereby agree:<br>\n"
-"        Content I create on %s is automatically licensed according to "
-"the         Open Database License:         <a target=\"_blank\"         href="
-"\"http://opendatacommons.org/licenses/odbl/1.0/\">        http://"
-"opendatacommons.org/licenses/odbl/1.0/</a>. Any rights in         individual "
-"contents of the database are licensed under the Database         Contents "
-"License:         <a target=\"_blank\"         href=\"http://opendatacommons."
-"org/licenses/dbcl/1.0/\">        http://opendatacommons.org/licenses/"
-"dbcl/1.0/</a>"
+"        Content I create on %s is automatically licensed according to the         Open Database License:         <a target=\"_blank\"         href=\"http://opendatacommons.org/licenses/odbl/1.0/\">        http://opendatacommons.org/licenses/odbl/1.0/</a>. Any rights in         individual contents of the database are licensed under the Database         Contents License:         <a target=\"_blank\"         href=\"http://opendatacommons.org/licenses/dbcl/1.0/\">        http://opendatacommons.org/licenses/dbcl/1.0/</a>"
 msgstr ""
+"J'accepte ce qui suit :<br>\n"
+"Le contenu que je crée sur %s est automatiquement publié sous license Open Database License: <a target=\"_blank\" href=\"http://opendatacommons.org/licenses/odbl/1.0/\"> http://opendatacommons.org/licenses/odbl/1.0/</a>. Tous les droits sur les contenus de la base de données sont publiés sous license Database Contents License: <a target=\"_blank\" href=\"http://opendatacommons.org/licenses/dbcl/1.0/\"> http://opendatacommons.org/licenses/dbcl/1.0/</a>"
 
 #: cartoterra/forms.py:26
 msgid "You must approve the license"
-msgstr ""
+msgstr "Vous devez accepter la license"
 
 #: cartoterra/settings.py:51
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: cartoterra/settings.py:52
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: cartoterra/templates/404.html:5
 msgid "Not Found"
-msgstr ""
+msgstr "Introuvable"
 
 #: cartoterra/templates/404.html:9
 msgid "Page not found"
-msgstr ""
+msgstr "Page introuvable"
 
 #: cartoterra/templates/404.html:10
 msgid "We're sorry but that page could not be found."
-msgstr ""
+msgstr "Nous sommes désolé mais la page est introuvable."
 
 #: cartoterra/templates/500.html:5
 msgid "Server Error"
-msgstr ""
+msgstr "Erreur Serveur"
 
 #: cartoterra/templates/500.html:9
 msgid "Something went wrong"
-msgstr ""
+msgstr "Une erreur s'est produite"
 
 #: cartoterra/templates/500.html:10
 msgid ""
 "We're sorry but a server error has occurred. We've been notified and will "
 "look into it as soon as possible."
 msgstr ""
+"Nous sommes désolés, mais une erreur serveur s'est produite. Nous en avons "
+"été informés et nous nous allons nous en occuper dès que possible."
 
 #: cartoterra/templates/_account_bar.html:5
-#, fuzzy
 msgid "My Profile"
-msgstr "Profil"
+msgstr "Mon Profil"
 
 #: cartoterra/templates/_account_bar.html:6
 #: cartoterra/templates/account/base.html:10
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: cartoterra/templates/_account_bar.html:8
 msgid "Translator"
-msgstr ""
+msgstr "Traduction"
 
 #: cartoterra/templates/_account_bar.html:11
 msgid "Admin"
@@ -92,229 +89,59 @@ msgstr "Admin"
 #: cartoterra/templates/account/logout.html:9
 #: cartoterra/templates/account/logout.html:12
 msgid "Log out"
-msgstr ""
+msgstr "Déconnexion"
 
 #: cartoterra/templates/_account_bar.html:16
 #: cartoterra/templates/account/login.html:6
 #: cartoterra/templates/account/login.html:19
 msgid "Log in"
-msgstr ""
+msgstr "Connexion"
 
 #: cartoterra/templates/_account_bar.html:19
 #: cartoterra/templates/account/signup.html:6
 #: cartoterra/templates/account/signup.html:11
 #: cartoterra/templates/account/signup.html:18
-#, fuzzy
 msgid "Sign up"
 msgstr "Inscription"
 
-#: cartoterra/templates/_footer.html:12
-msgid "by"
-msgstr ""
+#: cartoterra/templates/_footer.html:11
+#| msgid "is licensed under a"
+msgid "is licensed under"
+msgstr "est distribué sous licence"
 
-#: cartoterra/templates/_footer.html:12
-msgid "is licensed under a"
-msgstr ""
+#: cartoterra/templates/_footer.html:13
+msgid "Website created by"
+msgstr "Si web créé par"
+
+#: cartoterra/templates/_footer.html:15
+msgid "site code under AGPL-3+"
+msgstr "Code du site sous license AGPL-3+"
 
 #: cartoterra/templates/_help.html:3
 msgid "Help!"
-msgstr ""
+msgstr "Aide!"
 
-#: cartoterra/templates/_sidebar.html:5
-msgid "Recommendations"
-msgstr ""
-
-#: cartoterra/templates/_sidebar.html:12
-msgid "Last changes"
-msgstr ""
-
-#: cartoterra/templates/_sidebar.html:14
-#: geodata/templates/geodata/geodata_bigmap_base.html:46
-msgid "Buildings"
-msgstr ""
-
-#: cartoterra/templates/_sidebar.html:17
-#: geodata/templates/geodata/geodata_bigmap_base.html:62
-msgid "Worksites"
-msgstr ""
-
-#: cartoterra/templates/_sidebar.html:20
-#: geodata/templates/geodata/geodata_bigmap_base.html:76
-msgid "Events"
-msgstr ""
-
-#: cartoterra/templates/_sidebar.html:23
-#: geodata/templates/geodata/building_detail.html:27
-#: geodata/templates/geodata/geodata_bigmap_base.html:92
-#: geodata/templates/geodata/worksite_detail.html:6
-msgid "Stakeholders"
-msgstr ""
-
-#: cartoterra/templates/_sidebar.html:30
+#: cartoterra/templates/_sidebar.html:9
 msgid "Cartoterra.net is a database for earth architecture"
-msgstr ""
+msgstr "Cartoterra.net est une base de données pour l'architecture de terre"
 
-#: cartoterra/templates/_sidebar.html:31
+#: cartoterra/templates/_sidebar.html:11
 msgid "Create your account and share contacts, images, events, ..."
-msgstr ""
-
-#: cartoterra/templates/site_base.html:51
-msgid "Search cartoterra"
-msgstr ""
+msgstr "Créez votre compte et partagez vos contacts, images, évènements, ..."
 
 #: cartoterra/templates/account/base.html:9
-#, fuzzy
 msgid "Account"
 msgstr "Compte"
 
 #: cartoterra/templates/account/base.html:11
 #: cartoterra/templates/account/password_change.html:6
 #: cartoterra/templates/account/password_change.html:10
-#, fuzzy
 msgid "Change password"
 msgstr "Changer de mot de passe"
 
 #: cartoterra/templates/account/base.html:12
-#, fuzzy
 msgid "Delete account"
-msgstr "Effacer le mot de passe"
-
-#: cartoterra/templates/account/email_confirm.html:5
-#: cartoterra/templates/account/email_confirm.html:9
-msgid "Confirm Email"
-msgstr ""
-
-#: cartoterra/templates/account/email_confirm.html:12
-#, python-format
-msgid "Confirm email address <b>%(email)s</b>?"
-msgstr ""
-
-#: cartoterra/templates/account/email_confirm.html:14
-#: geodata/templates/geodata/delete_geodata_base.html:16
-msgid "Confirm"
-msgstr ""
-
-#: cartoterra/templates/account/email_confirmation_sent.html:5
-#: cartoterra/templates/account/email_confirmation_sent.html:8
-msgid "Confirm your email address"
-msgstr ""
-
-#: cartoterra/templates/account/email_confirmation_sent.html:10
-#, python-format
-msgid ""
-"We have sent you an email to <b>%(email)s</b> for verification. Follow the "
-"link provided to finalize the signup process. If you do not receive it "
-"within a few minutes, contact us at <a href=\"mailto:"
-"%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
-msgstr ""
-
-#: cartoterra/templates/account/email_confirmed.html:5
-#: cartoterra/templates/account/email_confirmed.html:8
-msgid "Email confirmed"
-msgstr ""
-
-#: cartoterra/templates/account/email_confirmed.html:9
-#, python-format
-msgid "You have confirmed <b>%(email)s</b>"
-msgstr ""
-
-#: cartoterra/templates/account/login.html:11
-msgid "Log in to an existing account"
-msgstr ""
-
-#: cartoterra/templates/account/login.html:18
-msgid "Forgot your password?"
-msgstr ""
-
-#: cartoterra/templates/account/logout.html:10
-msgid "Are you sure you want to log out?"
-msgstr ""
-
-#: cartoterra/templates/account/password_change.html:15
-#: cartoterra/templates/account/password_reset_token.html:15
-msgid "Save"
-msgstr ""
-
-#: cartoterra/templates/account/password_reset.html:7
-#: cartoterra/templates/account/password_reset.html:13
-#, fuzzy
-msgid "Password reset"
-msgstr "Définir le mot de passe"
-
-#: cartoterra/templates/account/password_reset.html:14
-msgid ""
-"Forgotten your password? Enter your email address below, and we'll send you "
-"an email allowing you to reset it."
-msgstr ""
-
-#: cartoterra/templates/account/password_reset.html:19
-#, fuzzy
-msgid "Reset my password"
-msgstr "Définir le mot de passe"
-
-#: cartoterra/templates/account/password_reset.html:24
-#, python-format
-msgid ""
-"If you have any trouble resetting your password, contact us at <a href="
-"\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</"
-"a>."
-msgstr ""
-
-#: cartoterra/templates/account/password_reset_sent.html:6
-#: cartoterra/templates/account/password_reset_sent.html:9
-msgid "Password reset sent"
-msgstr ""
-
-#: cartoterra/templates/account/password_reset_sent.html:11
-#, python-format
-msgid ""
-"We have sent you an email. If you do not receive it within a few minutes, "
-"try resending or contact us at <a href=\"mailto:"
-"%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
-msgstr ""
-
-#: cartoterra/templates/account/password_reset_sent.html:17
-msgid "Resend"
-msgstr ""
-
-#: cartoterra/templates/account/password_reset_sent.html:20
-#, python-format
-msgid ""
-"We have resent the password email. If you do not receive it within a few "
-"minutes, contact us at <a href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">"
-"%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
-msgstr ""
-
-#: cartoterra/templates/account/password_reset_token.html:6
-#: cartoterra/templates/account/password_reset_token.html:10
-#, fuzzy
-msgid "Set your new password"
-msgstr "Définir le mot de passe"
-
-#: cartoterra/templates/account/password_reset_token_fail.html:6
-#: cartoterra/templates/account/password_reset_token_fail.html:9
-msgid "Bad token"
-msgstr ""
-
-#: cartoterra/templates/account/password_reset_token_fail.html:11
-#, python-format
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used.  Please request a <a href=\"%(url)s\">new password reset</a>."
-msgstr ""
-
-#: cartoterra/templates/account/signup_closed.html:6
-#: cartoterra/templates/account/signup_closed.html:9
-msgid "Sign up closed"
-msgstr ""
-
-#: cartoterra/templates/account/signup_closed.html:11
-msgid "The code you provided was not accepted."
-msgstr ""
-
-#: cartoterra/templates/account/signup_closed.html:13
-msgid "Sign up is closed to the general public."
-msgstr ""
+msgstr "Supprimer mon compte"
 
 #: cartoterra/templates/account/email/email_confirmation_message.txt:1
 #, python-format
@@ -323,784 +150,971 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
+"L'utilisateur '%(user)s' de %(site_name)s a donné ceci comme adresse électronique.\n"
+"\n"
+"Pour confirmer, cliquez sur %(activate_url)s\n"
 
 #: cartoterra/templates/account/email/email_confirmation_subject.txt:1
 #, python-format
 msgid "Confirm email address for %(site_name)s"
-msgstr ""
+msgstr "Confirmer votre adresse électronique pour %(site_name)s"
 
 #: cartoterra/templates/account/email/password_reset.txt:1
 #, python-format
 msgid ""
-"You're receiving this email because you or someone else has requested a "
-"password for your user account at %(site_name)s.\n"
-"It can be safely ignored if you did not request a password reset. Click the "
-"link below to reset your password.\n"
+"You're receiving this email because you or someone else has requested a password for your user account at %(site_name)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the link below to reset your password.\n"
 "\n"
 "%(password_reset_url)s\n"
 msgstr ""
+"Vous recevez cet email car vous ou quelqu'un d'autre a demandé une réinitialisation de mot de passe pour votre compte %(site_name)s. \n"
+"Ce message peut être ignoré en toute sécurité si vous n'avez pas demandé une réinitialisation de mot de passe. Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe.\n"
+"\n"
+"%(password_reset_url)s\n"
 
 #: cartoterra/templates/account/email/password_reset_subject.txt:1
 #, python-format
 msgid "[%(site_name)s] Password reset"
+msgstr "[%(site_name)s] Réinitialisation de mot de passe"
+
+#: cartoterra/templates/account/email_confirm.html:5
+#: cartoterra/templates/account/email_confirm.html:9
+msgid "Confirm Email"
+msgstr "Confirmer l'adresse électronique"
+
+#: cartoterra/templates/account/email_confirm.html:12
+#, python-format
+msgid "Confirm email address <b>%(email)s</b>?"
+msgstr "Confirmer l'adresse électronique <b>%(email)s</b> ?"
+
+#: cartoterra/templates/account/email_confirm.html:14
+#: geodata/templates/geodata/delete_geodata_base.html:16
+msgid "Confirm"
+msgstr "Confirmer"
+
+#: cartoterra/templates/account/email_confirmation_sent.html:5
+#: cartoterra/templates/account/email_confirmation_sent.html:8
+msgid "Confirm your email address"
+msgstr "Confirmer votre adresse email"
+
+#: cartoterra/templates/account/email_confirmation_sent.html:10
+#, python-format
+msgid ""
+"We have sent you an email to <b>%(email)s</b> for verification. Follow the "
+"link provided to finalize the signup process. If you do not receive it "
+"within a few minutes, contact us at <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
 msgstr ""
+"Nous avons envoyé un message à <b>%(email)s</b> pour la validation de votre "
+"compte. Suivez le lien que vous allez recevoir pour finaliser votre "
+"inscription. Si vous n'avez pas reçu le message d'ici quelques minutes, "
+"contactez nous à <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+
+#: cartoterra/templates/account/email_confirmed.html:5
+#: cartoterra/templates/account/email_confirmed.html:8
+msgid "Email confirmed"
+msgstr "Adresse électronique confirmée"
+
+#: cartoterra/templates/account/email_confirmed.html:9
+#, python-format
+msgid "You have confirmed <b>%(email)s</b>"
+msgstr "Vous avez confirmé l'adresse électronique <b>%(email)s</b>"
+
+#: cartoterra/templates/account/login.html:11
+msgid "Log in to an existing account"
+msgstr "Connexion sur un compte existant"
+
+#: cartoterra/templates/account/login.html:18
+msgid "Forgot your password?"
+msgstr "Vous avez oublié votre mot de passe ?"
+
+#: cartoterra/templates/account/logout.html:10
+msgid "Are you sure you want to log out?"
+msgstr "Êtes-vous sûr de vouloir vous déconnecter ?"
+
+#: cartoterra/templates/account/password_change.html:15
+#: cartoterra/templates/account/password_reset_token.html:15
+msgid "Save"
+msgstr "Sauvegarder"
+
+#: cartoterra/templates/account/password_reset.html:7
+#: cartoterra/templates/account/password_reset.html:13
+msgid "Password reset"
+msgstr "Réinitialiser le mot de passe"
+
+#: cartoterra/templates/account/password_reset.html:14
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll send you "
+"an email allowing you to reset it."
+msgstr ""
+"Vous avez oublié votre mot de passe? Entrez votre adresse email ci-dessous, "
+"et nous vous enverrons un message vous permettant de le réinitialiser."
+
+#: cartoterra/templates/account/password_reset.html:19
+msgid "Reset my password"
+msgstr "Réinitialiser le mot de passe"
+
+#: cartoterra/templates/account/password_reset.html:24
+#, python-format
+msgid ""
+"If you have any trouble resetting your password, contact us at <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+msgstr ""
+"Si vous avez des problèmes pour réinitialiser votre mot de passe, contactez-"
+"nous à <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+
+#: cartoterra/templates/account/password_reset_sent.html:6
+#: cartoterra/templates/account/password_reset_sent.html:9
+msgid "Password reset sent"
+msgstr "Demande de réinitialisation du mot de passe envoyée"
+
+#: cartoterra/templates/account/password_reset_sent.html:11
+#, python-format
+msgid ""
+"We have sent you an email. If you do not receive it within a few minutes, "
+"try resending or contact us at <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+msgstr ""
+"Nous vous avons envoyé un message. Si vous vous l'avez pas reçu dans "
+"quelques minutes, essayez de recommencer la procédure ou contactez-nous à "
+"l'adresse <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+
+#: cartoterra/templates/account/password_reset_sent.html:17
+msgid "Resend"
+msgstr "Renvoyé"
+
+#: cartoterra/templates/account/password_reset_sent.html:20
+#, python-format
+msgid ""
+"We have resent the password email. If you do not receive it within a few "
+"minutes, contact us at <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+msgstr ""
+"Nous vous avons renvoyé le mot de passe par email. Si vous ne le recevez pas"
+" dans quelques minutes, contactez nous à l'adresse <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">% "
+"(THEME_ACCOUNT_CONTACT_EMAIL) s </ a>."
+
+#: cartoterra/templates/account/password_reset_token.html:6
+#: cartoterra/templates/account/password_reset_token.html:10
+msgid "Set your new password"
+msgstr "Définir votre nouveau mot de passe"
+
+#: cartoterra/templates/account/password_reset_token_fail.html:6
+#: cartoterra/templates/account/password_reset_token_fail.html:9
+msgid "Bad token"
+msgstr "Mauvais mot de passe"
+
+#: cartoterra/templates/account/password_reset_token_fail.html:11
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(url)s\">new password reset</a>."
+msgstr ""
+"Le lien de réinitialisation du mot de passe n'est pas valide, peut-être "
+"parce qu'il a déjà été utilisé. Demander une <a href=\"%(url)s\"> nouvelle "
+"réinitialisation de mot de passe </ a>."
+
+#: cartoterra/templates/account/signup_closed.html:6
+#: cartoterra/templates/account/signup_closed.html:9
+msgid "Sign up closed"
+msgstr "Nouvelles inscriptions fermées"
+
+#: cartoterra/templates/account/signup_closed.html:11
+msgid "The code you provided was not accepted."
+msgstr "Le code que vous avez fourni n'a pas été accepté"
+
+#: cartoterra/templates/account/signup_closed.html:13
+msgid "Sign up is closed to the general public."
+msgstr "L'inscription est fermée au grand public."
 
 #: cartoterra/templates/admin/base_site.html:4
-#, fuzzy
 msgid " admin"
-msgstr "Admin"
+msgstr "admin"
 
 #: cartoterra/templates/admin/base_site.html:7
 msgid "administration"
-msgstr ""
+msgstr "administration"
 
 #: cartoterra/templates/django_knowledge/ask.html:5
 #: cartoterra/templates/django_knowledge/ask.html:9
 #: cartoterra/templates/django_knowledge/list.html:42
 msgid "Ask a Question"
-msgstr ""
+msgstr "Poser une question"
 
 #: cartoterra/templates/django_knowledge/ask.html:15
 msgid "Please log in to ask a question."
-msgstr ""
+msgstr "Connectez-vous pour poser une question."
 
 #: cartoterra/templates/django_knowledge/base.html:13
 msgid "Support Center"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/form.html:9
-msgid "required"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/index.html:5
-msgid "Support"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/index.html:10
-#, python-format
-msgid "Top %(count)s Questions"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/inner.html:13
-msgid "Start typing your question here."
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/list.html:20
-#: geodata/templates/search/search.html:33
-msgid "No results found."
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/list.html:28
-msgid "previous"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/list.html:31
-#, python-format
-msgid "page %(number)s of %(page)s"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/list.html:34
-msgid "next"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/question_list.html:5
-msgid "no responses"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/question_list.html:5
-msgid "accepted"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/question_list.html:5
-#: cartoterra/templates/django_knowledge/thread.html:18
-#: cartoterra/templates/django_knowledge/thread.html:43
-msgid "staff"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/sidebar.html:5
-msgid "My Questions"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/sidebar.html:18
-msgid "Categories"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/sidebar.html:29
-msgid "Navigate"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/sidebar.html:33
-msgid "Ask a question or give suggestion."
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/sidebar.html:34
-msgid "Return to homepage."
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/thread.html:19
-#: cartoterra/templates/django_knowledge/thread.html:44 geodata/models.py:264
-msgid "user"
-msgstr "utilisateur"
-
-#: cartoterra/templates/django_knowledge/thread.html:40
-msgid "accepted answer"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/thread.html:41
-msgid "poster"
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/thread.html:55
-msgid "No responses yet."
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/thread.html:68
-msgid "This question has been closed."
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/thread.html:70
-msgid "Please log in to respond."
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/welcome.html:4
-msgid "Welcome to our Support Center."
-msgstr ""
-
-#: cartoterra/templates/django_knowledge/welcome.html:5
-msgid "Search for answers to your questions below, or ask your own."
-msgstr ""
+msgstr "Centre d'aide"
 
 #: cartoterra/templates/django_knowledge/emails/message.html:6
 #, python-format
 msgid "Hello %(name)s,"
-msgstr ""
+msgstr "Bonjour %(name)s,"
 
 #: cartoterra/templates/django_knowledge/emails/message.html:9
 #, python-format
 msgid ""
 "\n"
-"        We just wanted to let you know that a new response has been added to "
-"the question \"%(title)s\". You can visit it here: <a href=\"%(domain)s"
-"%(url)s\">%(domain)s%(url)s</a>.\n"
+"        We just wanted to let you know that a new response has been added to the question \"%(title)s\". You can visit it here: <a href=\"%(domain)s%(url)s\">%(domain)s%(url)s</a>.\n"
 "        "
 msgstr ""
+"\n"
+"Une nouvelle réponse a été ajoutée à la question: \"%(title)s\". Vous pouvez la voir ici: <a href=\"%(domain)s%(url)s\">%(domain)s%(url)s</a>"
 
 #: cartoterra/templates/django_knowledge/emails/message.html:17
 msgid ""
 "You are receiving these messages because you checked the 'alert' box when "
 "you originally posted."
-msgstr ""
+msgstr "Vous recevez ces messages, car vous avez coché la case «alerte»."
 
 #: cartoterra/templates/django_knowledge/emails/message.html:21
 #, python-format
 msgid ""
 "\n"
-"        We just wanted to let you know that a new question has been added: "
-"\"%(title)s\". You can visit it here: <a href=\"%(domain)s%(url)s\">"
-"%(domain)s%(url)s</a>\n"
+"        We just wanted to let you know that a new question has been added: \"%(title)s\". You can visit it here: <a href=\"%(domain)s%(url)s\">%(domain)s%(url)s</a>\n"
 "        "
 msgstr ""
+"\n"
+"Une nouvelle question a été ajoutée: \"%(title)s\". Vous pouvez la voir ici: <a href=\"%(domain)s%(url)s\">%(domain)s%(url)s</a>"
 
 #: cartoterra/templates/django_knowledge/emails/message.html:29
 msgid "You are receiving these messages because you are a staff member."
-msgstr ""
+msgstr "Vous recevez ces messages car vous êtes un membre du staff."
 
 #: cartoterra/templates/django_knowledge/emails/message.html:32
 #, python-format
 msgid ""
 "Thank you,\n"
 "    %(name)s team"
+msgstr "Merci, groupe %(name)s"
+
+#: cartoterra/templates/django_knowledge/form.html:9
+msgid "required"
+msgstr "obligatoire"
+
+#: cartoterra/templates/django_knowledge/index.html:5
+msgid "Support"
+msgstr "Aide"
+
+#: cartoterra/templates/django_knowledge/index.html:10
+#, python-format
+msgid "Top %(count)s Questions"
+msgstr "Top %(count)s des Questions"
+
+#: cartoterra/templates/django_knowledge/inner.html:13
+msgid "Start typing your question here."
+msgstr "Commencer à écrire votre question ici."
+
+#: cartoterra/templates/django_knowledge/list.html:20
+#: geodata/templates/search/search.html:33
+msgid "No results found."
+msgstr "Pas de résultat trouvé"
+
+#: cartoterra/templates/django_knowledge/list.html:28
+msgid "previous"
+msgstr "précédent"
+
+#: cartoterra/templates/django_knowledge/list.html:31
+#, python-format
+msgid "page %(number)s of %(page)s"
+msgstr "page %(number)s sur %(page)s"
+
+#: cartoterra/templates/django_knowledge/list.html:34
+msgid "next"
+msgstr "suivant"
+
+#: cartoterra/templates/django_knowledge/question_list.html:5
+msgid "no responses"
+msgstr "pas de réponse"
+
+#: cartoterra/templates/django_knowledge/question_list.html:5
+msgid "accepted"
+msgstr "accepté"
+
+#: cartoterra/templates/django_knowledge/question_list.html:5
+#: cartoterra/templates/django_knowledge/thread.html:18
+#: cartoterra/templates/django_knowledge/thread.html:43
+msgid "staff"
+msgstr "staff"
+
+#: cartoterra/templates/django_knowledge/sidebar.html:5
+msgid "My Questions"
+msgstr "Mes Questions"
+
+#: cartoterra/templates/django_knowledge/sidebar.html:18
+msgid "Categories"
+msgstr "Catégories"
+
+#: cartoterra/templates/django_knowledge/sidebar.html:29
+msgid "Navigate"
+msgstr "Naviguer"
+
+#: cartoterra/templates/django_knowledge/sidebar.html:33
+msgid "Ask a question or give suggestion."
+msgstr "Poser une question ou soumettre une suggestion."
+
+#: cartoterra/templates/django_knowledge/sidebar.html:34
+msgid "Return to homepage."
+msgstr "Retourner à la page d'accueil."
+
+#: cartoterra/templates/django_knowledge/thread.html:19
+#: cartoterra/templates/django_knowledge/thread.html:44 geodata/models.py:263
+msgid "user"
+msgstr "utilisateur"
+
+#: cartoterra/templates/django_knowledge/thread.html:40
+msgid "accepted answer"
+msgstr "réponse acceptée"
+
+#: cartoterra/templates/django_knowledge/thread.html:41
+msgid "poster"
+msgstr "demandeur"
+
+#: cartoterra/templates/django_knowledge/thread.html:55
+msgid "No responses yet."
+msgstr "Pas de réponse."
+
+#: cartoterra/templates/django_knowledge/thread.html:68
+msgid "This question has been closed."
+msgstr "Cette question a été fermée."
+
+#: cartoterra/templates/django_knowledge/thread.html:70
+msgid "Please log in to respond."
+msgstr "Connectez-vous pour pouvoir répondre à cette question."
+
+#: cartoterra/templates/django_knowledge/welcome.html:4
+msgid "Welcome to our Support Center."
+msgstr "Bienvenue dans notre Centre d'aide"
+
+#: cartoterra/templates/django_knowledge/welcome.html:5
+msgid "Search for answers to your questions below, or ask your own."
 msgstr ""
+"Cherchez la réponse à votre question ci-dessous ou posez une nouvelle "
+"question."
+
+#: cartoterra/templates/donate.html:6
+msgid "Donate"
+msgstr "Faire un don"
+
+#: cartoterra/templates/donate.html:12
+msgid "We need your help to keep Cartoterra.net alive!"
+msgstr "Nous avons besoin de votre aide pour garder Cartoterra.net en vie!"
+
+#: cartoterra/templates/donate.html:15
+msgid "Please consider donating to sustain Cartoterra.net."
+msgstr "Pensez à faire un don pour aider Cartoterra.net."
+
+#: cartoterra/templates/donate.html:27
+msgid "Donation amount:"
+msgstr "Montant du don:"
 
 #: cartoterra/templates/pagination/builtin_pagination.html:10
 #: cartoterra/templates/pagination/builtin_pagination.html:13
 #: cartoterra/templates/pagination/django_pagination_pagination.html:9
 #: cartoterra/templates/pagination/django_pagination_pagination.html:12
 msgid "Previous"
-msgstr ""
+msgstr "Précédent"
 
 #: cartoterra/templates/pagination/builtin_pagination.html:19
 #: cartoterra/templates/pagination/builtin_pagination.html:21
 #: cartoterra/templates/pagination/django_pagination_pagination.html:22
 #: cartoterra/templates/pagination/django_pagination_pagination.html:24
 msgid "Next"
-msgstr ""
+msgstr "Suivant"
 
-#: django-hvad/hvad/admin.py:92
-msgid "all translations"
-msgstr ""
+#: cartoterra/templates/site_base.html:53
+msgid "Donate!"
+msgstr "Faire un don!"
 
-#: django-hvad/hvad/admin.py:255
-#, python-format
-msgid "The %(name)s \"%(obj)s\" was deleted successfully."
-msgstr ""
-
-#: django-hvad/hvad/admin.py:268
-#, python-format
-msgid "Cannot delete %(name)s"
-msgstr ""
-
-#: django-hvad/hvad/admin.py:270
-msgid "Are you sure?"
-msgstr ""
-
-#: django-hvad/hvad/templates/admin/hvad/change_form.html:38
-#: django-hvad/hvad/templates/admin/hvad/change_form.html:40
-#: django-hvad/hvad/templates/admin/hvad/deletion_not_allowed.html:10
-#: django-hvad/hvad/templates/admin/hvad/includes/translation_tabs.html:6
-#: django-hvad/hvad/templates/admin/hvad/includes/translation_tabs.html:8
-#: django-hvad/nani/templates/admin/nani/change_form.html:38
-#: django-hvad/nani/templates/admin/nani/change_form.html:40
-#: django-hvad/nani/templates/admin/nani/deletion_not_allowed.html:10
-#: django-hvad/nani/templates/admin/nani/includes/translation_tabs.html:6
-#: django-hvad/nani/templates/admin/nani/includes/translation_tabs.html:8
-#, fuzzy
-msgid "Delete Translation"
-msgstr "Effacer le mot de passe"
-
-#: django-hvad/hvad/templates/admin/hvad/deletion_not_allowed.html:6
-#: django-hvad/nani/templates/admin/nani/deletion_not_allowed.html:6
-msgid "Home"
-msgstr ""
-
-#: django-hvad/hvad/templates/admin/hvad/deletion_not_allowed.html:15
-#, python-format
-msgid ""
-"Deletion of the %(language_name)s translation of %(object_name)s "
-"'%(escaped_object)s' is not allowed, because it is the last available "
-"translation of this instance."
-msgstr ""
-
-#: django-hvad/hvad/templates/admin/hvad/edit_inline/stacked.html:10
-#: django-hvad/hvad/templates/admin/hvad/edit_inline/tabular.html:30
-#: django-hvad/nani/templates/admin/nani/edit_inline/stacked.html:10
-#: django-hvad/nani/templates/admin/nani/edit_inline/tabular.html:30
-msgid "View on site"
-msgstr ""
-
-#: django-hvad/hvad/templates/admin/hvad/edit_inline/stacked.html:68
-#: django-hvad/hvad/templates/admin/hvad/edit_inline/tabular.html:115
-#: django-hvad/nani/templates/admin/nani/edit_inline/stacked.html:68
-#: django-hvad/nani/templates/admin/nani/edit_inline/tabular.html:115
-#, python-format
-msgid "Add another %(verbose_name)s"
-msgstr ""
-
-#: django-hvad/hvad/templates/admin/hvad/edit_inline/stacked.html:71
-#: django-hvad/hvad/templates/admin/hvad/edit_inline/tabular.html:118
-#: django-hvad/nani/templates/admin/nani/edit_inline/stacked.html:71
-#: django-hvad/nani/templates/admin/nani/edit_inline/tabular.html:118
-msgid "Remove"
-msgstr ""
-
-#: django-hvad/hvad/templates/admin/hvad/edit_inline/tabular.html:17
-#: django-hvad/nani/templates/admin/nani/edit_inline/tabular.html:17
-msgid "Delete?"
-msgstr ""
-
-#: django-hvad/nani/templates/admin/nani/deletion_not_allowed.html:15
-#, python-format
-msgid ""
-"Deletion of the the %(language_name)s translation of %(object_name)s "
-"'%(escaped_object)s' is not allowed, because it is the last available "
-"translation of this instance."
-msgstr ""
+#: cartoterra/templates/site_base.html:60
+msgid "Search cartoterra"
+msgstr "Rechercher sur Cartoterra"
 
 #: geodata/feeds.py:14
 msgid "Updates on changes and additions to buildings of "
-msgstr ""
+msgstr "Mises à jour sur les modifications et les ajouts sur les bâtiments de"
 
 #: geodata/feeds.py:37
 msgid " worksite news."
-msgstr ""
+msgstr "nouveaux chantiers."
 
 #: geodata/feeds.py:39
 msgid "Updates on changes and additions to worksites of "
-msgstr ""
+msgstr "Mises à jour sur les modifications et les ajouts sur les chantiers de"
 
 #: geodata/feeds.py:62
 msgid " event news."
-msgstr ""
+msgstr "nouveaux évènements."
 
 #: geodata/feeds.py:64
 msgid "Updates on changes and additions to events of "
 msgstr ""
+"Mises à jour sur les modifications et les ajouts sur les évènements de"
 
 #: geodata/feeds.py:87
 msgid " stakeholder news."
-msgstr ""
+msgstr "nouveaux intervenants."
 
 #: geodata/feeds.py:89
 msgid "Updates on changes and additions to stakeholders of "
 msgstr ""
+"Mises à jour sur les modifications et les ajouts sur les intervenants de"
 
 #: geodata/imagewidget.py:68
 msgid "Change:"
-msgstr ""
+msgstr "Changement : "
 
-#: geodata/models.py:26 geodata/models.py:83
+#: geodata/models.py:30 geodata/models.py:87
 msgid "name"
-msgstr ""
+msgstr "nom"
 
-#: geodata/models.py:27 geodata/models.py:86
+#: geodata/models.py:31 geodata/models.py:90
 msgid "description"
-msgstr ""
+msgstr "description"
 
-#: geodata/models.py:47 geodata/models.py:88
+#: geodata/models.py:51 geodata/models.py:92
 msgid "website"
-msgstr ""
+msgstr "site web"
 
-#: geodata/models.py:63
-#, fuzzy
+#: geodata/models.py:67
 msgid "caption"
-msgstr "localisation"
+msgstr "légende"
 
-#: geodata/models.py:84
+#: geodata/models.py:88
 msgid "creation date"
 msgstr "date de création"
 
-#: geodata/models.py:85
+#: geodata/models.py:89
 msgid "creator"
 msgstr "créateur"
 
-#: geodata/models.py:89
+#: geodata/models.py:93
 msgid "contact"
-msgstr ""
+msgstr "contact"
 
-#: geodata/models.py:105 geodata/models.py:178
+#: geodata/models.py:110 geodata/models.py:182
 msgid "Identification name"
-msgstr ""
+msgstr "Nom d'identification"
 
-#: geodata/models.py:112 geodata/models.py:185
+#: geodata/models.py:115 geodata/models.py:187
 msgid "Translated name"
-msgstr ""
+msgstr "Nom traduit"
 
-#: geodata/models.py:129
+#: geodata/models.py:132
 msgid "role"
-msgstr ""
+msgstr "rôle"
 
-#: geodata/models.py:131 geodata/models.py:230
-#: geodata/templates/geodata/event_detail.html:9
-#: geodata/templates/geodata/stakeholder_detail.html:18
+#: geodata/models.py:134 geodata/models.py:231
+#: geodata/templates/geodata/event_detail.html:20
+#: geodata/templates/geodata/stakeholder_detail.html:28
 msgid "UNESCO Chair Earthen Architecture"
-msgstr ""
+msgstr "Chaire UNESCO Architecture de terre"
 
-#: geodata/models.py:135 geodata/models.py:156 geodata/models.py:209
-#: geodata/models.py:242
+#: geodata/models.py:138 geodata/models.py:159 geodata/models.py:210
+#: geodata/models.py:241
 msgid "stakeholder"
-msgstr ""
+msgstr "intervenant"
 
-#: geodata/models.py:147 geodata/models.py:201 geodata/models.py:226
+#: geodata/models.py:150 geodata/models.py:203 geodata/models.py:227
 msgid "credit creator"
-msgstr ""
+msgstr "créditer le créateur"
 
-#: geodata/models.py:148
+#: geodata/models.py:151
 msgid "architects"
-msgstr "architctes"
+msgstr "architectes"
 
-#: geodata/models.py:150 geodata/models.py:204
+#: geodata/models.py:153 geodata/models.py:206
 msgid "techniques"
 msgstr "techniques"
 
-#: geodata/models.py:152
+#: geodata/models.py:155
 msgid "world heritage"
-msgstr ""
+msgstr "patrimoine mondial"
 
-#: geodata/models.py:153 geodata/models.py:206
+#: geodata/models.py:156 geodata/models.py:208
 msgid "inauguration date"
 msgstr "date d'inauguration"
 
-#: geodata/models.py:160
+#: geodata/models.py:163
 msgid "building"
-msgstr ""
+msgstr "bâtiment"
 
-#: geodata/models.py:161
+#: geodata/models.py:164
 msgid "buildings"
-msgstr ""
+msgstr "bâtiments"
 
-#: geodata/models.py:202
+#: geodata/models.py:204
 msgid "participative"
 msgstr "participatif"
 
-#: geodata/models.py:213
-msgid "worksite"
-msgstr ""
-
 #: geodata/models.py:214
+msgid "worksite"
+msgstr "chantier"
+
+#: geodata/models.py:215
 msgid "worksites"
-msgstr ""
+msgstr "chantiers"
 
-#: geodata/models.py:228
+#: geodata/models.py:229
 msgid "event type"
-msgstr ""
+msgstr "type d'évènement"
 
-#: geodata/models.py:232
+#: geodata/models.py:233
 msgid "beginning date"
-msgstr ""
+msgstr "date de début"
 
 #: geodata/models.py:234
 msgid "end date"
-msgstr ""
+msgstr "date de fin"
 
-#: geodata/models.py:236 geodata/templates/geodata/event_detail.html:20
+#: geodata/models.py:236 geodata/templates/geodata/event_detail.html:33
 msgid "Number of stakeholders"
-msgstr ""
+msgstr "Nombre d'intervenants"
 
-#: geodata/models.py:239 geodata/templates/geodata/event_detail.html:28
+#: geodata/models.py:239 geodata/templates/geodata/event_detail.html:43
 msgid "Type of stakeholders"
-msgstr ""
+msgstr "Type d'intervenants"
+
+#: geodata/models.py:245
+msgid "event"
+msgstr "évènement"
 
 #: geodata/models.py:246
-msgid "event"
-msgstr ""
-
-#: geodata/models.py:247
 msgid "events"
-msgstr ""
+msgstr "évènements"
 
-#: geodata/models.py:272
-#, fuzzy
+#: geodata/models.py:271
 msgid "building recommendations"
-msgstr "recommandations événements"
+msgstr "recommandations de bâtiments"
 
-#: geodata/models.py:277
-#, fuzzy
+#: geodata/models.py:276
 msgid "worksite recommendations"
-msgstr "recommandations patrimoine"
+msgstr "recommandations de chantiers"
 
-#: geodata/models.py:282
-#, fuzzy
+#: geodata/models.py:281
 msgid "event recommendations"
-msgstr "recommandations événements"
+msgstr "recommandations d'événements"
 
-#: geodata/models.py:287
-#, fuzzy
+#: geodata/models.py:286
 msgid "stakeholder recommendations"
-msgstr "recommandations événements"
+msgstr "recommandations d'intervenants"
 
-#: geodata/models.py:293
+#: geodata/models.py:292
 msgid "Can modify world heritage properties"
-msgstr ""
+msgstr "Peut modifier les propriétés patrimoine mondial"
 
-#: geodata/models.py:295
+#: geodata/models.py:294
 msgid "Can modify UNESCO Chair Earthen Architecture"
-msgstr ""
-
-#: geodata/views.py:429
-msgid "Please correct the errors below."
-msgstr "merci de corriger les erreurs ci-dessous"
-
-#: geodata/views.py:468
-#, python-format
-msgid "Successfully added %(modelname)s \"%(name)s\"."
-msgstr "ajout effectué : %(modelname)s \"%(name)s\"."
-
-#: geodata/views.py:541
-#, python-format
-msgid "Successfully edited %(modelname)s \"%(name)s\"."
-msgstr ""
-
-#: geodata/views.py:593
-#, python-format
-msgid "Successfully deleted %(modelname)s \"%(name)s\"."
-msgstr ""
-
-#: geodata/views.py:658
-#, fuzzy, python-format
-msgid ""
-"Successfully removed %(modelname)s \"%(name)s\" from your                 "
-"recommendations."
-msgstr "ajout effectué : %(modelname)s \"%(name)s\"."
-
-#: geodata/views.py:668
-#, fuzzy, python-format
-msgid ""
-"Successfully added %(modelname)s \"%(name)s\" to your                 "
-"recommendations."
-msgstr "ajout effectué : %(modelname)s \"%(name)s\"."
+msgstr "Peut modifier Chaire UNESCO Architecture de terre"
 
 #: geodata/templates/geodata/add_edit_geodata_base.html:61
-#: geodata/templates/geodata/geodata_detail.html:50
 msgid "Images"
-msgstr ""
+msgstr "Images"
 
 #: geodata/templates/geodata/add_edit_geodata_base.html:83
 msgid "Add more images"
-msgstr ""
+msgstr "Ajouter plus d'images"
 
 #: geodata/templates/geodata/add_edit_geodata_base.html:92
 msgid "Submit"
-msgstr ""
+msgstr "Envoyer"
 
 #: geodata/templates/geodata/add_edit_geodata_base.html:93
 #: geodata/templates/geodata/delete_geodata_base.html:17
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: geodata/templates/geodata/add_geodata_base.html:4
 #: geodata/templates/geodata/add_geodata_base.html:6
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
-#: geodata/templates/geodata/building_detail.html:8
-#: geodata/templates/geodata/geodata_bigmap_base.html:98
+#: geodata/templates/geodata/building_detail.html:14
+#: geodata/templates/geodata/geodata_bigmap.html:144
 msgid "Architects"
-msgstr ""
+msgstr "Architectes"
 
-#: geodata/templates/geodata/building_detail.html:35
-#: geodata/templates/geodata/building_detail.html:47
-#: geodata/templates/geodata/building_detail.html:65
-#: geodata/templates/geodata/event_detail.html:24
-#: geodata/templates/geodata/event_detail.html:36
-#: geodata/templates/geodata/event_detail.html:48
-#: geodata/templates/geodata/stakeholder_detail.html:14
-#: geodata/templates/geodata/worksite_detail.html:14
-#: geodata/templates/geodata/worksite_detail.html:26
-msgid "not provided"
-msgstr ""
+#: geodata/templates/geodata/building_detail.html:32
+#: geodata/templates/geodata/event_detail.html:57
+#: geodata/templates/geodata/geodata_bigmap.html:138
+#: geodata/templates/geodata/geodata_bigmap.html:147
+#: geodata/templates/geodata/worksite_detail.html:6
+msgid "Stakeholders"
+msgstr "Intervenants"
 
-#: geodata/templates/geodata/building_detail.html:39
-#: geodata/templates/geodata/worksite_detail.html:18
-msgid "Techniques"
-msgstr ""
-
-#: geodata/templates/geodata/building_detail.html:52
-msgid "World heritage"
-msgstr ""
-
-#: geodata/templates/geodata/building_detail.html:54
-#: geodata/templates/geodata/event_detail.html:11
-#: geodata/templates/geodata/stakeholder_detail.html:20
-#: geodata/templates/geodata/worksite_detail.html:33
-msgid "Yes!"
-msgstr ""
-
-#: geodata/templates/geodata/building_detail.html:56
-#: geodata/templates/geodata/event_detail.html:13
+#: geodata/templates/geodata/building_detail.html:41
+#: geodata/templates/geodata/building_detail.html:55
+#: geodata/templates/geodata/building_detail.html:73
+#: geodata/templates/geodata/event_detail.html:38
+#: geodata/templates/geodata/event_detail.html:52
+#: geodata/templates/geodata/event_detail.html:66
 #: geodata/templates/geodata/stakeholder_detail.html:22
-#: geodata/templates/geodata/worksite_detail.html:35
-msgid "No."
-msgstr ""
+#: geodata/templates/geodata/worksite_detail.html:15
+#: geodata/templates/geodata/worksite_detail.html:29
+msgid "not provided"
+msgstr "non renseigné"
+
+#: geodata/templates/geodata/building_detail.html:46
+#: geodata/templates/geodata/worksite_detail.html:20
+msgid "Techniques"
+msgstr "Techniques"
 
 #: geodata/templates/geodata/building_detail.html:61
+msgid "World heritage"
+msgstr "Patrimoine Mondial"
+
+#: geodata/templates/geodata/building_detail.html:68
 msgid "Inauguration date"
-msgstr ""
+msgstr "Date d'inauguration"
 
 #: geodata/templates/geodata/delete_geodata_base.html:7
 #: geodata/templates/geodata/delete_geodata_base.html:12
-#: geodata/templates/geodata/geodata_detail.html:14
+#: geodata/templates/geodata/geodata_detail.html:71
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: geodata/templates/geodata/edit_geodata_base.html:4
 #: geodata/templates/geodata/edit_geodata_base.html:6
-#: geodata/templates/geodata/geodata_detail.html:11
+#: geodata/templates/geodata/geodata_detail.html:70
 msgid "Edit"
-msgstr ""
+msgstr "Modifier"
 
-#: geodata/templates/geodata/event_detail.html:6
+#: geodata/templates/geodata/event_detail.html:13
 msgid "Event type"
-msgstr ""
+msgstr "Type d'évènement"
 
-#: geodata/templates/geodata/event_detail.html:17
+#: geodata/templates/geodata/event_detail.html:27
 msgid "Dates"
-msgstr ""
+msgstr "Dates"
 
-#: geodata/templates/geodata/event_detail.html:40
-msgid "Cartoterra.net stakeholders"
-msgstr ""
-
-#: geodata/templates/geodata/geodata_bigmap.html:10
+#: geodata/templates/geodata/geodata_bigmap.html:23
 #: geodata/templates/geodata/profile_detail.html:5
 msgid "All GeoData"
-msgstr ""
+msgstr "Toutes les Géodonnées"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:51
+#: geodata/templates/geodata/geodata_bigmap.html:57
+msgid "Close"
+msgstr "Fermer"
+
+#: geodata/templates/geodata/geodata_bigmap.html:58
+msgid "Details"
+msgstr "Détails"
+
+#: geodata/templates/geodata/geodata_bigmap.html:81
+#: geodata/templates/geodata/geodata_bigmap.html:82
+#: geodata/templates/geodata/geodata_bigmap.html:95
+msgid "Buildings"
+msgstr "Bâtiments"
+
+#: geodata/templates/geodata/geodata_bigmap.html:88
 msgid "All buildings"
-msgstr ""
+msgstr "Tous les bâtiments"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:52
+#: geodata/templates/geodata/geodata_bigmap.html:89
 msgid "World Heritage"
-msgstr ""
+msgstr "Patrimoine Mondial"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:53
+#: geodata/templates/geodata/geodata_bigmap.html:90
 msgid "Contemporary"
-msgstr ""
+msgstr "Contemporain"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:54
+#: geodata/templates/geodata/geodata_bigmap.html:91
 msgid "Heritage"
-msgstr ""
+msgstr "Patrimoine"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:55
+#: geodata/templates/geodata/geodata_bigmap.html:92
 msgid "Other"
-msgstr ""
+msgstr "Autre"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:67
+#: geodata/templates/geodata/geodata_bigmap.html:102
+#: geodata/templates/geodata/geodata_bigmap.html:112
+msgid "Worksites"
+msgstr "Chantiers"
+
+#: geodata/templates/geodata/geodata_bigmap.html:107
 msgid "All worksites"
-msgstr ""
+msgstr "Tous les chantiers"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:68
+#: geodata/templates/geodata/geodata_bigmap.html:108
 msgid "Participative"
-msgstr ""
+msgstr "Participatif"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:69
+#: geodata/templates/geodata/geodata_bigmap.html:109
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:81
+#: geodata/templates/geodata/geodata_bigmap.html:119
+#: geodata/templates/geodata/geodata_bigmap.html:131
+msgid "Events"
+msgstr "Évènements"
+
+#: geodata/templates/geodata/geodata_bigmap.html:124
 msgid "All events"
-msgstr ""
+msgstr "Tous les évènements"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:82
+#: geodata/templates/geodata/geodata_bigmap.html:125
 msgid "Seminar"
-msgstr "séminaire"
+msgstr "Séminaire"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:83
+#: geodata/templates/geodata/geodata_bigmap.html:126
 msgid "Training"
-msgstr ""
+msgstr "Formation"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:84
+#: geodata/templates/geodata/geodata_bigmap.html:127
 msgid "Conference"
-msgstr "conférence"
+msgstr "Conférence"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:85
+#: geodata/templates/geodata/geodata_bigmap.html:128
 msgid "Exhibition"
-msgstr ""
+msgstr "Exposition"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:97
+#: geodata/templates/geodata/geodata_bigmap.html:143
 msgid "All stakeholders"
-msgstr ""
+msgstr "Tous les intervenants"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:107
-msgid "Toolbox"
-msgstr ""
+#: geodata/templates/geodata/geodata_bigmap.html:156
+#| msgid "Add geodata"
+msgid "Add a geodata"
+msgstr "Ajouter une géodonnée"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:113
-msgid "Add geodata"
-msgstr ""
-
-#: geodata/templates/geodata/geodata_bigmap_base.html:115
+#: geodata/templates/geodata/geodata_bigmap.html:161
 msgid "Add Building"
-msgstr ""
+msgstr "Ajouter un Bâtiment"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:115
+#: geodata/templates/geodata/geodata_bigmap.html:161
 msgid "Building"
-msgstr ""
+msgstr "Bâtiment"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:116
+#: geodata/templates/geodata/geodata_bigmap.html:162
 msgid "Add Worksite"
-msgstr ""
+msgstr "Ajouter un Chantier"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:116
+#: geodata/templates/geodata/geodata_bigmap.html:162
 msgid "Worksite"
-msgstr ""
+msgstr "Chantier"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:117
+#: geodata/templates/geodata/geodata_bigmap.html:163
 msgid "Add Event"
-msgstr ""
+msgstr "Ajouter un Évènement"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:117
+#: geodata/templates/geodata/geodata_bigmap.html:163
 msgid "Event"
-msgstr ""
+msgstr "Évènement"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:118
+#: geodata/templates/geodata/geodata_bigmap.html:164
 msgid "Add Stakeholder"
-msgstr ""
+msgstr "Ajouter un Intervenant"
 
-#: geodata/templates/geodata/geodata_bigmap_base.html:118
+#: geodata/templates/geodata/geodata_bigmap.html:164
 msgid "Stakeholder"
-msgstr ""
-
-#: geodata/templates/geodata/geodata_detail.html:19
-msgid "Recommend ON"
-msgstr ""
-
-#: geodata/templates/geodata/geodata_detail.html:21
-msgid "Recommend OFF"
-msgstr ""
-
-#: geodata/templates/geodata/geodata_detail.html:50
-msgid "Image"
-msgstr ""
-
-#: geodata/templates/geodata/geodata_detail.html:58
-msgid "No image provided yet."
-msgstr ""
-
-#: geodata/templates/geodata/geodata_detail.html:65
-msgid "Description"
-msgstr ""
-
-#: geodata/templates/geodata/geodata_detail.html:71
-msgid "Contacts"
-msgstr ""
-
-#: geodata/templates/geodata/geodata_detail.html:73
-msgid "User"
-msgstr ""
+msgstr "Intervenant"
 
 #: geodata/templates/geodata/geodata_detail.html:74
+#| msgid "Recommend ON"
+msgid "Recommended"
+msgstr "Recommandé"
+
+#: geodata/templates/geodata/geodata_detail.html:76
+#| msgid "Recommend ON"
+msgid "Recommend"
+msgstr "Recommander"
+
+#: geodata/templates/geodata/geodata_detail.html:76
+msgid "Click to recommend this geodata"
+msgstr "Cliquer pour recommander cette géodonnée"
+
+#: geodata/templates/geodata/geodata_detail.html:109
+msgid "Contacts"
+msgstr "Contacts"
+
+#: geodata/templates/geodata/geodata_detail.html:112
+msgid "User"
+msgstr "Utilisateur"
+
+#: geodata/templates/geodata/geodata_detail.html:113
 msgid "Website"
-msgstr ""
+msgstr "Site web"
 
-#: geodata/templates/geodata/geodata_detail.html:75
+#: geodata/templates/geodata/geodata_detail.html:114
 msgid "Other contact information"
-msgstr ""
+msgstr "Autres informations de contact"
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:20
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:74
 msgid "Latitude/Longitude"
-msgstr ""
+msgstr "Latitude/Longitude"
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:22
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:76
 msgid "Latitude"
-msgstr ""
+msgstr "Latitude"
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:23
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:77
 msgid "Longitude"
-msgstr ""
+msgstr "Longitude"
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:24
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:78
 msgid "Update map"
-msgstr ""
+msgstr "Mettre à jour la carte"
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:27
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:81
 msgid "Nominatim Search Courtesy of"
-msgstr ""
+msgstr "Recherche via Nominatim"
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:30
-#, fuzzy
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:84
 msgid "Address"
-msgstr "Addresses email"
+msgstr "Adresse"
 
-#: geodata/templates/geodata/geodata_form_geometry_widget.html:31
+#: geodata/templates/geodata/geodata_form_geometry_widget.html:85
 msgid "Geolocate this address!"
-msgstr ""
+msgstr "Géolocaliser cette adresse !"
 
 #: geodata/templates/geodata/geodata_list.html:5
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
-#: geodata/templates/geodata/profile_list.html:9
-#, fuzzy
+#: geodata/templates/geodata/profile_list.html:5
 msgid "List of profiles"
-msgstr "Profil"
+msgstr "Liste des Profils"
 
-#: geodata/templates/geodata/stakeholder_detail.html:6
+#: geodata/templates/geodata/stakeholder_detail.html:13
 msgid "Roles"
-msgstr ""
+msgstr "Rôles"
 
-#: geodata/templates/geodata/worksite_detail.html:31
-#, fuzzy
+#: geodata/templates/geodata/worksite_detail.html:34
 msgid "Participative worksite"
-msgstr "participatif"
+msgstr "Chantier participatif"
+
+#: geodata/templates/geodata/worksite_detail.html:37
+msgid "Yes!"
+msgstr "Oui!"
+
+#: geodata/templates/geodata/worksite_detail.html:39
+msgid "No."
+msgstr "No."
 
 #: geodata/templates/search/search.html:9
 msgid "Search"
-msgstr ""
+msgstr "Rechercher"
 
 #: geodata/templates/search/search.html:18
 msgid "Go"
+msgstr "Aller à"
+
+#: geodata/views.py:435
+msgid "Please correct the errors below."
+msgstr "Merci de corriger les erreurs ci-dessous."
+
+#: geodata/views.py:474
+#, python-format
+msgid "Successfully added %(modelname)s \"%(name)s\"."
+msgstr "Ajout effectué: %(modelname)s \"%(name)s\"."
+
+#: geodata/views.py:547
+#, python-format
+msgid "Successfully edited %(modelname)s \"%(name)s\"."
+msgstr "Modification effectuée: %(modelname)s \"%(name)s\"."
+
+#: geodata/views.py:599
+#, python-format
+msgid "Successfully deleted %(modelname)s \"%(name)s\"."
+msgstr "Suppression effectuée: %(modelname)s \"%(name)s\"."
+
+#: geodata/views.py:664
+#, python-format
+msgid ""
+"Successfully removed %(modelname)s \"%(name)s\" from your                 "
+"recommendations."
 msgstr ""
+"Suppression de votre liste de recommandation effectuée: %(modelname)s "
+"\"%(name)s\"."
+
+#: geodata/views.py:674
+#, python-format
+msgid ""
+"Successfully added %(modelname)s \"%(name)s\" to your                 "
+"recommendations."
+msgstr "Ajout effectué : %(modelname)s \"%(name)s\"."
+
+#~ msgid "by"
+#~ msgstr "par"
+
+#~ msgid "Recommendations"
+#~ msgstr "Recommandations"
+
+#~ msgid "Last changes"
+#~ msgstr "Derniers Changements"
+
+#~ msgid "all translations"
+#~ msgstr "Toutes les traductions"
+
+#~ msgid "The %(name)s \"%(obj)s\" was deleted successfully."
+#~ msgstr "Le %(name)s \"%(obj)s\" à été supprimé avec succès"
+
+#~ msgid "Cannot delete %(name)s"
+#~ msgstr "Impossible de supprimer %(name)s"
+
+#~ msgid "Are you sure?"
+#~ msgstr "Etes vous sur ?"
+
+#~ msgid "Delete Translation"
+#~ msgstr "Effacer la traduction"
+
+#~ msgid "Home"
+#~ msgstr "Accueil"
+
+#~ msgid ""
+#~ "Deletion of the %(language_name)s translation of %(object_name)s "
+#~ "'%(escaped_object)s' is not allowed, because it is the last available "
+#~ "translation of this instance."
+#~ msgstr ""
+#~ "Suppression de la traduction %(language_name)s de %(object_name)s "
+#~ "'%(escaped_object)s' n'est pas possible, car c'est la dernière traduction "
+#~ "disponible."
+
+#~ msgid "View on site"
+#~ msgstr "Vue du site"
+
+#~ msgid "Add another %(verbose_name)s"
+#~ msgstr "Ajouter un autre %(verbose_name)s"
+
+#~ msgid "Remove"
+#~ msgstr "Supprimer"
+
+#~ msgid "Delete?"
+#~ msgstr "Supprimer ?"
+
+#~ msgid ""
+#~ "Deletion of the the %(language_name)s translation of %(object_name)s "
+#~ "'%(escaped_object)s' is not allowed, because it is the last available "
+#~ "translation of this instance."
+#~ msgstr ""
+#~ "Suppression de la traduction %(language_name)s de %(object_name)s "
+#~ "'%(escaped_object)s' n'est pas possible, car c'est la dernière traduction "
+#~ "disponible."
+
+#~ msgid "Cartoterra.net stakeholders"
+#~ msgstr "intervenants de Cartoterra.net"
+
+#~ msgid "Toolbox"
+#~ msgstr "Boite à outils"
+
+#~ msgid "Recommend OFF"
+#~ msgstr "Recommandé OFF"
+
+#~ msgid "Image"
+#~ msgstr "Image"
+
+#~ msgid "No image provided yet."
+#~ msgstr "Pas encore d'image disponible."
+
+#~ msgid "Description"
+#~ msgstr "Description"
 
 #~ msgid "Welcome"
 #~ msgstr "Bienvenue"
@@ -1108,22 +1122,19 @@ msgstr ""
 #~ msgid "Welcome to Pinax"
 #~ msgstr "Bienevenue sur le site"
 
-#, fuzzy
 #~ msgid ""
 #~ "Wondering <a href=\"%(what_next_url)s\" class=\"btn primary large\">What "
 #~ "Next</a>?"
-#~ msgstr ""
-#~ "Vous vous demandez <a href=\"%(what_next_url)s\">Que faire apres</a>?"
+#~ msgstr "Vous vous demandez <a href=\"%(what_next_url)s\">Que faire apres</a>?"
 
-#, fuzzy
 #~ msgid ""
-#~ "You can <a href=\"%(login_url)s\" class=\"btn\">Log In</a> or <a href="
-#~ "\"%(signup_url)s\" class=\"btn primary\">Sign Up</a> to try out the site."
+#~ "You can <a href=\"%(login_url)s\" class=\"btn\">Log In</a> or <a "
+#~ "href=\"%(signup_url)s\" class=\"btn primary\">Sign Up</a> to try out the "
+#~ "site."
 #~ msgstr ""
-#~ "Vous pouvez <a href=\"%(signup_url)s\">vous inscrire</a> et <a href="
-#~ "\"%(login_url)s\">vous authentifier</a> pour essayer le site."
+#~ "Vous pouvez <a href=\"%(signup_url)s\">vous inscrire</a> et <a "
+#~ "href=\"%(login_url)s\">vous authentifier</a> pour essayer le site."
 
-#, fuzzy
 #~ msgid "about"
 #~ msgstr "A propos"
 
@@ -1158,11 +1169,11 @@ msgstr ""
 #~ msgstr "Que faire maintenant?"
 
 #~ msgid ""
-#~ "Start by <a href=\"%(signup_url)s\">signing up</a> and <a href="
-#~ "\"%(login_url)s\">logging in</a>."
+#~ "Start by <a href=\"%(signup_url)s\">signing up</a> and <a "
+#~ "href=\"%(login_url)s\">logging in</a>."
 #~ msgstr ""
-#~ "Commencez par <a href=\"%(signup_url)s\">vous inscrire</a> et <a href="
-#~ "\"%(login_url)s\">vous authentifier</a>"
+#~ "Commencez par <a href=\"%(signup_url)s\">vous inscrire</a> et <a "
+#~ "href=\"%(login_url)s\">vous authentifier</a>"
 
 #~ msgid "Start by <a href=\"%(login_url)s\">logging in</a>."
 #~ msgstr "Commencez par <a href=\"%(login_url)s\">vous authentifier</a>"
@@ -1170,7 +1181,6 @@ msgstr ""
 #~ msgid "About"
 #~ msgstr "A propos"
 
-#, fuzzy
 #~ msgid "&copy; 2012 &lt;L'Inventif Atelier&gt;"
 #~ msgstr "&copy; 2010 &lt;votre raison sociale ici&gt;"
 
@@ -1179,10 +1189,9 @@ msgstr ""
 
 #~ msgid "You can <a href=\"%(login_url)s\">Log in</a> to try out the site."
 #~ msgstr ""
-#~ "Vous pouvez <a href=\"%(login_url)s\">vous authentifier</a> pour essayer "
-#~ "le site."
+#~ "Vous pouvez <a href=\"%(login_url)s\">vous authentifier</a> pour essayer le "
+#~ "site."
 
-#, fuzzy
 #~ msgid "Terms of Service"
 #~ msgstr "Termes de service"
 
