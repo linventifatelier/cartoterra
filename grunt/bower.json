@@ -19,7 +19,6 @@
     "bootstrap-datepicker": "~1.5.0",
     "html5shiv": "~3.7.0",
     "jquery": "1.11",
-    "openlayers": "release-2.13.1",
     "spin.js": "~2.3.2",
     "leaflet.markercluster": "~0.4.0",
     "leaflet": "~0.7.7"
