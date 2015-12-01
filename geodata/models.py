@@ -241,6 +241,9 @@ class Building(GeoDataAbstract):
     inauguration_date = models.DateField(
         _("inauguration date"), blank=True, null=True
     )
+    # construction_date = models.CharField(
+    #     _("Approximative construction date"), blank=True, null=True
+    # )
     stakeholder = models.ManyToManyField(
         Stakeholder, verbose_name=_("stakeholder"), blank=True
     )
