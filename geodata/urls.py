@@ -34,6 +34,13 @@ urlpatterns = patterns(
         views.GeoJSONBuildingListView.as_view(
             queryset=models.Building.objects.filter(
                 inauguration_date__gte=now() - timedelta(days=3650)))),
+    url(r'^building/isceah/geojson/$',
+        views.GeoJSONBuildingListView.as_view(
+            queryset=models.Building.objects.filter(isceah=True))),
+    url(r'^building/isceah/$',
+        views.BuildingListView.as_view(
+            queryset=models.Building.objects.filter(isceah=True)),
+        name="show_building_isceah"),
     url(r'^building/unesco/geojson/$',
         views.GeoJSONBuildingListView.as_view(
             queryset=models.Building.objects.filter(unesco=True))),
@@ -67,6 +74,13 @@ urlpatterns = patterns(
     url(r'^people/role/(?P<role>[a-zA-Z0-9_\-]+)/geojson/$',
         views.GeoJSONStakeholderListView.as_view(),
         name="geojson_stakeholder_of_role"),
+    url(r'^people/isceah/$',
+        views.StakeholderListView.as_view(
+            queryset=models.Stakeholder.objects.filter(isceah=True)),
+        name="show_stakeholder_isceah"),
+    url(r'^people/isceah/geojson/$',
+        views.GeoJSONStakeholderListView.as_view(
+            queryset=models.Stakeholder.objects.filter(isceah=True))),
     url(r'^building/all/$', views.BuildingListView.as_view(),
         name="show_building_all"),
     url(r'^building/contemporary/$',
