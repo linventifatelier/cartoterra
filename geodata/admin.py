@@ -1,6 +1,8 @@
 """Geodata administration interface."""
 from models import Building, Worksite, Event, Stakeholder, Image, \
-    EventType, EarthTechnique, EarthRole, Profile
+    EventType, EarthTechnique, EarthRole, Profile, BuildingClassification, \
+    BuildingUse, BuildingPropertyStatus, BuildingCulturalLandscape, \
+    BuildingProtectionStatus, EarthQuantity
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -112,6 +114,14 @@ class StakeholderAdmin(GeoDataAbstractAdmin):
     )
 
 admin.site.register(Stakeholder, StakeholderAdmin)
+
+
+admin.site.register(BuildingClassification, admin.ModelAdmin)
+admin.site.register(BuildingUse, admin.ModelAdmin)
+admin.site.register(BuildingPropertyStatus, admin.ModelAdmin)
+admin.site.register(BuildingCulturalLandscape, admin.ModelAdmin)
+admin.site.register(BuildingProtectionStatus, admin.ModelAdmin)
+admin.site.register(EarthQuantity, admin.ModelAdmin)
 
 
 class BuildingAdmin(GeoDataAbstractAdmin):
