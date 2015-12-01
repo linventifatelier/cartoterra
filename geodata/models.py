@@ -167,12 +167,7 @@ class BuildingPropertyStatus(models.Model):
         return self.name
 
 
-class BuildingCulturalLandscape(models.Model):
-    """A model for building cultural landscape."""
-    name = models.CharField(_("name"), max_length=50)
-
-    def __unicode__(self):
-        return self.name
+CULTURAL_LANDSCAPE_CHOICES = ((None, ''), (True, _('Yes')), (False, _('No')))
 
 
 class BuildingProtectionStatus(models.Model):
@@ -204,9 +199,10 @@ class Building(GeoDataAbstract):
     #     BuildingPropertyStatus, verbose_name=_("property status"),
     #     blank=True, null=True
     # )
-    # cultural_landscape = models.ForeignKey(
-    #     BuildingCulturalLandscape, verbose_name=_("cultural landscape"),
-    #     blank=True, null=True
+    # cultural_landscape = models.NullBooleanField(
+    #     choices=CULTURAL_LANDSCAPE_CHOICES,
+    #     verbose_name=_("cultural landscape"), blank=True, null=True,
+    #     default=None
     # )
     # protection_status = models.ForeignKey(
     #     BuildingProtectionStatus, verbose_name=_("protection status"),
