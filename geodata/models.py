@@ -143,23 +143,99 @@ class Stakeholder(GeoDataAbstract):
         return ("show_stakeholder", [self.id])
 
 
+class BuildingClassification(models.Model):
+    """A model for building classifications."""
+    name = models.CharField(_("name"), max_length=50)
+
+    def __unicode__(self):
+        return self.name
+
+
+class BuildingUse(models.Model):
+    """A model for building uses."""
+    name = models.CharField(_("name"), max_length=50)
+
+    def __unicode__(self):
+        return self.name
+
+
+class BuildingPropertyStatus(models.Model):
+    """A model for building property status."""
+    name = models.CharField(_("name"), max_length=50)
+
+    def __unicode__(self):
+        return self.name
+
+
+class BuildingCulturalLandscape(models.Model):
+    """A model for building cultural landscape."""
+    name = models.CharField(_("name"), max_length=50)
+
+    def __unicode__(self):
+        return self.name
+
+
+class BuildingProtectionStatus(models.Model):
+    """A model for building protection status."""
+    name = models.CharField(_("name"), max_length=50)
+
+    def __unicode__(self):
+        return self.name
+
+
+class EarthQuantity(models.Model):
+    """A model for earth quantity."""
+    quantity = models.CharField(_("quantity"), max_length=50)
+
+    def __unicode__(self):
+        return self.quantity
+
+
 class Building(GeoDataAbstract):
     """A spatial model for building geodata."""
-    # architects = models.ManyToManyField(EarthArchitect,
-    #                                     verbose_name=_("architects"),
-    #                                     blank=True, null=True)
+    # classification = models.ForeignKey(
+    #     BuildingClassification, verbose_name=_("classification"),
+    #     blank=True, null=True
+    # )
+    # use = models.ForeignKey(
+    #     BuildingUse, verbose_name=_("use"), blank=True, null=True
+    # )
+    # property_status = models.ForeignKey(
+    #     BuildingPropertyStatus, verbose_name=_("property status"),
+    #     blank=True, null=True
+    # )
+    # cultural_landscape = models.ForeignKey(
+    #     BuildingCulturalLandscape, verbose_name=_("cultural landscape"),
+    #     blank=True, null=True
+    # )
+    # protection_status = models.ForeignKey(
+    #     BuildingProtectionStatus, verbose_name=_("protection status"),
+    #     blank=True, null=True
+    # )
     credit_creator = models.BooleanField(_("credit creator"), default=True)
     architects = models.TextField(_("architects"), blank=True, null=True)
     techniques = models.ManyToManyField(EarthTechnique,
                                         verbose_name=_("techniques"),
                                         blank=True)
+    # earth_quantity = models.ForeignKey(
+    #     EartQuantity,
+    #     verbose_name=_("quantity of earthen material in the structure"),
+    #     blank=True, null=True
+    # )
+    # condition = models.TextField(
+    #     _("site condition and threats"), blank=True, null=True
+    # )
+    # references = models.TextField(
+    #     _("principal references"), blank=True, null=True
+    # )
     unesco = models.BooleanField(_("world heritage"), default=False)
     isceah = models.BooleanField(_("ISCEAH"), default=False)
-    inauguration_date = models.DateField(_("inauguration date"),
-                                         blank=True, null=True)
-    stakeholder = models.ManyToManyField(Stakeholder,
-                                         verbose_name=_("stakeholder"),
-                                         blank=True)
+    inauguration_date = models.DateField(
+        _("inauguration date"), blank=True, null=True
+    )
+    stakeholder = models.ManyToManyField(
+        Stakeholder, verbose_name=_("stakeholder"), blank=True
+    )
 
     class Meta:
         verbose_name = _("building")
