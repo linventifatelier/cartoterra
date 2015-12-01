@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 20:20+0100\n"
+"POT-Creation-Date: 2015-12-01 20:30+0100\n"
 "PO-Revision-Date: 2015-11-30 12:16+0009\n"
 "Last-Translator:   <felix.sipma@no-log.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -490,7 +490,7 @@ msgid "Return to homepage."
 msgstr "Retourner à la page d'accueil."
 
 #: cartoterra/templates/django_knowledge/thread.html:19
-#: cartoterra/templates/django_knowledge/thread.html:44 geodata/models.py:349
+#: cartoterra/templates/django_knowledge/thread.html:44 geodata/models.py:352
 msgid "user"
 msgstr "utilisateur"
 
@@ -595,9 +595,13 @@ msgstr ""
 msgid ""
 "Detailled description (major elements, present and past use, cultural "
 "affiliation, historical/cultural/architectural importance, period of "
-"construction, geographical scole, associated events, hybrid construction "
+"construction, geographical scale, associated events, hybrid construction "
 "techniques if any)"
 msgstr ""
+"Description détaillée (éléments principaux, usage présent et passé, "
+"affiliation culturelle, importance historique/culturelle/architecturale, "
+"époque de construction, échelle géographique, évènements associés, "
+"techniques de constructions hybrides)"
 
 #: geodata/forms.py:182
 msgid ""
@@ -612,6 +616,8 @@ msgid ""
 "Tick here if you are member of ICOMOS-ISCEAH and want this entry to be "
 "referenced as ICOMOS-ISCEAH."
 msgstr ""
+"Cocher cette case si vous êtes un membre ICOMOS-ISCEAH et voulez que cette "
+"entrée soit référencée comme ICOMOS-ISCEAH."
 
 #: geodata/imagewidget.py:68
 msgid "Change:"
@@ -646,11 +652,11 @@ msgstr "créateur"
 msgid "contact"
 msgstr "contact"
 
-#: geodata/models.py:110 geodata/models.py:268
+#: geodata/models.py:110 geodata/models.py:271
 msgid "Identification name"
 msgstr "Nom d'identification"
 
-#: geodata/models.py:115 geodata/models.py:273
+#: geodata/models.py:115 geodata/models.py:276
 msgid "Translated name"
 msgstr "Nom traduit"
 
@@ -658,7 +664,7 @@ msgstr "Nom traduit"
 msgid "role"
 msgstr "rôle"
 
-#: geodata/models.py:134 geodata/models.py:317
+#: geodata/models.py:134 geodata/models.py:320
 #: geodata/templates/geodata/event_detail.html:20
 #: geodata/templates/geodata/stakeholder_detail.html:31
 msgid "UNESCO Chair Earthen Architecture"
@@ -670,8 +676,8 @@ msgstr "Chaire UNESCO Architecture de terre"
 msgid "ISCEAH"
 msgstr "ISCEAH"
 
-#: geodata/models.py:139 geodata/models.py:245 geodata/models.py:296
-#: geodata/models.py:327
+#: geodata/models.py:139 geodata/models.py:248 geodata/models.py:299
+#: geodata/models.py:330
 msgid "stakeholder"
 msgstr "intervenant"
 
@@ -705,13 +711,13 @@ msgstr "quantité"
 
 #: geodata/models.py:197
 msgid "earthen material quantity"
-msgstr ""
+msgstr "quantité de matériau terre"
 
 #: geodata/models.py:198
 msgid "earthen material quantities"
-msgstr ""
+msgstr "quantités de matériau terre"
 
-#: geodata/models.py:223 geodata/models.py:289 geodata/models.py:313
+#: geodata/models.py:223 geodata/models.py:292 geodata/models.py:316
 msgid "credit creator"
 msgstr "créditer le créateur"
 
@@ -719,7 +725,7 @@ msgstr "créditer le créateur"
 msgid "architects"
 msgstr "architectes"
 
-#: geodata/models.py:226 geodata/models.py:292
+#: geodata/models.py:226 geodata/models.py:295
 msgid "techniques"
 msgstr "techniques"
 
@@ -727,83 +733,83 @@ msgstr "techniques"
 msgid "world heritage"
 msgstr "patrimoine mondial"
 
-#: geodata/models.py:242 geodata/models.py:294
+#: geodata/models.py:242 geodata/models.py:297
 msgid "inauguration date"
 msgstr "date d'inauguration"
 
-#: geodata/models.py:249
+#: geodata/models.py:252
 msgid "building"
 msgstr "bâtiment"
 
-#: geodata/models.py:250
+#: geodata/models.py:253
 msgid "buildings"
 msgstr "bâtiments"
 
-#: geodata/models.py:290
+#: geodata/models.py:293
 msgid "participative"
 msgstr "participatif"
 
-#: geodata/models.py:300
+#: geodata/models.py:303
 msgid "worksite"
 msgstr "chantier"
 
-#: geodata/models.py:301
+#: geodata/models.py:304
 msgid "worksites"
 msgstr "chantiers"
 
-#: geodata/models.py:315
+#: geodata/models.py:318
 msgid "event type"
 msgstr "type d'évènement"
 
-#: geodata/models.py:319
+#: geodata/models.py:322
 msgid "beginning date"
 msgstr "date de début"
 
-#: geodata/models.py:320
+#: geodata/models.py:323
 msgid "end date"
 msgstr "date de fin"
 
-#: geodata/models.py:322 geodata/templates/geodata/event_detail.html:33
+#: geodata/models.py:325 geodata/templates/geodata/event_detail.html:33
 msgid "Number of stakeholders"
 msgstr "Nombre d'intervenants"
 
-#: geodata/models.py:325 geodata/templates/geodata/event_detail.html:43
+#: geodata/models.py:328 geodata/templates/geodata/event_detail.html:43
 msgid "Type of stakeholders"
 msgstr "Type d'intervenants"
 
-#: geodata/models.py:331
+#: geodata/models.py:334
 msgid "event"
 msgstr "évènement"
 
-#: geodata/models.py:332
+#: geodata/models.py:335
 msgid "events"
 msgstr "évènements"
 
-#: geodata/models.py:357
+#: geodata/models.py:360
 msgid "building recommendations"
 msgstr "recommandations de bâtiments"
 
-#: geodata/models.py:362
+#: geodata/models.py:365
 msgid "worksite recommendations"
 msgstr "recommandations de chantiers"
 
-#: geodata/models.py:367
+#: geodata/models.py:370
 msgid "event recommendations"
 msgstr "recommandations d'événements"
 
-#: geodata/models.py:372
+#: geodata/models.py:375
 msgid "stakeholder recommendations"
 msgstr "recommandations d'intervenants"
 
-#: geodata/models.py:378
+#: geodata/models.py:381
 msgid "Can modify world heritage properties"
 msgstr "Peut modifier les propriétés patrimoine mondial"
 
-#: geodata/models.py:380
+#: geodata/models.py:383
 msgid "Can modify UNESCO Chair Earthen Architecture"
 msgstr "Peut modifier Chaire UNESCO Architecture de terre"
 
-#: geodata/models.py:381
+#: geodata/models.py:384
 msgid "Can modify ISCEAH properties"
 msgstr "Peut modifier les propriétés ISCEAH"
 
@@ -1135,172 +1141,3 @@ msgid ""
 "Successfully added %(modelname)s \"%(name)s\" to your                 "
 "recommendations."
 msgstr "Ajout effectué : %(modelname)s \"%(name)s\"."
-
-#~ msgid "by"
-#~ msgstr "par"
-
-#~ msgid "Recommendations"
-#~ msgstr "Recommandations"
-
-#~ msgid "Last changes"
-#~ msgstr "Derniers Changements"
-
-#~ msgid "all translations"
-#~ msgstr "Toutes les traductions"
-
-#~ msgid "The %(name)s \"%(obj)s\" was deleted successfully."
-#~ msgstr "Le %(name)s \"%(obj)s\" à été supprimé avec succès"
-
-#~ msgid "Cannot delete %(name)s"
-#~ msgstr "Impossible de supprimer %(name)s"
-
-#~ msgid "Are you sure?"
-#~ msgstr "Etes vous sur ?"
-
-#~ msgid "Delete Translation"
-#~ msgstr "Effacer la traduction"
-
-#~ msgid "Home"
-#~ msgstr "Accueil"
-
-#~ msgid ""
-#~ "Deletion of the %(language_name)s translation of %(object_name)s "
-#~ "'%(escaped_object)s' is not allowed, because it is the last available "
-#~ "translation of this instance."
-#~ msgstr ""
-#~ "Suppression de la traduction %(language_name)s de %(object_name)s "
-#~ "'%(escaped_object)s' n'est pas possible, car c'est la dernière traduction "
-#~ "disponible."
-
-#~ msgid "View on site"
-#~ msgstr "Vue du site"
-
-#~ msgid "Add another %(verbose_name)s"
-#~ msgstr "Ajouter un autre %(verbose_name)s"
-
-#~ msgid "Remove"
-#~ msgstr "Supprimer"
-
-#~ msgid "Delete?"
-#~ msgstr "Supprimer ?"
-
-#~ msgid ""
-#~ "Deletion of the the %(language_name)s translation of %(object_name)s "
-#~ "'%(escaped_object)s' is not allowed, because it is the last available "
-#~ "translation of this instance."
-#~ msgstr ""
-#~ "Suppression de la traduction %(language_name)s de %(object_name)s "
-#~ "'%(escaped_object)s' n'est pas possible, car c'est la dernière traduction "
-#~ "disponible."
-
-#~ msgid "Cartoterra.net stakeholders"
-#~ msgstr "intervenants de Cartoterra.net"
-
-#~ msgid "Toolbox"
-#~ msgstr "Boite à outils"
-
-#~ msgid "Recommend OFF"
-#~ msgstr "Recommandé OFF"
-
-#~ msgid "Image"
-#~ msgstr "Image"
-
-#~ msgid "No image provided yet."
-#~ msgstr "Pas encore d'image disponible."
-
-#~ msgid "Description"
-#~ msgstr "Description"
-
-#~ msgid "Welcome"
-#~ msgstr "Bienvenue"
-
-#~ msgid "Welcome to Pinax"
-#~ msgstr "Bienevenue sur le site"
-
-#~ msgid ""
-#~ "Wondering <a href=\"%(what_next_url)s\" class=\"btn primary large\">What "
-#~ "Next</a>?"
-#~ msgstr ""
-#~ "Vous vous demandez <a href=\"%(what_next_url)s\">Que faire apres</a>?"
-
-#~ msgid ""
-#~ "You can <a href=\"%(login_url)s\" class=\"btn\">Log In</a> or <a href="
-#~ "\"%(signup_url)s\" class=\"btn primary\">Sign Up</a> to try out the site."
-#~ msgstr ""
-#~ "Vous pouvez <a href=\"%(signup_url)s\">vous inscrire</a> et <a href="
-#~ "\"%(login_url)s\">vous authentifier</a> pour essayer le site."
-
-#~ msgid "about"
-#~ msgstr "A propos"
-
-#~ msgid "construction recommendations"
-#~ msgstr "recommandations construction"
-
-#~ msgid "patrimony"
-#~ msgstr "patrimoine"
-
-#~ msgid "patrimonies"
-#~ msgstr "patrimoine"
-
-#~ msgid "Colloquium"
-#~ msgstr "colloque"
-
-#~ msgid "Festival"
-#~ msgstr "festival"
-
-#~ msgid "Not specified"
-#~ msgstr "non spécifié"
-
-#~ msgid "Logout"
-#~ msgstr "Déconnection"
-
-#~ msgid "or"
-#~ msgstr "ou"
-
-#~ msgid "Notices"
-#~ msgstr "Notifications"
-
-#~ msgid "What Next?"
-#~ msgstr "Que faire maintenant?"
-
-#~ msgid ""
-#~ "Start by <a href=\"%(signup_url)s\">signing up</a> and <a href="
-#~ "\"%(login_url)s\">logging in</a>."
-#~ msgstr ""
-#~ "Commencez par <a href=\"%(signup_url)s\">vous inscrire</a> et <a href="
-#~ "\"%(login_url)s\">vous authentifier</a>"
-
-#~ msgid "Start by <a href=\"%(login_url)s\">logging in</a>."
-#~ msgstr "Commencez par <a href=\"%(login_url)s\">vous authentifier</a>"
-
-#~ msgid "About"
-#~ msgstr "A propos"
-
-#~ msgid "&copy; 2012 &lt;L'Inventif Atelier&gt;"
-#~ msgstr "&copy; 2010 &lt;votre raison sociale ici&gt;"
-
-#~ msgid "About this project"
-#~ msgstr "A propos de ce projet"
-
-#~ msgid "You can <a href=\"%(login_url)s\">Log in</a> to try out the site."
-#~ msgstr ""
-#~ "Vous pouvez <a href=\"%(login_url)s\">vous authentifier</a> pour essayer "
-#~ "le site."
-
-#~ msgid "Terms of Service"
-#~ msgstr "Termes de service"
-
-#~ msgid "Privacy Policy"
-#~ msgstr "Politique de confidentialité"
-
-#~ msgid "Login"
-#~ msgstr "Authentification"
-
-#~ msgid "OpenID Associations"
-#~ msgstr "Associations OpenID"
-
-#~ msgid "Language"
-#~ msgstr "Langage"
-
-#~ msgid "Timezone"
-#~ msgstr "Fuseau horairre"
