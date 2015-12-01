@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 16:40+0100\n"
+"POT-Creation-Date: 2015-12-01 17:09+0100\n"
 "PO-Revision-Date: 2015-11-30 12:16+0009\n"
 "Last-Translator:   <felix.sipma@no-log.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,17 +19,6 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
 #: cartoterra/forms.py:9
-#, fuzzy, python-format
-#| msgid ""
-#| "        I hereby agree:<br>\n"
-#| "        Content I create on %s is automatically licensed according to "
-#| "the         Open Database License:         <a target=\"_blank\"         "
-#| "href=\"http://opendatacommons.org/licenses/odbl/1.0/\">        http://"
-#| "opendatacommons.org/licenses/odbl/1.0/</a>. Any rights in         "
-#| "individual contents of the database are licensed under the "
-#| "Database         Contents License:         <a target=\"_blank\"         "
-#| "href=\"http://opendatacommons.org/licenses/dbcl/1.0/\">        http://"
-#| "opendatacommons.org/licenses/dbcl/1.0/</a>"
 msgid ""
 "I hereby agree:<br>\n"
 "Content I create on %s is automatically licensed according to the Open "
@@ -500,7 +489,7 @@ msgid "Return to homepage."
 msgstr "Retourner à la page d'accueil."
 
 #: cartoterra/templates/django_knowledge/thread.html:19
-#: cartoterra/templates/django_knowledge/thread.html:44 geodata/models.py:341
+#: cartoterra/templates/django_knowledge/thread.html:44 geodata/models.py:337
 msgid "user"
 msgstr "utilisateur"
 
@@ -614,8 +603,7 @@ msgid "Change:"
 msgstr "Changement : "
 
 #: geodata/models.py:30 geodata/models.py:87 geodata/models.py:148
-#: geodata/models.py:156 geodata/models.py:164 geodata/models.py:172
-#: geodata/models.py:180
+#: geodata/models.py:156 geodata/models.py:164 geodata/models.py:175
 msgid "name"
 msgstr "nom"
 
@@ -643,11 +631,11 @@ msgstr "créateur"
 msgid "contact"
 msgstr "contact"
 
-#: geodata/models.py:110 geodata/models.py:260
+#: geodata/models.py:110 geodata/models.py:256
 msgid "Identification name"
 msgstr "Nom d'identification"
 
-#: geodata/models.py:115 geodata/models.py:265
+#: geodata/models.py:115 geodata/models.py:261
 msgid "Translated name"
 msgstr "Nom traduit"
 
@@ -655,121 +643,128 @@ msgstr "Nom traduit"
 msgid "role"
 msgstr "rôle"
 
-#: geodata/models.py:134 geodata/models.py:309
+#: geodata/models.py:134 geodata/models.py:305
 #: geodata/templates/geodata/event_detail.html:20
 #: geodata/templates/geodata/stakeholder_detail.html:31
 msgid "UNESCO Chair Earthen Architecture"
 msgstr "Chaire UNESCO Architecture de terre"
 
-#: geodata/models.py:136 geodata/models.py:232
+#: geodata/models.py:136 geodata/models.py:228
 #: geodata/templates/geodata/building_detail.html:72
 #: geodata/templates/geodata/stakeholder_detail.html:39
 msgid "ISCEAH"
 msgstr "ISCEAH"
 
-#: geodata/models.py:139 geodata/models.py:237 geodata/models.py:288
-#: geodata/models.py:319
+#: geodata/models.py:139 geodata/models.py:233 geodata/models.py:284
+#: geodata/models.py:315
 msgid "stakeholder"
 msgstr "intervenant"
 
-#: geodata/models.py:188
+#: geodata/models.py:170
+msgid "Yes"
+msgstr "Oui"
+
+#: geodata/models.py:170
+msgid "No"
+msgstr "Non"
+
+#: geodata/models.py:183
 msgid "quantity"
 msgstr "quantité"
 
-#: geodata/models.py:215 geodata/models.py:281 geodata/models.py:305
+#: geodata/models.py:211 geodata/models.py:277 geodata/models.py:301
 msgid "credit creator"
 msgstr "créditer le créateur"
 
-#: geodata/models.py:216
+#: geodata/models.py:212
 msgid "architects"
 msgstr "architectes"
 
-#: geodata/models.py:218 geodata/models.py:284
+#: geodata/models.py:214 geodata/models.py:280
 msgid "techniques"
 msgstr "techniques"
 
-#: geodata/models.py:231
+#: geodata/models.py:227
 msgid "world heritage"
 msgstr "patrimoine mondial"
 
-#: geodata/models.py:234 geodata/models.py:286
+#: geodata/models.py:230 geodata/models.py:282
 msgid "inauguration date"
 msgstr "date d'inauguration"
 
-#: geodata/models.py:241
+#: geodata/models.py:237
 msgid "building"
 msgstr "bâtiment"
 
-#: geodata/models.py:242
+#: geodata/models.py:238
 msgid "buildings"
 msgstr "bâtiments"
 
-#: geodata/models.py:282
+#: geodata/models.py:278
 msgid "participative"
 msgstr "participatif"
 
-#: geodata/models.py:292
+#: geodata/models.py:288
 msgid "worksite"
 msgstr "chantier"
 
-#: geodata/models.py:293
+#: geodata/models.py:289
 msgid "worksites"
 msgstr "chantiers"
 
-#: geodata/models.py:307
+#: geodata/models.py:303
 msgid "event type"
 msgstr "type d'évènement"
 
-#: geodata/models.py:311
+#: geodata/models.py:307
 msgid "beginning date"
 msgstr "date de début"
 
-#: geodata/models.py:312
+#: geodata/models.py:308
 msgid "end date"
 msgstr "date de fin"
 
-#: geodata/models.py:314 geodata/templates/geodata/event_detail.html:33
+#: geodata/models.py:310 geodata/templates/geodata/event_detail.html:33
 msgid "Number of stakeholders"
 msgstr "Nombre d'intervenants"
 
-#: geodata/models.py:317 geodata/templates/geodata/event_detail.html:43
+#: geodata/models.py:313 geodata/templates/geodata/event_detail.html:43
 msgid "Type of stakeholders"
 msgstr "Type d'intervenants"
 
-#: geodata/models.py:323
+#: geodata/models.py:319
 msgid "event"
 msgstr "évènement"
 
-#: geodata/models.py:324
+#: geodata/models.py:320
 msgid "events"
 msgstr "évènements"
 
-#: geodata/models.py:349
+#: geodata/models.py:345
 msgid "building recommendations"
 msgstr "recommandations de bâtiments"
 
-#: geodata/models.py:354
+#: geodata/models.py:350
 msgid "worksite recommendations"
 msgstr "recommandations de chantiers"
 
-#: geodata/models.py:359
+#: geodata/models.py:355
 msgid "event recommendations"
 msgstr "recommandations d'événements"
 
-#: geodata/models.py:364
+#: geodata/models.py:360
 msgid "stakeholder recommendations"
 msgstr "recommandations d'intervenants"
 
-#: geodata/models.py:370
+#: geodata/models.py:366
 msgid "Can modify world heritage properties"
 msgstr "Peut modifier les propriétés patrimoine mondial"
 
-#: geodata/models.py:372
+#: geodata/models.py:368
 msgid "Can modify UNESCO Chair Earthen Architecture"
 msgstr "Peut modifier Chaire UNESCO Architecture de terre"
 
-#: geodata/models.py:373
-#| msgid "Can modify world heritage properties"
+#: geodata/models.py:369
 msgid "Can modify ISCEAH properties"
 msgstr "Peut modifier les propriétés ISCEAH"
 
@@ -1052,7 +1047,7 @@ msgstr "Oui!"
 
 #: geodata/templates/geodata/worksite_detail.html:39
 msgid "No."
-msgstr "No."
+msgstr "Non."
 
 #: geodata/templates/search/search.html:9
 msgid "Search"
