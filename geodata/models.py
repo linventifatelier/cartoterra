@@ -166,6 +166,10 @@ class BuildingPropertyStatus(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _("building property status")
+        verbose_name_plural = _("building property statuses")
+
 
 CULTURAL_LANDSCAPE_CHOICES = ((None, ''), (True, _('Yes')), (False, _('No')))
 
@@ -177,13 +181,21 @@ class BuildingProtectionStatus(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _("building protection status")
+        verbose_name_plural = _("building protection statuses")
+
 
 class EarthQuantity(models.Model):
-    """A model for earth quantity."""
+    """A model for earthen material quantity."""
     quantity = models.CharField(_("quantity"), max_length=50)
 
     def __unicode__(self):
         return self.quantity
+
+    class Meta:
+        verbose_name = _("earthen material quantity")
+        verbose_name_plural = _("earthen material quantities")
 
 
 class Building(GeoDataAbstract):
