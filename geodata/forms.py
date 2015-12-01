@@ -2,10 +2,12 @@
 
 from django import forms
 from models import GeoDataAbstract, Building, Worksite, Event, Stakeholder, \
-    Image
+    Image, EarthTechnique
 from django.forms import ModelForm
+from django.forms.models import ModelMultipleChoiceField, ModelChoiceIterator
 from PIL.ExifTags import TAGS, GPSTAGS
-from geodata.widgets import GeoDataWidget, BootstrapDatePicker
+from geodata.widgets import GeoDataWidget, BootstrapDatePicker, \
+    EarthTechniqueMultiple
 from django.contrib.contenttypes.forms import generic_inlineformset_factory
 import logging
 from django.contrib.gis.forms.fields import PointField
@@ -108,6 +110,17 @@ def _get_exifgps(i):
 ##############################################
 
 
+class EarthTechniqueChoiceIterator(ModelChoiceIterator):
+    def choice(self, obj):
+        return (self.field.prepare_value(obj), self.field.label_from_instance(obj), obj)
+
+
+class EarthTechniqueMultipleChoiceField(ModelMultipleChoiceField):
+    def __init__(self, *args, **kwargs):
+        super(EarthTechniqueMultipleChoiceField, self).__init__(*args, **kwargs)
+        self.choices = EarthTechniqueChoiceIterator(self)
+
+
 ImageFormSet = generic_inlineformset_factory(Image, extra=1, can_delete=True)
 
 
@@ -152,9 +165,12 @@ class GeoDataAbstractForm(ModelForm):
 
 
 class BuildingForm(GeoDataAbstractForm):
-    inauguration_date = forms.DateField(widget=BootstrapDatePicker,
-                                        required=False,
-                                        help_text=_("Put here the inauguration date for a contemporary building if known, ignore otherwise."))
+    inauguration_date = forms.DateField(
+        widget=BootstrapDatePicker, required=False,
+        help_text=_("Put here the inauguration date for a contemporary building if known, ignore otherwise."))
+    techniques = EarthTechniqueMultipleChoiceField(
+        queryset=EarthTechnique.objects.all(), widget=EarthTechniqueMultiple
+    )
 
     def __init__(self, user=None, *args, **kwargs):
         super(BuildingForm, self).__init__(*args, **kwargs)
@@ -192,6 +208,9 @@ class BuildingForm(GeoDataAbstractForm):
 class WorksiteForm(GeoDataAbstractForm):
     inauguration_date = forms.DateField(widget=BootstrapDatePicker,
                                         required=False)
+    techniques = EarthTechniqueMultipleChoiceField(
+        queryset=EarthTechnique.objects.all(), widget=EarthTechniqueMultiple
+    )
 
     def __init__(self, user=None, *args, **kwargs):
         super(WorksiteForm, self).__init__(*args, **kwargs)
