@@ -112,7 +112,11 @@ def _get_exifgps(i):
 
 class EarthTechniqueChoiceIterator(ModelChoiceIterator):
     def choice(self, obj):
-        return (self.field.prepare_value(obj), self.field.label_from_instance(obj), obj)
+        return (
+            self.field.prepare_value(obj),
+            self.field.label_from_instance(obj),
+            obj
+        )
 
 
 class EarthTechniqueMultipleChoiceField(ModelMultipleChoiceField):
@@ -165,9 +169,23 @@ class GeoDataAbstractForm(ModelForm):
 
 
 class BuildingForm(GeoDataAbstractForm):
+    description = forms.CharField(
+        widget=forms.Textarea,
+        help_text=_(
+            "Detailled description (major elements, present and past \
+use, cultural affiliation, historical/cultural/architectural \
+importance, period of construction, geographical scole, associated \
+events, hybrid construction techniques if any)")
+    )
     inauguration_date = forms.DateField(
         widget=BootstrapDatePicker, required=False,
-        help_text=_("Put here the inauguration date for a contemporary building if known, ignore otherwise."))
+        help_text=_("Put here the inauguration date for a contemporary \
+building if known, ignore otherwise.")
+    )
+    isceah = forms.BooleanField(
+        help_text=_("Tick here if you are member of ICOMOS-ISCEAH and want \
+this entry to be referenced as ICOMOS-ISCEAH.")
+    )
     techniques = EarthTechniqueMultipleChoiceField(
         queryset=EarthTechnique.objects.all(), widget=EarthTechniqueMultiple
     )
@@ -234,6 +252,10 @@ class EventForm(GeoDataAbstractForm):
 
 
 class StakeholderForm(GeoDataAbstractForm):
+    isceah = forms.BooleanField(
+        help_text=_("Tick here if you are member of ICOMOS-ISCEAH and want \
+this entry to be referenced as ICOMOS-ISCEAH.")
+    )
 
     def __init__(self, user=None, *args, **kwargs):
         super(StakeholderForm, self).__init__(*args, **kwargs)
