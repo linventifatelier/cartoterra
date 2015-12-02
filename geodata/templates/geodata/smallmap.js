@@ -8,7 +8,9 @@ new L.control.zoom({ position: 'topright' }).addTo(map{{ module }});
 {% for layer in map_layers %}
 $.getJSON("{{ layer.url }}", function(data) {
     var icon{{ module }} = L.icon({
-        iconUrl: '{{ layer.external_graphic }}'
+        iconUrl: '{{ layer.external_graphic }}',
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
     });
     function placePointToLayer (feature, latlng) {
         return L.marker(latlng, { icon: icon{{ module }} });
