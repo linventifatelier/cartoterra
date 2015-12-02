@@ -23,6 +23,13 @@ from django.shortcuts import get_object_or_404
 from django.utils.text import Truncator
 
 
+def _isceah(m):
+    if hasattr(m, 'isceah'):
+        return m.isceah
+    else:
+        return False
+
+
 class GeoJSONResponseMixin(object):
     def render_to_response(self, context):
         "Returns a GeoJSON response containing 'context' as payload"
@@ -56,6 +63,7 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
                         if m.image.all() else None,
                     'summary':
                         Truncator(m.description).words(10, truncate=' [...]'),
+                    'isceah': _isceah(m)
                 }}
         return json.dumps(data)
 
@@ -82,7 +90,10 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                         'url': m.get_absolute_url(),
                         'image': m.image.all()[0].thumbnail.url
                             if m.image.all() else None,
-                        'summary': Truncator(m.description).words(10, truncate=' [...]'),
+                        'summary': Truncator(m.description).words(
+                            10, truncate=' [...]'
+                        ),
+                        'isceah': _isceah(m)
                     }
                 } for m in queryset]}
         return json.dumps(data)
@@ -312,7 +323,7 @@ class BigMapView(GeoDataAllView):
     module = "bigmap"
     buildings = {
         'name': "Buildings",
-        'external_graphic': settings.STATIC_URL + "img/building_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/building_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -321,7 +332,7 @@ class BigMapView(GeoDataAllView):
     }
     worksites = {
         'name': "Worksites",
-        'external_graphic': settings.STATIC_URL + "img/worksite_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/worksite_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -330,7 +341,7 @@ class BigMapView(GeoDataAllView):
     }
     events = {
         'name': "Events",
-        'external_graphic': settings.STATIC_URL + "img/event_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/event_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -339,7 +350,7 @@ class BigMapView(GeoDataAllView):
     }
     stakeholders = {
         'name': "Stakeholders",
-        'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/stakeholder_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',

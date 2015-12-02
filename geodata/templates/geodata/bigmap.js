@@ -1,4 +1,5 @@
 {% load l10n %}
+{% load staticfiles %}
 
 var map{{ module }} = L.map('{{ module }}_map', { zoomControl: false }).setView([0, 0], 2);
 
@@ -35,10 +36,26 @@ function importFeature (feature, layer) {
 
 {% for layer in map_layers %}
 $.getJSON("{{ layer.url }}", function(data) {
-    var icon{{ module }} = L.icon({
-        iconUrl: '{{ layer.external_graphic }}'
-    });
     function placePointToLayer (feature, latlng) {
+        function getIconFromFeature(feature) {
+            if (feature.properties.isceah) {
+                return L.icon({
+                    shadowUrl: '{{ layer.external_graphic }}',
+                    shadowSize: [24, 24],
+                    shadowAnchor: [12,12],
+                    iconUrl: '{% static "img/isceah_blanc.png" %}',
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12],
+                })
+            } else {
+                return L.icon({
+                    iconUrl: '{{ layer.external_graphic }}',
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12],
+                })
+            }
+        };
+        var icon{{ module }} = getIconFromFeature(feature);
         return L.marker(latlng, { icon: icon{{ module }} });
     };
 
