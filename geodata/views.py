@@ -234,7 +234,7 @@ class BuildingListView(BuildingMixin, GeoDataListView):
     model = Building
     buildings = {
         'name': "Buildings",
-        'external_graphic': settings.STATIC_URL + "img/building_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/building_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -249,7 +249,7 @@ class WorksiteListView(WorksiteMixin, GeoDataListView):
     model = Worksite
     worksites = {
         'name': "Worksites",
-        'external_graphic': settings.STATIC_URL + "img/worksite_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/worksite_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -264,7 +264,7 @@ class EventListView(EventMixin, GeoDataListView):
     model = Event
     events = {
         'name': "Events",
-        'external_graphic': settings.STATIC_URL + "img/event_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/event_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -287,7 +287,7 @@ class StakeholderListView(StakeholderMixin, GeoDataListView):
     model = Stakeholder
     stakeholders = {
         'name': "Stakeholders",
-        'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/stakeholder_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -388,7 +388,7 @@ class BuildingDetailView(BuildingMixin, GeoDataDetailView):
     model = Building
     building = {
         'name': "Building",
-        'external_graphic': settings.STATIC_URL + "img/building_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/building_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -403,7 +403,7 @@ class WorksiteDetailView(WorksiteMixin, GeoDataDetailView):
     model = Worksite
     worksite = {
         'name': "Worksite",
-        'external_graphic': settings.STATIC_URL + "img/worksite_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/worksite_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -418,7 +418,7 @@ class EventDetailView(EventMixin, GeoDataDetailView):
     model = Event
     event = {
         'name': "Event",
-        'external_graphic': settings.STATIC_URL + "img/event_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/event_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -433,7 +433,7 @@ class StakeholderDetailView(StakeholderMixin, GeoDataDetailView):
     model = Stakeholder
     stakeholders = {
         'name': "Stakeholders",
-        'external_graphic': settings.STATIC_URL + "img/stakeholder_dot.png",
+        'external_graphic': settings.STATIC_URL + "img/stakeholder_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
