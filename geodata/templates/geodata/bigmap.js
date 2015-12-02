@@ -36,29 +36,27 @@ function importFeature (feature, layer) {
 
 {% for layer in map_layers %}
 $.getJSON("{{ layer.url }}", function(data) {
-    function placePointToLayer (feature, latlng) {
-        function getIconFromFeature(feature) {
-            if (feature.properties.isceah) {
-                return L.icon({
-                    shadowUrl: '{{ layer.external_graphic }}',
-                    shadowSize: [24, 24],
-                    shadowAnchor: [12,12],
-                    iconUrl: '{% static "img/isceah_blanc.png" %}',
-                    iconSize: [24, 24],
-                    iconAnchor: [12, 12],
-                })
-            } else {
-                return L.icon({
-                    iconUrl: '{{ layer.external_graphic }}',
-                    iconSize: [24, 24],
-                    iconAnchor: [12, 12],
-                })
-            }
-        };
-        var icon{{ module }} = getIconFromFeature(feature);
-        return L.marker(latlng, { icon: icon{{ module }} });
+    function getIconFromFeature (feature) {
+        if (feature.properties.isceah) {
+            return L.icon({
+                shadowUrl: '{{ layer.external_graphic }}',
+                shadowSize: [24, 24],
+                shadowAnchor: [12,12],
+                iconUrl: '{% static "img/isceah_blanc.png" %}',
+                iconSize: [24, 24],
+                iconAnchor: [12, 12],
+            })
+        } else {
+            return L.icon({
+                iconUrl: '{{ layer.external_graphic }}',
+                iconSize: [24, 24],
+                iconAnchor: [12, 12],
+            })
+        }
     };
-
+    function placePointToLayer (feature, latlng) {
+        return L.marker(latlng, { icon: getIconFromFeature(feature) });
+    };
     var geojsonlayer{{ module }} = L.geoJson(data, {
         pointToLayer: placePointToLayer,
         onEachFeature: importFeature
