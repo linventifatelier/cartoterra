@@ -12,9 +12,33 @@
 {% endblock %}
 
 {% block body_geodata_extra %}
+{% if geodata.classification %}
+<tr>
+    <th>{% trans "Classification" %}</th>
+    <td>{{ geodata.classification }}</td>
+</tr>
+{% endif %}
+{% if geodata.use %}
+<tr>
+    <th>{% trans "Use" %}</th>
+    <td>{{ geodata.use }}</td>
+</tr>
+{% endif %}
+{% if geodata.property_status %}
+<tr>
+    <th>{% trans "Property status" %}</th>
+    <td>{{ geodata.property_status }}</td>
+</tr>
+{% endif %}
+{% if geodata.cultural_landscape %}
+<tr>
+    <th>{% trans "Cultural landscape" %}</th>
+    <td>{% trans "Yes" %}</td>
+</tr>
+{% endif %}
 {% if geodata.architects %}
 <tr>
-    <th>{% trans "Architects" %}</td>
+    <th>{% trans "Architects" %}</th>
     <td>{{ geodata.architects }}</td>
     {% comment %}
     {% trans "Architects" %}:
@@ -58,12 +82,36 @@
     {% endif %}
     </td>
 </tr>
+{% if geodata.earth_quantity %}
+<tr>
+    <th>{% trans "Quantity of earthen material" %}</th>
+    <td>{{ geodata.earth_quantity }}</td>
+</tr>
+{% endif %}
+{% if geodata.condition %}
+<tr>
+    <th>{% trans "Site condition and threats" %}</th>
+    <td>{{ geodata.condition }}</td>
+</tr>
+{% endif %}
+{% if geodata.references %}
+<tr>
+    <th>{% trans "Principal references" %}</th>
+    <td>{{ geodata.references }}</td>
+</tr>
+{% endif %}
 {% if geodata.unesco %}
 <tr>
     <th>{% trans "World heritage" %}</th>
     <td>
         {% world_heritage_logo %}
     </td>
+</tr>
+{% endif %}
+{% if geodata.protection_status %}
+<tr>
+    <th>{% trans "Protection status" %}</th>
+    <td>{{ geodata.protection_status }}</td>
 </tr>
 {% endif %}
 {% if geodata.isceah %}
@@ -84,4 +132,12 @@
     {% endif %}
     </td>
 </tr>
+{% if geodata.construction_date %}
+<tr>
+    <th>{% trans "Approximative construction date" %}</th>
+    <td>
+        {{ geodata.construction_date }}
+    </td>
+</tr>
+{% endif %}
 {% endblock %}

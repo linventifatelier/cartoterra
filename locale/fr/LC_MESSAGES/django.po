@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-01 20:30+0100\n"
+"POT-Creation-Date: 2015-12-09 19:35+0100\n"
 "PO-Revision-Date: 2015-11-30 12:16+0009\n"
 "Last-Translator:   <felix.sipma@no-log.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -490,7 +490,7 @@ msgid "Return to homepage."
 msgstr "Retourner à la page d'accueil."
 
 #: cartoterra/templates/django_knowledge/thread.html:19
-#: cartoterra/templates/django_knowledge/thread.html:44 geodata/models.py:352
+#: cartoterra/templates/django_knowledge/thread.html:44 geodata/models.py:355
 msgid "user"
 msgstr "utilisateur"
 
@@ -595,7 +595,7 @@ msgstr ""
 msgid ""
 "Detailled description (major elements, present and past use, cultural "
 "affiliation, historical/cultural/architectural importance, period of "
-"construction, geographical scale, associated events, hybrid construction "
+"construction, geographical scole, associated events, hybrid construction "
 "techniques if any)"
 msgstr ""
 "Description détaillée (éléments principaux, usage présent et passé, "
@@ -624,7 +624,7 @@ msgid "Change:"
 msgstr "Changement : "
 
 #: geodata/models.py:30 geodata/models.py:87 geodata/models.py:148
-#: geodata/models.py:156 geodata/models.py:164 geodata/models.py:179
+#: geodata/models.py:156 geodata/models.py:164 geodata/models.py:181
 msgid "name"
 msgstr "nom"
 
@@ -652,11 +652,11 @@ msgstr "créateur"
 msgid "contact"
 msgstr "contact"
 
-#: geodata/models.py:110 geodata/models.py:271
+#: geodata/models.py:110 geodata/models.py:274
 msgid "Identification name"
 msgstr "Nom d'identification"
 
-#: geodata/models.py:115 geodata/models.py:276
+#: geodata/models.py:115 geodata/models.py:279
 msgid "Translated name"
 msgstr "Nom traduit"
 
@@ -664,20 +664,20 @@ msgstr "Nom traduit"
 msgid "role"
 msgstr "rôle"
 
-#: geodata/models.py:134 geodata/models.py:320
+#: geodata/models.py:134 geodata/models.py:323
 #: geodata/templates/geodata/event_detail.html:20
 #: geodata/templates/geodata/stakeholder_detail.html:31
 msgid "UNESCO Chair Earthen Architecture"
 msgstr "Chaire UNESCO Architecture de terre"
 
-#: geodata/models.py:136 geodata/models.py:240
-#: geodata/templates/geodata/building_detail.html:72
+#: geodata/models.py:136 geodata/models.py:242
+#: geodata/templates/geodata/building_detail.html:120
 #: geodata/templates/geodata/stakeholder_detail.html:39
 msgid "ISCEAH"
 msgstr "ISCEAH"
 
-#: geodata/models.py:139 geodata/models.py:248 geodata/models.py:299
-#: geodata/models.py:330
+#: geodata/models.py:139 geodata/models.py:251 geodata/models.py:302
+#: geodata/models.py:333
 msgid "stakeholder"
 msgstr "intervenant"
 
@@ -689,127 +689,163 @@ msgstr "type de propriétaire du bâtiment"
 msgid "building property statuses"
 msgstr "types de propriétaires du bâtiment"
 
-#: geodata/models.py:174
+#: geodata/models.py:175 geodata/templates/geodata/building_detail.html:36
 msgid "Yes"
 msgstr "Oui"
 
-#: geodata/models.py:174
+#: geodata/models.py:175
 msgid "No"
 msgstr "Non"
 
-#: geodata/models.py:185
+#: geodata/models.py:187
 msgid "building protection status"
 msgstr "état de protection du bâtiment"
 
-#: geodata/models.py:186
+#: geodata/models.py:188
 msgid "building protection statuses"
 msgstr "états de protection du bâtiment"
 
-#: geodata/models.py:191
+#: geodata/models.py:193
 msgid "quantity"
 msgstr "quantité"
 
-#: geodata/models.py:197
+#: geodata/models.py:199
 msgid "earthen material quantity"
 msgstr "quantité de matériau terre"
 
-#: geodata/models.py:198
+#: geodata/models.py:200
 msgid "earthen material quantities"
 msgstr "quantités de matériau terre"
 
-#: geodata/models.py:223 geodata/models.py:292 geodata/models.py:316
+#: geodata/models.py:206
+msgid "classification"
+msgstr "Classification"
+
+#: geodata/models.py:210
+msgid "use"
+msgstr "utilisation"
+
+#: geodata/models.py:213
+msgid "property status"
+msgstr "type de propriétaire du bâtiment"
+
+#: geodata/models.py:218
+msgid "cultural landscape"
+msgstr "paysage culturel"
+
+#: geodata/models.py:221 geodata/models.py:295 geodata/models.py:319
 msgid "credit creator"
 msgstr "créditer le créateur"
 
-#: geodata/models.py:224
+#: geodata/models.py:222
 msgid "architects"
 msgstr "architectes"
 
-#: geodata/models.py:226 geodata/models.py:295
+#: geodata/models.py:224 geodata/models.py:298
 msgid "techniques"
 msgstr "techniques"
 
-#: geodata/models.py:239
+#: geodata/models.py:228
+msgid "quantity of earthen material in the structure"
+msgstr "quantité de matériau terre dans la structure"
+
+#: geodata/models.py:232
+msgid "site condition and threats"
+msgstr "état du site et menaces"
+
+#: geodata/models.py:235
+msgid "principal references"
+msgstr "références principales"
+
+#: geodata/models.py:237
 msgid "world heritage"
 msgstr "patrimoine mondial"
 
-#: geodata/models.py:242 geodata/models.py:297
+#: geodata/models.py:239
+msgid "protection status"
+msgstr "état de protection du bâtiment"
+
+#: geodata/models.py:244 geodata/models.py:300
 msgid "inauguration date"
 msgstr "date d'inauguration"
 
-#: geodata/models.py:252
+#: geodata/models.py:247 geodata/templates/geodata/building_detail.html:138
+msgid "Approximative construction date"
+msgstr "Date de construction approximative"
+
+#: geodata/models.py:255
 msgid "building"
 msgstr "bâtiment"
 
-#: geodata/models.py:253
+#: geodata/models.py:256
 msgid "buildings"
 msgstr "bâtiments"
 
-#: geodata/models.py:293
+#: geodata/models.py:296
 msgid "participative"
 msgstr "participatif"
 
-#: geodata/models.py:303
+#: geodata/models.py:306
 msgid "worksite"
 msgstr "chantier"
 
-#: geodata/models.py:304
+#: geodata/models.py:307
 msgid "worksites"
 msgstr "chantiers"
 
-#: geodata/models.py:318
+#: geodata/models.py:321
 msgid "event type"
 msgstr "type d'évènement"
 
-#: geodata/models.py:322
+#: geodata/models.py:325
 msgid "beginning date"
 msgstr "date de début"
 
-#: geodata/models.py:323
+#: geodata/models.py:326
 msgid "end date"
 msgstr "date de fin"
 
-#: geodata/models.py:325 geodata/templates/geodata/event_detail.html:33
+#: geodata/models.py:328 geodata/templates/geodata/event_detail.html:33
 msgid "Number of stakeholders"
 msgstr "Nombre d'intervenants"
 
-#: geodata/models.py:328 geodata/templates/geodata/event_detail.html:43
+#: geodata/models.py:331 geodata/templates/geodata/event_detail.html:43
 msgid "Type of stakeholders"
 msgstr "Type d'intervenants"
 
-#: geodata/models.py:334
+#: geodata/models.py:337
 msgid "event"
 msgstr "évènement"
 
-#: geodata/models.py:335
+#: geodata/models.py:338
 msgid "events"
 msgstr "évènements"
 
-#: geodata/models.py:360
+#: geodata/models.py:363
 msgid "building recommendations"
 msgstr "recommandations de bâtiments"
 
-#: geodata/models.py:365
+#: geodata/models.py:368
 msgid "worksite recommendations"
 msgstr "recommandations de chantiers"
 
-#: geodata/models.py:370
+#: geodata/models.py:373
 msgid "event recommendations"
 msgstr "recommandations d'événements"
 
-#: geodata/models.py:375
+#: geodata/models.py:378
 msgid "stakeholder recommendations"
 msgstr "recommandations d'intervenants"
 
-#: geodata/models.py:381
+#: geodata/models.py:384
 msgid "Can modify world heritage properties"
 msgstr "Peut modifier les propriétés patrimoine mondial"
 
-#: geodata/models.py:383
+#: geodata/models.py:386
 msgid "Can modify UNESCO Chair Earthen Architecture"
 msgstr "Peut modifier Chaire UNESCO Architecture de terre"
 
-#: geodata/models.py:384
+#: geodata/models.py:387
 msgid "Can modify ISCEAH properties"
 msgstr "Peut modifier les propriétés ISCEAH"
 
@@ -836,11 +872,27 @@ msgid "Add"
 msgstr "Ajouter"
 
 #: geodata/templates/geodata/building_detail.html:17
+msgid "Classification"
+msgstr "Classification"
+
+#: geodata/templates/geodata/building_detail.html:23
+msgid "Use"
+msgstr "Utilisation"
+
+#: geodata/templates/geodata/building_detail.html:29
+msgid "Property status"
+msgstr "Type de propriétaire du bâtiment"
+
+#: geodata/templates/geodata/building_detail.html:35
+msgid "Cultural landscape"
+msgstr "Paysage culturel"
+
+#: geodata/templates/geodata/building_detail.html:41
 #: geodata/templates/geodata/geodata_bigmap.html:146
 msgid "Architects"
 msgstr "Architectes"
 
-#: geodata/templates/geodata/building_detail.html:35
+#: geodata/templates/geodata/building_detail.html:59
 #: geodata/templates/geodata/event_detail.html:57
 #: geodata/templates/geodata/geodata_bigmap.html:139
 #: geodata/templates/geodata/geodata_bigmap.html:149
@@ -848,9 +900,9 @@ msgstr "Architectes"
 msgid "Stakeholders"
 msgstr "Intervenants"
 
-#: geodata/templates/geodata/building_detail.html:44
-#: geodata/templates/geodata/building_detail.html:58
-#: geodata/templates/geodata/building_detail.html:84
+#: geodata/templates/geodata/building_detail.html:68
+#: geodata/templates/geodata/building_detail.html:82
+#: geodata/templates/geodata/building_detail.html:132
 #: geodata/templates/geodata/event_detail.html:38
 #: geodata/templates/geodata/event_detail.html:52
 #: geodata/templates/geodata/event_detail.html:66
@@ -860,16 +912,32 @@ msgstr "Intervenants"
 msgid "not provided"
 msgstr "non renseigné"
 
-#: geodata/templates/geodata/building_detail.html:49
+#: geodata/templates/geodata/building_detail.html:73
 #: geodata/templates/geodata/worksite_detail.html:20
 msgid "Techniques"
 msgstr "Techniques"
 
-#: geodata/templates/geodata/building_detail.html:64
+#: geodata/templates/geodata/building_detail.html:88
+msgid "Quantity of earthen material"
+msgstr "Quantité de matériau terre"
+
+#: geodata/templates/geodata/building_detail.html:94
+msgid "Site condition and threats"
+msgstr "État du site et menaces"
+
+#: geodata/templates/geodata/building_detail.html:100
+msgid "Principal references"
+msgstr "Références principales"
+
+#: geodata/templates/geodata/building_detail.html:106
 msgid "World heritage"
 msgstr "Patrimoine Mondial"
 
-#: geodata/templates/geodata/building_detail.html:79
+#: geodata/templates/geodata/building_detail.html:114
+msgid "Protection status"
+msgstr "État de protection du bâtiment"
+
+#: geodata/templates/geodata/building_detail.html:127
 msgid "Inauguration date"
 msgstr "Date d'inauguration"
 
@@ -1107,26 +1175,26 @@ msgstr "Rechercher"
 msgid "Go"
 msgstr "Aller à"
 
-#: geodata/views.py:435
+#: geodata/views.py:446
 msgid "Please correct the errors below."
 msgstr "Merci de corriger les erreurs ci-dessous."
 
-#: geodata/views.py:474
+#: geodata/views.py:485
 #, python-format
 msgid "Successfully added %(modelname)s \"%(name)s\"."
 msgstr "Ajout effectué: %(modelname)s \"%(name)s\"."
 
-#: geodata/views.py:547
+#: geodata/views.py:558
 #, python-format
 msgid "Successfully edited %(modelname)s \"%(name)s\"."
 msgstr "Modification effectuée: %(modelname)s \"%(name)s\"."
 
-#: geodata/views.py:599
+#: geodata/views.py:610
 #, python-format
 msgid "Successfully deleted %(modelname)s \"%(name)s\"."
 msgstr "Suppression effectuée: %(modelname)s \"%(name)s\"."
 
-#: geodata/views.py:664
+#: geodata/views.py:675
 #, python-format
 msgid ""
 "Successfully removed %(modelname)s \"%(name)s\" from your                 "
@@ -1135,7 +1203,7 @@ msgstr ""
 "Suppression de votre liste de recommandation effectuée: %(modelname)s "
 "\"%(name)s\"."
 
-#: geodata/views.py:674
+#: geodata/views.py:685
 #, python-format
 msgid ""
 "Successfully added %(modelname)s \"%(name)s\" to your                 "

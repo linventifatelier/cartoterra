@@ -209,6 +209,14 @@ this entry to be referenced as ICOMOS-ISCEAH.")
     class Meta:
         model = Building
         exclude = ('creator', 'pub_date', )
+        #fields = [
+        #    'name', 'geometry', 'isceah', 'classification', 'use',
+        #    'techniques', 'earth_quantity', 'description',
+        #    'cultural_landscape', 'inauguration_date', 'construction_date',
+        #    'condition', 'unesco', 'protection_status', 'property_status',
+        #    'architects', 'stakeholder', 'references', 'image', 'url',
+        #    'contact', 'credit_creator'
+        #]
 
 
 class WorksiteForm(GeoDataAbstractForm):
