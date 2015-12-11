@@ -12,6 +12,7 @@ from django.contrib.contenttypes.forms import generic_inlineformset_factory
 import logging
 from django.contrib.gis.forms.fields import PointField
 from django.utils.translation import ugettext_lazy as _
+from collections import OrderedDict
 
 
 logger = logging.getLogger(__name__)
@@ -168,6 +169,22 @@ class GeoDataAbstractForm(ModelForm):
         js = ('js/formset.js', )
 
 
+# https://stackoverflow.com/questions/913589/django-forms-inheritance-and-order-of-form-fields/27493844#27493844
+def reorder_fields(fields, order):
+    """Reorder form fields by order, removing items not in order.
+
+    >>> reorder_fields(
+    ...     OrderedDict([('a', 1), ('b', 2), ('c', 3)]),
+    ...     ['b', 'c', 'a'])
+    OrderedDict([('b', 2), ('c', 3), ('a', 1)])
+    """
+    for key, v in fields.items():
+        if key not in order:
+            del fields[key]
+
+    return OrderedDict(sorted(fields.items(), key=lambda k: order.index(k[0])))
+
+
 class BuildingForm(GeoDataAbstractForm):
     description = forms.CharField(
         widget=forms.Textarea,
@@ -195,6 +212,16 @@ this entry to be referenced as ICOMOS-ISCEAH.")
         if not user.has_perm('profile.world_heritage'):
             self.fields['unesco'].widget.attrs['disabled'] = 'disabled'
         self._user = user
+        # https://stackoverflow.com/questions/913589/django-forms-inheritance-and-order-of-form-fields/27493844#27493844
+        key_order = [
+            'name', 'geometry', 'isceah', 'classification', 'use',
+            'techniques', 'earth_quantity', 'description',
+            'cultural_landscape', 'inauguration_date', 'construction_date',
+            'condition', 'unesco', 'protection_status', 'property_status',
+            'architects', 'stakeholder', 'references', 'image', 'url',
+            'contact', 'credit_creator'
+        ]
+        self.fields = reorder_fields(self.fields, key_order)
 
     def clean_unesco(self):
         if self._user.has_perm('profile.world_heritage'):
@@ -209,14 +236,6 @@ this entry to be referenced as ICOMOS-ISCEAH.")
     class Meta:
         model = Building
         exclude = ('creator', 'pub_date', )
-        #fields = [
-        #    'name', 'geometry', 'isceah', 'classification', 'use',
-        #    'techniques', 'earth_quantity', 'description',
-        #    'cultural_landscape', 'inauguration_date', 'construction_date',
-        #    'condition', 'unesco', 'protection_status', 'property_status',
-        #    'architects', 'stakeholder', 'references', 'image', 'url',
-        #    'contact', 'credit_creator'
-        #]
 
 
 class WorksiteForm(GeoDataAbstractForm):
