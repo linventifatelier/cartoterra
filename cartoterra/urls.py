@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from geodata.views import BigMapView
@@ -9,8 +9,7 @@ import cartoterra.views
 
 admin.autodiscover()
 
-urlpatterns = patterns(
-    "",
+urlpatterns = [
     url(r'^$', BigMapView.as_view(), name="home"),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     # url(r'^my_admin/jsi18n',
@@ -26,12 +25,9 @@ urlpatterns = patterns(
     url(r'^searchbis/',
         search_view_factory(view_class=SearchView, form_class=ModelSearchForm),
         name="searchbis"),
-)
+]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if 'rosetta' in settings.INSTALLED_APPS:
-        urlpatterns += patterns('',
-                                url(r'^rosetta/',
-                                    include('rosetta.urls')),
-                                )
+        urlpatterns += [url(r'^rosetta/', include('rosetta.urls'))]

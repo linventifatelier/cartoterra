@@ -1,6 +1,6 @@
 """urls file."""
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from geodata import models
 from geodata import views
 from geodata import feeds
@@ -9,8 +9,7 @@ from datetime import timedelta
 from django.db.models import Q
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^feeds/building/$', feeds.BuildingFeed(), name="feed_building"),
     url(r'^feeds/worksite/$', feeds.WorksiteFeed(),
         name="feed_worksite"),
@@ -199,4 +198,4 @@ urlpatterns = patterns(
     url(r'^profile/(?P<slug>[\w\._-]+)/recommend/people/geojson/$',
         views.GeoJSONProfileRecommendStakeholderListView.as_view(),
         name="geojson_profile_recommend_stakeholder"),
-)
+]
