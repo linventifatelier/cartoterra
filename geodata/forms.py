@@ -122,7 +122,9 @@ class EarthTechniqueChoiceIterator(ModelChoiceIterator):
 
 class EarthTechniqueMultipleChoiceField(ModelMultipleChoiceField):
     def __init__(self, *args, **kwargs):
-        super(EarthTechniqueMultipleChoiceField, self).__init__(*args, **kwargs)
+        super(EarthTechniqueMultipleChoiceField, self).__init__(
+            *args, **kwargs
+        )
         self.choices = EarthTechniqueChoiceIterator(self)
 
 
