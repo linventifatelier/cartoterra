@@ -199,12 +199,20 @@ events, hybrid construction techniques if any)")
         help_text=_("Put here the inauguration date for a contemporary \
 building if known, ignore otherwise.")
     )
+    construction_date = forms.CharField(
+        help_text=_("If heritage site")
+    )
     isceah = forms.BooleanField(
         help_text=_("Tick here if you are member of ICOMOS-ISCEAH and want \
 this entry to be referenced as ICOMOS-ISCEAH.")
     )
     techniques = EarthTechniqueMultipleChoiceField(
         queryset=EarthTechnique.objects.all(), widget=EarthTechniqueMultiple
+    )
+    stakeholder = forms.ModelMultipleChoiceField(
+        queryset=Stakeholder.objects.all(),
+        help_text=_("Select cartoterra.net stakeholders you want to link to \
+this entry.")
     )
 
     def __init__(self, user=None, *args, **kwargs):
@@ -215,11 +223,11 @@ this entry to be referenced as ICOMOS-ISCEAH.")
         # https://stackoverflow.com/questions/913589/django-forms-inheritance-and-order-of-form-fields/27493844#27493844
         key_order = [
             'name', 'geometry', 'isceah', 'classification', 'use',
-            'techniques', 'earth_quantity', 'description',
-            'cultural_landscape', 'inauguration_date', 'construction_date',
-            'condition', 'unesco', 'protection_status', 'property_status',
-            'architects', 'stakeholder', 'references', 'image', 'url',
-            'contact', 'credit_creator'
+            'cultural_landscape', 'unesco', 'protection_status',
+            'property_status', 'techniques', 'earth_quantity', 'description',
+            'inauguration_date', 'construction_date', 'condition',
+            'references', 'url', 'architects', 'stakeholder', 'contact',
+            'credit_creator', 'image'
         ]
         self.fields = reorder_fields(self.fields, key_order)
 
