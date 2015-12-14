@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-09 19:35+0100\n"
+"POT-Creation-Date: 2015-12-14 16:40+0100\n"
 "PO-Revision-Date: 2015-11-30 12:16+0009\n"
 "Last-Translator:   <felix.sipma@no-log.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,11 +43,11 @@ msgstr ""
 msgid "You must approve the license"
 msgstr "Vous devez accepter la license"
 
-#: cartoterra/settings.py:51
+#: cartoterra/settings.py:50
 msgid "English"
 msgstr "Anglais"
 
-#: cartoterra/settings.py:52
+#: cartoterra/settings.py:51
 msgid "French"
 msgstr "Français"
 
@@ -591,7 +591,7 @@ msgid "Updates on changes and additions to stakeholders of "
 msgstr ""
 "Mises à jour sur les modifications et les ajouts sur les intervenants de"
 
-#: geodata/forms.py:175
+#: geodata/forms.py:194
 msgid ""
 "Detailled description (major elements, present and past use, cultural "
 "affiliation, historical/cultural/architectural importance, period of "
@@ -603,7 +603,7 @@ msgstr ""
 "époque de construction, échelle géographique, évènements associés, "
 "techniques de constructions hybrides)"
 
-#: geodata/forms.py:182
+#: geodata/forms.py:201
 msgid ""
 "Put here the inauguration date for a contemporary building if known, ignore "
 "otherwise."
@@ -611,13 +611,22 @@ msgstr ""
 "Inscrire ici la date d'inauguration pour un bâtiment contemporain si elle "
 "est connue, ignorer sinon."
 
-#: geodata/forms.py:186 geodata/forms.py:256
+#: geodata/forms.py:205
+msgid "If heritage site"
+msgstr "Si patrimoine"
+
+#: geodata/forms.py:208 geodata/forms.py:293
 msgid ""
 "Tick here if you are member of ICOMOS-ISCEAH and want this entry to be "
 "referenced as ICOMOS-ISCEAH."
 msgstr ""
 "Cocher cette case si vous êtes un membre ICOMOS-ISCEAH et voulez que cette "
 "entrée soit référencée comme ICOMOS-ISCEAH."
+
+#: geodata/forms.py:216
+msgid "Select cartoterra.net stakeholders you want to link to this entry."
+msgstr "Sélectionner les acteurs de cartoterra.net que vous voulez lier à "
+"cette entrée"
 
 #: geodata/imagewidget.py:68
 msgid "Change:"
