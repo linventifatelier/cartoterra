@@ -243,6 +243,16 @@ class BuildingListView(BuildingMixin, GeoDataListView):
     }
     map_layers = [buildings]
 
+    def get_queryset(self):
+        queryset = super(BuildingListView, self).get_queryset()
+        construction_status = self.kwargs.get('status', None)
+        if construction_status:
+            return queryset.filter(
+                construction_status__name__iexact=construction_status
+            )
+        else:
+            return queryset
+
 
 class WorksiteListView(WorksiteMixin, GeoDataListView):
     """Returns a template to present all worksites."""

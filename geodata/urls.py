@@ -82,6 +82,9 @@ urlpatterns = [
             queryset=models.Stakeholder.objects.filter(isceah=True))),
     url(r'^building/all/$', views.BuildingListView.as_view(),
         name="show_building_all"),
+    url(r'^building/status/(?P<status>[a-zA-Z0-9_\-]+)/$',
+        views.BuildingListView.as_view(),
+        name="show_building_of_status"),
     url(r'^building/contemporary/$',
         views.BuildingListView.as_view(
             queryset=models.Building.objects.filter(
@@ -97,10 +100,10 @@ urlpatterns = [
         name="show_building_vernacular"),
     url(r'^building/normal/$',
         views.BuildingListView.as_view(
-            queryset=models.Building.objects.exclude(architects='').filter(
+            queryset=models.Building.objects.filter(
                 Q(unesco=False) &
-                (Q(inauguration_date__isnull=True) |
-                 ~Q(inauguration_date__gte=now() - timedelta(days=3650))))),
+                Q(isceah=False) &
+                Q(construction_status__isnull=True))),
         name="show_building_normal"),
     url(r'^building/(?P<pk>\d+)/$', views.BuildingDetailView.as_view(),
         name="show_building"),

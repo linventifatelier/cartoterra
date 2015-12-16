@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-16 18:27+0100\n"
+"POT-Creation-Date: 2015-12-16 19:06+0100\n"
 "PO-Revision-Date: 2015-11-30 12:16+0009\n"
 "Last-Translator:   <felix.sipma@no-log.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1202,26 +1202,26 @@ msgstr "Rechercher"
 msgid "Go"
 msgstr "Aller à"
 
-#: geodata/views.py:446
+#: geodata/views.py:456
 msgid "Please correct the errors below."
 msgstr "Merci de corriger les erreurs ci-dessous."
 
-#: geodata/views.py:485
+#: geodata/views.py:495
 #, python-format
 msgid "Successfully added %(modelname)s \"%(name)s\"."
 msgstr "Ajout effectué: %(modelname)s \"%(name)s\"."
 
-#: geodata/views.py:558
+#: geodata/views.py:568
 #, python-format
 msgid "Successfully edited %(modelname)s \"%(name)s\"."
 msgstr "Modification effectuée: %(modelname)s \"%(name)s\"."
 
-#: geodata/views.py:610
+#: geodata/views.py:620
 #, python-format
 msgid "Successfully deleted %(modelname)s \"%(name)s\"."
 msgstr "Suppression effectuée: %(modelname)s \"%(name)s\"."
 
-#: geodata/views.py:675
+#: geodata/views.py:685
 #, python-format
 msgid ""
 "Successfully removed %(modelname)s \"%(name)s\" from your                 "
@@ -1230,7 +1230,7 @@ msgstr ""
 "Suppression de votre liste de recommandation effectuée: %(modelname)s "
 "\"%(name)s\"."
 
-#: geodata/views.py:685
+#: geodata/views.py:695
 #, python-format
 msgid ""
 "Successfully added %(modelname)s \"%(name)s\" to your                 "
