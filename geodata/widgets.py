@@ -4,7 +4,7 @@ from django.utils.html import format_html
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.forms.widgets import DateInput, CheckboxChoiceInput, \
-    CheckboxSelectMultiple, ChoiceFieldRenderer
+    CheckboxSelectMultiple, ChoiceFieldRenderer, CheckboxInput
 from leaflet.forms.widgets import LeafletWidget
 
 class GeoDataWidget(LeafletWidget):
@@ -123,3 +123,11 @@ class CheckboxFieldRenderer(ChoiceFieldRenderer):
 
 class EarthTechniqueMultiple(CheckboxSelectMultiple):
     renderer = CheckboxFieldRenderer
+
+
+class IsceahCheckboxInput(CheckboxInput):
+    class Media:
+        js = ['js/geodata-hide-isceah.js']
+        css = {
+            'all': ['css/geodata-hide-isceah.css']
+        }

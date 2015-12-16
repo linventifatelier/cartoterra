@@ -7,7 +7,7 @@ from django.forms import ModelForm
 from django.forms.models import ModelMultipleChoiceField, ModelChoiceIterator
 from PIL.ExifTags import TAGS, GPSTAGS
 from geodata.widgets import GeoDataWidget, BootstrapDatePicker, \
-    EarthTechniqueMultiple
+    EarthTechniqueMultiple, IsceahCheckboxInput
 from django.contrib.contenttypes.forms import generic_inlineformset_factory
 import logging
 from django.contrib.gis.forms.fields import PointField
@@ -205,6 +205,7 @@ building if known, ignore otherwise.")
         help_text=_("If heritage site")
     )
     isceah = forms.BooleanField(
+        widget=IsceahCheckboxInput,
         help_text=_("Tick here if you are member of ICOMOS-ISCEAH and want \
 this entry to be referenced as ICOMOS-ISCEAH.")
     )
@@ -232,6 +233,14 @@ this entry.")
             'credit_creator', 'image'
         ]
         self.fields = reorder_fields(self.fields, key_order)
+
+        for f in [
+            'classification', 'use', 'cultural_landscape',
+            'protection_status', 'property_status', 'construction_date',
+            'condition', 'references'
+        ]:
+            self.fields[f].widget.attrs['class'] = 'geodata-isceah'
+        self.fields['isceah'].widget.attrs['class'] = 'geodata-toggle-isceah'
 
     def clean_unesco(self):
         if self._user.has_perm('profile.world_heritage'):

@@ -38,7 +38,7 @@ $(function () {
       {% if field.errors %}
       <fieldset class="control-group error">
       {% else %}
-      <fieldset class="control-group">
+      <fieldset class="control-group{% if field.field.widget.attrs.class == "geodata-isceah" and not form.instance.isceah %} geodata-isceah-fieldset{% endif %}">
       {% endif %}
 
 
