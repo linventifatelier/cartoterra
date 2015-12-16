@@ -189,31 +189,31 @@ def reorder_fields(fields, order):
 
 class BuildingForm(GeoDataAbstractForm):
     detailed_description = forms.CharField(
-        widget=forms.Textarea,
-        help_text=_(
-            "Detailled description (major elements, present and past \
+        required=False, widget=forms.Textarea,
+        help_text=_("Detailled description (major elements, present and past \
 use, cultural affiliation, historical/cultural/architectural \
 importance, period of construction, geographical scole, associated \
 events, hybrid construction techniques if any)")
     )
     inauguration_date = forms.DateField(
-        widget=BootstrapDatePicker, required=False,
+        required=False, widget=BootstrapDatePicker,
         help_text=_("Put here the inauguration date for a contemporary \
 building if known, ignore otherwise.")
     )
     construction_date = forms.CharField(
-        help_text=_("If heritage site")
+        required=False, help_text=_("If heritage site")
     )
     isceah = forms.BooleanField(
-        widget=IsceahCheckboxInput,
+        required=False, widget=IsceahCheckboxInput,
         help_text=_("Tick here if you are member of ICOMOS-ISCEAH and want \
 this entry to be referenced as ICOMOS-ISCEAH.")
     )
     techniques = EarthTechniqueMultipleChoiceField(
-        queryset=EarthTechnique.objects.all(), widget=EarthTechniqueMultiple
+        required=False, queryset=EarthTechnique.objects.all(),
+        widget=EarthTechniqueMultiple
     )
     stakeholder = forms.ModelMultipleChoiceField(
-        queryset=Stakeholder.objects.all(),
+        required=False, queryset=Stakeholder.objects.all(),
         help_text=_("Select cartoterra.net stakeholders you want to link to \
 this entry.")
     )
@@ -260,10 +260,12 @@ this entry.")
 
 
 class WorksiteForm(GeoDataAbstractForm):
-    inauguration_date = forms.DateField(widget=BootstrapDatePicker,
-                                        required=False)
+    inauguration_date = forms.DateField(
+        widget=BootstrapDatePicker, required=False
+    )
     techniques = EarthTechniqueMultipleChoiceField(
-        queryset=EarthTechnique.objects.all(), widget=EarthTechniqueMultiple
+        required=False, queryset=EarthTechnique.objects.all(),
+        widget=EarthTechniqueMultiple,
     )
 
     def __init__(self, user=None, *args, **kwargs):
