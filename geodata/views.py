@@ -110,6 +110,14 @@ class GeoJSONListView(GeoJSONFeatureCollectionResponseMixin, BaseListView):
 class GeoJSONBuildingListView(GeoJSONListView):
     model = Building
 
+    def get_queryset(self):
+        queryset = super(GeoJSONBuildingListView, self).get_queryset()
+        construction_status = self.kwargs.get('status', None)
+        if construction_status:
+            return queryset.filter(construction_status__name__iexact=construction_status)
+        else:
+            return queryset
+
 
 class GeoJSONBuildingDetailView(GeoJSONDetailView):
     model = Building

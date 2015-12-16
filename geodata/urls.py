@@ -29,6 +29,9 @@ urlpatterns = [
         name="geojson_stakeholder_detail"),
     url(r'^building/all/geojson/$', views.GeoJSONBuildingListView.as_view(),
         name="geojson_building_list"),
+    url(r'^building/status/(?P<status>[a-zA-Z0-9_\-]+)/geojson/$',
+        views.GeoJSONBuildingListView.as_view(),
+        name="geojson_building_of_status"),
     url(r'^building/contemporary/geojson/$',
         views.GeoJSONBuildingListView.as_view(
             queryset=models.Building.objects.filter(
@@ -48,10 +51,10 @@ urlpatterns = [
             queryset=models.Building.objects.filter(architects=''))),
     url(r'^building/normal/geojson/$',
         views.GeoJSONBuildingListView.as_view(
-            queryset=models.Building.objects.exclude(architects='').filter(
+            queryset=models.Building.objects.filter(
                 Q(unesco=False) &
-                (Q(inauguration_date__isnull=True) |
-                 ~Q(inauguration_date__gte=now() - timedelta(days=3650)))))),
+                Q(isceah=False) &
+                Q(construction_status__isnull=True)))),
     url(r'^worksite/all/geojson/$',
         views.GeoJSONWorksiteListView.as_view(),
         name="geojson_worksite_list"),
