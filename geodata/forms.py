@@ -225,10 +225,10 @@ this entry.")
         self._user = user
         # https://stackoverflow.com/questions/913589/django-forms-inheritance-and-order-of-form-fields/27493844#27493844
         key_order = [
-            'name', 'geometry', 'isceah', 'classification', 'use',
-            'cultural_landscape', 'unesco', 'protection_status',
-            'property_status', 'techniques', 'earth_quantity', 'description',
-            'detailed_description',
+            'name', 'geometry', 'construction_status', 'isceah',
+            'classification', 'use', 'cultural_landscape', 'unesco',
+            'protection_status', 'property_status', 'techniques',
+            'earth_quantity', 'description', 'detailed_description',
             'inauguration_date', 'construction_date', 'condition',
             'references', 'url', 'architects', 'stakeholder', 'contact',
             'credit_creator', 'image'

@@ -2,7 +2,7 @@
 from models import Building, Worksite, Event, Stakeholder, Image, \
     EventType, EarthTechnique, EarthRole, Profile, BuildingClassification, \
     BuildingUse, BuildingPropertyStatus, BuildingProtectionStatus, \
-    EarthQuantity
+    EarthQuantity, BuildingConstructionStatus
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -116,6 +116,7 @@ class StakeholderAdmin(GeoDataAbstractAdmin):
 admin.site.register(Stakeholder, StakeholderAdmin)
 
 
+admin.site.register(BuildingConstructionStatus, admin.ModelAdmin)
 admin.site.register(BuildingClassification, admin.ModelAdmin)
 admin.site.register(BuildingUse, admin.ModelAdmin)
 admin.site.register(BuildingPropertyStatus, admin.ModelAdmin)
