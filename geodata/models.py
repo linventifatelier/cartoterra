@@ -202,6 +202,9 @@ class EarthQuantity(models.Model):
 
 class Building(GeoDataAbstract):
     """A spatial model for building geodata."""
+    detailed_description = models.TextField(
+        _("detailed description"), blank=True, null=True
+    )
     classification = models.ForeignKey(
         BuildingClassification, verbose_name=_("classification"),
         blank=True, null=True

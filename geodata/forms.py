@@ -188,7 +188,7 @@ def reorder_fields(fields, order):
 
 
 class BuildingForm(GeoDataAbstractForm):
-    description = forms.CharField(
+    detailed_description = forms.CharField(
         widget=forms.Textarea,
         help_text=_(
             "Detailled description (major elements, present and past \
@@ -228,6 +228,7 @@ this entry.")
             'name', 'geometry', 'isceah', 'classification', 'use',
             'cultural_landscape', 'unesco', 'protection_status',
             'property_status', 'techniques', 'earth_quantity', 'description',
+            'detailed_description',
             'inauguration_date', 'construction_date', 'condition',
             'references', 'url', 'architects', 'stakeholder', 'contact',
             'credit_creator', 'image'
@@ -235,6 +236,7 @@ this entry.")
         self.fields = reorder_fields(self.fields, key_order)
 
         for f in [
+            'detailed_description',
             'classification', 'use', 'cultural_landscape',
             'protection_status', 'property_status', 'construction_date',
             'condition', 'references'
