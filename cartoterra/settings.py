@@ -1,6 +1,7 @@
 import os
 import posixpath
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.messages import constants as messages
 
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
@@ -288,12 +289,14 @@ HAYSTACK_CONNECTIONS = {
 
 THUMBNAIL_DEBUG = DEBUG
 
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
 
 ROSETTA_MESSAGES_PER_PAGE = 20
 ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
 ROSETTA_MESSAGES_SOURCE_LANGUAGE_CODE = 'en'
 ROSETTA_MESSAGES_SOURCE_LANGUAGE_NAME = 'English'
-
 
 KNOWLEDGE_ALLOW_ANONYMOUS = False
 KNOWLEDGE_LOGIN_REQUIRED = False
@@ -301,7 +304,6 @@ KNOWLEDGE_AUTO_PUBLICIZE = False
 KNOWLEDGE_FREE_RESPONSE = True
 KNOWLEDGE_SLUG_URLS = True
 KNOWLEDGE_ALERTS = False
-
 
 GEODATA_NOMINATIM_EMAIL = "linventifatelier@gueux.org"
 GEODATA_NOMINATIM_SEARCH = 'https://nominatim.openstreetmap.org/search?%s'
