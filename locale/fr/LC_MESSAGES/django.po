@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-16 19:06+0100\n"
+"POT-Creation-Date: 2015-12-17 12:32+0100\n"
 "PO-Revision-Date: 2015-11-30 12:16+0009\n"
 "Last-Translator:   <felix.sipma@no-log.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,11 +43,11 @@ msgstr ""
 msgid "You must approve the license"
 msgstr "Vous devez accepter la license"
 
-#: cartoterra/settings.py:50
+#: cartoterra/settings.py:51
 msgid "English"
 msgstr "Anglais"
 
-#: cartoterra/settings.py:51
+#: cartoterra/settings.py:52
 msgid "French"
 msgstr "Français"
 
@@ -591,7 +591,7 @@ msgid "Updates on changes and additions to stakeholders of "
 msgstr ""
 "Mises à jour sur les modifications et les ajouts sur les intervenants de"
 
-#: geodata/forms.py:194
+#: geodata/forms.py:193
 msgid ""
 "Detailled description (major elements, present and past use, cultural "
 "affiliation, historical/cultural/architectural importance, period of "
@@ -603,7 +603,7 @@ msgstr ""
 "époque de construction, échelle géographique, évènements associés, "
 "techniques de constructions hybrides)"
 
-#: geodata/forms.py:201
+#: geodata/forms.py:200
 msgid ""
 "Put here the inauguration date for a contemporary building if known, ignore "
 "otherwise."
@@ -611,11 +611,11 @@ msgstr ""
 "Inscrire ici la date d'inauguration pour un bâtiment contemporain si elle "
 "est connue, ignorer sinon."
 
-#: geodata/forms.py:205
+#: geodata/forms.py:204
 msgid "If heritage site"
 msgstr "Si patrimoine"
 
-#: geodata/forms.py:209 geodata/forms.py:304
+#: geodata/forms.py:208 geodata/forms.py:306
 msgid ""
 "Tick here if you are member of ICOMOS-ISCEAH and want this entry to be "
 "referenced as ICOMOS-ISCEAH."
@@ -682,7 +682,7 @@ msgid "UNESCO Chair Earthen Architecture"
 msgstr "Chaire UNESCO Architecture de terre"
 
 #: geodata/models.py:136 geodata/models.py:261
-#: geodata/templates/geodata/building_detail.html:120
+#: geodata/templates/geodata/building_detail.html:132
 #: geodata/templates/geodata/stakeholder_detail.html:39
 msgid "ISCEAH"
 msgstr "ISCEAH"
@@ -693,12 +693,12 @@ msgid "stakeholder"
 msgstr "intervenant"
 
 #: geodata/models.py:154
-msgid "building construction status"
-msgstr "statut de la construction"
+msgid "building heritage status"
+msgstr "statut patrimonial de bâtiments"
 
 #: geodata/models.py:155
-msgid "building construction statuses"
-msgstr "statuts de constructions"
+msgid "building heritage statuses"
+msgstr "statuts patrimoniaux de bâtiments"
 
 #: geodata/models.py:182
 msgid "building property status"
@@ -789,14 +789,14 @@ msgid "protection status"
 msgstr "état de protection du bâtiment"
 
 #: geodata/models.py:258
-msgid "construction status"
-msgstr "statut de la construction"
+msgid "heritage or contemporary"
+msgstr "patrimonial ou contemporain"
 
 #: geodata/models.py:263 geodata/models.py:319
 msgid "inauguration date"
 msgstr "date d'inauguration"
 
-#: geodata/models.py:266 geodata/templates/geodata/building_detail.html:138
+#: geodata/models.py:266 geodata/templates/geodata/building_detail.html:150
 msgid "Approximative construction date"
 msgstr "Date de construction approximative"
 
@@ -929,7 +929,7 @@ msgstr "Intervenants"
 
 #: geodata/templates/geodata/building_detail.html:68
 #: geodata/templates/geodata/building_detail.html:82
-#: geodata/templates/geodata/building_detail.html:132
+#: geodata/templates/geodata/building_detail.html:144
 #: geodata/templates/geodata/event_detail.html:38
 #: geodata/templates/geodata/event_detail.html:52
 #: geodata/templates/geodata/event_detail.html:66
@@ -957,14 +957,22 @@ msgid "Principal references"
 msgstr "Références principales"
 
 #: geodata/templates/geodata/building_detail.html:106
+msgid "Heritage or contemporary"
+msgstr "Patrimonial ou contemporain"
+
+#: geodata/templates/geodata/building_detail.html:112
+msgid "Detailed description"
+msgstr "Description détaillée"
+
+#: geodata/templates/geodata/building_detail.html:118
 msgid "World heritage"
 msgstr "Patrimoine Mondial"
 
-#: geodata/templates/geodata/building_detail.html:114
+#: geodata/templates/geodata/building_detail.html:126
 msgid "Protection status"
 msgstr "État de protection du bâtiment"
 
-#: geodata/templates/geodata/building_detail.html:127
+#: geodata/templates/geodata/building_detail.html:139
 msgid "Inauguration date"
 msgstr "Date d'inauguration"
 
@@ -1202,26 +1210,26 @@ msgstr "Rechercher"
 msgid "Go"
 msgstr "Aller à"
 
-#: geodata/views.py:456
+#: geodata/views.py:469
 msgid "Please correct the errors below."
 msgstr "Merci de corriger les erreurs ci-dessous."
 
-#: geodata/views.py:495
+#: geodata/views.py:508
 #, python-format
 msgid "Successfully added %(modelname)s \"%(name)s\"."
 msgstr "Ajout effectué: %(modelname)s \"%(name)s\"."
 
-#: geodata/views.py:568
+#: geodata/views.py:581
 #, python-format
 msgid "Successfully edited %(modelname)s \"%(name)s\"."
 msgstr "Modification effectuée: %(modelname)s \"%(name)s\"."
 
-#: geodata/views.py:620
+#: geodata/views.py:633
 #, python-format
 msgid "Successfully deleted %(modelname)s \"%(name)s\"."
 msgstr "Suppression effectuée: %(modelname)s \"%(name)s\"."
 
-#: geodata/views.py:685
+#: geodata/views.py:698
 #, python-format
 msgid ""
 "Successfully removed %(modelname)s \"%(name)s\" from your                 "
@@ -1230,9 +1238,18 @@ msgstr ""
 "Suppression de votre liste de recommandation effectuée: %(modelname)s "
 "\"%(name)s\"."
 
-#: geodata/views.py:695
+#: geodata/views.py:708
 #, python-format
 msgid ""
 "Successfully added %(modelname)s \"%(name)s\" to your                 "
 "recommendations."
 msgstr "Ajout effectué : %(modelname)s \"%(name)s\"."
+
+#~ msgid "Construction status"
+#~ msgstr "Statut de la construction"
+
+#~ msgid "building construction status"
+#~ msgstr "statut de la construction"
+
+#~ msgid "building construction statuses"
+#~ msgstr "statuts de constructions"

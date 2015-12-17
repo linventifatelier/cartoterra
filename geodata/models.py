@@ -143,16 +143,16 @@ class Stakeholder(GeoDataAbstract):
         return ("show_stakeholder", [self.id])
 
 
-class BuildingConstructionStatus(models.Model):
-    """A model for building construction statuses."""
+class BuildingHeritageStatus(models.Model):
+    """A model for building heritage statuses."""
     name = models.CharField(_("name"), max_length=50)
 
     def __unicode__(self):
         return self.name
 
     class Meta:
-        verbose_name = _("building construction status")
-        verbose_name_plural = _("building construction statuses")
+        verbose_name = _("building heritage status")
+        verbose_name_plural = _("building heritage statuses")
 
 
 class BuildingClassification(models.Model):
@@ -254,8 +254,8 @@ class Building(GeoDataAbstract):
         BuildingProtectionStatus, verbose_name=_("protection status"),
         blank=True, null=True
     )
-    construction_status = models.ForeignKey(
-        BuildingConstructionStatus, verbose_name=_("construction status"),
+    heritage_status = models.ForeignKey(
+        BuildingHeritageStatus, verbose_name=_("heritage or contemporary"),
         blank=True, null=True
     )
     isceah = models.BooleanField(_("ISCEAH"), default=False)

@@ -112,9 +112,11 @@ class GeoJSONBuildingListView(GeoJSONListView):
 
     def get_queryset(self):
         queryset = super(GeoJSONBuildingListView, self).get_queryset()
-        construction_status = self.kwargs.get('status', None)
-        if construction_status:
-            return queryset.filter(construction_status__name__iexact=construction_status)
+        heritage_status = self.kwargs.get('status', None)
+        if heritage_status:
+            return queryset.filter(
+                heritage_status__name__iexact=heritage_status
+            )
         else:
             return queryset
 
@@ -253,10 +255,10 @@ class BuildingListView(BuildingMixin, GeoDataListView):
 
     def get_queryset(self):
         queryset = super(BuildingListView, self).get_queryset()
-        construction_status = self.kwargs.get('status', None)
-        if construction_status:
+        heritage_status = self.kwargs.get('status', None)
+        if heritage_status:
             return queryset.filter(
-                construction_status__name__iexact=construction_status
+                heritage_status__name__iexact=heritage_status
             )
         else:
             return queryset
@@ -305,7 +307,8 @@ class StakeholderListView(StakeholderMixin, GeoDataListView):
     model = Stakeholder
     stakeholders = {
         'name': "Stakeholders",
-        'external_graphic': settings.STATIC_URL + "img/stakeholder_icon_h25.png",
+        'external_graphic':
+            settings.STATIC_URL + "img/stakeholder_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -368,7 +371,8 @@ class BigMapView(GeoDataAllView):
     }
     stakeholders = {
         'name': "Stakeholders",
-        'external_graphic': settings.STATIC_URL + "img/stakeholder_icon_h25.png",
+        'external_graphic':
+            settings.STATIC_URL + "img/stakeholder_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',
@@ -451,7 +455,8 @@ class StakeholderDetailView(StakeholderMixin, GeoDataDetailView):
     model = Stakeholder
     stakeholders = {
         'name': "Stakeholders",
-        'external_graphic': settings.STATIC_URL + "img/stakeholder_icon_h25.png",
+        'external_graphic':
+            settings.STATIC_URL + "img/stakeholder_icon_h25.png",
         'graphic_width': 10,
         'graphic_height': 10,
         'fill_color': '#00FF00',

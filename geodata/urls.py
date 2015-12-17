@@ -54,7 +54,7 @@ urlpatterns = [
             queryset=models.Building.objects.filter(
                 Q(unesco=False) &
                 Q(isceah=False) &
-                Q(construction_status__isnull=True)))),
+                Q(heritage_status__isnull=True)))),
     url(r'^worksite/all/geojson/$',
         views.GeoJSONWorksiteListView.as_view(),
         name="geojson_worksite_list"),
@@ -106,7 +106,7 @@ urlpatterns = [
             queryset=models.Building.objects.filter(
                 Q(unesco=False) &
                 Q(isceah=False) &
-                Q(construction_status__isnull=True))),
+                Q(heritage_status__isnull=True))),
         name="show_building_normal"),
     url(r'^building/(?P<pk>\d+)/$', views.BuildingDetailView.as_view(),
         name="show_building"),

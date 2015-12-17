@@ -100,10 +100,10 @@
     <td>{{ geodata.references }}</td>
 </tr>
 {% endif %}
-{% if geodata.construction_status %}
+{% if geodata.heritage_status %}
 <tr>
-    <th>{% trans "Construction status" %}</th>
-    <td>{{ geodata.construction_status }}</td>
+    <th>{% trans "Heritage or contemporary" %}</th>
+    <td>{{ geodata.heritage_status }}</td>
 </tr>
 {% endif %}
 {% if geodata.detailed_description %}
