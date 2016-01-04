@@ -303,8 +303,8 @@ class EventForm(GeoDataAbstractForm):
 
 class StakeholderForm(GeoDataAbstractForm):
     isceah = forms.BooleanField(
-        help_text=_("Tick here if you are member of ICOMOS-ISCEAH and want \
-this entry to be referenced as ICOMOS-ISCEAH.")
+        required=False, help_text=_("Tick here if you are member of \
+ICOMOS-ISCEAH and want this entry to be referenced as ICOMOS-ISCEAH.")
     )
 
     def __init__(self, user=None, *args, **kwargs):
