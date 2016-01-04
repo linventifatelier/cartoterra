@@ -90,7 +90,7 @@
                     <div class="set" id="gallery">
                         {% for image in geodata.image.all %}
                         {% with image.thumbnail as im %}
-                        <a href="{{ image.display.url }}" title="{{ image.legend|escape }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" /></a>
+                        <a href="{{ image.display.url }}" title="{{ image.legend|escape }}"><img width="{{ im.width }}" height="{{ im.height }}" src="{{ im.url }}" alt="" /></a>
                         {% endwith %}
                         {% endfor %}
                     </div>
