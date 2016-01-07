@@ -28,31 +28,27 @@
     <body class="{% block body_class %}{% endblock %}" id="{% block body_id %}{% endblock %}">
         <div class="fill" id="wrap">
         {% block topbar_base %}
-            <div class="nav navbar {% block navbar_class %}navbar-inverse navbar-static-top{% endblock %}" role="banner">
-            {% block topbar %}
-                <div class="nav navbar-header">
-                    <a class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    {% block site_brand %}<a class="navbar-brand" href="{% url "home" %}">{{ SITE_NAME }}</a>{% endblock %}
+            <div class="navbar {% block navbar_class %}navbar-inverse navbar-static-top{% endblock %}" role="banner">
+                <div class="container-fluid">
+                {% block topbar %}
+                    <div class="navbar-header">
+                        <a class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        {% block site_brand %}<a class="navbar-brand" href="{% url "home" %}">{{ SITE_NAME }}</a>{% endblock %}
+                    </div>
+                    <div class="navbar-collapse navbar-right">
+                        <ul class="nav navbar-nav">
+                        {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
+                        {% block nav %}
+                        {% endblock %}
+                        </ul>
+                    </div>
+                {% endblock %}
                 </div>
-                <div class="collapse navbar-collapse navbar-right">
-                  <ul class="nav navbar-nav">
-                    {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
-                    {% block nav %}
-                        {% comment %}
-                            <ul class="nav">
-                                <li><a href="#tab_one">One</a></li>
-                                <li><a href="#tab_two">Two</a></li>
-                            </ul>
-                        {% endcomment %}
-                    {% endblock %}
-                  </ul>
-                </div>
-            {% endblock %}
             </div>
         {% endblock %}
 
