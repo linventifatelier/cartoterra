@@ -14,9 +14,9 @@
     "tests"
   ],
   "dependencies": {
-    "blueimp-gallery": "~2.16.0",
-    "bootstrap": "3.3.5",
-    "bootstrap-datepicker": "~1.5.0",
+    "blueimp-gallery": "~2.17.0",
+    "bootstrap": "3.3.6",
+    "bootstrap-datepicker": "~1.5.1",
     "html5shiv": "~3.7.0",
     "jquery": "1.11",
     "spin.js": "~2.3.2",
