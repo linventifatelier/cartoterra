@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 12:32+0100\n"
+"POT-Creation-Date: 2016-01-07 21:01+0100\n"
 "PO-Revision-Date: 2015-11-30 12:16+0009\n"
 "Last-Translator:   <felix.sipma@no-log.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,6 +109,10 @@ msgstr "Déconnexion"
 msgid "Log in"
 msgstr "Connexion"
 
+#: cartoterra/templates/_account_bar.html:18
+msgid "or"
+msgstr "ou"
+
 #: cartoterra/templates/_account_bar.html:19
 #: cartoterra/templates/account/signup.html:6
 #: cartoterra/templates/account/signup.html:11
@@ -116,15 +120,15 @@ msgstr "Connexion"
 msgid "Sign up"
 msgstr "Inscription"
 
-#: cartoterra/templates/_footer.html:14
+#: cartoterra/templates/_footer.html:11
 msgid "is licensed under"
 msgstr "est distribué sous licence"
 
-#: cartoterra/templates/_footer.html:16
+#: cartoterra/templates/_footer.html:13
 msgid "Website created by"
 msgstr "Si web créé par"
 
-#: cartoterra/templates/_footer.html:18
+#: cartoterra/templates/_footer.html:15
 msgid "site code under AGPL-3+"
 msgstr "Code du site sous license AGPL-3+"
 
