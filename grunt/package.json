@@ -16,7 +16,6 @@
             "grunt-contrib-rename":     "*",
             "grunt-contrib-clean":      "*",
             "grunt-cssc":               "*",
-            "grunt-htmlhint":           "*",
             "grunt-bower-task":         "*",
             "bower":                    "*",
             "matchdep":                 "*"
