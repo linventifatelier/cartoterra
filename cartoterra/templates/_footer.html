@@ -8,10 +8,11 @@
   </div>
   <div class="col-md-5 col-md-offset-2 col-sm-6 col-xs-12">
     <div class="legal">
+      {% trans "Texts, opinions and informations given or made available on this website or through hyperlinks are the responsibility of their author." %}
+      <br />
       <a href="{% url "home" %}">{{ SITE_NAME }}</a> {% trans "is licensed under" %} <a target="_blank" rel="license" href="http://opendatacommons.org/licenses/odbl/1.0/">Open Database License (ODbL)</a>
       <br />
-      {% trans "Website created by" %}<a href="mailto:felix.sipma@no-log.org">&lt;Félix Sipma&gt;</a>
-      <br />
+      {% trans "Website created by" %}<a href="mailto:felix.sipma@no-log.org">&lt;Félix Sipma&gt;</a> -  
       <a target="_blank" rel="code" href="https://github.com/linventifatelier/cartoterra">{% trans "site code under AGPL-3+" %}</a>
     </div>
   </div>
