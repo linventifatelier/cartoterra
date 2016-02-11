@@ -30,7 +30,17 @@ $ git init 
 
 • pull cartoterra.net into it
 - in terminal : 
+```shell
 $ git clone https://git.gueux.org/cartoterra.git 
+Cloning into 'cartoterra'...
+remote: Counting objects: 6296, done.
+remote: Compressing objects: 100% (4469/4469), done.
+remote: Total 6296 (delta 3539), reused 3267 (delta 1600)
+Receiving objects: 100% (6296/6296), 7.13 MiB | 99.00 KiB/s, done.
+Resolving deltas: 100% (3539/3539), done.
+Checking connectivity... done.
+```
+
 up-to-date files should be uploaded to your folder.  
 
 
@@ -84,13 +94,12 @@ $ sudo easy_install npm
 #### Procedure
 
 to update cartoterra.net and launch your local server (repeat each time you want to start a server session) : 
-
 ```shell
 $ git pull https://git.gueux.org/cartoterra.git
 
+$ cd cartoterra
 $ virtualenv ~/cartoterra-env
 $ source ~/cartoterra-env/bin/activate
-(cartoterra-env)$ cd cartoterra
 (cartoterra-env)$ cd grunt
 (cartoterra-env)$ npm install
 (cartoterra-env)$ grunt
@@ -101,7 +110,6 @@ $ source ~/cartoterra-env/bin/activate
 (cartoterra-env)$ python manage.py createsuperuser --settings=settings.development
 (cartoterra-env)$ python manage.py runserver --settings=settings.development
 ```
-
 ## Author
 
 Félix Sipma [felix.sipma@no-log.org](mailto:felix.sipma@no-log.org)
