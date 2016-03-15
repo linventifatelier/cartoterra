@@ -14,10 +14,11 @@ See [COPYRIGHT](COPYRIGHT) file.
 You have to use git to get the latest versions of cartoterra.net : to know more about git : 
 https://git-scm.com/doc
  
-cartoterra.net dev version has a git repo : 
+cartoterra.net has a git repo : 
 https://gitweb.gueux.org/?p=cartoterra.git;a=summary
 
-A mirror with low update rate will be made available on Github (to come)
+cartoterra.net dev version is available on Github :
+https://github.com/linventifatelier/cartoterra.git
 
 • install git
 https://git-scm.com/doc)https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
@@ -89,7 +90,8 @@ Alternative solution for systems up to Mavericks :
 
 INSTALL NPM
 in terminal :  
-$ sudo easy_install npm
+$ brew install node
+#$ sudo easy_install npm
 
 #### Procedure
 
