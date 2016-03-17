@@ -56,3 +56,7 @@
 .geodata-inactive-text {
   opacity: 0.5;
 }
+
+.geodata-rss {
+	font-size: xx-small;
+}	

@@ -13,3 +13,22 @@
     min-height: 700px;
   }
 }
+
+.building {
+	background-color: rgb(245,200,195);
+}
+
+
+.worksite {
+	background-color: rgb(250,230,180);
+}
+
+
+.event {
+	background-color: rgb(200,210,240);
+}
+
+
+.stakeholder {
+	background-color: rgb(200,250,180);
+}
