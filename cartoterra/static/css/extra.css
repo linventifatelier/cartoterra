@@ -5,7 +5,7 @@
 body {
   font-size: 13px;
   color: #333333;
-  background-color: #bbaa99;
+  background-color: #000000;
   position: relative;
 }
 
@@ -108,16 +108,19 @@ input[type="color"],
 
 .cartoterra-header {
   background-color: rgb(34,34,34);
-  background-color: rgba(34,34,34,0.90);
+  background-color: rgba(34,34,34,0.60);
   z-index: 300;
   width: 100%;
   position: relative;
 }
 
+.cartoterra-header 
+
 .navbar {
   position: relative;
   width: 100%;
-  margin-bottom: 0;
+  height: auto;
+  margin: 0px;
 }
 
 /* BLOCKS */
@@ -266,4 +269,10 @@ body:before {
   border-bottom: 0;
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.map-overlay {
+ background-image: url('../img/backgroundimage.jpg');
+ /*previous image should be 1920px wide with low contrast*/
+ padding-top: 1px;
 }

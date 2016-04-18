@@ -8,36 +8,24 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-07 21:01+0100\n"
-"PO-Revision-Date: 2015-11-30 12:16+0009\n"
-"Last-Translator:   <felix.sipma@no-log.org>\n"
+"PO-Revision-Date: 2016-02-11 16:48+0009\n"
+"Last-Translator:   <gregoire.paccoud@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Translated-Using: django-rosetta 0.7.6\n"
+"X-Translated-Using: django-rosetta 0.7.8\n"
 
 #: cartoterra/forms.py:9
 #, python-format
 msgid ""
 "I hereby agree:<br>\n"
-"Content I create on %s is automatically licensed according to the Open "
-"Database License: <a target=\"_blank\" href=\"http://opendatacommons.org/"
-"licenses/odbl/1.0/\">http://opendatacommons.org/licenses/odbl/1.0/</a>. Any "
-"rights in individual contents of the database are licensed under the "
-"Database Contents License: <a target=\"_blank\" href=\"http://"
-"opendatacommons.org/licenses/dbcl/1.0/\">http://opendatacommons.org/licenses/"
-"dbcl/1.0/</a>"
+"Content I create on %s is automatically licensed according to the Open Database License: <a target=\"_blank\" href=\"http://opendatacommons.org/licenses/odbl/1.0/\">http://opendatacommons.org/licenses/odbl/1.0/</a>. Any rights in individual contents of the database are licensed under the Database Contents License: <a target=\"_blank\" href=\"http://opendatacommons.org/licenses/dbcl/1.0/\">http://opendatacommons.org/licenses/dbcl/1.0/</a>"
 msgstr ""
 "J'accepte ce qui suit :<br>\n"
-"Le contenu que je crée sur %s est automatiquement publié sous license Open "
-"Database License: <a target=\"_blank\" href=\"http://opendatacommons.org/"
-"licenses/odbl/1.0/\"> http://opendatacommons.org/licenses/odbl/1.0/</a>. "
-"Tous les droits sur les contenus de la base de données sont publiés sous "
-"license Database Contents License: <a target=\"_blank\" href=\"http://"
-"opendatacommons.org/licenses/dbcl/1.0/\"> http://opendatacommons.org/"
-"licenses/dbcl/1.0/</a>"
+"Le contenu que je crée sur %s est automatiquement publié sous license Open Database License: <a target=\"_blank\" href=\"http://opendatacommons.org/licenses/odbl/1.0/\"> http://opendatacommons.org/licenses/odbl/1.0/</a>. Tous les droits sur les contenus de la base de données sont publiés sous license Database Contents License: <a target=\"_blank\" href=\"http://opendatacommons.org/licenses/dbcl/1.0/\"> http://opendatacommons.org/licenses/dbcl/1.0/</a>"
 
 #: cartoterra/forms.py:23
 msgid "You must approve the license"
@@ -121,14 +109,24 @@ msgid "Sign up"
 msgstr "Inscription"
 
 #: cartoterra/templates/_footer.html:11
+#, fuzzy
+msgid ""
+"Texts, opinions and informations given or made available on this website or "
+"through hyperlinks are the responsibility of their author."
+msgstr ""
+"Les textes, avis et informations exprimés ou rendus disponibles sur le site "
+"ou par hyperliens n’engagent que la responsabilité de leurs auteurs."
+
+#: cartoterra/templates/_footer.html:12
 msgid "is licensed under"
 msgstr "est distribué sous licence"
 
-#: cartoterra/templates/_footer.html:13
+#: cartoterra/templates/_footer.html:14
+#, fuzzy
 msgid "Website created by"
-msgstr "Si web créé par"
+msgstr "Site web créé par"
 
-#: cartoterra/templates/_footer.html:15
+#: cartoterra/templates/_footer.html:16
 msgid "site code under AGPL-3+"
 msgstr "Code du site sous license AGPL-3+"
 
@@ -165,8 +163,7 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
-"L'utilisateur '%(user)s' de %(site_name)s a donné ceci comme adresse "
-"électronique.\n"
+"L'utilisateur '%(user)s' de %(site_name)s a donné ceci comme adresse électronique.\n"
 "\n"
 "Pour confirmer, cliquez sur %(activate_url)s\n"
 
@@ -178,18 +175,13 @@ msgstr "Confirmer votre adresse électronique pour %(site_name)s"
 #: cartoterra/templates/account/email/password_reset.txt:1
 #, python-format
 msgid ""
-"You're receiving this email because you or someone else has requested a "
-"password for your user account at %(site_name)s.\n"
-"It can be safely ignored if you did not request a password reset. Click the "
-"link below to reset your password.\n"
+"You're receiving this email because you or someone else has requested a password for your user account at %(site_name)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the link below to reset your password.\n"
 "\n"
 "%(password_reset_url)s\n"
 msgstr ""
-"Vous recevez cet email car vous ou quelqu'un d'autre a demandé une "
-"réinitialisation de mot de passe pour votre compte %(site_name)s. \n"
-"Ce message peut être ignoré en toute sécurité si vous n'avez pas demandé une "
-"réinitialisation de mot de passe. Cliquez sur le lien ci-dessous pour "
-"réinitialiser votre mot de passe.\n"
+"Vous recevez cet email car vous ou quelqu'un d'autre a demandé une réinitialisation de mot de passe pour votre compte %(site_name)s. \n"
+"Ce message peut être ignoré en toute sécurité si vous n'avez pas demandé une réinitialisation de mot de passe. Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe.\n"
 "\n"
 "%(password_reset_url)s\n"
 
@@ -223,14 +215,14 @@ msgstr "Confirmer votre adresse email"
 msgid ""
 "We have sent you an email to <b>%(email)s</b> for verification. Follow the "
 "link provided to finalize the signup process. If you do not receive it "
-"within a few minutes, contact us at <a href=\"mailto:"
-"%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+"within a few minutes, contact us at <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
 msgstr ""
 "Nous avons envoyé un message à <b>%(email)s</b> pour la validation de votre "
 "compte. Suivez le lien que vous allez recevoir pour finaliser votre "
 "inscription. Si vous n'avez pas reçu le message d'ici quelques minutes, "
-"contactez nous à l'adresse <a href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s"
-"\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+"contactez nous à l'adresse <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
 
 #: cartoterra/templates/account/email_confirmed.html:5
 #: cartoterra/templates/account/email_confirmed.html:8
@@ -279,13 +271,12 @@ msgstr "Réinitialiser le mot de passe"
 #: cartoterra/templates/account/password_reset.html:24
 #, python-format
 msgid ""
-"If you have any trouble resetting your password, contact us at <a href="
-"\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</"
-"a>."
+"If you have any trouble resetting your password, contact us at <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
 msgstr ""
 "Si vous avez des problèmes pour réinitialiser votre mot de passe, contactez-"
-"nous à l'adresse <a href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">"
-"%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+"nous à l'adresse <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
 
 #: cartoterra/templates/account/password_reset_sent.html:6
 #: cartoterra/templates/account/password_reset_sent.html:9
@@ -296,13 +287,13 @@ msgstr "Demande de réinitialisation du mot de passe envoyée"
 #, python-format
 msgid ""
 "We have sent you an email. If you do not receive it within a few minutes, "
-"try resending or contact us at <a href=\"mailto:"
-"%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+"try resending or contact us at <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
 msgstr ""
 "Nous vous avons envoyé un message. Si vous vous l'avez pas reçu dans "
 "quelques minutes, essayez de recommencer la procédure ou contactez-nous à "
-"l'adresse <a href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">"
-"%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+"l'adresse <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
 
 #: cartoterra/templates/account/password_reset_sent.html:17
 msgid "Resend"
@@ -312,12 +303,12 @@ msgstr "Renvoyé"
 #, python-format
 msgid ""
 "We have resent the password email. If you do not receive it within a few "
-"minutes, contact us at <a href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">"
-"%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+"minutes, contact us at <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
 msgstr ""
-"Nous vous avons renvoyé le mot de passe par email. Si vous ne le recevez pas "
-"dans quelques minutes, contactez nous à l'adresse <a href=\"mailto:"
-"%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
+"Nous vous avons renvoyé le mot de passe par email. Si vous ne le recevez pas"
+" dans quelques minutes, contactez nous à l'adresse <a "
+"href=\"mailto:%(THEME_ACCOUNT_CONTACT_EMAIL)s\">%(THEME_ACCOUNT_CONTACT_EMAIL)s</a>."
 
 #: cartoterra/templates/account/password_reset_token.html:6
 #: cartoterra/templates/account/password_reset_token.html:10
@@ -383,14 +374,11 @@ msgstr "Bonjour %(name)s,"
 #, python-format
 msgid ""
 "\n"
-"        We just wanted to let you know that a new response has been added to "
-"the question \"%(title)s\". You can visit it here: <a href=\"%(domain)s"
-"%(url)s\">%(domain)s%(url)s</a>.\n"
+"        We just wanted to let you know that a new response has been added to the question \"%(title)s\". You can visit it here: <a href=\"%(domain)s%(url)s\">%(domain)s%(url)s</a>.\n"
 "        "
 msgstr ""
 "\n"
-"Une nouvelle réponse a été ajoutée à la question: \"%(title)s\". Vous pouvez "
-"la voir ici: <a href=\"%(domain)s%(url)s\">%(domain)s%(url)s</a>"
+"Une nouvelle réponse a été ajoutée à la question: \"%(title)s\". Vous pouvez la voir ici: <a href=\"%(domain)s%(url)s\">%(domain)s%(url)s</a>"
 
 #: cartoterra/templates/django_knowledge/emails/message.html:17
 msgid ""
@@ -402,14 +390,11 @@ msgstr "Vous recevez ces messages, car vous avez coché la case «alerte»."
 #, python-format
 msgid ""
 "\n"
-"        We just wanted to let you know that a new question has been added: "
-"\"%(title)s\". You can visit it here: <a href=\"%(domain)s%(url)s\">"
-"%(domain)s%(url)s</a>\n"
+"        We just wanted to let you know that a new question has been added: \"%(title)s\". You can visit it here: <a href=\"%(domain)s%(url)s\">%(domain)s%(url)s</a>\n"
 "        "
 msgstr ""
 "\n"
-"Une nouvelle question a été ajoutée: \"%(title)s\". Vous pouvez la voir ici: "
-"<a href=\"%(domain)s%(url)s\">%(domain)s%(url)s</a>"
+"Une nouvelle question a été ajoutée: \"%(title)s\". Vous pouvez la voir ici: <a href=\"%(domain)s%(url)s\">%(domain)s%(url)s</a>"
 
 #: cartoterra/templates/django_knowledge/emails/message.html:29
 msgid "You are receiving these messages because you are a staff member."
@@ -584,7 +569,8 @@ msgstr "nouveaux évènements."
 
 #: geodata/feeds.py:64
 msgid "Updates on changes and additions to events of "
-msgstr "Mises à jour sur les modifications et les ajouts sur les évènements de"
+msgstr ""
+"Mises à jour sur les modifications et les ajouts sur les évènements de"
 
 #: geodata/feeds.py:87
 msgid " stakeholder news."
