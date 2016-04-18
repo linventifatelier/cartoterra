@@ -112,6 +112,7 @@ $ source ~/cartoterra-env/bin/activate
 (cartoterra-env)$ python manage.py createsuperuser --settings=settings.development
 (cartoterra-env)$ python manage.py runserver --settings=settings.development
 ```
-## Author
+## Authors
 
-Félix Sipma [felix.sipma@no-log.org](mailto:felix.sipma@no-log.org)
+Félix Sipma [felix.sipma@@no-log.org](mailto:felix.sipma@@no-log.org)
+Grégoire Paccoud [gregoire.paccoud@@gmail.com](gregoire.paccoud@@gmail.com)
