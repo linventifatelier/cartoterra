@@ -59,13 +59,14 @@
                 {% endblock %}
             </div>
         {% endblock %}
-        </div>
 
         {% block footer_base %}
-        <div id="footer" class="footer">
-            {% block footer %}{% endblock %}
-        </div>
+            <div id="footer" class="footer">
+                {% block footer %}{% endblock %}
+            </div>
         {% endblock %}
+
+        </div>
 
         {% block script_base %}
             <script type="text/javascript" src="{% block jquery_src %}{% static "js/jquery.min.js" %}{% endblock %}"></script>

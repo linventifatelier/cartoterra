@@ -9,27 +9,6 @@
   width: 100%;
 }
 
-#wrap {
-  min-height:100%;
-  height: auto;
-  width: 100%;
-  position: relative;
-}
-
-#wrap {
-  padding-bottom: auto;
-}
-
-@media (max-width: 767px) {
-  #wrap {
-    padding-bottom: auto;
-  }
-}
-
-.map-toolbox {
-  padding-bottom: 0;
-}
-
 .blueimp-gallery > .prev, .blueimp-gallery > .next {
   border: none;
   border-radius: none;
@@ -37,8 +16,4 @@
 
 .geodata-smallmap {
     height: 200px;
-}
-
-#main {
-    padding-top: 1em;
 }
