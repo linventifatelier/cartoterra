@@ -106,13 +106,11 @@ Alternative solution for systems up to Mavericks:
 $ brew install node
 ```
 
-#### Procedure
+##### Create virtualenv and install cartoterra.net requirements
 
-to update cartoterra.net and launch your local server (repeat each time you want to start a server session):
 ```shell
-$ git pull https://git.gueux.org/cartoterra.git
-$ cd cartoterra
 $ virtualenv ~/cartoterra-env
+$ cd cartoterra
 $ source ~/cartoterra-env/bin/activate
 (cartoterra-env)$ cd grunt
 (cartoterra-env)$ npm install
@@ -121,6 +119,23 @@ $ source ~/cartoterra-env/bin/activate
 (cartoterra-env)$ pip install -r ./requirements/development.txt
 (cartoterra-env)$ python manage.py migrate --settings=settings.development
 (cartoterra-env)$ python manage.py createsuperuser --settings=settings.development
+(cartoterra-env)$ python manage.py runserver --settings=settings.development
+```
+
+
+#### Procedure
+
+After you have followed the previous steps, to update cartoterra.net and launch your local server (repeat each time you want to start a server session):
+```shell
+$ git pull https://git.gueux.org/cartoterra.git
+$ cd cartoterra
+$ source ~/cartoterra-env/bin/activate
+(cartoterra-env)$ cd grunt
+(cartoterra-env)$ npm install
+(cartoterra-env)$ grunt
+(cartoterra-env)$ cd ..
+(cartoterra-env)$ pip install -r ./requirements/development.txt
+(cartoterra-env)$ python manage.py migrate --settings=settings.development
 (cartoterra-env)$ python manage.py runserver --settings=settings.development
 ```
 ## Authors
