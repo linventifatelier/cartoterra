@@ -103,10 +103,9 @@
           </div>
           <div id="collapse-worksite" class="panel-collapse collapse">
             <div class="panel-body worksite">
-              
               <a class="btn btn-warning btn-lg btn-sm btn-block" href="{% url "show_worksite_all" %}" role="button">{% trans "All worksites" %}</a>
                <a class="btn btn-warning btn-lg btn-sm btn-block" href="{% url "show_worksite_participative" %}" role="button">{% trans "Participative" %}</a>
-              <a class="btn btn-warning btn-lg btn-sm btn-block" href="{% url "show_worksite_normal" %}" role="button">{% trans "Normal" %}</a>             
+              <a class="btn btn-warning btn-lg btn-sm btn-block" href="{% url "show_worksite_normal" %}" role="button">{% trans "Normal" %}</a>
               </br>
               <div class="geodata-rss">
                 <a rel="rss" href="{% url "feed_worksite" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="" /> {% trans "Worksites" %}</a>
@@ -120,7 +119,6 @@
           </div>
           <div id="collapse-event" class="panel-collapse collapse">
             <div class="panel-body event">
-             
              <a class="btn btn-primary btn-lg btn-sm btn-block" href="{% url "show_event_all" %}" role="button">{% trans "All events" %}</a>
              <a class="btn btn-primary btn-lg btn-sm btn-block" href="{% url "show_event_of_type" "seminar" %}" role="button">{% trans "Seminar" %}</a>
              <a class="btn btn-primary btn-lg btn-sm btn-block" href="{% url "show_event_of_type" "training" %}" role="button">{% trans "Training" %}</a>
@@ -139,7 +137,6 @@
           </div>
           <div id="collapse-stakeholder" class="panel-collapse collapse">
             <div class="panel-body stakeholder">
-              
               <a class="btn btn-success btn-lg btn-sm btn-block" href="{% url "show_stakeholder_all" %}" role="button">{% trans "All stakeholders" %}</a>
               <a class="btn btn-success btn-lg btn-sm btn-block" href="{% url "show_stakeholder_isceah" %}" role="button">{% trans "ICOMOS-ISCEAH" %}</a>
               <a class="btn btn-success btn-lg btn-sm btn-block" href="{% url "show_stakeholder_of_role" "architect" %}" role="button">{% trans "Architects" %}</a>
@@ -147,7 +144,7 @@
               <a class="btn btn-success btn-lg btn-sm btn-block" href="{% url "show_stakeholder_of_role" "ngo" %}" role="button">{% trans "NGOs" %}</a>
               <a class="btn btn-success btn-lg btn-sm btn-block" href="{% url "show_stakeholder_of_role" "university" %}" role="button">{% trans "Universities" %}</a>
               <a class="btn btn-success btn-lg btn-sm btn-block" href="{% url "show_stakeholder_of_role" "school" %}" role="button">{% trans "Schools" %}</a>
-              <a class="btn btn-success btn-lg btn-sm btn-block" href="{% url "show_stakeholder_of_role" "producer" %}" role="button">{% trans "Producers" %}</a>     
+              <a class="btn btn-success btn-lg btn-sm btn-block" href="{% url "show_stakeholder_of_role" "producer" %}" role="button">{% trans "Producers" %}</a>
               </br>
               <div class="geodata-rss">
                 <a rel="rss" href="{% url "feed_stakeholder" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="" /> {% trans "Stakeholders" %}</a>
