@@ -118,7 +118,6 @@ $ source ~/cartoterra-env/bin/activate
 (cartoterra-env)$ npm install
 (cartoterra-env)$ grunt
 (cartoterra-env)$ cd ..
-(cartoterra-env)$ pip install -r ./requirements/base.txt
 (cartoterra-env)$ pip install -r ./requirements/development.txt
 (cartoterra-env)$ python manage.py migrate --settings=settings.development
 (cartoterra-env)$ python manage.py createsuperuser --settings=settings.development
