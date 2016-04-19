@@ -66,10 +66,12 @@
 
   <div class="map-overlay">
   {% if not request.user.is_authenticated %}
-    <div class="cartoterra-header text-center alert alert-dismissible">
-         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <div class="container">
-        {% include "_sidebar.html" %}
+    <div class="cartoterra-header-overlay">
+      <div class="cartoterra-header text-center alert alert-dismissible">
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="container">
+          {% include "_sidebar.html" %}
+        </div>
       </div>
     </div>
   {% endif %}

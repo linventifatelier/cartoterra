@@ -269,8 +269,8 @@ body:before {
   padding-bottom: 0;
 }
 
-.map-overlay {
- background-image: url('../img/backgroundimage.jpg');
- /*previous image should be 1920px wide with low contrast*/
- padding-top: 1px;
+.cartoterra-header-overlay {
+  background-image: url('../img/backgroundimage.jpg');
+  background-size: cover;
+  /*previous image should be 1920px wide with low contrast*/
 }
