@@ -47,9 +47,9 @@ TIME_ZONE = "Europe/Paris"
 # LANGUAGE_CODE = "fr-FR"
 LANGUAGE_CODE = "en-us"
 
-LANGUAGES = (
+LANGUAGES = [
     ('fr', _('French')),
-)
+]
 
 SITE_ID = 1
 
@@ -267,6 +267,7 @@ ACCOUNT_EMAIL_AUTHENTICATION = False
 ACCOUNT_LOGIN_REDIRECT_URL = "home"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
+ACCOUNT_LANGUAGES = [('en-us', _('English'))] + LANGUAGES
 
 CONTACT_EMAIL = "linventifatelier@gueux.org"
 

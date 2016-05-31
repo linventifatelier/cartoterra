@@ -21,6 +21,7 @@ urlpatterns = [
         name="account_signup"),
     url(r"^account/", include("account.urls")),
     url(r'^knowledge/', include('knowledge.urls')),
+    url(r"^faq/", include("faq.urls")),
     url(r'^search/', include('haystack.urls')),
     url(r'^searchbis/',
         search_view_factory(view_class=SearchView, form_class=ModelSearchForm),
