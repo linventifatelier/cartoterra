@@ -1,4 +1,4 @@
 -r base.txt
 # -e git+https://github.com/django-debug-toolbar/django-debug-toolbar.git@master#egg=django-debug-toolbar
-django-extensions==1.5.9
-pysqlite==2.8.1
+django-extensions==1.6.7
+pysqlite==2.8.2
