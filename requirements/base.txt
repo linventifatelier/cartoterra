@@ -20,15 +20,6 @@ Markdown==2.6.6
 # https://github.com/zapier/django-knowledge/issues/68
 # django-knowledge==0.2.0
 git+https://github.com/legrostdg/django-knowledge.git
-kombu==3.0.30
-celery==3.1.19
-django-celery-transactions==0.3.6
-billiard==3.3.0.22
-amqp==1.4.8
-celery-haystack==0.9
-redis==2.10.5
-django-redis-sessions==0.5.0
-django-redis-cache==1.6.5
 django-imagekit==3.3
 pilkit==1.1.13
 django-leaflet==0.17.0
