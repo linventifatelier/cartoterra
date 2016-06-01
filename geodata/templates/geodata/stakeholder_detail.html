@@ -42,4 +42,16 @@
     </td>
 </tr>
 {% endif %}
+{% if geodata.techniques.all %}
+<tr>
+    <th>{% trans "Techniques" %}</th>
+    <td>
+        <ul>
+        {% for technique in geodata.techniques.all %}
+            <li>{{ technique.name }}</li>
+        {% endfor %}
+        </ul>
+    </td>
+</tr>
+{% endif %}
 {% endblock %}

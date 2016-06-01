@@ -93,6 +93,9 @@ class GeoDataAbstract(models.Model):
     contact = models.TextField(_("contact"), blank=True, null=True)
     geometry = models.PointField(srid=4326, blank=True, null=True)
     objects = models.GeoManager()
+    techniques = models.ManyToManyField(EarthTechnique,
+                                        verbose_name=_("techniques"),
+                                        blank=True)
 
     class Meta:
         """Abstract class, sorted by name."""
@@ -235,9 +238,6 @@ class Building(GeoDataAbstract):
     )
     credit_creator = models.BooleanField(_("credit creator"), default=True)
     architects = models.TextField(_("architects"), blank=True, null=True)
-    techniques = models.ManyToManyField(EarthTechnique,
-                                        verbose_name=_("techniques"),
-                                        blank=True)
     earth_quantity = models.ForeignKey(
         EarthQuantity,
         verbose_name=_("quantity of earthen material in the structure"),
@@ -313,9 +313,6 @@ class Worksite(GeoDataAbstract):
     """A spatial model for worksite geodata."""
     credit_creator = models.BooleanField(_("credit creator"), default=True)
     participative = models.BooleanField(_("participative"), default=False)
-    techniques = models.ManyToManyField(EarthTechnique,
-                                        verbose_name=_("techniques"),
-                                        blank=True)
     inauguration_date = models.DateField(_("inauguration date"), blank=True)
     stakeholder = models.ManyToManyField(Stakeholder,
                                          verbose_name=_("stakeholder"),

@@ -162,6 +162,10 @@ class GeoDataAbstractForm(ModelForm):
     #                      image.")
     #             self._errors['geometry'] = self.error_class([msg])
     #     return self.cleaned_data
+    techniques = EarthTechniqueMultipleChoiceField(
+        required=False, queryset=EarthTechnique.objects.all(),
+        widget=EarthTechniqueMultiple
+    )
 
     class Meta:
         model = GeoDataAbstract
@@ -207,10 +211,6 @@ building if known, ignore otherwise.")
         required=False, widget=IsceahCheckboxInput,
         help_text=_("Tick here if you are member of ICOMOS-ISCEAH and want \
 this entry to be referenced as ICOMOS-ISCEAH.")
-    )
-    techniques = EarthTechniqueMultipleChoiceField(
-        required=False, queryset=EarthTechnique.objects.all(),
-        widget=EarthTechniqueMultiple
     )
     stakeholder = forms.ModelMultipleChoiceField(
         required=False, queryset=Stakeholder.objects.all(),
@@ -262,10 +262,6 @@ this entry.")
 class WorksiteForm(GeoDataAbstractForm):
     inauguration_date = forms.DateField(
         widget=BootstrapDatePicker, required=False
-    )
-    techniques = EarthTechniqueMultipleChoiceField(
-        required=False, queryset=EarthTechnique.objects.all(),
-        widget=EarthTechniqueMultiple,
     )
 
     def __init__(self, user=None, *args, **kwargs):
