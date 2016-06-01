@@ -96,6 +96,8 @@ module.exports = function(grunt){
                     'build/js/html5shiv.min.js': ['bower_components/html5shiv/dist/html5shiv.js'],
                     // jquery
                     // 'build/js/jquery.min.js': ['bower_components/jquery/dist/jquery.min.js'],
+                    // exif-js
+                    'build/js/exif.min.js': ['bower_components/exif-js/exif.js'],
                 }
             }
         },
@@ -130,6 +132,8 @@ module.exports = function(grunt){
                     // jquery
                     // {expand: true, flatten: true, src: ['build/js/jquery.min.js'], dest: 'release/js/'},
                     {expand: true, flatten: true, src: ['bower_components/jquery/dist/jquery.min.js'], dest: 'release/cartoterra/js/'},
+                    // exif-js
+                    {expand: true, flatten: true, src: ['build/js/exif.min.js'], dest: 'release/cartoterra/js/'},
                 ]
             },
             markercluster: {
