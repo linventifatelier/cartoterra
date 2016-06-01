@@ -7,6 +7,7 @@ from django.forms.widgets import DateInput, CheckboxChoiceInput, \
     CheckboxSelectMultiple, ChoiceFieldRenderer, CheckboxInput
 from leaflet.forms.widgets import LeafletWidget
 
+
 class GeoDataWidget(LeafletWidget):
     include_media = True
     template_name = 'geodata/geodata_form_geometry_widget.html'
@@ -15,6 +16,7 @@ class GeoDataWidget(LeafletWidget):
 
     class Media:
         js = [
+            'js/exif.min.js',
             'js/spin.min.js',
             'js/form-geometry.js',
         ]
@@ -109,13 +111,16 @@ class CheckboxFieldRenderer(ChoiceFieldRenderer):
                                                         attrs=attrs_plus,
                                                         choices=choice_label)
                 sub_ul_renderer.choice_input_class = self.choice_input_class
-                output.append(format_html(self.inner_html, choice_value=choice_value,
-                                          sub_widgets=sub_ul_renderer.render()))
+                output.append(format_html(
+                    self.inner_html,
+                    choice_value=choice_value,
+                    sub_widgets=sub_ul_renderer.render()))
             else:
                 w = self.choice_input_class(self.name, self.value,
                                             self.attrs.copy(), choice, i)
-                output.append(format_html(self.inner_html,
-                                          choice_value=force_text(w), sub_widgets=''))
+                output.append(format_html(
+                    self.inner_html,
+                    choice_value=force_text(w), sub_widgets=''))
         return format_html(self.outer_html,
                            id_attr=format_html(' id="{}"', id_) if id_ else '',
                            content=mark_safe('\n'.join(output)))
