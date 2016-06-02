@@ -1,0 +1,32 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block head_title %}{% trans "Home" %}{% endblock %}
+
+{% block body %}
+<div class="cartoterra-home-welcome">
+    {% trans "Welcome" %}
+</div>
+
+<div class="cartoterra-home-map">
+    {% trans "Map" %}
+</div>
+
+<div class="cartoterra-home-recommended-entries">
+    {% trans "Most recommended entries" %}
+</div>
+
+<div class="cartoterra-home-last-entries">
+    {% trans "Most recommended entries" %}
+</div>
+
+<div class="cartoterra-home-last-images">
+    {% trans "Last pictures" %}
+</div>
+
+<div class="cartoterra-home-legal">
+    {% trans "Legal" %}
+</div>
+{% endblock %}

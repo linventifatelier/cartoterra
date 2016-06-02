@@ -4,6 +4,10 @@ import account.views
 import cartoterra.forms
 
 
+class HomeView(TemplateView):
+    template_name = "home.html"
+
+
 class SignupView(account.views.SignupView):
     form_class = cartoterra.forms.SignupForm
 
