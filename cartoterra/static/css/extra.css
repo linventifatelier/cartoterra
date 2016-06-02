@@ -93,12 +93,17 @@ input[type="color"],
   color:#bbaa99;
 }
 
+.cartoterra-navbar-form {
+  padding-top: 8px;
+}
+
 .cartoterra-navbar-search {
   position: relative;
 }
 
 .cartoterra-navbar-search input {
   padding-left: 30px;
+  width: 150px;
 }
 
 .cartoterra-navbar-search span {
@@ -246,6 +251,12 @@ body:before {
   }
   .cartoterra-navbar-help {
     padding-left: 15px;
+  }
+  .cartoterra-navbar-search {
+    padding-left: 15px;
+  }
+  .cartoterra-navbar-search input {
+    width: 250px;
   }
 }
 
