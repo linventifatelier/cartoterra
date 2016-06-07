@@ -286,9 +286,19 @@ body:before {
   padding-top: 0;
   padding-bottom: 0;
 }
+
 .cartoterra-donate {
     padding-top: 1em;
 }
-#cartoterra-home-map {
-    height: 200px;
+
+.cartoterra-home-map {
+    height: 100px;
+}
+
+.cartoterra-center-cropped {
+    overflow: hidden;
+    height: 100px;
+    width: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
