@@ -127,7 +127,7 @@ class GeodataFeed(Feed):
             Event.objects.order_by('-pub_date')[:20],
             Stakeholder.objects.order_by('-pub_date')[:20]
         ))
-        return sorted(queryset, key=lambda x:x.pub_date, reverse=True)[:5]
+        return sorted(queryset, key=lambda x:x.pub_date, reverse=True)[:20]
 
     def item_title(self, item):
         return item.name
