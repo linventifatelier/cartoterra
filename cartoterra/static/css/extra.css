@@ -289,3 +289,6 @@ body:before {
 .cartoterra-donate {
     padding-top: 1em;
 }
+#cartoterra-home-map {
+    height: 200px;
+}

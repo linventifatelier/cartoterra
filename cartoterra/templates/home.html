@@ -3,30 +3,63 @@
 {% load i18n %}
 {% load staticfiles %}
 
+{% block extra_style %}
+{{ block.super }}
+<link href="{% static "css/leaflet.min.css" %}" type="text/css" rel="stylesheet">
+<link href="{% static "css/MarkerCluster.min.css" %}" type="text/css" rel="stylesheet">
+<link href="{% static "css/MarkerClusterDefault.min.css" %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block extra_script %}
+{{ block.super }}
+<script type="text/javascript" src="{% static "js/leaflet.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/leaflet.markercluster.min.js" %}"></script>
+<script type="text/javascript">
+//<![CDATA[
+{% include "home.js" %}
+//]]>
+</script>
+{% endblock %}
+
+
 {% block head_title %}{% trans "Home" %}{% endblock %}
 
 {% block body %}
-<div class="cartoterra-home-welcome">
+<div class="cartoterra-home-welcome col-md-4">
     {% trans "Welcome" %}
 </div>
 
-<div class="cartoterra-home-map">
-    {% trans "Map" %}
-</div>
+<div class="cartoterra-home-categories col-md-8">
+    <div class="cartoterra-home-map">
+        <div class="cartoterra-home-categories-legend">
+            <span class="text-uppercase">{% trans "Map" %}</span> - {% trans "go to the entirety of cartoterra data" %}
+        </div>
+        <div id="cartoterra-home-map">
+        </div>
+    </div>
 
-<div class="cartoterra-home-recommended-entries">
-    {% trans "Most recommended entries" %}
-</div>
+    <div class="cartoterra-home-last-entries">
+        <div class="cartoterra-home-categories-legend">
+            <span class="text-uppercase">{% trans "New" %}</span> - {% trans "last entries in cartoterra" %}
+        </div>
+        <div class="cartoterra-home-diaporama">
+        </div>
+    </div>
 
-<div class="cartoterra-home-last-entries">
-    {% trans "Most recommended entries" %}
-</div>
+    <div class="cartoterra-home-recommended-entries">
+        <div class="cartoterra-home-categories-legend">
+            <span class="text-uppercase">{% trans "Recommended" %}</span> - {% trans "what you prefer in cartoterra" %}
+        </div>
+        <div class="cartoterra-home-diaporama">
+        </div>
+    </div>
 
-<div class="cartoterra-home-last-images">
-    {% trans "Last pictures" %}
-</div>
-
-<div class="cartoterra-home-legal">
-    {% trans "Legal" %}
+    <div class="cartoterra-home-groups">
+        <div class="cartoterra-home-categories-legend">
+            <span class="text-uppercase">{% trans "Groups" %}</span> - {% trans "go to thematic groups" %}
+        </div>
+        <div class="cartoterra-home-groups-content">
+        </div>
+    </div>
 </div>
 {% endblock %}
