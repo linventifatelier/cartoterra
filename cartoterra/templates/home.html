@@ -41,6 +41,9 @@
     <div class="cartoterra-home-last-entries">
         <div class="cartoterra-home-categories-legend">
             <span class="text-uppercase">{% trans "New" %}</span> - {% trans "last entries in cartoterra" %}
+            <span class="geodata-rss">
+                <a rel="rss" href="{% url "feed_geodata" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="{% trans "Last entries feed" %}" /></a>
+            </span>
         </div>
         <div class="cartoterra-home-diaporama">
         </div>
