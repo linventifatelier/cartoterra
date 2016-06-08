@@ -13,7 +13,7 @@ function gotoFeature (e) {
     var layer = e.target;
     var feature = layer.feature;
 
-    var title = '<a href=\"' + feature.properties.url + '\">' + feature.properties.name + '</a>'
+    var title = '<a href=\"' + feature.properties.url + '\"><span class=\"badge\"><span class="glyphicon glyphicon-star"></span><span>' + feature.properties.recommends + '</span></span> ' + feature.properties.name + '</a>'
 
     var image = ""
     if (feature.properties.image) {
