@@ -50,16 +50,18 @@
         <div id="cartoterra-home-last-entries" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner" role="listbox">
             {% for entry in last_entries %}
-            {% if entry.image.all %}
-            {% for image in entry.image.all %}
-                <div class="item{% if forloop.parentloop.first and forloop.first %} active{% endif %}">
+                <div class="item{% if forloop.first %} active{% endif %}">
                     <a href="{{ entry.get_absolute_url }}">
-                        <div class="cartoterra-center-cropped" style="background-image: url('{{ image.display.url }}');">
+                        <div class="cartoterra-center-cropped"{% if entry.image.all %}{% with entry.image.all|first as image %} style="background-image: url('{{ image.display.url }}');"{% endwith %}{% endif %}></div>
+                        <div class="carousel-caption">
+                            <span class="badge">
+                                <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
+                                <span class="cartoterra-recommended-by-count">{{ entry.recommended_by.count }}</span>
+                            </span>
+                            <span>{{ entry.name }}</span>
                         </div>
                     </a>
                 </div>
-            {% endfor %}
-            {% endif %}
             {% endfor %}
             </div>
 
@@ -78,7 +80,32 @@
         <div class="cartoterra-home-categories-legend">
             <span class="text-uppercase">{% trans "Recommended" %}</span> - {% trans "what you do prefer in cartoterra" %}
         </div>
-        <div class="cartoterra-home-diaporama" id="cartoterra-home-diaporama-recommended">
+        <div id="cartoterra-home-recommended-entries" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+            {% for entry in recommended_entries %}
+                <div class="item{% if forloop.first %} active{% endif %}">
+                    <a href="{{ entry.get_absolute_url }}">
+                        <div class="cartoterra-center-cropped"{% if entry.image.all %}{% with entry.image.all|first as image %} style="background-image: url('{{ image.display.url }}');"{% endwith %}{% endif %}></div>
+                        <div class="carousel-caption">
+                            <span class="badge">
+                                <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
+                                <span class="cartoterra-recommended-by-count">{{ entry.recommended_by.count }}</span>
+                            </span>
+                            <span>{{ entry.name }}</span>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+
+            <a class="left carousel-control" href="#cartoterra-home-recommended-entries" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Previous" %}</span>
+            </a>
+            <a class="right carousel-control" href="#cartoterra-home-recommended-entries" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Next" %}</span>
+            </a>
         </div>
     </div>
 
