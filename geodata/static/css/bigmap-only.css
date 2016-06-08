@@ -1,0 +1,29 @@
+.geodata-bigmap {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  min-height:100%;
+}
+
+.navbar {
+  margin-top: -51px;
+}
+
+#main {
+  padding-bottom: 0;
+}
+
+#wrap {
+  padding-top: 51px;
+  margin-bottom: 0;
+}
+
+#wrap:after {
+  height: 0;
+}
+
+.footer {
+  height: 0;
+}
+
