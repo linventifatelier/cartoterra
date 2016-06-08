@@ -59,6 +59,7 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
                 {
                     'pk': m.pk, 'name': m.name,
                     'url': m.get_absolute_url(),
+                    'recommends': m.recommended_by.count(),
                     'image': m.image.all()[0].thumbnail.url
                         if m.image.all() else None,
                     'summary':
@@ -88,6 +89,7 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                     {
                         'pk': m.pk, 'name': m.name,
                         'url': m.get_absolute_url(),
+                        'recommends': m.recommended_by.count(),
                         'image': m.image.all()[0].thumbnail.url
                             if m.image.all() else None,
                         'summary': Truncator(m.description).words(

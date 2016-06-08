@@ -13,7 +13,7 @@ function gotoFeature (e) {
     var layer = e.target;
     var feature = layer.feature;
 
-    var title = '<a href=\"' + feature.properties.url + '\">' + feature.properties.name + '</a>'
+    var title = '<a href=\"' + feature.properties.url + '\"><span class=\"badge\"><span class="glyphicon glyphicon-star"></span><span>' + feature.properties.recommends + '</span></span> ' + feature.properties.name + '</a>'
 
     var image = ""
     if (feature.properties.image) {
@@ -24,6 +24,7 @@ function gotoFeature (e) {
     {{ module }}info.find('.geodata-info-image').html(image);
     {{ module }}info.find('.modal-title').html(title);
     {{ module }}info.find('.geodata-info-content').html(feature.properties.summary);
+    console.debug(feature.properties);
     {{ module }}info.find('.geodata-info-detail').attr('href', feature.properties.url);
     {{ module }}info.modal();
 }
