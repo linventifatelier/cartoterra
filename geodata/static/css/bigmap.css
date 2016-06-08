@@ -1,57 +1,29 @@
-.fill {
-  height: 100%;
-}
-
-.map-toolbox {
+.geodata-bigmap {
   position: relative;
-  z-index: 200;
   height: 100%;
-  min-height: 500px;
-}
-
-.map-toolbox .map-overlay {
-  z-index: 99999;
-  position: absolute;
   width: 100%;
-  top: 0;
+  z-index: 1000;
+  min-height:100%;
 }
 
-.map-toolbox .geodata-side-toolbar {
-  position: relative;
+.navbar {
+  margin-top: -51px;
 }
 
-.map-toolbox .geodata-list {
-  position: absolute;
-  top: 10px;
-  left: 8px;
+#main {
+  padding-bottom: 0;
 }
 
-.map-toolbox .geodata-list ul {
-  padding-left: 20px;
+#wrap {
+  padding-top: 51px;
+  margin-bottom: 0;
 }
 
-.ol-zoom {
-  position: absolute;
-  right: 8px;
-  left: auto;
-}
-.marker-cluster-small {
-  background-color: rgba(253, 156, 115, 0.6);
-}
-.marker-cluster-small div {
-  background-color: rgba(241, 128, 23, 0.6);
+#wrap:after {
+  height: 0;
 }
 
-.marker-cluster-medium {
-  background-color: rgba(253, 156, 115, 0.6);
-}
-.marker-cluster-medium div {
-  background-color: rgba(241, 128, 23, 0.6);
+.footer {
+  height: 0;
 }
 
-.marker-cluster-large {
-  background-color: rgba(253, 156, 115, 0.6);
-}
-.marker-cluster-large div {
-  background-color: rgba(241, 128, 23, 0.6);
-}
