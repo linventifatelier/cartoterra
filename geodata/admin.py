@@ -2,7 +2,8 @@
 from models import Building, Worksite, Event, Stakeholder, Image, \
     EventType, EarthTechnique, EarthRole, Profile, BuildingClassification, \
     BuildingUse, BuildingPropertyStatus, BuildingProtectionStatus, \
-    EarthQuantity, BuildingHeritageStatus
+    EarthQuantity, BuildingHeritageStatus, EarthGroup
+from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -11,6 +12,7 @@ from imagewidget import AdminImageWidget
 from hvad import admin as hvadadmin
 from imagekit.admin import AdminThumbnail
 from leaflet.admin import LeafletGeoAdmin
+from pagedown.widgets import AdminPagedownWidget
 
 
 class EarthAdmin(admin.ModelAdmin):
@@ -204,3 +206,17 @@ class UserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+
+
+class EarthGroupAdminForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EarthGroupAdminForm, self).__init__(*args, **kwargs)
+        self.fields['description_markdown'].widget = AdminPagedownWidget()
+        #self.fields['image'].widget = AdminImageWidget()
+
+
+class EarthGroupAdmin(admin.ModelAdmin):
+    form = EarthGroupAdminForm
+    inlines = [ImageInline]
+
+admin.site.register(EarthGroup, EarthGroupAdmin)

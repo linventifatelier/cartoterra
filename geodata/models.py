@@ -15,6 +15,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
 from django.core.validators import RegexValidator
 import re
+import markdown
 from django.db.models.signals import post_save
 
 
@@ -421,3 +422,22 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
+
+
+class EarthGroup(models.Model):
+    name = models.CharField(_("name"), max_length=50)
+    description_markdown = models.TextField(_("description"), blank=True, null=True)
+    description = models.TextField(blank=True, null=True, editable=False)
+    logo = models.ImageField(upload_to='img/group')
+    logo_thumbnail = ImageSpecField(source='logo',
+                                    processors=[ResizeToFit(80, 80)],
+                                    format='JPEG',
+                                    options={'quality': 80})
+    image = fields.GenericRelation(Image)
+
+    def __unicode__(self):
+        return self.name
+
+    def save(self):
+        self.description = markdown.markdown(self.description_markdown)
+        super(EarthGroup, self).save()

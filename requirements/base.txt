@@ -24,3 +24,4 @@ git+https://github.com/legrostdg/django-knowledge.git
 django-imagekit==3.3
 pilkit==1.1.13
 django-leaflet==0.18.0
+django-pagedown==0.1.1
