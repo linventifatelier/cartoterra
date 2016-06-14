@@ -434,6 +434,10 @@ class EarthGroup(models.Model):
                                     format='JPEG',
                                     options={'quality': 80})
     image = fields.GenericRelation(Image)
+    buildings = models.ManyToManyField(Building, blank=True)
+    worksites = models.ManyToManyField(Worksite, blank=True)
+    events = models.ManyToManyField(Event, blank=True)
+    stakeholders = models.ManyToManyField(Stakeholder, blank=True)
 
     def __unicode__(self):
         return self.name
