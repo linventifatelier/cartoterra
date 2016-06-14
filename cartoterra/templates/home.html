@@ -112,6 +112,9 @@
     <div class="cartoterra-home-groups">
         <div class="cartoterra-home-categories-legend">
             <span class="text-uppercase">{% trans "Groups" %}</span> - {% trans "go to thematic groups" %}
+            <span class="geodata-rss">
+                <a rel="rss" href="{% url "feed_group" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="{% trans "Last groups feed" %}" /></a>
+            </span>
         </div>
         <div class="cartoterra-home-groups-content">
         </div>
