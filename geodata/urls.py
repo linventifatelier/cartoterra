@@ -15,6 +15,7 @@ urlpatterns = [
         name="feed_worksite"),
     url(r'^feeds/event/$', feeds.EventFeed(), name="feed_event"),
     url(r'^feeds/people/$', feeds.StakeholderFeed(), name="feed_stakeholder"),
+    url(r'^feeds/group/$', feeds.EarthGroupFeed(), name="feed_group"),
     url(r'^building/(?P<pk>\d+)/geojson/$',
         views.GeoJSONBuildingDetailView.as_view(),
         name="geojson_building_detail"),

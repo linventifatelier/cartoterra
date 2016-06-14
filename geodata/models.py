@@ -426,6 +426,7 @@ post_save.connect(create_user_profile, sender=User)
 
 class EarthGroup(models.Model):
     name = models.CharField(_("name"), max_length=50)
+    pub_date = models.DateTimeField(_("creation date"), default=now)
     description_markdown = models.TextField(_("description"), blank=True, null=True)
     description = models.TextField(blank=True, null=True, editable=False)
     logo = models.ImageField(upload_to='img/group')
@@ -445,3 +446,7 @@ class EarthGroup(models.Model):
     def save(self):
         self.description = markdown.markdown(self.description_markdown)
         super(EarthGroup, self).save()
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("group_detail", [self.id])
