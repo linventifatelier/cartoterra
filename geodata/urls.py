@@ -204,4 +204,7 @@ urlpatterns = [
     url(r'^profile/(?P<slug>[\w\._-]+)/recommend/people/geojson/$',
         views.GeoJSONProfileRecommendStakeholderListView.as_view(),
         name="geojson_profile_recommend_stakeholder"),
+    url(r'^group/(?P<pk>\d+)/$',
+        views.EarthGroupDetailView.as_view(),
+        name="group_detail"),
 ]

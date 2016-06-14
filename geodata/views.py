@@ -1,7 +1,7 @@
 """GeoData views."""
 
 from django.utils.translation import ugettext_lazy as _
-from models import Building, Worksite, Event, Stakeholder, Profile
+from models import Building, Worksite, Event, Stakeholder, Profile, EarthGroup
 from forms import BuildingForm, WorksiteForm, EventForm, StakeholderForm, \
     ImageFormSet
 from django.contrib.auth.decorators import login_required
@@ -923,3 +923,8 @@ class ProfileListView(ListView):
     """Returns a template to present all profiles."""
     model = Profile
     # template_name = 'profile_list.html'
+
+
+class EarthGroupDetailView(DetailView):
+    model = EarthGroup
+    context_object_name = 'group'
