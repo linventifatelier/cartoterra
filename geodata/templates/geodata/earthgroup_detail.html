@@ -1,0 +1,127 @@
+{% extends "geodata/geodata_map_base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extra_style %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "css/blueimp-gallery.min.css" %}" type="text/css">
+<link rel="stylesheet" href="{% static "css/bigmap.css" %}?v=1.3" type="text/css" />
+<link rel="stylesheet" href="{% static "css/detail.css" %}?v=1.2" type="text/css" />
+{% endblock %}
+
+{% block extra_script %}
+{{ block.super }}
+<script type="text/javascript">
+//<![CDATA[
+{% comment %}
+TODO
+{% include "geodata/smallmap.js" %}
+{% endcomment %}
+//]]>
+</script>
+<script type="text/javascript" src="{% static "js/blueimp-gallery.min.js" %}"></script>
+<script type="text/javascript">
+  if (document.getElementById('gallery')) {
+    document.getElementById('gallery').onclick = function (event) {
+      event = event || window.event;
+      var target = event.target || event.srcElement,
+        link = target.src ? target.parentNode : target,
+        options = {index: link, event: event,
+                   slideshowInterval: 3000,
+                   onclosed: function() {
+                     var controlsClass = this.options.controlsClass;
+                     if (!this.container.hasClass(controlsClass)) {
+                         this.container.addClass(controlsClass);
+                     }
+                  }},
+        links = this.getElementsByTagName('a');
+      blueimp.Gallery(links, options);
+    };
+  };
+</script>
+{% endblock %}
+
+{% block head_title %}{{ group.name }}{% endblock %}
+
+{% block body_class %}group{% endblock %}
+
+{% block body %}
+{{ block.super }}
+    {% if group.image.all %}
+    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+      <div class="slides"></div>
+      <h3 class="title"></h3>
+      <a class="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      <a class="close"><span class="glyphicon glyphicon-remove"></span></a>
+      <a class="play-pause"></a>
+      <ol class="indicator"></ol>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>
+                {{ group.name }}
+            </h2>
+            {% block geodata_detail_title_extra %}
+            {% if group.logo %}
+            {% with group.logo_thumbnail as im %}
+            <img alt="{{ group.name|escape }}" width="{{ im.width }}" height="{{ im.height }}" src="{{ im.url }}" alt="" />
+            {% endwith %}
+            {% endif %}
+            {% endblock %}
+            {% block extra_geodata_toolbox %}
+            {% comment %}
+            TODO
+                {% if user.is_authenticated %}
+                <div class="btn-group">
+                    {% if user|can_edit_geodata:geodata %}
+                    <a class="tooltip-geodata btn btn-default" title="{% trans "Edit" %}" href="{% url geodata_edit_url geodata.pk %}"><span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}</a>
+                    <a class="tooltip-geodata btn btn-default" title="{% trans "Delete" %}" href="{% url geodata_delete_url geodata.pk %}"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete" %}</a>
+                    {% endif %}
+                    {% if user|recommends_geodata:geodata %}
+                    <a class="btn btn-default" title="{% trans "Recommended" %}" href="{% url geodata_recommend_url geodata.pk %}">
+                        <span class="badge">
+                            <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
+                            <span class="cartoterra-recommended-by-count">{{ geodata.recommended_by.count }}</span>
+                        </span>
+                        <span class="cartoterra-recommended-by-text">{% trans "Recommended" %}</span>
+                    </a>
+                    {% else %}
+                    <a class="tooltip-geodata btn btn-default geodata-inactive-text" title="{% trans "Recommend" %}" href="{% url geodata_recommend_url geodata.pk %}">
+                        <span class="badge">
+                            <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star-empty"></span>
+                            <span class="cartoterra-recommended-by-count">{{ geodata.recommended_by.count }}</span>
+                        </span>
+                        <span class="cartoterra-recommended-by-text">{% trans "Click to recommend this geodata" %}</span>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endcomment %}
+            {% endblock %}
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-8">
+                {% if group.description %}
+                    {{ group.description|safe }}
+                {% endif %}
+
+                {% if group.image.all %}
+                    <div class="set" id="gallery">
+                        {% for image in group.image.all %}
+                        {% with image.thumbnail as im %}
+                        <a href="{{ image.display.url }}" title="{{ image.legend|escape }}"><img width="{{ im.width }}" height="{{ im.height }}" src="{{ im.url }}" alt="" /></a>
+                        {% endwith %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                </div>
+                <div class="col-md-4">
+                    <div class="geodata-smallmap" id="{{ module }}_map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

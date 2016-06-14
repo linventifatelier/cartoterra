@@ -4,7 +4,7 @@ from django.contrib.gis.feeds import GeoRSSFeed
 from django.utils.translation import ugettext_lazy as _
 #from django.contrib.gis.feeds import Feed
 from django.conf import settings
-from geodata.models import Building, Worksite, Event, Stakeholder
+from geodata.models import Building, Worksite, Event, Stakeholder, EarthGroup
 
 
 class BuildingFeed(Feed):
@@ -99,6 +99,23 @@ class StakeholderFeed(Feed):
 
     def items(self):
         return Stakeholder.objects.order_by('-pub_date')[:20]
+
+    def item_title(self, item):
+        return item.name
+
+    def item_description(self, item):
+        return item.description
+
+
+class EarthGroupFeed(Feed):
+    """A feed presenting changes and additions on EarthGroup."""
+    title = _(settings.SITE_NAME + " group news.")
+    link = "/"
+    description = _("Updates on changes and additions to groups of " +
+                    settings.SITE_NAME + ".")
+
+    def items(self):
+        return EarthGroup.objects.order_by('-pub_date')[:20]
 
     def item_title(self, item):
         return item.name
