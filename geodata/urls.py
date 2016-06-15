@@ -10,6 +10,7 @@ from django.db.models import Q
 
 
 urlpatterns = [
+    url(r'^feeds/geodata/$', feeds.GeodataFeed(), name="feed_geodata"),
     url(r'^feeds/building/$', feeds.BuildingFeed(), name="feed_building"),
     url(r'^feeds/worksite/$', feeds.WorksiteFeed(),
         name="feed_worksite"),

@@ -7,7 +7,7 @@
 
 {% block style_base %}
     <link href="{% static "css/bootstrap.min.css" %}?v=3.3.6" rel="stylesheet" type="text/css">
-    <link href="{% static "css/extra.css" %}?v=1.2" rel="stylesheet" type="text/css">
+    <link href="{% static "css/extra.css" %}?v=1.3" rel="stylesheet" type="text/css">
     <link href="{% static "css/site_tabs.css" %}?v=1.1" rel="stylesheet" type="text/css">
     <!-- Sticky footer -->
     <!--[if !IE 7]>
@@ -53,14 +53,12 @@
       <a href="{% url "donate" %}"><span class="glyphicon glyphicon-heart"></span> {% trans "Donate!" %}</a>
     </li>
     <li id="tab_search">
-      <div class="col-xs-4 col-md-12 col-sm-12">
-      <form class="cartoterra-navbar-form-search navbar-form navbar-search" action="/search/?q=">
+      <form class="cartoterra-navbar-form-search cartoterra-navbar-form navbar-search" action="/search/?q=">
         <div class="cartoterra-navbar-search">
           <span class="glyphicon glyphicon-search icon-search"></span>
           <input type="text" class="search-query form-control" name="q" id="id_q" placeholder="{% trans "Search cartoterra" %}">
         </div>
       </form>
-      </div>
     </li>
 {% endblock %}
 

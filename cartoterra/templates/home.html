@@ -1,0 +1,150 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block extra_style %}
+{{ block.super }}
+<link href="{% static "css/leaflet.min.css" %}" type="text/css" rel="stylesheet">
+<link href="{% static "css/MarkerCluster.min.css" %}" type="text/css" rel="stylesheet">
+<link href="{% static "css/MarkerClusterDefault.min.css" %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block extra_script %}
+{{ block.super }}
+<script type="text/javascript" src="{% static "js/leaflet.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/leaflet.markercluster.min.js" %}"></script>
+<script type="text/javascript">
+//<![CDATA[
+{% include "home.js" %}
+//]]>
+</script>
+{% endblock %}
+
+
+{% block head_title %}{% trans "Home" %}{% endblock %}
+
+{% block body %}
+<div class="cartoterra-home-welcome col-md-4">
+    {% trans "Welcome" %}
+</div>
+
+<div class="cartoterra-home-categories col-md-8">
+    <div class="cartoterra-home-map-cat">
+        <div class="cartoterra-home-categories-legend">
+            <a href="{% url "show_bigmap" %}">
+                <span class="text-uppercase">{% trans "Map" %}</span> - {% trans "go to the entirety of cartoterra data" %}
+            </a>
+        </div>
+        <div id="cartoterra-home-map-id" class="cartoterra-home-map">
+        </div>
+    </div>
+
+    <div class="cartoterra-home-last">
+        <div class="cartoterra-home-categories-legend">
+            <span class="text-uppercase">{% trans "New" %}</span> - {% trans "last entries in cartoterra" %}
+            <span class="geodata-rss">
+                <a rel="rss" href="{% url "feed_geodata" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="{% trans "Last entries feed" %}" /></a>
+            </span>
+        </div>
+        <div id="cartoterra-home-last-entries" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+            {% for entry in last_entries %}
+                <div class="item{% if forloop.first %} active{% endif %}">
+                    <a href="{{ entry.get_absolute_url }}">
+                        <div class="cartoterra-center-cropped"{% if entry.image.all %}{% with entry.image.all|first as image %} style="background-image: url('{{ image.display.url }}');"{% endwith %}{% endif %}></div>
+                        <div class="carousel-caption">
+                            <span class="badge">
+                                <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
+                                <span class="cartoterra-recommended-by-count">{{ entry.recommended_by.count }}</span>
+                            </span>
+                            <span>{{ entry.name }}</span>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+
+            <a class="left carousel-control" href="#cartoterra-home-last-entries" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Previous" %}</span>
+            </a>
+            <a class="right carousel-control" href="#cartoterra-home-last-entries" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Next" %}</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="cartoterra-home-recommended">
+        <div class="cartoterra-home-categories-legend">
+            <span class="text-uppercase">{% trans "Recommended" %}</span> - {% trans "what you do prefer in cartoterra" %}
+        </div>
+        <div id="cartoterra-home-recommended-entries" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+            {% for entry in recommended_entries %}
+                <div class="item{% if forloop.first %} active{% endif %}">
+                    <a href="{{ entry.get_absolute_url }}">
+                        <div class="cartoterra-center-cropped"{% if entry.image.all %}{% with entry.image.all|first as image %} style="background-image: url('{{ image.display.url }}');"{% endwith %}{% endif %}></div>
+                        <div class="carousel-caption">
+                            <span class="badge">
+                                <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
+                                <span class="cartoterra-recommended-by-count">{{ entry.recommended_by.count }}</span>
+                            </span>
+                            <span>{{ entry.name }}</span>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+
+            <a class="left carousel-control" href="#cartoterra-home-recommended-entries" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Previous" %}</span>
+            </a>
+            <a class="right carousel-control" href="#cartoterra-home-recommended-entries" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Next" %}</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="cartoterra-home-groups">
+        <div class="cartoterra-home-categories-legend">
+            <span class="text-uppercase">{% trans "Groups" %}</span> - {% trans "go to thematic groups" %}
+            <span class="geodata-rss">
+                <a rel="rss" href="{% url "feed_group" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="{% trans "Last groups feed" %}" /></a>
+            </span>
+        </div>
+        <div id="cartoterra-home-groups-entries" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+            {% for entry in groups %}
+                <div class="item{% if forloop.first %} active{% endif %}">
+                    <a href="{{ entry.get_absolute_url }}">
+                        <div class="cartoterra-center-cropped"{% if entry.image.all %}{% with entry.image.all|first as image %} style="background-image: url('{{ image.display.url }}');"{% endwith %}{% endif %}></div>
+                        <div class="carousel-caption">
+                            <span>{{ entry.name }}</span>
+                        {% if group.logo %}
+                        {% with group.logo_thumbnail as im %}
+                            <img alt="{{ group.name|escape }}" width="{{ im.width }}" height="{{ im.height }}" src="{{ im.url }}" />
+                        {% endwith %}
+                        {% endif %}
+
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+
+            <a class="left carousel-control" href="#cartoterra-home-groups-entries" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Previous" %}</span>
+            </a>
+            <a class="right carousel-control" href="#cartoterra-home-groups-entries" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Next" %}</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
