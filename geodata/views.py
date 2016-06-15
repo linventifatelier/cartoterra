@@ -925,6 +925,43 @@ class ProfileListView(ListView):
     # template_name = 'profile_list.html'
 
 
+class GeoJSONEarthGroupListView(GeoJSONListView):
+    def get_group(self, **kwargs):
+        return get_object_or_404(EarthGroup, pk=self.kwargs['pk'])
+
+
+class GeoJSONEarthGroupBuildingListView(GeoJSONEarthGroupListView):
+    model = Building
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.buildings.distinct()
+
+
+class GeoJSONEarthGroupWorksiteListView(GeoJSONEarthGroupListView):
+    model = Worksite
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.worksites.distinct()
+
+
+class GeoJSONEarthGroupEventListView(GeoJSONEarthGroupListView):
+    model = Event
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.events.distinct()
+
+
+class GeoJSONEarthGroupStakeholderListView(GeoJSONEarthGroupListView):
+    model = Stakeholder
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.stakeholders.distinct()
+
+
 class EarthGroupDetailView(DetailView):
     model = EarthGroup
     context_object_name = 'group'
