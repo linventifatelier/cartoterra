@@ -116,7 +116,34 @@
                 <a rel="rss" href="{% url "feed_group" %}"><img src="{% static "img/feed-icon-14x14.png" %}" width="15" heigth="15" alt="{% trans "Last groups feed" %}" /></a>
             </span>
         </div>
-        <div class="cartoterra-home-groups-content">
+        <div id="cartoterra-home-groups-entries" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+            {% for entry in groups %}
+                <div class="item{% if forloop.first %} active{% endif %}">
+                    <a href="{{ entry.get_absolute_url }}">
+                        <div class="cartoterra-center-cropped"{% if entry.image.all %}{% with entry.image.all|first as image %} style="background-image: url('{{ image.display.url }}');"{% endwith %}{% endif %}></div>
+                        <div class="carousel-caption">
+                            <span>{{ entry.name }}</span>
+                        {% if group.logo %}
+                        {% with group.logo_thumbnail as im %}
+                            <img alt="{{ group.name|escape }}" width="{{ im.width }}" height="{{ im.height }}" src="{{ im.url }}" />
+                        {% endwith %}
+                        {% endif %}
+
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+
+            <a class="left carousel-control" href="#cartoterra-home-groups-entries" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Previous" %}</span>
+            </a>
+            <a class="right carousel-control" href="#cartoterra-home-groups-entries" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">{% trans "Next" %}</span>
+            </a>
         </div>
     </div>
 </div>

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db.models import Count
 import account.views
 import cartoterra.forms
-from geodata.models import Building, Worksite, Event, Stakeholder
+from geodata.models import Building, Worksite, Event, Stakeholder, EarthGroup
 
 
 class HomeView(TemplateView):
@@ -26,6 +26,7 @@ class HomeView(TemplateView):
             Stakeholder.objects.distinct().annotate(count_rec=Count('recommended_by')).order_by('-count_rec')[:10]
         ))
         context['recommended_entries'] = sorted(recommended_entries, key=lambda x: x.count_rec, reverse=True)[:10]
+        context['groups'] = EarthGroup.objects.distinct().order_by('name')
         return context
 
 
