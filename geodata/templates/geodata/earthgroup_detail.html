@@ -66,7 +66,7 @@ TODO
             {% block geodata_detail_title_extra %}
             {% if group.logo %}
             {% with group.logo_thumbnail as im %}
-            <img alt="{{ group.name|escape }}" width="{{ im.width }}" height="{{ im.height }}" src="{{ im.url }}" alt="" />
+            <img alt="{{ group.name|escape }}" width="{{ im.width }}" height="{{ im.height }}" src="{{ im.url }}" />
             {% endwith %}
             {% endif %}
             {% endblock %}
