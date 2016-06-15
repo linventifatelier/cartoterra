@@ -17,10 +17,6 @@ microsofttranslator==0.8
 gevent==1.1.1
 greenlet==0.4.9
 Markdown==2.6.6
-# BUG: django-knowledge not compatible with Django 1.8
-# https://github.com/zapier/django-knowledge/issues/68
-# django-knowledge==0.2.0
-git+https://github.com/legrostdg/django-knowledge.git
 django-imagekit==3.3
 pilkit==1.1.13
 django-leaflet==0.18.0
