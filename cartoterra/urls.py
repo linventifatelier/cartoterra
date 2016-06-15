@@ -21,7 +21,6 @@ urlpatterns = [
     url(r"^account/signup/$", SignupView.as_view(),
         name="account_signup"),
     url(r"^account/", include("account.urls")),
-    url(r'^knowledge/', include('knowledge.urls')),
     url(r"^faq/", include("faq.urls")),
     url(r'^search/', include('haystack.urls')),
     url(r'^searchbis/',

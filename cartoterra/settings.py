@@ -182,7 +182,6 @@ INSTALLED_APPS = [
     "gunicorn",
     "rosetta",
     "hvad",
-    "knowledge",
     "imagekit",
     "haystack",
     "leaflet",
@@ -299,13 +298,6 @@ ROSETTA_MESSAGES_PER_PAGE = 20
 ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
 ROSETTA_MESSAGES_SOURCE_LANGUAGE_CODE = 'en'
 ROSETTA_MESSAGES_SOURCE_LANGUAGE_NAME = 'English'
-
-KNOWLEDGE_ALLOW_ANONYMOUS = False
-KNOWLEDGE_LOGIN_REQUIRED = False
-KNOWLEDGE_AUTO_PUBLICIZE = False
-KNOWLEDGE_FREE_RESPONSE = True
-KNOWLEDGE_SLUG_URLS = True
-KNOWLEDGE_ALERTS = False
 
 GEODATA_NOMINATIM_EMAIL = "linventifatelier@gueux.org"
 GEODATA_NOMINATIM_SEARCH = 'https://nominatim.openstreetmap.org/search?%s'
