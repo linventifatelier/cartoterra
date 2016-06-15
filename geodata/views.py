@@ -176,6 +176,7 @@ class GeoDataMixin(object):
         context['geodata_edit_url'] = self.geodata_edit_url
         context['geodata_delete_url'] = self.geodata_delete_url
         context['geodata_recommend_url'] = self.geodata_recommend_url
+        context['geodata_groups'] = self.object.earthgroup_set.all().order_by('name')
         return context
 
 
