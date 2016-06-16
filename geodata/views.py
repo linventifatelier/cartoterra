@@ -966,3 +966,57 @@ class GeoJSONEarthGroupStakeholderListView(GeoJSONEarthGroupListView):
 class EarthGroupDetailView(DetailView):
     model = EarthGroup
     context_object_name = 'group'
+    module = "groupmap"
+
+    def get_context_data(self, **kwargs):
+        context = super(EarthGroupDetailView, self).get_context_data(**kwargs)
+        group = get_object_or_404(EarthGroup, pk=self.kwargs['pk'])
+
+        name = group.name
+
+        buildings = {
+            'name': "Buildings %s" % name,
+            'external_graphic': settings.STATIC_URL +
+            "img/building_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_building',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        worksites = {
+            'name': "Worksites %s" % name,
+            'external_graphic': settings.STATIC_URL +
+            "img/worksite_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_worksite',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        events = {
+            'name': "Events %s" % name,
+            'external_graphic': settings.STATIC_URL + "img/event_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_event',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        stakeholders = {
+            'name': "Stakeholdrs %s" % name,
+            'external_graphic': settings.STATIC_URL +
+            "img/stakeholder_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_stakeholder',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        context['map_layers'] = [buildings, worksites, events, stakeholders]
+        context['module'] = self.module
+        return context

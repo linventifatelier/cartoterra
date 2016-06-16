@@ -13,10 +13,7 @@
 {{ block.super }}
 <script type="text/javascript">
 //<![CDATA[
-{% comment %}
-TODO
-{% include "geodata/smallmap.js" %}
-{% endcomment %}
+{% include "geodata/groupmap.js" %}
 //]]>
 </script>
 <script type="text/javascript" src="{% static "js/blueimp-gallery.min.js" %}"></script>
@@ -103,7 +100,7 @@ TODO
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
                 {% if group.description %}
                     {{ group.description|safe }}
                 {% endif %}
@@ -118,7 +115,7 @@ TODO
                     </div>
                 {% endif %}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="geodata-smallmap" id="{{ module }}_map"></div>
                 </div>
             </div>
