@@ -176,7 +176,6 @@ class GeoDataMixin(object):
         context['geodata_edit_url'] = self.geodata_edit_url
         context['geodata_delete_url'] = self.geodata_delete_url
         context['geodata_recommend_url'] = self.geodata_recommend_url
-        context['geodata_groups'] = self.object.earthgroup_set.all().order_by('name')
         return context
 
 
@@ -389,10 +388,11 @@ class GeoDataSingleObjectMixin(object):
     def get_context_data(self, **kwargs):
         context = super(GeoDataSingleObjectMixin,
                         self).get_context_data(**kwargs)
-        # object = self.get_object()
         context['geodata_verbose_name'] = self.model._meta.verbose_name.title()
         context['geodata_verbose_name_plural'] = \
             self.model._meta.verbose_name_plural.title()
+        context['geodata_groups'] = \
+            self.object.earthgroup_set.all().order_by('name')
         return context
 
 
