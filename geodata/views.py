@@ -388,10 +388,11 @@ class GeoDataSingleObjectMixin(object):
     def get_context_data(self, **kwargs):
         context = super(GeoDataSingleObjectMixin,
                         self).get_context_data(**kwargs)
-        # object = self.get_object()
         context['geodata_verbose_name'] = self.model._meta.verbose_name.title()
         context['geodata_verbose_name_plural'] = \
             self.model._meta.verbose_name_plural.title()
+        context['geodata_groups'] = \
+            self.object.earthgroup_set.all().order_by('name')
         return context
 
 
@@ -923,6 +924,43 @@ class ProfileListView(ListView):
     """Returns a template to present all profiles."""
     model = Profile
     # template_name = 'profile_list.html'
+
+
+class GeoJSONEarthGroupListView(GeoJSONListView):
+    def get_group(self, **kwargs):
+        return get_object_or_404(EarthGroup, pk=self.kwargs['pk'])
+
+
+class GeoJSONEarthGroupBuildingListView(GeoJSONEarthGroupListView):
+    model = Building
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.buildings.distinct()
+
+
+class GeoJSONEarthGroupWorksiteListView(GeoJSONEarthGroupListView):
+    model = Worksite
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.worksites.distinct()
+
+
+class GeoJSONEarthGroupEventListView(GeoJSONEarthGroupListView):
+    model = Event
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.events.distinct()
+
+
+class GeoJSONEarthGroupStakeholderListView(GeoJSONEarthGroupListView):
+    model = Stakeholder
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.stakeholders.distinct()
 
 
 class EarthGroupDetailView(DetailView):

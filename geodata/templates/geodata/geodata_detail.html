@@ -62,7 +62,19 @@
             <h2>
                 {{ geodata_verbose_name }}: {{ geodata.name }}
             </h2>
-            {% block geodata_detail_title_extra %}{% endblock %}
+            <div class="cartoterra-geodata-groups">
+            {% for group in geodata_groups %}
+            {% if group.logo %}
+            {% with group.logo_thumbnail as im %}
+            <a href="{% url "group_detail" group.pk %}">
+                <img alt="{{ group.name|escape }}" width="{{ im.width }}" height="{{ im.height }}" src="{{ im.url }}" />
+            </a>
+            {% endwith %}
+            {% endif %}
+            {% endfor %}
+            </div>
+            {% block geodata_detail_title_extra %}
+            {% endblock %}
             {% block extra_geodata_toolbox %}
                 {% if user.is_authenticated %}
                 <div class="btn-group">
