@@ -253,10 +253,8 @@ ANONYMOUS_USER_ID = -1
 
 
 LOGIN_REDIRECT_URL = '/geodata/profiles/%(username)s/'
-# LOGIN_URL = '/profiles/signin/'
-LOGIN_URL = 'account/login.html'
-# LOGOUT_URL = '/profiles/signout/'
-LOGOUT_URL = 'account/logout.html'
+LOGIN_URL = '/account/login/'
+LOGOUT_URL = '/account/logout/'
 # NOTIFICATION_LANGUAGE_MODULE = "account.Account"
 
 ACCOUNT_OPEN_SIGNUP = True

@@ -2,7 +2,7 @@
 
 from django import forms
 from models import GeoDataAbstract, Building, Worksite, Event, Stakeholder, \
-    Image, EarthTechnique
+    Image, EarthTechnique, EarthGroup
 from django.forms import ModelForm
 from django.forms.models import ModelMultipleChoiceField, ModelChoiceIterator
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -13,6 +13,7 @@ import logging
 from django.contrib.gis.forms.fields import PointField
 from django.utils.translation import ugettext_lazy as _
 from collections import OrderedDict
+from pagedown.widgets import PagedownWidget
 
 
 logger = logging.getLogger(__name__)
@@ -322,3 +323,14 @@ ICOMOS-ISCEAH and want this entry to be referenced as ICOMOS-ISCEAH.")
     class Meta:
         model = Stakeholder
         exclude = ('creator', 'pub_date', )
+
+
+class EarthGroupForm(ModelForm):
+    description_markdown = forms.CharField(widget=PagedownWidget())
+
+    class Meta:
+        model = EarthGroup
+        exclude = ('pub_date', 'administrators', )
+
+    class Media:
+        js = ('js/formset.js', )

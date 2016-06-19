@@ -3,7 +3,7 @@
 from django.utils.translation import ugettext_lazy as _
 from models import Building, Worksite, Event, Stakeholder, Profile, EarthGroup
 from forms import BuildingForm, WorksiteForm, EventForm, StakeholderForm, \
-    ImageFormSet
+    ImageFormSet, EarthGroupForm
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 from django.contrib import messages
@@ -966,3 +966,110 @@ class GeoJSONEarthGroupStakeholderListView(GeoJSONEarthGroupListView):
 class EarthGroupDetailView(DetailView):
     model = EarthGroup
     context_object_name = 'group'
+    module = "groupmap"
+
+    def get_context_data(self, **kwargs):
+        context = super(EarthGroupDetailView, self).get_context_data(**kwargs)
+        group = get_object_or_404(EarthGroup, pk=self.kwargs['pk'])
+
+        name = group.name
+
+        buildings = {
+            'name': "Buildings %s" % name,
+            'external_graphic': settings.STATIC_URL +
+            "img/building_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_building',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        worksites = {
+            'name': "Worksites %s" % name,
+            'external_graphic': settings.STATIC_URL +
+            "img/worksite_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_worksite',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        events = {
+            'name': "Events %s" % name,
+            'external_graphic': settings.STATIC_URL + "img/event_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_event',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        stakeholders = {
+            'name': "Stakeholdrs %s" % name,
+            'external_graphic': settings.STATIC_URL +
+            "img/stakeholder_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_stakeholder',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        context['map_layers'] = [buildings, worksites, events, stakeholders]
+        context['module'] = self.module
+        return context
+
+
+class EarthGroupUpdateView(UpdateView):
+    context_object_name = 'geodata'
+    template_name_suffix = '_edit_form'
+    model = EarthGroup
+    form_class = EarthGroupForm
+
+    def get_object(self, *args, **kwargs):
+        geodata = super(EarthGroupUpdateView, self).get_object(*args, **kwargs)
+        user = self.request.user
+        if user in geodata.administrators.all() or user.is_staff:
+            return geodata
+        else:
+            raise PermissionDenied
+
+    def get_context_data(self, **kwargs):
+        context = super(EarthGroupUpdateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['image_formset'] = ImageFormSet(self.request.POST,
+                                                    self.request.FILES,
+                                                    instance=self.object)
+        else:
+            context['image_formset'] = ImageFormSet(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+        if image_formset.is_valid():
+            self.object.save()
+            form.save_m2m()
+            image_formset.save()
+            messages.add_message(
+                self.request, messages.SUCCESS,
+                _("Successfully edited %(modelname)s \"%(name)s\".") %
+                {'modelname': force_unicode(self.object._meta.verbose_name),
+                 'name': self.object.name, }
+            )
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR,
+                             error_message
+                             )
+        return super(EarthGroupUpdateView, self).form_invalid(form)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(EarthGroupUpdateView, self).dispatch(*args, **kwargs)

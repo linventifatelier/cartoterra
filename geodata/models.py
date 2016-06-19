@@ -439,6 +439,7 @@ class EarthGroup(models.Model):
     worksites = models.ManyToManyField(Worksite, blank=True)
     events = models.ManyToManyField(Event, blank=True)
     stakeholders = models.ManyToManyField(Stakeholder, blank=True)
+    administrators = models.ManyToManyField(User, blank=True)
 
     def __unicode__(self):
         return self.name

@@ -221,4 +221,6 @@ urlpatterns = [
     url(r'^group/(?P<pk>\d+)/stakeholder/geojson/$',
         views.GeoJSONEarthGroupStakeholderListView.as_view(),
         name="geojson_group_stakeholder"),
+    url(r'^group/(?P<pk>\d+)/edit/$', views.EarthGroupUpdateView.as_view(),
+        name="edit_group"),
 ]
