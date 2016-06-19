@@ -326,11 +326,16 @@ ICOMOS-ISCEAH and want this entry to be referenced as ICOMOS-ISCEAH.")
 
 
 class EarthGroupForm(ModelForm):
-    description_markdown = forms.CharField(widget=PagedownWidget())
-
     class Meta:
         model = EarthGroup
         exclude = ('pub_date', 'administrators', )
+        widgets = {
+            'description_markdown': PagedownWidget,
+            'buildings': forms.CheckboxSelectMultiple,
+            'worksites': forms.CheckboxSelectMultiple,
+            'events': forms.CheckboxSelectMultiple,
+            'stakeholders': forms.CheckboxSelectMultiple,
+        }
 
     class Media:
         js = ('js/formset.js', )
