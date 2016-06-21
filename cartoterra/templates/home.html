@@ -5,22 +5,11 @@
 
 {% block extra_style %}
 {{ block.super }}
-<link href="{% static "css/leaflet.min.css" %}" type="text/css" rel="stylesheet">
-<link href="{% static "css/MarkerCluster.min.css" %}" type="text/css" rel="stylesheet">
-<link href="{% static "css/MarkerClusterDefault.min.css" %}" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block extra_script %}
 {{ block.super }}
-<script type="text/javascript" src="{% static "js/leaflet.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/leaflet.markercluster.min.js" %}"></script>
-<script type="text/javascript">
-//<![CDATA[
-{% include "home.js" %}
-//]]>
-</script>
 {% endblock %}
-
 
 {% block head_title %}{% trans "Home" %}{% endblock %}
 
@@ -32,11 +21,12 @@
 <div class="cartoterra-home-categories col-md-8">
     <div class="cartoterra-home-map-cat">
         <div class="cartoterra-home-categories-legend">
-            <a href="{% url "show_bigmap" %}">
-                <span class="text-uppercase">{% trans "Map" %}</span> - {% trans "go to the entirety of cartoterra data" %}
-            </a>
+            <span class="text-uppercase">{% trans "Map" %}</span> - {% trans "go to the entirety of cartoterra data" %}
         </div>
-        <div id="cartoterra-home-map-id" class="cartoterra-home-map">
+        <div class="cartoterra-home-map cartoterra-center-cropped">
+            <a href="{% url "show_bigmap" %}">
+                <img src="{% static "img/map_geodata.jpg" %}" width="100%" alt="{% trans "Map" %}">
+            </a>
         </div>
     </div>
 
