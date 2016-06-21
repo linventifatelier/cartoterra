@@ -68,31 +68,28 @@
             {% endif %}
             {% endblock %}
             {% block extra_geodata_toolbox %}
-            {% if user.is_staff or user in group.administrators.all %}
+            {% if user.is_authenticated %}
             <div class="btn-group">
+            {% if user.is_staff or user in group.administrators.all %}
                 <a class="tooltip-geodata btn btn-default" title="{% trans "Edit" %}" href="{% url "edit_group" group.pk %}"><span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}</a>
-                {% comment %}
-                TODO: add recommendations for groups?
-                {% endcomment %}
-                {% comment %}
-                {% if user|recommends_geodata:geodata %}
-                <a class="btn btn-default" title="{% trans "Recommended" %}" href="{% url geodata_recommend_url geodata.pk %}">
+            {% endif %}
+            {% if group in user.profile.r_group.all %}
+                <a class="btn btn-default" title="{% trans "Recommended" %}" href="{% url "toggle_rec_group" group.pk %}">
                     <span class="badge">
                         <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
-                        <span class="cartoterra-recommended-by-count">{{ geodata.recommended_by.count }}</span>
+                        <span class="cartoterra-recommended-by-count">{{ group.recommended_by.count }}</span>
                     </span>
                     <span class="cartoterra-recommended-by-text">{% trans "Recommended" %}</span>
                 </a>
                 {% else %}
-                <a class="tooltip-geodata btn btn-default geodata-inactive-text" title="{% trans "Recommend" %}" href="{% url geodata_recommend_url geodata.pk %}">
+                <a class="tooltip-geodata btn btn-default geodata-inactive-text" title="{% trans "Recommend" %}" href="{% url "toggle_rec_group" group.pk %}">
                     <span class="badge">
                         <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star-empty"></span>
-                        <span class="cartoterra-recommended-by-count">{{ geodata.recommended_by.count }}</span>
+                        <span class="cartoterra-recommended-by-count">{{ group.recommended_by.count }}</span>
                     </span>
-                    <span class="cartoterra-recommended-by-text">{% trans "Click to recommend this geodata" %}</span>
+                    <span class="cartoterra-recommended-by-text">{% trans "Click to recommend this group" %}</span>
                 </a>
-                {% endif %}
-                {% endcomment %}
+            {% endif %}
             </div>
             {% endif %}
             {% endblock %}
