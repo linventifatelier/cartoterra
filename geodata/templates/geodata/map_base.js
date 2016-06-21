@@ -29,13 +29,11 @@ function importFeature (feature, layer) {
 {{ module }}info = $('#{{ module }}_info');
 {% endblock %}
 
-{% block map %}
-var map{{ module }} = L.map('{{ module }}_map', { zoomControl: false }){% block extra_map %}.setView([0, 0], 2){% endblock %};
-{% endblock %}
+{% block map %}var map{{ module }} = L.map('{{ module }}_map', { zoomControl: false, attributionControl: false }){% block extra_map %}.setView([0, 0], 2){% endblock %};{% endblock %}
 
-{% block zoom %}
-new L.control.zoom({ position: 'topright' }).addTo(map{{ module }});
-{% endblock %}
+{% block zoom %}new L.control.zoom({ position: 'topright' }).addTo(map{{ module }});{% endblock %}
+
+{% block attribution %}L.control.attribution().setPrefix('© <a href=\"{{ SITE_URL }}\">{{ SITE_NAME}}</a> contributors').addTo(map{{ module }});{% endblock %}
 
 {% block cluster_layer %}{% endblock %}
 
@@ -77,9 +75,11 @@ $.getJSON("{{ layer.url }}", function(data) {
 
 {% block osm_layer %}
 // add an OpenStreetMap tile layer
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+var osmlayer{{ module }} = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
     minZoom: 2,
     maxZoom: 20
-}).addTo(map{{ module }});
+});
+
+osmlayer{{ module }}.addTo(map{{ module }});
 {% endblock %}
