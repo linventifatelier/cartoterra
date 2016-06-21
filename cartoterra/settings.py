@@ -186,6 +186,7 @@ INSTALLED_APPS = [
     "haystack",
     "leaflet",
     "pagedown",
+    "import_export",
 
     # theme
     "django_forms_bootstrap",
