@@ -27,3 +27,7 @@
   height: 0;
 }
 
+.leaflet-control-cluster:after {
+  font-family: "Glyphicons Halflings";
+  content: "\e096";
+}
