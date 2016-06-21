@@ -373,9 +373,9 @@ class EarthGroup(models.Model):
     description = models.TextField(blank=True, null=True, editable=False)
     logo = models.ImageField(upload_to='img/group')
     logo_thumbnail = ImageSpecField(source='logo',
-                                    processors=[ResizeToFit(80, 80)],
+                                    processors=[ResizeToFit(40, 40)],
                                     format='JPEG',
-                                    options={'quality': 80})
+                                    options={'quality': 90})
     image = fields.GenericRelation(Image)
     buildings = models.ManyToManyField(Building, blank=True)
     worksites = models.ManyToManyField(Worksite, blank=True)
