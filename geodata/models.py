@@ -127,7 +127,7 @@ class EarthRole(TranslatableModel):
         return self.ident_name
         # return self.lazy_translation_getter('name', self.name)
         # return str(self.safe_translation_getter('name'))
-        # return str(self.id)
+        # return str(self.pk)
 
 
 class Stakeholder(GeoDataAbstract):
@@ -144,7 +144,7 @@ class Stakeholder(GeoDataAbstract):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_stakeholder", [self.id])
+        return ("show_stakeholder", [self.pk])
 
 
 class BuildingHeritageStatus(models.Model):
@@ -280,7 +280,7 @@ class Building(GeoDataAbstract):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_building", [self.id])
+        return ("show_building", [self.pk])
 
     def contemporary_status(self):
         """Returns the contemporary status of a building."""
@@ -307,7 +307,7 @@ class EventType(TranslatableModel):
         return self.ident_name
         # return self.lazy_translation_getter('name', self.name)
         # return str(self.safe_translation_getter('name'))
-        # return str(self.id)
+        # return str(self.pk)
 
 
 class Worksite(GeoDataAbstract):
@@ -328,7 +328,7 @@ class Worksite(GeoDataAbstract):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_worksite", [self.id])
+        return ("show_worksite", [self.pk])
 
 
 class Event(GeoDataAbstract):
@@ -359,7 +359,7 @@ class Event(GeoDataAbstract):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_event", [self.id])
+        return ("show_event", [self.pk])
 
     def ended_status(self):
         """Says if an event is ended or not."""
@@ -392,7 +392,7 @@ class EarthGroup(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("group_detail", [self.id])
+        return ("group_detail", [self.pk])
 
 
 class Profile(models.Model):
