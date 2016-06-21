@@ -128,12 +128,6 @@
                                 <span class="cartoterra-recommended-by-count">{{ entry.recommended_by.count }}</span>
                             </span>
                             <span>{{ entry.name }}</span>
-                        {% if group.logo %}
-                        {% with group.logo_thumbnail as im %}
-                            <img alt="{{ group.name|escape }}" width="{{ im.width }}" height="{{ im.height }}" src="{{ im.url }}" />
-                        {% endwith %}
-                        {% endif %}
-
                         </div>
                     </a>
                 </div>
