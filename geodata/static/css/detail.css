@@ -35,6 +35,10 @@
     height: 200px;
 }
 
+.geodata-medmap {
+    height: 400px;
+}
+
 #main {
     padding-top: 1em;
 }
