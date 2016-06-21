@@ -222,4 +222,7 @@ urlpatterns = [
         name="geojson_group_stakeholder"),
     url(r'^group/(?P<pk>\d+)/edit/$', views.EarthGroupUpdateView.as_view(),
         name="edit_group"),
+    url(r'^group/(?P<pk>\d+)/rec/$',
+        views.ToggleRecommendationEarthGroupView.as_view(),
+        name="toggle_rec_group"),
 ]
