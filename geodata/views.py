@@ -680,41 +680,43 @@ class GeoDataError(Exception):
 class ToggleRecommendationView(SingleObjectMixin, View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        geodata = self.get_object()
         profile = request.user.profile
-        if isinstance(self.object, Building):
+        if isinstance(geodata, Building):
             recommendations = profile.r_building
-        elif isinstance(self.object, Worksite):
+        elif isinstance(geodata, Worksite):
             recommendations = profile.r_worksite
-        elif isinstance(self.object, Event):
+        elif isinstance(geodata, Event):
             recommendations = profile.r_event
-        elif isinstance(self.object, Stakeholder):
+        elif isinstance(geodata, Stakeholder):
             recommendations = profile.r_stakeholder
+        elif isinstance(geodata, EarthGroup):
+            recommendations = profile.r_group
         else:
             raise GeoDataError
 
-        if self.object in recommendations.all():
-            recommendations.remove(self.object)
+        if geodata in recommendations.all():
+            recommendations.remove(geodata)
             profile.save()
             messages.add_message(
                 request, messages.SUCCESS,
                 _("Successfully removed %(modelname)s \"%(name)s\" from your \
                 recommendations.") %
-                {'modelname': force_unicode(self.object._meta.verbose_name),
-                 'name': self.object.name, }
+                {'modelname': force_unicode(geodata._meta.verbose_name),
+                 'name': geodata.name, }
             )
         else:
-            recommendations.add(self.object)
+            recommendations.add(geodata)
             profile.save()
             messages.add_message(
                 request, messages.SUCCESS,
                 _("Successfully added %(modelname)s \"%(name)s\" to your \
                 recommendations.") %
-                {'modelname': force_unicode(self.object._meta.verbose_name),
-                 'name': self.object.name, }
+                {'modelname': force_unicode(geodata._meta.verbose_name),
+                 'name': geodata.name, }
             )
         # return HttpResponse('Success')
-        return HttpResponseRedirect(self.object.get_absolute_url())
+        return HttpResponseRedirect(geodata.get_absolute_url())
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -735,6 +737,10 @@ class ToggleRecommendationEventView(ToggleRecommendationView):
 
 class ToggleRecommendationStakeholderView(ToggleRecommendationView):
     model = Stakeholder
+
+
+class ToggleRecommendationEarthGroupView(ToggleRecommendationView):
+    model = EarthGroup
 
 
 class GeoJSONProfileCreatorMixin(GeoJSONFeatureCollectionResponseMixin):
