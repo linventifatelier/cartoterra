@@ -123,6 +123,10 @@
                     <a href="{{ entry.get_absolute_url }}">
                         <div class="cartoterra-center-cropped"{% if entry.image.all %}{% with entry.image.all|first as image %} style="background-image: url('{{ image.display.url }}');"{% endwith %}{% endif %}></div>
                         <div class="carousel-caption">
+                            <span class="badge">
+                                <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
+                                <span class="cartoterra-recommended-by-count">{{ entry.recommended_by.count }}</span>
+                            </span>
                             <span>{{ entry.name }}</span>
                         {% if group.logo %}
                         {% with group.logo_thumbnail as im %}
