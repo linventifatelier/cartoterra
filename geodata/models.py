@@ -366,6 +366,35 @@ class Event(GeoDataAbstract):
         return self.beginning_date <= date.today()
 
 
+class EarthGroup(models.Model):
+    name = models.CharField(_("name"), max_length=50)
+    pub_date = models.DateTimeField(_("creation date"), default=now)
+    description_markdown = models.TextField(_("description"), blank=True, null=True)
+    description = models.TextField(blank=True, null=True, editable=False)
+    logo = models.ImageField(upload_to='img/group')
+    logo_thumbnail = ImageSpecField(source='logo',
+                                    processors=[ResizeToFit(80, 80)],
+                                    format='JPEG',
+                                    options={'quality': 80})
+    image = fields.GenericRelation(Image)
+    buildings = models.ManyToManyField(Building, blank=True)
+    worksites = models.ManyToManyField(Worksite, blank=True)
+    events = models.ManyToManyField(Event, blank=True)
+    stakeholders = models.ManyToManyField(Stakeholder, blank=True)
+    administrators = models.ManyToManyField(User, blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+    def save(self):
+        self.description = markdown.markdown(self.description_markdown)
+        super(EarthGroup, self).save()
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("group_detail", [self.id])
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User,
                                 unique=True,
@@ -395,6 +424,11 @@ class Profile(models.Model):
         verbose_name=_("stakeholder recommendations"),
         related_name="recommended_by",
         blank=True)
+    r_group = models.ManyToManyField(
+        EarthGroup,
+        verbose_name=_("group recommendations"),
+        related_name="recommended_by",
+        blank=True)
 
     class Meta:
         permissions = (
@@ -406,13 +440,15 @@ class Profile(models.Model):
 
     def recommends(self, geodata):
         if isinstance(geodata, Building):
-            return self.r_building.filter(id=geodata.id).exists()
+            return self.r_building.filter(pk=geodata.pk).exists()
         elif isinstance(geodata, Worksite):
-            return self.r_worksite.filter(id=geodata.id).exists()
+            return self.r_worksite.filter(pk=geodata.pk).exists()
         elif isinstance(geodata, Event):
-            return self.r_event.filter(id=geodata.id).exists()
+            return self.r_event.filter(pk=geodata.pk).exists()
         elif isinstance(geodata, Stakeholder):
-            return self.r_stakeholder.filter(id=geodata.id).exists()
+            return self.r_stakeholder.filter(pk=geodata.pk).exists()
+        elif isinstance(geodata, EarthGroup):
+            return self.r_group.filter(pk=geodata.pk).exists()
         else:
             return False
 
@@ -422,32 +458,3 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
-
-
-class EarthGroup(models.Model):
-    name = models.CharField(_("name"), max_length=50)
-    pub_date = models.DateTimeField(_("creation date"), default=now)
-    description_markdown = models.TextField(_("description"), blank=True, null=True)
-    description = models.TextField(blank=True, null=True, editable=False)
-    logo = models.ImageField(upload_to='img/group')
-    logo_thumbnail = ImageSpecField(source='logo',
-                                    processors=[ResizeToFit(80, 80)],
-                                    format='JPEG',
-                                    options={'quality': 80})
-    image = fields.GenericRelation(Image)
-    buildings = models.ManyToManyField(Building, blank=True)
-    worksites = models.ManyToManyField(Worksite, blank=True)
-    events = models.ManyToManyField(Event, blank=True)
-    stakeholders = models.ManyToManyField(Stakeholder, blank=True)
-    administrators = models.ManyToManyField(User, blank=True)
-
-    def __unicode__(self):
-        return self.name
-
-    def save(self):
-        self.description = markdown.markdown(self.description_markdown)
-        super(EarthGroup, self).save()
-
-    @models.permalink
-    def get_absolute_url(self):
-        return ("group_detail", [self.id])
