@@ -13,6 +13,7 @@ from hvad import admin as hvadadmin
 from imagekit.admin import AdminThumbnail
 from leaflet.admin import LeafletGeoAdmin
 from pagedown.widgets import AdminPagedownWidget
+from import_export import resources
 
 
 class EarthAdmin(admin.ModelAdmin):
@@ -219,4 +220,11 @@ class EarthGroupAdmin(admin.ModelAdmin):
     form = EarthGroupAdminForm
     inlines = [ImageInline]
 
+
 admin.site.register(EarthGroup, EarthGroupAdmin)
+
+
+class BuildingResource(resources.ModelResource):
+
+    class Meta:
+        model = Building
