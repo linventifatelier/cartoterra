@@ -323,3 +323,7 @@ body:before {
 .cartoterra-navbar {
     border: 0;
 }
+
+.cartoterra-account {
+    padding-top: 1em;
+}
