@@ -1,12 +1,12 @@
-{% extends "site_base.html" %}
+{% extends "account_base.html" %}
 
 {% load i18n %}
 {% load bootstrap_tags %}
 
 {% block head_title %}{% trans "Sign up closed" %}{% endblock %}
+{% block panel_heading %}{% trans "Sign up closed" %}{% endblock %}
 
-{% block body %}
-    <h1>{% trans "Sign up closed" %}</h1>
+{% block panel_body %}
     {% if code %}
         <p>{% blocktrans %}The code you provided was not accepted.{% endblocktrans %}</p>
     {% else %}
