@@ -295,10 +295,27 @@ body:before {
     height: 100px;
 }
 
-.cartoterra-center-cropped {
-    overflow: hidden;
+.cartoterra-home-category-background {
     height: 100px;
     width: 100%;
+}
+
+.cartoterra-center-cropped {
+    overflow: hidden;
     background-position: center center;
     background-repeat: no-repeat;
+}
+
+.cartoterra-home-title {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.cartoterra-home-title-content {
+    color: #ffffff;
+}
+
+.cartoterra-home-welcome {
+    height: 500px;
+    background-size: 100% 100%;
 }
