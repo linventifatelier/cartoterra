@@ -5,7 +5,7 @@
 
 {% block head_title %}{% trans "Delete Account" %}{% endblock %}
 
-{% block panel_body %}
+{% block account_body %}
     <form method="post" action="{% url "account_delete" %}" autocapitalize="off">
         <legend>{% trans "Delete Account" %}</legend>
         <p class="help-block">{% blocktrans %}If you go ahead and delete your account, your information will be <b>expunged within {{ ACCOUNT_DELETION_EXPUNGE_HOURS }} hours</b>.{% endblocktrans %}</p>
