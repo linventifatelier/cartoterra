@@ -4,7 +4,8 @@ from django.contrib.gis.feeds import GeoRSSFeed
 from django.utils.translation import ugettext_lazy as _
 #from django.contrib.gis.feeds import Feed
 from django.conf import settings
-from geodata.models import Building, Worksite, Event, Stakeholder
+from geodata.models import Building, Worksite, Event, Stakeholder, EarthGroup
+import itertools
 
 
 class BuildingFeed(Feed):
@@ -99,6 +100,51 @@ class StakeholderFeed(Feed):
 
     def items(self):
         return Stakeholder.objects.order_by('-pub_date')[:20]
+
+    def item_title(self, item):
+        return item.name
+
+    def item_description(self, item):
+        return item.description
+
+
+class GeodataFeed(Feed):
+    """A feed presenting changes and additions on cartoterra."""
+    title = _(settings.SITE_NAME + " new entries.")
+    link = "/"
+    description = _("Updates on changes and additions to geodata of " +
+                    settings.SITE_NAME + ".")
+
+    feed_type = GeoRSSFeed
+
+    def item_geometry(self, item):
+        return item.geometry
+
+    def items(self):
+        queryset = list(itertools.chain(
+            Building.objects.order_by('-pub_date')[:20],
+            Worksite.objects.order_by('-pub_date')[:20],
+            Event.objects.order_by('-pub_date')[:20],
+            Stakeholder.objects.order_by('-pub_date')[:20]
+        ))
+        return sorted(queryset, key=lambda x:x.pub_date, reverse=True)[:20]
+
+    def item_title(self, item):
+        return item.name
+
+    def item_description(self, item):
+        return item.description
+
+
+class EarthGroupFeed(Feed):
+    """A feed presenting changes and additions on EarthGroup."""
+    title = _(settings.SITE_NAME + " group news.")
+    link = "/"
+    description = _("Updates on changes and additions to groups of " +
+                    settings.SITE_NAME + ".")
+
+    def items(self):
+        return EarthGroup.objects.order_by('-pub_date')[:20]
 
     def item_title(self, item):
         return item.name

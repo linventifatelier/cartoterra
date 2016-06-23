@@ -15,6 +15,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
 from django.core.validators import RegexValidator
 import re
+import markdown
 from django.db.models.signals import post_save
 
 
@@ -126,7 +127,7 @@ class EarthRole(TranslatableModel):
         return self.ident_name
         # return self.lazy_translation_getter('name', self.name)
         # return str(self.safe_translation_getter('name'))
-        # return str(self.id)
+        # return str(self.pk)
 
 
 class Stakeholder(GeoDataAbstract):
@@ -143,7 +144,7 @@ class Stakeholder(GeoDataAbstract):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_stakeholder", [self.id])
+        return ("show_stakeholder", [self.pk])
 
 
 class BuildingHeritageStatus(models.Model):
@@ -279,7 +280,7 @@ class Building(GeoDataAbstract):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_building", [self.id])
+        return ("show_building", [self.pk])
 
     def contemporary_status(self):
         """Returns the contemporary status of a building."""
@@ -306,7 +307,7 @@ class EventType(TranslatableModel):
         return self.ident_name
         # return self.lazy_translation_getter('name', self.name)
         # return str(self.safe_translation_getter('name'))
-        # return str(self.id)
+        # return str(self.pk)
 
 
 class Worksite(GeoDataAbstract):
@@ -327,7 +328,7 @@ class Worksite(GeoDataAbstract):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_worksite", [self.id])
+        return ("show_worksite", [self.pk])
 
 
 class Event(GeoDataAbstract):
@@ -358,11 +359,40 @@ class Event(GeoDataAbstract):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("show_event", [self.id])
+        return ("show_event", [self.pk])
 
     def ended_status(self):
         """Says if an event is ended or not."""
         return self.beginning_date <= date.today()
+
+
+class EarthGroup(models.Model):
+    name = models.CharField(_("name"), max_length=50)
+    pub_date = models.DateTimeField(_("creation date"), default=now)
+    description_markdown = models.TextField(_("description"), blank=True, null=True)
+    description = models.TextField(blank=True, null=True, editable=False)
+    logo = models.ImageField(upload_to='img/group')
+    logo_thumbnail = ImageSpecField(source='logo',
+                                    processors=[ResizeToFit(40, 40)],
+                                    format='JPEG',
+                                    options={'quality': 90})
+    image = fields.GenericRelation(Image)
+    buildings = models.ManyToManyField(Building, blank=True)
+    worksites = models.ManyToManyField(Worksite, blank=True)
+    events = models.ManyToManyField(Event, blank=True)
+    stakeholders = models.ManyToManyField(Stakeholder, blank=True)
+    administrators = models.ManyToManyField(User, blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+    def save(self):
+        self.description = markdown.markdown(self.description_markdown)
+        super(EarthGroup, self).save()
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("group_detail", [self.pk])
 
 
 class Profile(models.Model):
@@ -394,6 +424,11 @@ class Profile(models.Model):
         verbose_name=_("stakeholder recommendations"),
         related_name="recommended_by",
         blank=True)
+    r_group = models.ManyToManyField(
+        EarthGroup,
+        verbose_name=_("group recommendations"),
+        related_name="recommended_by",
+        blank=True)
 
     class Meta:
         permissions = (
@@ -405,13 +440,15 @@ class Profile(models.Model):
 
     def recommends(self, geodata):
         if isinstance(geodata, Building):
-            return self.r_building.filter(id=geodata.id).exists()
+            return self.r_building.filter(pk=geodata.pk).exists()
         elif isinstance(geodata, Worksite):
-            return self.r_worksite.filter(id=geodata.id).exists()
+            return self.r_worksite.filter(pk=geodata.pk).exists()
         elif isinstance(geodata, Event):
-            return self.r_event.filter(id=geodata.id).exists()
+            return self.r_event.filter(pk=geodata.pk).exists()
         elif isinstance(geodata, Stakeholder):
-            return self.r_stakeholder.filter(id=geodata.id).exists()
+            return self.r_stakeholder.filter(pk=geodata.pk).exists()
+        elif isinstance(geodata, EarthGroup):
+            return self.r_group.filter(pk=geodata.pk).exists()
         else:
             return False
 

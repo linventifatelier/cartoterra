@@ -1,9 +1,9 @@
 """GeoData views."""
 
 from django.utils.translation import ugettext_lazy as _
-from models import Building, Worksite, Event, Stakeholder, Profile
+from models import Building, Worksite, Event, Stakeholder, Profile, EarthGroup
 from forms import BuildingForm, WorksiteForm, EventForm, StakeholderForm, \
-    ImageFormSet
+    ImageFormSet, EarthGroupForm
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 from django.contrib import messages
@@ -59,6 +59,7 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
                 {
                     'pk': m.pk, 'name': m.name,
                     'url': m.get_absolute_url(),
+                    'recommends': m.recommended_by.count(),
                     'image': m.image.all()[0].thumbnail.url
                         if m.image.all() else None,
                     'summary':
@@ -88,6 +89,7 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                     {
                         'pk': m.pk, 'name': m.name,
                         'url': m.get_absolute_url(),
+                        'recommends': m.recommended_by.count(),
                         'image': m.image.all()[0].thumbnail.url
                             if m.image.all() else None,
                         'summary': Truncator(m.description).words(
@@ -386,10 +388,11 @@ class GeoDataSingleObjectMixin(object):
     def get_context_data(self, **kwargs):
         context = super(GeoDataSingleObjectMixin,
                         self).get_context_data(**kwargs)
-        # object = self.get_object()
         context['geodata_verbose_name'] = self.model._meta.verbose_name.title()
         context['geodata_verbose_name_plural'] = \
             self.model._meta.verbose_name_plural.title()
+        context['geodata_groups'] = \
+            self.object.earthgroup_set.all().order_by('name')
         return context
 
 
@@ -677,41 +680,43 @@ class GeoDataError(Exception):
 class ToggleRecommendationView(SingleObjectMixin, View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        geodata = self.get_object()
         profile = request.user.profile
-        if isinstance(self.object, Building):
+        if isinstance(geodata, Building):
             recommendations = profile.r_building
-        elif isinstance(self.object, Worksite):
+        elif isinstance(geodata, Worksite):
             recommendations = profile.r_worksite
-        elif isinstance(self.object, Event):
+        elif isinstance(geodata, Event):
             recommendations = profile.r_event
-        elif isinstance(self.object, Stakeholder):
+        elif isinstance(geodata, Stakeholder):
             recommendations = profile.r_stakeholder
+        elif isinstance(geodata, EarthGroup):
+            recommendations = profile.r_group
         else:
             raise GeoDataError
 
-        if self.object in recommendations.all():
-            recommendations.remove(self.object)
+        if geodata in recommendations.all():
+            recommendations.remove(geodata)
             profile.save()
             messages.add_message(
                 request, messages.SUCCESS,
                 _("Successfully removed %(modelname)s \"%(name)s\" from your \
                 recommendations.") %
-                {'modelname': force_unicode(self.object._meta.verbose_name),
-                 'name': self.object.name, }
+                {'modelname': force_unicode(geodata._meta.verbose_name),
+                 'name': geodata.name, }
             )
         else:
-            recommendations.add(self.object)
+            recommendations.add(geodata)
             profile.save()
             messages.add_message(
                 request, messages.SUCCESS,
                 _("Successfully added %(modelname)s \"%(name)s\" to your \
                 recommendations.") %
-                {'modelname': force_unicode(self.object._meta.verbose_name),
-                 'name': self.object.name, }
+                {'modelname': force_unicode(geodata._meta.verbose_name),
+                 'name': geodata.name, }
             )
         # return HttpResponse('Success')
-        return HttpResponseRedirect(self.object.get_absolute_url())
+        return HttpResponseRedirect(geodata.get_absolute_url())
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -732,6 +737,10 @@ class ToggleRecommendationEventView(ToggleRecommendationView):
 
 class ToggleRecommendationStakeholderView(ToggleRecommendationView):
     model = Stakeholder
+
+
+class ToggleRecommendationEarthGroupView(ToggleRecommendationView):
+    model = EarthGroup
 
 
 class GeoJSONProfileCreatorMixin(GeoJSONFeatureCollectionResponseMixin):
@@ -921,3 +930,152 @@ class ProfileListView(ListView):
     """Returns a template to present all profiles."""
     model = Profile
     # template_name = 'profile_list.html'
+
+
+class GeoJSONEarthGroupListView(GeoJSONListView):
+    def get_group(self, **kwargs):
+        return get_object_or_404(EarthGroup, pk=self.kwargs['pk'])
+
+
+class GeoJSONEarthGroupBuildingListView(GeoJSONEarthGroupListView):
+    model = Building
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.buildings.distinct()
+
+
+class GeoJSONEarthGroupWorksiteListView(GeoJSONEarthGroupListView):
+    model = Worksite
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.worksites.distinct()
+
+
+class GeoJSONEarthGroupEventListView(GeoJSONEarthGroupListView):
+    model = Event
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.events.distinct()
+
+
+class GeoJSONEarthGroupStakeholderListView(GeoJSONEarthGroupListView):
+    model = Stakeholder
+
+    def get_queryset(self):
+        group = self.get_group()
+        return group.stakeholders.distinct()
+
+
+class EarthGroupDetailView(DetailView):
+    model = EarthGroup
+    context_object_name = 'group'
+    module = "groupmap"
+
+    def get_context_data(self, **kwargs):
+        context = super(EarthGroupDetailView, self).get_context_data(**kwargs)
+        group = get_object_or_404(EarthGroup, pk=self.kwargs['pk'])
+
+        name = group.name
+
+        buildings = {
+            'name': "Buildings %s" % name,
+            'external_graphic': settings.STATIC_URL +
+            "img/building_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_building',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        worksites = {
+            'name': "Worksites %s" % name,
+            'external_graphic': settings.STATIC_URL +
+            "img/worksite_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_worksite',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        events = {
+            'name': "Events %s" % name,
+            'external_graphic': settings.STATIC_URL + "img/event_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_event',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        stakeholders = {
+            'name': "Stakeholdrs %s" % name,
+            'external_graphic': settings.STATIC_URL +
+            "img/stakeholder_icon_h25.png",
+            'graphic_width': 20,
+            'graphic_height': 20,
+            'fill_color': '#00FF00',
+            'stroke_color': '#008800',
+            'url': reverse_lazy('geojson_group_stakeholder',
+                                kwargs={'pk': self.kwargs['pk']}),
+        }
+        context['map_layers'] = [buildings, worksites, events, stakeholders]
+        context['module'] = self.module
+        return context
+
+
+class EarthGroupUpdateView(UpdateView):
+    context_object_name = 'geodata'
+    template_name_suffix = '_edit_form'
+    model = EarthGroup
+    form_class = EarthGroupForm
+
+    def get_object(self, *args, **kwargs):
+        geodata = super(EarthGroupUpdateView, self).get_object(*args, **kwargs)
+        user = self.request.user
+        if user in geodata.administrators.all() or user.is_staff:
+            return geodata
+        else:
+            raise PermissionDenied
+
+    def get_context_data(self, **kwargs):
+        context = super(EarthGroupUpdateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['image_formset'] = ImageFormSet(self.request.POST,
+                                                    self.request.FILES,
+                                                    instance=self.object)
+        else:
+            context['image_formset'] = ImageFormSet(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+        if image_formset.is_valid():
+            self.object.save()
+            form.save_m2m()
+            image_formset.save()
+            messages.add_message(
+                self.request, messages.SUCCESS,
+                _("Successfully edited %(modelname)s \"%(name)s\".") %
+                {'modelname': force_unicode(self.object._meta.verbose_name),
+                 'name': self.object.name, }
+            )
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR,
+                             error_message
+                             )
+        return super(EarthGroupUpdateView, self).form_invalid(form)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(EarthGroupUpdateView, self).dispatch(*args, **kwargs)

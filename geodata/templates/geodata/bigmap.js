@@ -1,74 +1,51 @@
+{% extends "geodata/map_base.js" %}
 {% load l10n %}
 {% load staticfiles %}
 
-var map{{ module }} = L.map('{{ module }}_map', { zoomControl: false }).setView([0, 0], 2);
-
-new L.control.zoom({ position: 'topright' }).addTo(map{{ module }});
-
+{% block cluster_layer %}
 var clusterlayer{{ module }} = new L.MarkerClusterGroup();
+var declusterlayer{{ module }} = new L.layerGroup();
+{% endblock %}
 
-{{ module }}info = $('#{{ module }}_info');
-
-function gotoFeature (e) {
-    var layer = e.target;
-    var feature = layer.feature;
-
-    var title = '<a href=\"' + feature.properties.url + '\">' + feature.properties.name + '</a>'
-
-    var image = ""
-    if (feature.properties.image) {
-        image = '<img class="img-thumbnail geodata-thumbnail" src=\"' + feature.properties.image + '\" alt=\"' + feature.properties.name + '\">';
-    } else {
-        image = '<div class="img-thumbnail geodata-thumbnail"><span class="glyphicon glyphicon-camera geodata-icon-empty"></span></div>'
-    };
-    {{ module }}info.find('.geodata-info-image').html(image);
-    {{ module }}info.find('.modal-title').html(title);
-    {{ module }}info.find('.geodata-info-content').html(feature.properties.summary);
-    {{ module }}info.find('.geodata-info-detail').attr('href', feature.properties.url);
-    {{ module }}info.modal();
-}
-
-function importFeature (feature, layer) {
-    layer.on({
-        click: gotoFeature
-    });
-};
-
-{% for layer in map_layers %}
-$.getJSON("{{ layer.url }}", function(data) {
-    function getIconFromFeature (feature) {
-        if (feature.properties.isceah) {
-            return L.icon({
-                shadowUrl: '{{ layer.external_graphic }}',
-                shadowSize: [24, 24],
-                shadowAnchor: [12,12],
-                iconUrl: '{% static "img/isceah_blanc.png" %}',
-                iconSize: [24, 24],
-                iconAnchor: [12, 12],
-            })
-        } else {
-            return L.icon({
-                iconUrl: '{{ layer.external_graphic }}',
-                iconSize: [24, 24],
-                iconAnchor: [12, 12],
-            })
-        }
-    };
-    function placePointToLayer (feature, latlng) {
-        return L.marker(latlng, { icon: getIconFromFeature(feature) });
-    };
-    var geojsonlayer{{ module }} = L.geoJson(data, {
-        pointToLayer: placePointToLayer,
-        onEachFeature: importFeature
-    });
+{% block layers_getson_extra %}
     clusterlayer{{ module }}.addLayer(geojsonlayer{{ module }});
-    map{{ module }}.addLayer(clusterlayer{{ module }})
-});
-{% endfor %}
+    map{{ module }}.addLayer(clusterlayer{{ module }});
+    declusterlayer{{ module }}.addLayer(geojsonlayer{{ module }});
+{% endblock %}
 
-// add an OpenStreetMap tile layer
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
-    minZoom: 2,
-    maxZoom: 20
-}).addTo(map{{ module }});
+
+{% block extra_layers %}
+var cluster{{ module }} = true;
+
+L.Control.Decluster{{ module }} = L.Control.extend(
+{
+    options:
+    {
+        position: 'topright',
+    },
+    onAdd: function (map) {
+        var controlDiv = L.DomUtil.create('div', 'leaflet-control-toolbar leaflet-bar');
+        L.DomEvent
+            .addListener(controlDiv, 'click', L.DomEvent.stopPropagation)
+            .addListener(controlDiv, 'click', L.DomEvent.preventDefault)
+        .addListener(controlDiv, 'click', function () {
+            if (cluster{{ module }}) {
+                map{{ module }}.removeLayer(clusterlayer{{ module }});
+                map{{ module }}.addLayer(declusterlayer{{ module }});
+                cluster{{ module }} = false;
+            } else {
+                map{{ module }}.removeLayer(declusterlayer{{ module }});
+                map{{ module }}.addLayer(clusterlayer{{ module }});
+                cluster{{ module }} = true;
+            };
+        });
+
+        var controlUI = L.DomUtil.create('a', 'leaflet-control-cluster', controlDiv);
+        controlUI.title = 'Cluster ON/OFF';
+        controlUI.href = '#';
+        return controlDiv;
+    }
+});
+var declusterControl{{ module }} = new L.Control.Decluster{{ module }}();
+map{{ module }}.addControl(declusterControl{{ module }});
+{% endblock %}

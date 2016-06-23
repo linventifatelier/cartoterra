@@ -2,7 +2,8 @@
 from models import Building, Worksite, Event, Stakeholder, Image, \
     EventType, EarthTechnique, EarthRole, Profile, BuildingClassification, \
     BuildingUse, BuildingPropertyStatus, BuildingProtectionStatus, \
-    EarthQuantity, BuildingHeritageStatus
+    EarthQuantity, BuildingHeritageStatus, EarthGroup
+from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
@@ -11,6 +12,10 @@ from imagewidget import AdminImageWidget
 from hvad import admin as hvadadmin
 from imagekit.admin import AdminThumbnail
 from leaflet.admin import LeafletGeoAdmin
+from pagedown.widgets import AdminPagedownWidget
+from import_export.admin import ImportExportMixin
+from resources import BuildingResource, WorksiteResource, EventResource, \
+    StakeholderResource
 
 
 class EarthAdmin(admin.ModelAdmin):
@@ -98,24 +103,6 @@ class GeoDataAbstractAdmin(LeafletGeoAdmin):
         abstract = True
 
 
-class StakeholderAdmin(GeoDataAbstractAdmin):
-    """EarthGeoDataStakeholder administration interface."""
-    list_display = ('name', 'pub_date', 'creator')
-    list_filter = ('name', 'pub_date', 'creator', 'role')
-    search_fields = ['creator__username', 'name', 'role']
-    date_hierarchy = 'pub_date'
-    fieldsets = (
-        ('Location Attributes', {'fields': (('name', 'pub_date',
-                                             'creator', 'role',
-                                             'unesco_chair',
-                                             'description', 'url',
-                                             'contact'))}),
-        ('Editable Map View', {'fields': ('geometry', )}),
-    )
-
-admin.site.register(Stakeholder, StakeholderAdmin)
-
-
 admin.site.register(BuildingHeritageStatus, admin.ModelAdmin)
 admin.site.register(BuildingClassification, admin.ModelAdmin)
 admin.site.register(BuildingUse, admin.ModelAdmin)
@@ -124,7 +111,7 @@ admin.site.register(BuildingProtectionStatus, admin.ModelAdmin)
 admin.site.register(EarthQuantity, admin.ModelAdmin)
 
 
-class BuildingAdmin(GeoDataAbstractAdmin):
+class BuildingAdmin(ImportExportMixin, GeoDataAbstractAdmin):
     """EarthGeoDataBuilding administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator', 'unesco')
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
@@ -142,11 +129,34 @@ class BuildingAdmin(GeoDataAbstractAdmin):
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
+    resource_class = BuildingResource
 
 admin.site.register(Building, BuildingAdmin)
 
 
-class EventAdmin(GeoDataAbstractAdmin):
+class WorksiteAdmin(ImportExportMixin, GeoDataAbstractAdmin):
+    """EarthGeoDataWorksite administration interface."""
+    list_display = ('name', 'pub_date', 'creator', 'credit_creator',
+                    'participative', )
+    list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
+                   'participative', 'inauguration_date', 'techniques',
+                   'stakeholder')
+    search_fields = ['creator__username', 'name', 'techniques', 'stakeholder']
+    date_hierarchy = 'pub_date'
+    fieldsets = (
+        ('Location Attributes', {'fields': (('name', 'pub_date', 'creator',
+                                             'credit_creator', 'stakeholder',
+                                             'participative', 'techniques',
+                                             'description', 'url',
+                                             'contact'))}),
+        ('Editable Map View', {'fields': ('geometry', )}),
+    )
+    resource_class = WorksiteResource
+
+admin.site.register(Worksite, WorksiteAdmin)
+
+
+class EventAdmin(ImportExportMixin, GeoDataAbstractAdmin):
     """EarthGeoDataEvent administration interface."""
     list_display = ('name', 'pub_date', 'creator', 'credit_creator',
                     'event_type', 'beginning_date', 'end_date', )
@@ -168,29 +178,28 @@ class EventAdmin(GeoDataAbstractAdmin):
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
+    resource_class = EventResource
 
 admin.site.register(Event, EventAdmin)
 
 
-class WorksiteAdmin(GeoDataAbstractAdmin):
-    """EarthGeoDataWorksite administration interface."""
-    list_display = ('name', 'pub_date', 'creator', 'credit_creator',
-                    'participative', )
-    list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
-                   'participative', 'inauguration_date', 'techniques',
-                   'stakeholder')
-    search_fields = ['creator__username', 'name', 'techniques', 'stakeholder']
+class StakeholderAdmin(ImportExportMixin, GeoDataAbstractAdmin):
+    """EarthGeoDataStakeholder administration interface."""
+    list_display = ('name', 'pub_date', 'creator')
+    list_filter = ('name', 'pub_date', 'creator', 'role')
+    search_fields = ['creator__username', 'name', 'role']
     date_hierarchy = 'pub_date'
     fieldsets = (
-        ('Location Attributes', {'fields': (('name', 'pub_date', 'creator',
-                                             'credit_creator', 'stakeholder',
-                                             'participative', 'techniques',
+        ('Location Attributes', {'fields': (('name', 'pub_date',
+                                             'creator', 'role',
+                                             'unesco_chair',
                                              'description', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
+    resource_class = StakeholderResource
 
-admin.site.register(Worksite, WorksiteAdmin)
+admin.site.register(Stakeholder, StakeholderAdmin)
 
 
 class ProfileInline(admin.StackedInline):
@@ -204,3 +213,18 @@ class UserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+
+
+class EarthGroupAdminForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EarthGroupAdminForm, self).__init__(*args, **kwargs)
+        self.fields['description_markdown'].widget = AdminPagedownWidget()
+        #self.fields['image'].widget = AdminImageWidget()
+
+
+class EarthGroupAdmin(admin.ModelAdmin):
+    form = EarthGroupAdminForm
+    inlines = [ImageInline]
+
+
+admin.site.register(EarthGroup, EarthGroupAdmin)

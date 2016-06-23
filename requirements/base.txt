@@ -20,3 +20,6 @@ Markdown==2.6.6
 django-imagekit==3.3
 pilkit==1.1.13
 django-leaflet==0.18.0
+django-pagedown==0.1.1
+django-import-export==0.4.5
+tablib==0.11.2

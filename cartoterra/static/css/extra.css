@@ -93,12 +93,17 @@ input[type="color"],
   color:#bbaa99;
 }
 
+.cartoterra-navbar-form {
+  padding-top: 8px;
+}
+
 .cartoterra-navbar-search {
   position: relative;
 }
 
 .cartoterra-navbar-search input {
   padding-left: 30px;
+  width: 150px;
 }
 
 .cartoterra-navbar-search span {
@@ -155,21 +160,28 @@ html, body {
 /* Sticky footer */
 #wrap {
   min-height: 100%;
+  margin-bottom: -6em;
 }
 
 #main {
   overflow:auto;
-  padding-bottom: 6em;
+  padding-bottom: 1em;
+}
+
+#wrap:after {
+  content: "";
+  display: block;
 }
 
 .footer {
-  position: relative;
   width: 100%;
-  margin-top: -6em;
   height: 6em;
   background-color: #eae3dc;
-  clear: both;
   z-index: 500;
+}
+
+#wrap:after {
+  height: 6em;
 }
 
 body:before {
@@ -183,7 +195,7 @@ body:before {
 /* footer */
 .partners {
   margin-top: 1em;
-  width : auto;
+  width: auto;
   text-align: left;
 }
 
@@ -203,17 +215,18 @@ body:before {
 }
 
 @media (max-width: 767px) {
+  #wrap {
+    margin-bottom: -10em;
+  }
+  #wrap:after {
+    height: 10em;
+  }
   .tooltip {
     display: none !important;
-  }
-  #main {
-    overflow:auto;
-    padding-bottom: 10em;
   }
   .footer {
     position: relative;
     width: 100%;
-    margin-top: -10em;
     height: 10em;
     background-color: #eae3dc;
     clear: both;
@@ -238,6 +251,12 @@ body:before {
   }
   .cartoterra-navbar-help {
     padding-left: 15px;
+  }
+  .cartoterra-navbar-search {
+    padding-left: 15px;
+  }
+  .cartoterra-navbar-search input {
+    width: 250px;
   }
 }
 
@@ -267,6 +286,44 @@ body:before {
   padding-top: 0;
   padding-bottom: 0;
 }
+
 .cartoterra-donate {
+    padding-top: 1em;
+}
+
+.cartoterra-home-map {
+    height: 100px;
+}
+
+.cartoterra-home-category-background {
+    height: 100px;
+    width: 100%;
+}
+
+.cartoterra-center-cropped {
+    overflow: hidden;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.cartoterra-home-title {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.cartoterra-home-title-content {
+    color: #ffffff;
+}
+
+.cartoterra-home-welcome {
+    height: 500px;
+    background-size: 100% 100%;
+}
+
+.cartoterra-navbar {
+    border: 0;
+}
+
+.cartoterra-account {
     padding-top: 1em;
 }

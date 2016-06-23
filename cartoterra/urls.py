@@ -5,19 +5,20 @@ from django.contrib import admin
 from geodata.views import BigMapView
 from haystack.forms import ModelSearchForm
 from haystack.views import SearchView, search_view_factory
-import cartoterra.views
+from cartoterra.views import HomeView, DonateView, SignupView
 
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^$', BigMapView.as_view(), name="home"),
+    url(r'^$', HomeView.as_view(), name="home"),
+    url(r'^map/$', BigMapView.as_view(), name="map"),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     # url(r'^my_admin/jsi18n',
     #     include('django.views.i18n.null_javascript_catalog')),
     url(r"^geodata/", include("geodata.urls")),
-    url(r'^donate/', cartoterra.views.DonateView.as_view(), name="donate"),
+    url(r'^donate/$', DonateView.as_view(), name="donate"),
     url(r"^admin/", include(admin.site.urls)),
-    url(r"^account/signup/$", cartoterra.views.SignupView.as_view(),
+    url(r"^account/signup/$", SignupView.as_view(),
         name="account_signup"),
     url(r"^account/", include("account.urls")),
     url(r"^faq/", include("faq.urls")),
