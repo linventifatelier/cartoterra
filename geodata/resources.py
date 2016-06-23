@@ -13,14 +13,22 @@ class GeometryWidget(Widget):
     def clean(self, value):
         if not value:
             return None
-        coords_s = value.split(',')
-        coords = map(float, coords_s)
-        return Point(coords[0], coords[1])
+        val = value
+        srid = 4326
+        if ":" in value:
+            sridcoords = value.split(':')
+            srid_s = sridcoords[0]
+            srid = int(srid_s)
+            val = sridcoords[1]
+        coords_s = val.split(',')
+        coords = [float(x) for x in coords_s]
+        return Point(coords[0], coords[1], srid=srid)
 
     def render(self, geometry):
         if geometry:
             # longitude latitude in srid=4326
-            return '%s,%s' % (geometry.coords[0], geometry.coords[1])
+            return '%s:%s,%s' % \
+                (geometry.srid, geometry.coords[0], geometry.coords[1])
         else:
             return None
 
