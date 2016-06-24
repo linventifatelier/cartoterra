@@ -391,14 +391,14 @@ class GeoDataSingleObjectMixin(object):
         context['geodata_verbose_name'] = self.model._meta.verbose_name.title()
         context['geodata_verbose_name_plural'] = \
             self.model._meta.verbose_name_plural.title()
-        context['geodata_groups'] = \
-            self.object.earthgroup_set.all().order_by('name')
         return context
 
 
 class GeoDataDetailMixin(GeoDataSingleObjectMixin, GeoDataMapMixin):
     def get_context_data(self, **kwargs):
         context = super(GeoDataDetailMixin, self).get_context_data(**kwargs)
+        context['geodata_groups'] = \
+            self.object.earthgroup_set.all().order_by('name')
         return context
 
 
