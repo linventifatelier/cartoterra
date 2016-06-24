@@ -316,6 +316,8 @@ LEAFLET_CONFIG = {
     'TILES': 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 }
 
+PAGEDOWN_WIDGET_CSS = (posixpath.join(STATIC_URL, "css/pagedown.css"), )
+
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
 try:
