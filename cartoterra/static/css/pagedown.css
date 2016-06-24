@@ -1,3 +1,4 @@
+{% load staticfiles %}
 .wmd-panel {
     margin-left: 25%;
     margin-right: 25%;
@@ -53,7 +54,7 @@
 }
 
 .wmd-button > span {
-    background-image: url(../../wmd-buttons.png);
+    background-image: url(../pagedown/wmd-buttons.png);
     background-repeat: no-repeat;
     background-position: 0px 0px;
     width: 20px;
