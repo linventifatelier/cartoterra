@@ -83,8 +83,8 @@ building if known, ignore otherwise.")
     )
     isceah = forms.BooleanField(
         required=False, widget=IsceahCheckboxInput,
-        help_text=_("Tick here if you are member of ICOMOS-ISCEAH and want \
-this entry to be referenced as ICOMOS-ISCEAH.")
+        help_text=_("Tick here if you want to access ICOMOS-ISCEAH specific \
+fields.")
     )
     stakeholder = forms.ModelMultipleChoiceField(
         required=False, queryset=Stakeholder.objects.all(),
@@ -94,8 +94,7 @@ this entry.")
 
     def __init__(self, user=None, *args, **kwargs):
         super(BuildingForm, self).__init__(*args, **kwargs)
-        if not user.has_perm('profile.world_heritage'):
-            self.fields['unesco'].widget.attrs['disabled'] = 'disabled'
+        self.fields['unesco'].widget.attrs['disabled'] = 'disabled'
         self._user = user
         # https://stackoverflow.com/questions/913589/django-forms-inheritance-and-order-of-form-fields/27493844#27493844
         key_order = [
@@ -152,8 +151,7 @@ class EventForm(GeoDataAbstractForm):
 
     def __init__(self, user=None, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
-        if not user.has_perm('profile.unesco_chair'):
-            self.fields['unesco_chair'].widget.attrs['disabled'] = 'disabled'
+        self.fields['unesco_chair'].widget.attrs['disabled'] = 'disabled'
         self._user = user
 
     def clean_unesco_chair(self):
@@ -179,8 +177,8 @@ ICOMOS-ISCEAH and want this entry to be referenced as ICOMOS-ISCEAH.")
 
     def __init__(self, user=None, *args, **kwargs):
         super(StakeholderForm, self).__init__(*args, **kwargs)
-        if not user.has_perm('profile.unesco_chair'):
-            self.fields['unesco_chair'].widget.attrs['disabled'] = 'disabled'
+        self.fields['isceah'].widget.attrs['disabled'] = 'disabled'
+        self.fields['unesco_chair'].widget.attrs['disabled'] = 'disabled'
         self._user = user
 
     def clean_unesco_chair(self):
