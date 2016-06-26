@@ -135,9 +135,6 @@ class Stakeholder(GeoDataAbstract):
     role = models.ManyToManyField(EarthRole,
                                   verbose_name=_("role"),
                                   blank=True)
-    unesco_chair = models.BooleanField(_("UNESCO Chair Earthen Architecture"),
-                                       default=False)
-    isceah = models.BooleanField(_("ISCEAH"), default=False)
 
     class Meta:
         verbose_name = _("stakeholder")
@@ -250,7 +247,6 @@ class Building(GeoDataAbstract):
     references = models.TextField(
         _("principal references"), blank=True, null=True
     )
-    unesco = models.BooleanField(_("world heritage"), default=False)
     protection_status = models.ForeignKey(
         BuildingProtectionStatus, verbose_name=_("protection status"),
         blank=True, null=True
@@ -337,8 +333,6 @@ class Event(GeoDataAbstract):
     event_type = models.ForeignKey(EventType,
                                    verbose_name=_("event type"),
                                    blank=True, null=True)
-    unesco_chair = models.BooleanField(_("UNESCO Chair Earthen Architecture"),
-                                       default=False)
     beginning_date = models.DateField(_("beginning date"), default=today(now))
     end_date = models.DateField(_("end date"), default=today(now))
     number_of_stakeholders = models.PositiveIntegerField(
@@ -429,14 +423,6 @@ class Profile(models.Model):
         verbose_name=_("group recommendations"),
         related_name="recommended_by",
         blank=True)
-
-    class Meta:
-        permissions = (
-            ("world_heritage", _("Can modify world heritage properties")),
-            ("unesco_chair",
-             _("Can modify UNESCO Chair Earthen Architecture")),
-            ("isceah", _("Can modify ISCEAH properties")),
-        )
 
     def recommends(self, geodata):
         if isinstance(geodata, Building):

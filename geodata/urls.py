@@ -38,24 +38,12 @@ urlpatterns = [
         views.GeoJSONBuildingListView.as_view(
             queryset=models.Building.objects.filter(
                 inauguration_date__gte=now() - timedelta(days=3650)))),
-    url(r'^building/isceah/geojson/$',
-        views.GeoJSONBuildingListView.as_view(
-            queryset=models.Building.objects.filter(isceah=True))),
-    url(r'^building/isceah/$',
-        views.BuildingListView.as_view(
-            queryset=models.Building.objects.filter(isceah=True)),
-        name="show_building_isceah"),
-    url(r'^building/unesco/geojson/$',
-        views.GeoJSONBuildingListView.as_view(
-            queryset=models.Building.objects.filter(unesco=True))),
     url(r'^building/vernacular/geojson/$',
         views.GeoJSONBuildingListView.as_view(
             queryset=models.Building.objects.filter(architects=''))),
     url(r'^building/normal/geojson/$',
         views.GeoJSONBuildingListView.as_view(
             queryset=models.Building.objects.filter(
-                Q(unesco=False) &
-                Q(isceah=False) &
                 Q(heritage_status__isnull=True)))),
     url(r'^worksite/all/geojson/$',
         views.GeoJSONWorksiteListView.as_view(),
@@ -78,13 +66,6 @@ urlpatterns = [
     url(r'^people/role/(?P<role>[a-zA-Z0-9_\-]+)/geojson/$',
         views.GeoJSONStakeholderListView.as_view(),
         name="geojson_stakeholder_of_role"),
-    url(r'^people/isceah/$',
-        views.StakeholderListView.as_view(
-            queryset=models.Stakeholder.objects.filter(isceah=True)),
-        name="show_stakeholder_isceah"),
-    url(r'^people/isceah/geojson/$',
-        views.GeoJSONStakeholderListView.as_view(
-            queryset=models.Stakeholder.objects.filter(isceah=True))),
     url(r'^building/all/$', views.BuildingListView.as_view(),
         name="show_building_all"),
     url(r'^building/status/(?P<status>[a-zA-Z0-9_\-]+)/$',
@@ -95,10 +76,6 @@ urlpatterns = [
             queryset=models.Building.objects.filter(
                 inauguration_date__gte=now() - timedelta(days=3650))),
         name="show_building_contemporary"),
-    url(r'^building/unesco/$',
-        views.BuildingListView.as_view(
-            queryset=models.Building.objects.filter(unesco=True)),
-        name="show_building_unesco"),
     url(r'^building/vernacular/$',
         views.BuildingListView.as_view(
             queryset=models.Building.objects.filter(architects='')),
@@ -106,8 +83,6 @@ urlpatterns = [
     url(r'^building/normal/$',
         views.BuildingListView.as_view(
             queryset=models.Building.objects.filter(
-                Q(unesco=False) &
-                Q(isceah=False) &
                 Q(heritage_status__isnull=True))),
         name="show_building_normal"),
     url(r'^building/(?P<pk>\d+)/$', views.BuildingDetailView.as_view(),

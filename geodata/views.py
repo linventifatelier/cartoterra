@@ -23,13 +23,6 @@ from django.shortcuts import get_object_or_404
 from django.utils.text import Truncator
 
 
-def _isceah(m):
-    if hasattr(m, 'isceah'):
-        return m.isceah
-    else:
-        return False
-
-
 class GeoJSONResponseMixin(object):
     def render_to_response(self, context):
         "Returns a GeoJSON response containing 'context' as payload"
@@ -64,7 +57,10 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
                         if m.image.all() else None,
                     'summary':
                         Truncator(m.description).words(10, truncate=' [...]'),
-                    'isceah': _isceah(m)
+                    'groups': [{
+                        'name': g.name,
+                        'logo': g.logo.url if g.logo else None
+                    } for g in m.earthgroup_set.all()],
                 }}
         return json.dumps(data)
 
@@ -95,7 +91,10 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                         'summary': Truncator(m.description).words(
                             10, truncate=' [...]'
                         ),
-                        'isceah': _isceah(m)
+                        'groups': [{
+                            'name': g.name,
+                            'logo': g.logo.url if g.logo else None
+                        } for g in m.earthgroup_set.all()],
                     }
                 } for m in queryset]}
         return json.dumps(data)
@@ -119,8 +118,7 @@ class GeoJSONBuildingListView(GeoJSONListView):
             return queryset.filter(
                 heritage_status__name__iexact=heritage_status
             )
-        else:
-            return queryset
+        return queryset
 
 
 class GeoJSONBuildingDetailView(GeoJSONDetailView):
@@ -238,7 +236,6 @@ class GeoDataMultipleObjectsMixin(object):
 class GeoDataListView(GeoDataMultipleObjectsMixin, GeoDataMapMixin, ListView):
     context_object_name = 'geodata'
     module = "list"
-    pass
 
 
 class BuildingListView(BuildingMixin, GeoDataListView):
@@ -262,8 +259,7 @@ class BuildingListView(BuildingMixin, GeoDataListView):
             return queryset.filter(
                 heritage_status__name__iexact=heritage_status
             )
-        else:
-            return queryset
+        return queryset
 
 
 class WorksiteListView(WorksiteMixin, GeoDataListView):

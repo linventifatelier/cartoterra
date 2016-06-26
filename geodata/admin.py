@@ -113,9 +113,9 @@ admin.site.register(EarthQuantity, admin.ModelAdmin)
 
 class BuildingAdmin(ImportExportMixin, GeoDataAbstractAdmin):
     """EarthGeoDataBuilding administration interface."""
-    list_display = ('name', 'pub_date', 'creator', 'credit_creator', 'unesco')
+    list_display = ('name', 'pub_date', 'creator', 'credit_creator')
     list_filter = ('name', 'pub_date', 'creator', 'credit_creator',
-                   'inauguration_date', 'architects', 'techniques', 'unesco',
+                   'inauguration_date', 'architects', 'techniques',
                    'stakeholder')
     search_fields = ['creator__username', 'name', 'techniques', 'architects',
                      'stakeholder']
@@ -125,7 +125,7 @@ class BuildingAdmin(ImportExportMixin, GeoDataAbstractAdmin):
                                              'inauguration_date', 'creator',
                                              'credit_creator', 'architects',
                                              'techniques', 'stakeholder',
-                                             'unesco', 'description', 'url',
+                                             'description', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
@@ -169,7 +169,7 @@ class EventAdmin(ImportExportMixin, GeoDataAbstractAdmin):
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'event_type',
                                              'pub_date', 'beginning_date',
-                                             'end_date', 'unesco_chair',
+                                             'end_date',
                                              'number_of_stakeholders',
                                              'type_of_stakeholders',
                                              'creator',
@@ -192,7 +192,6 @@ class StakeholderAdmin(ImportExportMixin, GeoDataAbstractAdmin):
     fieldsets = (
         ('Location Attributes', {'fields': (('name', 'pub_date',
                                              'creator', 'role',
-                                             'unesco_chair',
                                              'description', 'url',
                                              'contact'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
