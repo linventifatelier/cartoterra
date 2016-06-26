@@ -1,15 +1,5 @@
 {% extends "geodata/geodata_detail.html" %}
 {% load i18n %}
-{% load geodata %}
-
-{% block geodata_detail_title_extra %}
-    {% if geodata.unesco %}
-        {% world_heritage_logo %}
-    {% endif %}
-    {% if geodata.isceah %}
-        {% isceah_logo %}
-    {% endif %}
-{% endblock %}
 
 {% block body_geodata_extra %}
 {% if geodata.classification %}
@@ -112,26 +102,10 @@
     <td>{{ geodata.detailed_description }}</td>
 </tr>
 {% endif %}
-{% if geodata.unesco %}
-<tr>
-    <th>{% trans "World heritage" %}</th>
-    <td>
-        {% world_heritage_logo %}
-    </td>
-</tr>
-{% endif %}
 {% if geodata.protection_status %}
 <tr>
     <th>{% trans "Protection status" %}</th>
     <td>{{ geodata.protection_status }}</td>
-</tr>
-{% endif %}
-{% if geodata.isceah %}
-<tr>
-    <th>{% trans "ISCEAH" %}</th>
-    <td>
-        {% isceah_logo %}
-    </td>
 </tr>
 {% endif %}
 <tr>
