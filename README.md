@@ -138,6 +138,66 @@ $ source ~/cartoterra-env/bin/activate
 (cartoterra-env)$ python manage.py migrate --settings=settings.development
 (cartoterra-env)$ python manage.py runserver --settings=settings.development
 ```
+
+## Import/Export
+
+Massive import/export is possible in the administration interface for the
+following models:
+
+- Building
+- Worksite
+- Event
+- Stakeholder
+
+`geometry` column must use one of the syntax:
+
+- `LON,LAT` (for example `40,40`) for default `SRID` (`4326`)
+- `SRID:LON,LAT` (for example `4326:40,40`) to specify a different `SRID`
+
+The following columns can take multiple values (separated by ","):
+
+- Building:
+    - techniques
+    - stakeholder
+- Worksite
+    - techniques
+    - stakeholder
+- Event
+    - techniques
+    - stakeholder
+    - type_of_stakeholders
+- Stakeholder
+    - techniques
+    - role
+
+References to external models are specified with the name of the related entry. The following columns use references to external models:
+
+- Building
+    - techniques
+    - stakeholder
+    - creator
+    - classification
+    - use
+    - property_status
+    - earth_quantity
+    - protection_status
+    - heritage_status
+- Worksite
+    - techniques
+    - stakeholder
+    - creator
+- Event
+    - techniques
+    - stakeholder
+    - type_of_stakeholders
+    - creator
+    - event_type
+- Stakeholder
+    - techniques
+    - role
+    - creator
+
+
 ## Authors
 
 Félix Sipma [felix.sipma@@no-log.org](mailto:felix.sipma@@no-log.org)

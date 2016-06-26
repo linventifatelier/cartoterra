@@ -94,12 +94,11 @@ this entry.")
 
     def __init__(self, user=None, *args, **kwargs):
         super(BuildingForm, self).__init__(*args, **kwargs)
-        self.fields['unesco'].widget.attrs['disabled'] = 'disabled'
         self._user = user
         # https://stackoverflow.com/questions/913589/django-forms-inheritance-and-order-of-form-fields/27493844#27493844
         key_order = [
             'name', 'geometry', 'heritage_status', 'isceah',
-            'classification', 'use', 'cultural_landscape', 'unesco',
+            'classification', 'use', 'cultural_landscape',
             'protection_status', 'property_status', 'techniques',
             'earth_quantity', 'description', 'detailed_description',
             'inauguration_date', 'construction_date', 'condition',
@@ -116,16 +115,6 @@ this entry.")
         ]:
             self.fields[f].widget.attrs['class'] = 'geodata-isceah'
         self.fields['isceah'].widget.attrs['class'] = 'geodata-toggle-isceah'
-
-    def clean_unesco(self):
-        if self._user.has_perm('profile.world_heritage'):
-            return self.cleaned_data.get('unesco')
-        else:
-            instance = getattr(self, 'instance', None)
-            if instance and instance.pk:
-                return instance.unesco
-            else:
-                return self.fields['unesco'].initial
 
     class Meta:
         model = Building
@@ -151,18 +140,7 @@ class EventForm(GeoDataAbstractForm):
 
     def __init__(self, user=None, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
-        self.fields['unesco_chair'].widget.attrs['disabled'] = 'disabled'
         self._user = user
-
-    def clean_unesco_chair(self):
-        if self._user.has_perm('profile.unesco_chair'):
-            return self.cleaned_data.get('unesco_chair')
-        else:
-            instance = getattr(self, 'instance', None)
-            if instance and instance.pk:
-                return instance.unesco_chair
-            else:
-                return self.fields['unesco_chair'].initial
 
     class Meta:
         model = Event
@@ -170,26 +148,9 @@ class EventForm(GeoDataAbstractForm):
 
 
 class StakeholderForm(GeoDataAbstractForm):
-    isceah = forms.BooleanField(
-        required=False, help_text=_("Tick here if you are member of \
-ICOMOS-ISCEAH and want this entry to be referenced as ICOMOS-ISCEAH.")
-    )
-
     def __init__(self, user=None, *args, **kwargs):
         super(StakeholderForm, self).__init__(*args, **kwargs)
-        self.fields['isceah'].widget.attrs['disabled'] = 'disabled'
-        self.fields['unesco_chair'].widget.attrs['disabled'] = 'disabled'
         self._user = user
-
-    def clean_unesco_chair(self):
-        if self._user.has_perm('profile.unesco_chair'):
-            return self.cleaned_data.get('unesco_chair')
-        else:
-            instance = getattr(self, 'instance', None)
-            if instance and instance.pk:
-                return instance.unesco_chair
-            else:
-                return self.fields['unesco_chair'].initial
 
     class Meta:
         model = Stakeholder
