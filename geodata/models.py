@@ -266,6 +266,7 @@ class Building(GeoDataAbstract):
     stakeholder = models.ManyToManyField(
         Stakeholder, verbose_name=_("stakeholder"), blank=True
     )
+    simple = models.BooleanField(_("simple building"), default=False)
 
     class Meta:
         verbose_name = _("building")
