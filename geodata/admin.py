@@ -8,7 +8,6 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.admin import GenericTabularInline
-from imagewidget import AdminImageWidget
 from hvad import admin as hvadadmin
 from imagekit.admin import AdminThumbnail
 from leaflet.admin import LeafletGeoAdmin
@@ -18,27 +17,9 @@ from resources import BuildingResource, WorksiteResource, EventResource, \
     StakeholderResource
 
 
-class EarthAdmin(admin.ModelAdmin):
-    """Modified admin.ModelAdmin (include special AdminImageWidget for the
-    image field)."""
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        if db_field.name == 'image':
-            kwargs['widget'] = AdminImageWidget
-            return db_field.formfield(**kwargs)
-        return super(EarthAdmin, self).formfield_for_dbfield(db_field,
-                                                             **kwargs)
-
-
 class EarthRoleAdmin(hvadadmin.TranslatableAdmin):
     """EarthRole administration interface."""
-    # list_display = ['name']
-    # list_filter = ['name']
-    # search_fields = ['name']
 
-    fieldsets = (
-        # ('Roles', {'fields': (('name', ))}),
-        # ('Techniques', {'fields': (('name', 'description', 'image', 'url'))})
-    )
 
 admin.site.register(EarthRole, EarthRoleAdmin)
 
@@ -53,19 +34,13 @@ class EarthTechniqueAdmin(admin.ModelAdmin):
         ('Techniques', {'fields': (('name', 'description', 'url'))}),
     )
 
+
 admin.site.register(EarthTechnique, EarthTechniqueAdmin)
 
 
 class EventTypeAdmin(hvadadmin.TranslatableAdmin):
     """EarthEventType administration interface."""
-    # list_display = ['ident_name']
-    # list_filter = ['ident_name']
-    # search_fields = ['name']
 
-    fieldsets = (
-        # ('Identification Name', {'fields': (('ident_name', ))}),
-        # ('Techniques', {'fields': (('name', 'description', 'image', 'url'))})
-    )
 
 admin.site.register(EventType, EventTypeAdmin)
 
@@ -90,13 +65,6 @@ class GeoDataAbstractAdmin(LeafletGeoAdmin):
         ('Editable Map View', {'fields': ('geometry', )}),
     )
     inlines = [ImageInline]
-
-    # Default GeoDjango OpenLayers map options
-    # scrollable = False
-    # map_width = 700
-    # map_height = 325
-    # if settings.OPENLAYERS:
-    #     openlayers_url = settings.OPENLAYERS
 
     class Meta:
         """Abstract class."""
@@ -218,7 +186,6 @@ class EarthGroupAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EarthGroupAdminForm, self).__init__(*args, **kwargs)
         self.fields['description_markdown'].widget = AdminPagedownWidget()
-        #self.fields['image'].widget = AdminImageWidget()
 
 
 class EarthGroupAdmin(admin.ModelAdmin):
