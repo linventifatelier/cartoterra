@@ -41,7 +41,6 @@ function importFeature (feature, layer) {
 {% for layer in map_layers %}
 $.getJSON("{{ layer.url }}", function(data) {
     function getIconFromFeature (feature) {
-        console.debug(feature);
         if (feature.properties.simple) {
             return L.icon({
                 iconUrl: '{{ layer.external_graphic }}',
