@@ -118,7 +118,7 @@ this entry.")
 
     class Meta:
         model = Building
-        exclude = ('creator', 'pub_date', )
+        exclude = ('creator', 'pub_date', 'simple')
 
 
 class WorksiteForm(GeoDataAbstractForm):
