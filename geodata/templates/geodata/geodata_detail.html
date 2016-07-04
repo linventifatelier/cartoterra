@@ -60,7 +60,12 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2>
-                {{ geodata_verbose_name }}: {{ geodata.name }}
+                <span class="badge">
+                    <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
+                    <span class="cartoterra-recommended-by-count">{{ geodata.recommended_by.count }}</span>
+                </span>
+                <span>{{ geodata_verbose_name }}:</span>
+                <span>{{ geodata.name }}</span>
             </h2>
             <div class="cartoterra-geodata-groups">
             {% for group in geodata_groups %}
@@ -84,18 +89,12 @@
                     {% endif %}
                     {% if user|recommends_geodata:geodata %}
                     <a class="btn btn-default" title="{% trans "Recommended" %}" href="{% url geodata_recommend_url geodata.pk %}">
-                        <span class="badge">
-                            <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
-                            <span class="cartoterra-recommended-by-count">{{ geodata.recommended_by.count }}</span>
-                        </span>
+                        <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
                         <span class="cartoterra-recommended-by-text">{% trans "Recommended" %}</span>
                     </a>
                     {% else %}
                     <a class="tooltip-geodata btn btn-default geodata-inactive-text" title="{% trans "Recommend" %}" href="{% url geodata_recommend_url geodata.pk %}">
-                        <span class="badge">
-                            <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star-empty"></span>
-                            <span class="cartoterra-recommended-by-count">{{ geodata.recommended_by.count }}</span>
-                        </span>
+                        <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star-empty"></span>
                         <span class="cartoterra-recommended-by-text">{% trans "Click to recommend this geodata" %}</span>
                     </a>
                     {% endif %}

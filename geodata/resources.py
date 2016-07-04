@@ -1,7 +1,7 @@
 from models import Building, Worksite, Event, Stakeholder, \
     EventType, EarthTechnique, EarthRole, BuildingClassification, \
     BuildingUse, BuildingPropertyStatus, BuildingProtectionStatus, \
-    EarthQuantity, BuildingHeritageStatus
+    EarthQuantity, BuildingHeritageStatus, EarthGroup
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point
 from import_export import resources
@@ -48,6 +48,11 @@ class GeodataResource(resources.ModelResource):
         column_name='techniques',
         attribute='techniques',
         widget=ManyToManyWidget(model=EarthTechnique, field='name')
+    )
+    groups = fields.Field(
+        column_name='groups',
+        attribute='earthgroup_set',
+        widget=ManyToManyWidget(model=EarthGroup, field='name')
     )
 
     class Meta:

@@ -159,22 +159,27 @@ The following columns can take multiple values (separated by ","):
 - Building:
     - techniques
     - stakeholder
+    - groups
 - Worksite
     - techniques
     - stakeholder
+    - groups
 - Event
     - techniques
     - stakeholder
     - type_of_stakeholders
+    - groups
 - Stakeholder
     - techniques
     - role
+    - groups
 
 References to external models are specified with the name of the related entry. The following columns use references to external models:
 
 - Building
     - techniques
     - stakeholder
+    - groups
     - creator
     - classification
     - use
@@ -185,16 +190,19 @@ References to external models are specified with the name of the related entry. 
 - Worksite
     - techniques
     - stakeholder
+    - groups
     - creator
 - Event
     - techniques
     - stakeholder
     - type_of_stakeholders
+    - groups
     - creator
     - event_type
 - Stakeholder
     - techniques
     - role
+    - groups
     - creator
 
 

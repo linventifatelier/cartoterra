@@ -126,7 +126,7 @@ class BuildingAdmin(ImportExportMixin, GeoDataAbstractAdmin):
                                              'credit_creator', 'architects',
                                              'techniques', 'stakeholder',
                                              'description', 'url',
-                                             'contact'))}),
+                                             'contact', 'simple'))}),
         ('Editable Map View', {'fields': ('geometry', )}),
     )
     resource_class = BuildingResource

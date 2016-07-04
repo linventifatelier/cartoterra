@@ -80,7 +80,11 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2>
-                {{ group.name }}
+                <span class="badge">
+                    <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
+                    <span class="cartoterra-recommended-by-count">{{ group.recommended_by.count }}</span>
+                </span>
+                <span>{{ group.name }}</span>
             </h2>
             {% block geodata_detail_title_extra %}
             {% if group.logo %}
@@ -97,18 +101,12 @@
             {% endif %}
             {% if group in user.profile.r_group.all %}
                 <a class="btn btn-default" title="{% trans "Recommended" %}" href="{% url "toggle_rec_group" group.pk %}">
-                    <span class="badge">
-                        <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
-                        <span class="cartoterra-recommended-by-count">{{ group.recommended_by.count }}</span>
-                    </span>
+                    <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star"></span>
                     <span class="cartoterra-recommended-by-text">{% trans "Recommended" %}</span>
                 </a>
                 {% else %}
                 <a class="tooltip-geodata btn btn-default geodata-inactive-text" title="{% trans "Recommend" %}" href="{% url "toggle_rec_group" group.pk %}">
-                    <span class="badge">
-                        <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star-empty"></span>
-                        <span class="cartoterra-recommended-by-count">{{ group.recommended_by.count }}</span>
-                    </span>
+                    <span class="cartoterra-recommended-by-icon glyphicon glyphicon-star-empty"></span>
                     <span class="cartoterra-recommended-by-text">{% trans "Click to recommend this group" %}</span>
                 </a>
             {% endif %}
