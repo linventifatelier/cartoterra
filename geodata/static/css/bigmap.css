@@ -31,3 +31,8 @@
   font-family: "Glyphicons Halflings";
   content: "\e096";
 }
+
+.leaflet-control-data:after {
+  font-family: "Glyphicons Halflings";
+  content: "\e032";
+}

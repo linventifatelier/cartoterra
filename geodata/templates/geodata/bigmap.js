@@ -15,6 +15,36 @@ var declusterlayer{{ module }} = new L.layerGroup();
 
 
 {% block extra_layers %}
+var datacontrol{{ module }} = true;
+
+L.Control.Data{{ module }} = L.Control.extend(
+{
+    options:
+    {
+        position: 'topright',
+    },
+    onAdd: function (map) {
+        var controlDiv = L.DomUtil.create('div', 'leaflet-control-toolbar leaflet-bar');
+        L.DomEvent
+            .addListener(controlDiv, 'click', L.DomEvent.stopPropagation)
+            .addListener(controlDiv, 'click', L.DomEvent.preventDefault)
+        .addListener(controlDiv, 'click', function () {
+            if (datacontrol{{ module }}) {
+                datacontrol{{ module }} = false;
+            } else {
+                datacontrol{{ module }} = true;
+            };
+        });
+
+        var controlUI = L.DomUtil.create('a', 'leaflet-control-data', controlDiv);
+        controlUI.title = 'Select data to show';
+        controlUI.href = '#';
+        return controlDiv;
+    }
+});
+var dataControl{{ module }} = new L.Control.Data{{ module }}();
+map{{ module }}.addControl(dataControl{{ module }});
+
 var cluster{{ module }} = true;
 
 L.Control.Decluster{{ module }} = L.Control.extend(
