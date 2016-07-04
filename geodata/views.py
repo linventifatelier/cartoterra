@@ -95,6 +95,7 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                             'name': g.name,
                             'logo': g.logo.url if g.logo else None
                         } for g in m.earthgroup_set.all()],
+                        'simple': m.simple if m.simple else None,
                     }
                 } for m in queryset]}
         return json.dumps(data)

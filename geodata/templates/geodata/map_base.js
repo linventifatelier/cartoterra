@@ -41,11 +41,20 @@ function importFeature (feature, layer) {
 {% for layer in map_layers %}
 $.getJSON("{{ layer.url }}", function(data) {
     function getIconFromFeature (feature) {
-        return L.icon({
-            iconUrl: '{{ layer.external_graphic }}',
-            iconSize: [24, 24],
-            iconAnchor: [12, 12],
-        })
+        console.debug(feature);
+        if (feature.properties.simple) {
+            return L.icon({
+                iconUrl: '{{ layer.external_graphic }}',
+                iconSize: [12, 12],
+                iconAnchor: [6, 6],
+            })
+        } else {
+            return L.icon({
+                iconUrl: '{{ layer.external_graphic }}',
+                iconSize: [24, 24],
+                iconAnchor: [12, 12],
+            })
+        }
     };
     function placePointToLayer (feature, latlng) {
         return L.marker(latlng, { icon: getIconFromFeature(feature) });
