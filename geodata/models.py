@@ -1,13 +1,9 @@
 """GeoData models."""
 from django.contrib.gis.db import models
-# from django.conf import settings
-# from profiles.models import Profile
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from datetime import timedelta, date
 from django.utils.timezone import now
-# from image import AutoImageField
-# import os
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill, ResizeToFit
 from hvad.models import TranslatableModel, TranslatedFields
@@ -30,25 +26,6 @@ class EarthTechnique(models.Model):
     """A model for earthbuilding techniques."""
     name = models.CharField(_("name"), max_length=50)
     description = models.TextField(_("description"), blank=True, null=True)
-    # image = models.TextField(_("image"), blank=True, null=True)
-    # image = models.ImageField(upload_to='img/techniques', blank=True,
-    # null=True)
-    # ## image = ImageField(upload_to='img/techniques', blank=True, null=True)
-    # image = ImageWithThumbnailsField(upload_to='img/techniques',
-    # thumbnail={'size': (200, 200)}, blank=True, null=True)
-    # image = ImageField(upload_to='img/techniques', thumbnail={'size': (200,
-    # 200)}, blank=True, null=True)
-
-    # image_display = AutoImageField(upload_to='img/techniques/display',
-    # prepopulate_from='image', size=(300, 300), blank=True, null=True)
-    # image = StdImageField(upload_to='img/techniques', size=(640, 640),
-    # thumbnail_size=(100, 100), blank=True, null=True)
-    # image_display = AutoImageField(upload_to='img/techniques/display',
-    # prepopulate_from='image', size=(640, 640), blank=True, null=True)
-    # fullsize = models.ImageField(upload_to=os.path.join(MEDIA_ROOT,
-    # "img/technique/fullsize"))
-    # display = AutoImageField(upload_to=os.path.join(MEDIA_ROOT,
-    # "img/technique/display"),prepopulate_from='fullsize', size=(300, 300))
     url = models.URLField(_("website"), blank=True, null=True)
 
     def get_model(self):
@@ -59,7 +36,6 @@ class EarthTechnique(models.Model):
 
 
 class Image(models.Model):
-    # image = ImageField(upload_to='img/geodata', blank=True, null=True)
     original = models.ImageField(upload_to='img/geodata')
     display = ImageSpecField(source='original',
                              processors=[ResizeToFit(800, 800)],
@@ -364,7 +340,8 @@ class Event(GeoDataAbstract):
 class EarthGroup(models.Model):
     name = models.CharField(_("name"), max_length=50)
     pub_date = models.DateTimeField(_("creation date"), default=now)
-    description_markdown = models.TextField(_("description"), blank=True, null=True)
+    description_markdown = models.TextField(_("description"), blank=True,
+                                            null=True)
     description = models.TextField(blank=True, null=True, editable=False)
     logo = models.ImageField(upload_to='img/group')
     logo_thumbnail = ImageSpecField(source='logo',
