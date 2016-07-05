@@ -19,8 +19,8 @@ var declusterlayer{{ module }} = new L.layerGroup();
 var datacontrol{{ module }} = '';
 
 function closegeodatacontrol{{ module }} () {
-    $('#{{ module }}_map').removeClass('col-md-9');
-    $('#{{ module }}_toolbox').removeClass('col-md-3');
+    $('#{{ module }}_map').removeClass('col-md-9 col-sm-8 col-xs-6');
+    $('#{{ module }}_toolbox').removeClass('col-md-3 col-sm-4 col-xs-6');
     $('#{{ module }}_toolbox').css("display", "none");
     $('.geodata-toolbox-tool').css("display", "none");
     datacontrol{{ module }} = '';
@@ -31,8 +31,8 @@ function togglegeodatacontrol{{ module }} (control) {
         if (datacontrol{{ module }} == control) {
             closegeodatacontrol{{ module }}();
         } else if (datacontrol{{ module }} == '') {
-            $('#{{ module }}_map').addClass('col-md-9');
-            $('#{{ module }}_toolbox').addClass('col-md-3');
+            $('#{{ module }}_map').addClass('col-md-9 col-sm-8 col-xs-6');
+            $('#{{ module }}_toolbox').addClass('col-md-3 col-sm-4 col-xs-6');
             $('#{{ module }}_toolbox').css("display", "block");
             $(control).css("display", "block");
             datacontrol{{ module }} = control;
