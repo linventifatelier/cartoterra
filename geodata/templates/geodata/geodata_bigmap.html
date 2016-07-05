@@ -59,6 +59,15 @@
 <div class="map-toolbox">
   <div class="geodata-bigmap" id="{{ module }}_map"></div>
 
+  <div class="geodata-toolbox" id="{{ module }}_toolbox">
+    <button type="button" class="close" onclick="toggledatacontrol{{ module }}()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h2>{% trans "Select data" %}</h2>
+    <label>
+        <input type="checkbox" id="buildingCheckbox" value="" />
+        {% trans "Buildings" %}
+    </label>
+  </div>
+
   <div class="map-overlay">
   {% if not request.user.is_authenticated %}
     <div class="cartoterra-header text-center alert alert-dismissible">

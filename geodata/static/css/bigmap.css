@@ -1,7 +1,6 @@
 .geodata-bigmap {
   position: relative;
   height: 100%;
-  width: 100%;
   z-index: 1000;
   min-height:100%;
 }
@@ -35,4 +34,14 @@
 .leaflet-control-data:after {
   font-family: "Glyphicons Halflings";
   content: "\e032";
+}
+
+.map-toolbox {
+  overflow: auto;
+  background-color: #fff;
+}
+
+.geodata-toolbox {
+  display: none;
+  overflow: auto;
 }
