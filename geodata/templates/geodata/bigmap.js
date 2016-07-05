@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block cluster_layer %}
-var clusterlayer{{ module }} = new L.MarkerClusterGroup();
+var clusterlayer{{ module }} = new L.markerClusterGroup();
 var declusterlayer{{ module }} = new L.layerGroup();
 {% endblock %}
 
@@ -86,4 +86,31 @@ L.Control.Decluster{{ module }} = L.Control.extend(
 });
 var declusterControl{{ module }} = new L.Control.Decluster{{ module }}();
 map{{ module }}.addControl(declusterControl{{ module }});
+
+var hasclustercontrol{{ module }} = true;
+
+function geodataCheckbox (id, markerclassname) {
+    $(id).change(function(event) {
+        if (hasclustercontrol{{ module }}) {
+            map{{ module }}.removeControl(declusterControl{{ module }});
+            hasclustercontrol{{ module }} = false;
+        }
+        if (cluster{{ module }}) {
+            map{{ module }}.removeLayer(clusterlayer{{ module }});
+            map{{ module }}.addLayer(declusterlayer{{ module }});
+            cluster{{ module }} = false;
+        };
+        var checkbox = event.target;
+        if (checkbox.checked) {
+            $('.' + markerclassname).css("display", "");
+        } else {
+            $('.' + markerclassname).css("display", "none");
+        }
+    }) ;
+};
+
+geodataCheckbox('#buildingCheckbox', 'geodata-marker-buildings');
+geodataCheckbox('#worksiteCheckbox', 'geodata-marker-worksites');
+geodataCheckbox('#eventCheckbox', 'geodata-marker-events');
+geodataCheckbox('#stakeholderCheckbox', 'geodata-marker-stakeholders');
 {% endblock %}

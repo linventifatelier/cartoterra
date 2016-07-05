@@ -62,10 +62,30 @@
   <div class="geodata-toolbox" id="{{ module }}_toolbox">
     <button type="button" class="close" onclick="toggledatacontrol{{ module }}()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h2>{% trans "Select data" %}</h2>
-    <label>
-        <input type="checkbox" id="buildingCheckbox" value="" />
-        {% trans "Buildings" %}
-    </label>
+    <div>
+        <label>
+            <input type="checkbox" id="buildingCheckbox" checked />
+            {% trans "Buildings" %}
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" id="worksiteCheckbox" checked />
+            {% trans "Worksites" %}
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" id="eventCheckbox" checked />
+            {% trans "Events" %}
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" id="stakeholderCheckbox" checked />
+            {% trans "Stakeholders" %}
+        </label>
+    </div>
   </div>
 
   <div class="map-overlay">
