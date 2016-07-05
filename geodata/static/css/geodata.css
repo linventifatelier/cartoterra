@@ -60,3 +60,38 @@
 .geodata-form {
   padding-top: 1em;
 }
+
+.leaflet-right .leaflet-control {
+  margin-right: 0;
+}
+
+.leaflet-bar a:first-child {
+  border-top-right-radius: 0;
+}
+
+.leaflet-bar a:last-child {
+  border-bottom-right-radius: 0;
+}
+
+.leaflet-bar a {
+  background-color: rgba(0,0,0,0.6);
+  color: #fff;
+}
+
+.leaflet-bar a.leaflet-disabled {
+  background-color: rgba(0,0,0,0.4);
+}
+
+.leaflet-bar {
+  box-shadow: none;
+}
+
+.leaflet-bar a:hover {
+  background-color: rgba(0,0,0,0.9);
+  color: #fff;
+}
+
+.leaflet-bar a.leaflet-disabled:hover {
+  background-color: rgba(0,0,0,0.4);
+  color: #bbb;
+}
