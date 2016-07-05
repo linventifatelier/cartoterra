@@ -36,6 +36,11 @@
   content: "\e032";
 }
 
+.leaflet-control-add:after {
+  font-family: "Glyphicons Halflings";
+  content: "\e081";
+}
+
 .map-toolbox {
   overflow: auto;
   background-color: #fff;
@@ -44,4 +49,8 @@
 .geodata-toolbox {
   display: none;
   overflow: auto;
+}
+
+.geodata-toolbox-tool {
+  display: none;
 }

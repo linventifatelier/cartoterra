@@ -60,31 +60,48 @@
   <div class="geodata-bigmap" id="{{ module }}_map"></div>
 
   <div class="geodata-toolbox" id="{{ module }}_toolbox">
-    <button type="button" class="close" onclick="toggledatacontrol{{ module }}()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h2>{% trans "Select data" %}</h2>
-    <div>
-        <label>
-            <input type="checkbox" id="buildingCheckbox" checked />
-            {% trans "Buildings" %}
-        </label>
+    <button type="button" class="close" onclick="closegeodatacontrol{{ module }}()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <div class="geodata-toolbox-tool" id="{{ module }}_toolbox_filter">
+        <h2>{% trans "Select data" %}</h2>
+        <div>
+            <label>
+                <input type="checkbox" id="buildingCheckbox" checked />
+                {% trans "Buildings" %}
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" id="worksiteCheckbox" checked />
+                {% trans "Worksites" %}
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" id="eventCheckbox" checked />
+                {% trans "Events" %}
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" id="stakeholderCheckbox" checked />
+                {% trans "Stakeholders" %}
+            </label>
+        </div>
     </div>
-    <div>
-        <label>
-            <input type="checkbox" id="worksiteCheckbox" checked />
-            {% trans "Worksites" %}
-        </label>
-    </div>
-    <div>
-        <label>
-            <input type="checkbox" id="eventCheckbox" checked />
-            {% trans "Events" %}
-        </label>
-    </div>
-    <div>
-        <label>
-            <input type="checkbox" id="stakeholderCheckbox" checked />
-            {% trans "Stakeholders" %}
-        </label>
+    <div class="geodata-toolbox-tool" id="{{ module }}_toolbox_add">
+        <h2>{% trans "Add a geodata" %}</h2>
+        <div>
+            <a href="{% url "add_building" %}"><img src="{% static "img/building_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Building" %}" /> {% trans "Building" %}</a>
+        </div>
+        <div>
+            <a href="{% url "add_worksite" %}"><img src="{% static "img/worksite_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Worksite" %}" /> {% trans "Worksite" %}</a>
+        </div>
+        <div>
+            <a href="{% url "add_event" %}"><img src="{% static "img/event_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Event" %}" /> {% trans "Event" %}</a>
+        </div>
+        <div>
+            <a href="{% url "add_stakeholder" %}"><img src="{% static "img/stakeholder_icon_h25.png" %}" width="15" height="15" alt="{% trans "Add Stakeholder" %}" /> {% trans "Stakeholder" %}</a>
+        </div>
     </div>
   </div>
 
