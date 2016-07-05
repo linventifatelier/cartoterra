@@ -41,27 +41,30 @@ function importFeature (feature, layer) {
 {% for layer in map_layers %}
 $.getJSON("{{ layer.url }}", function(data) {
     function getIconFromFeature (feature) {
-        console.debug(feature);
+        var size = [24, 24];
+        var anchor = [12, 12];
+        var classname = 'geodata-marker-{{ layer.name|lower|escapejs }}';
+
         if (feature.properties.simple) {
-            return L.icon({
-                iconUrl: '{{ layer.external_graphic }}',
-                iconSize: [12, 12],
-                iconAnchor: [6, 6],
-            })
-        } else {
-            return L.icon({
-                iconUrl: '{{ layer.external_graphic }}',
-                iconSize: [24, 24],
-                iconAnchor: [12, 12],
-            })
-        }
+            size = [12, 12];
+            anchor = [6, 6];
+            className = 'geodata-marker-{{ layer.name|lower|escapejs }} geodata-marker-{{ layer.name|lower|escapejs }}-simple';
+        };
+
+        return L.icon({
+            iconUrl: '{{ layer.external_graphic }}',
+            iconSize: size,
+            iconAnchor: anchor,
+            className: classname,
+        })
     };
     function placePointToLayer (feature, latlng) {
         return L.marker(latlng, { icon: getIconFromFeature(feature) });
     };
     var geojsonlayer{{ module }} = L.geoJson(data, {
         pointToLayer: placePointToLayer,
-        onEachFeature: importFeature
+        onEachFeature: importFeature,
+        className: 'geodata-layer-{{ layer.name|lower|escapejs }}',
     });
     {% block layers_getson_extra %}
     {% endblock %}
