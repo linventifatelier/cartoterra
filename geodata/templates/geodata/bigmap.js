@@ -15,19 +15,21 @@ var declusterlayer{{ module }} = new L.layerGroup();
 
 
 {% block extra_layers %}
-var datacontrol{{ module }} = false;
+var datacontrol{{ module }} = '';
 
-function toggledatacontrol{{ module }} () {
-    if (datacontrol{{ module }}) {
-        $('#{{ module }}_map').removeClass('col-md-9');
-        $('#{{ module }}_toolbox').removeClass('col-md-3');
-        $('#{{ module }}_toolbox').css("display", "none");
-        datacontrol{{ module }} = false;
-    } else {
-        $('#{{ module }}_map').addClass('col-md-9');
-        $('#{{ module }}_toolbox').addClass('col-md-3');
-        $('#{{ module }}_toolbox').css("display", "block");
-        datacontrol{{ module }} = true;
+function togglegeodatacontrol{{ module }} (control) {
+    return function () {
+        if (datacontrol{{ module }} == control) {
+            $('#{{ module }}_map').removeClass('col-md-9');
+            $('#{{ module }}_toolbox').removeClass('col-md-3');
+            $('#{{ module }}_toolbox').css("display", "none");
+            datacontrol{{ module }} = '';
+        } else {
+            $('#{{ module }}_map').addClass('col-md-9');
+            $('#{{ module }}_toolbox').addClass('col-md-3');
+            $('#{{ module }}_toolbox').css("display", "block");
+            datacontrol{{ module }} = control;
+        };
     };
 };
 
@@ -42,7 +44,7 @@ L.Control.Data{{ module }} = L.Control.extend(
         L.DomEvent
             .addListener(controlDiv, 'click', L.DomEvent.stopPropagation)
             .addListener(controlDiv, 'click', L.DomEvent.preventDefault)
-            .addListener(controlDiv, 'click', toggledatacontrol{{ module }});
+            .addListener(controlDiv, 'click', togglegeodatacontrol{{ module }}('data'));
 
         var controlUI = L.DomUtil.create('a', 'leaflet-control-data', controlDiv);
         controlUI.title = 'Select data to show';
