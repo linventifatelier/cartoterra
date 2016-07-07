@@ -377,7 +377,12 @@ class BigMapView(TemplateView):
         context['module'] = self.module
         context['map_layers'] = self.map_layers
         context['techniques'] = EarthTechnique.objects.all()
-        context['types'] = ['Building', "Worksite", "Event", "Stakeholder"]
+        context['types'] = [
+            {'name': 'Building', 'count': Building.objects.count()},
+            {'name': 'Worksite', 'count': Worksite.objects.count()},
+            {'name': 'Event', 'count': Event.objects.count()},
+            {'name': 'Stakeholder', 'count': Stakeholder.objects.count()},
+        ]
         return context
 
 

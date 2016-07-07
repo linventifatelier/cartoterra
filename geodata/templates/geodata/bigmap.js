@@ -129,7 +129,7 @@ function geodataCheckbox (id, markerclassname) {
 };
 
 {% for type in types %}
-geodataCheckbox('#{{ type|lower|escapejs }}TypeCheckbox', 'geodata-marker-type-{{ type|lower|escapejs }}');
+geodataCheckbox('#{{ type.name|lower|escapejs }}TypeCheckbox', 'geodata-marker-type-{{ type.name|lower|escapejs }}');
 {% endfor %}
 
 {% for technique in techniques %}
