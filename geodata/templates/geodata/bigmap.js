@@ -128,8 +128,12 @@ function geodataCheckbox (id, markerclassname) {
     }) ;
 };
 
-geodataCheckbox('#buildingCheckbox', 'geodata-marker-buildings');
-geodataCheckbox('#worksiteCheckbox', 'geodata-marker-worksites');
-geodataCheckbox('#eventCheckbox', 'geodata-marker-events');
-geodataCheckbox('#stakeholderCheckbox', 'geodata-marker-stakeholders');
+{% for type in types %}
+geodataCheckbox('#{{ type|lower|escapejs }}TypeCheckbox', 'geodata-marker-type-{{ type|lower|escapejs }}');
+{% endfor %}
+
+{% for technique in techniques %}
+geodataCheckbox('#{{ technique.name|lower|escapejs }}TechniqueCheckbox', 'geodata-marker-technique-{{ technique.name|lower|escapejs }}');
+{% endfor %}
+geodataCheckbox('#techniqueNoneCheckbox', 'geodata-marker-notechnique');
 {% endblock %}
