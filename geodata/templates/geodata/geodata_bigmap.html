@@ -68,8 +68,9 @@
             {% for type in types %}
             <div>
                 <label>
-                    <input type="checkbox" id="{{ type|lower|escapejs }}TypeCheckbox" checked />
-                    {{ type|lower }}
+                    <input type="checkbox" id="{{ type.name|lower|escapejs }}TypeCheckbox" checked />
+                    <span>{{ type.name|lower }}</span>
+                    <span>({{ type.count }})</span>
                 </label>
             </div>
             {% endfor %}
