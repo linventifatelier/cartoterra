@@ -64,28 +64,32 @@
     <div class="geodata-toolbox-tool" id="{{ module }}_toolbox_filter">
         <h2>{% trans "Select data" %}</h2>
         <div>
-            <label>
-                <input type="checkbox" id="buildingCheckbox" checked />
-                {% trans "Buildings" %}
-            </label>
+            <h3>{% trans "Type" %}</h3>
+            {% for type in types %}
+            <div>
+                <label>
+                    <input type="checkbox" id="{{ type|lower|escapejs }}TypeCheckbox" checked />
+                    {{ type|lower }}
+                </label>
+            </div>
+            {% endfor %}
         </div>
         <div>
-            <label>
-                <input type="checkbox" id="worksiteCheckbox" checked />
-                {% trans "Worksites" %}
-            </label>
-        </div>
-        <div>
-            <label>
-                <input type="checkbox" id="eventCheckbox" checked />
-                {% trans "Events" %}
-            </label>
-        </div>
-        <div>
-            <label>
-                <input type="checkbox" id="stakeholderCheckbox" checked />
-                {% trans "Stakeholders" %}
-            </label>
+            <h3>{% trans "Techniques" %}</h3>
+            {% for technique in techniques %}
+            <div>
+                <label>
+                    <input type="checkbox" id="{{ technique.name|lower|escapejs }}TechniqueCheckbox" checked />
+                    {{ technique.name }}
+                </label>
+            </div>
+            {% endfor %}
+            <div>
+                <label>
+                    <input type="checkbox" id="techniqueNoneCheckbox" checked />
+                    {% trans "Not provided" %}
+                </label>
+            </div>
         </div>
     </div>
     <div class="geodata-toolbox-tool" id="{{ module }}_toolbox_add">
