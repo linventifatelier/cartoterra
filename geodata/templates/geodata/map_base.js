@@ -57,7 +57,6 @@ $.getJSON("{{ layer.url }}", function(data) {
             });
         } else {
             classname = classname + ' geodata-marker-notechnique';
-            console.debug(classname);
         }
 
         return L.icon({
