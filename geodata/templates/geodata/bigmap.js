@@ -120,11 +120,20 @@ function geodataCheckbox (id, markerclassname) {
             cluster{{ module }} = false;
         };
         var checkbox = event.target;
-        if (checkbox.checked) {
-            $('.' + markerclassname).css("display", "");
-        } else {
-            $('.' + markerclassname).css("display", "none");
-        }
+        $('.' + markerclassname).each(function () {
+            var valhide = $(this).data("geodata-marker-hide") || 0;
+            if (checkbox.checked) {
+                valhide--;
+            } else {
+                valhide++;
+            };
+            $(this).data("geodata-marker-hide", valhide);
+            if (valhide > 0) {
+                $(this).css("display", "none");
+            } else {
+                $(this).css("display", "");
+            };
+        });
     }) ;
 };
 
