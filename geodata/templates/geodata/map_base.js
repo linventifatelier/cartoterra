@@ -57,7 +57,13 @@ $.getJSON("{{ layer.url }}", function(data) {
             });
         } else {
             classname = classname + ' geodata-marker-notechnique';
-        }
+        };
+
+        if (feature.properties.subtypes && feature.properties.subtypes.length > 0) {
+            feature.properties.subtypes.forEach(function(entry) {
+                classname = classname + ' geodata-marker-subtype-' + feature.properties.type + '-' + entry;
+            });
+        };
 
         return L.icon({
             iconUrl: '{{ layer.external_graphic }}',
