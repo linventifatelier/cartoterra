@@ -65,29 +65,27 @@
         <h2>{% trans "Select data" %}</h2>
         <div>
             <h3>{% trans "Type" %}</h3>
-            <ul>
             {% for type in types %}
-                <li>
-                    <label>
-                        <input type="checkbox" id="{{ type.name|lower|escapejs }}TypeCheckbox" checked />
-                        <span>{{ type.name|lower }}</span>
-                        <span>({{ type.count }})</span>
-                    </label>
-                    {% if type.subtypes %}
-                    <ul>
-                    {% for subtype in type.subtypes %}
-                        <li>
-                            <label>
-                                <input type="checkbox" id="{{ type.name|lower|escapejs }}{{ subtype.ident_name|lower|escapejs }}SubTypeCheckbox" checked />
-                                <span>{{ subtype.name }}</span>
-                            </label>
-                        </li>
-                    {% endfor %}
-                    </ul>
-                    {% endif %}
-                </li>
+            <div>
+                <label>
+                    <input type="checkbox" id="{{ type.name|lower|escapejs }}TypeCheckbox" checked />
+                    <span>{{ type.name|lower }}</span>
+                    <span>({{ type.count }})</span>
+                </label>
+                {% if type.subtypes %}
+                <ul>
+                {% for subtype in type.subtypes %}
+                    <li>
+                        <label>
+                            <input type="checkbox" id="{{ type.name|lower|escapejs }}{{ subtype.ident_name|lower|escapejs }}SubTypeCheckbox" checked />
+                            <span>{{ subtype.name }}</span>
+                        </label>
+                    </li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
             {% endfor %}
-            </ul>
         </div>
         <div>
             <h3>{% trans "Techniques" %}</h3>
@@ -102,7 +100,7 @@
             <div>
                 <label>
                     <input type="checkbox" id="techniqueNoneCheckbox" checked />
-                    {% trans "Not provided" %}
+                    {% trans "not provided" %}
                 </label>
             </div>
         </div>
