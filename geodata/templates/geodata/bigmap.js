@@ -142,8 +142,6 @@ geodataCheckbox('#{{ type.name|lower|escapejs }}TypeCheckbox', 'geodata-marker-t
 {% if type.subtypes %}
 {% for subtype in type.subtypes %}
 geodataCheckbox('#{{ type.name|lower|escapejs }}{{ subtype.ident_name|lower|escapejs }}SubTypeCheckbox', 'geodata-marker-subtype-{{ type.name|lower|escapejs }}-{{ subtype.ident_name|lower|escapejs }}');
-console.debug("#{{ type.name|lower|escapejs }}{{ subtype.ident_name|lower|escapejs }}SubTypeCheckbox");
-console.debug("geodata-marker-subtype-{{ type.name|lower|escapejs }}-{{ subtype.ident_name|lower|escapejs }}");
 {% endfor %}
 {% endif %}
 {% endfor %}
