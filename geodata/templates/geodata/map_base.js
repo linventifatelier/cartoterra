@@ -65,6 +65,12 @@ $.getJSON("{{ layer.url }}", function(data) {
             });
         };
 
+        if (feature.properties.date) {
+            classname = classname + ' geodata-marker-date-' + feature.properties.date;
+        } else {
+            classname = classname + ' geodata-marker-nodate'
+        };
+
         return L.icon({
             iconUrl: '{{ layer.external_graphic }}',
             iconSize: size,

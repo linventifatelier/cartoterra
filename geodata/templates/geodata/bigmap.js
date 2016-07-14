@@ -108,34 +108,92 @@ map{{ module }}.addControl(declusterControl{{ module }});
 
 var hasclustercontrol{{ module }} = true;
 
+function initFilter () {
+    if (hasclustercontrol{{ module }}) {
+        map{{ module }}.removeControl(declusterControl{{ module }});
+        hasclustercontrol{{ module }} = false;
+    }
+    if (cluster{{ module }}) {
+        map{{ module }}.removeLayer(clusterlayer{{ module }});
+        map{{ module }}.addLayer(declusterlayer{{ module }});
+        cluster{{ module }} = false;
+    };
+};
+
 function geodataCheckbox (id, markerclassname) {
     $(id).change(function(event) {
-        if (hasclustercontrol{{ module }}) {
-            map{{ module }}.removeControl(declusterControl{{ module }});
-            hasclustercontrol{{ module }} = false;
-        }
-        if (cluster{{ module }}) {
-            map{{ module }}.removeLayer(clusterlayer{{ module }});
-            map{{ module }}.addLayer(declusterlayer{{ module }});
-            cluster{{ module }} = false;
-        };
+        initFilter();
         var checkbox = event.target;
         $('.' + markerclassname).each(function () {
             var valhide = $(this).data("geodata-marker-hide") || 0;
+            var valdatehide = $(this).data("geodata-marker-date-hide") || 0;
             if (checkbox.checked) {
                 valhide--;
             } else {
                 valhide++;
             };
             $(this).data("geodata-marker-hide", valhide);
-            if (valhide > 0) {
+            if (valhide + valdatehide > 0) {
                 $(this).css("display", "none");
             } else {
                 $(this).css("display", "");
             };
         });
-    }) ;
+    });
 };
+
+function dateFromString (str) {
+    if (str) {
+        var datearray = str.split("-");
+        var date = new Date(datearray[0], datearray[1] - 1, datearray[2]);
+        return date;
+    } else {
+        return null;
+    }
+};
+
+function geodataDateCheckbox (id, start, end) {
+    $(id).add(start).add(end).change(function(event) {
+        initFilter();
+        var checkboxchecked = $('#dateCheckbox').is(':checked');
+        var startdate = dateFromString($(start).val());
+        var enddate = dateFromString($(end).val());
+
+        $('.geodata-marker-nodate').each(function () {
+            var valdatehide = 0;
+            var valhide = $(this).data("geodata-marker-hide") || 0;
+            if (checkboxchecked) {
+                valdatehide = 1;
+            };
+            $(this).data("geodata-marker-date-hide", valdatehide);
+            if (valhide + valdatehide > 0) {
+                $(this).css("display", "none");
+            } else {
+                $(this).css("display", "");
+            };
+        });
+
+        $('[class^=geodata-marker-date-],[class*= geodata-marker-date-]').each(function () {
+            var valdatehide = 0;
+            var valhide = $(this).data("geodata-marker-hide") || 0;
+            if (checkboxchecked && startdate && enddate) {
+                var datematch = $(this).attr('class').match(/geodata-marker-date-([0-9-]+)/);
+                var date = dateFromString(datematch[1]);
+                if (!(date >= startdate && date <= enddate)) {
+                    valdatehide = 1;
+                };
+            };
+            $(this).data("geodata-marker-date-hide", valdatehide);
+            if (valhide + valdatehide > 0) {
+                $(this).css("display", "none");
+            } else {
+                $(this).css("display", "");
+            };
+        });
+    });
+};
+
+geodataDateCheckbox('#dateCheckbox', '#dateStart', '#dateEnd');
 
 {% for type in types %}
 geodataCheckbox('#{{ type.name|lower|escapejs }}TypeCheckbox', 'geodata-marker-type-{{ type.name|lower|escapejs }}');

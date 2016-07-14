@@ -75,6 +75,15 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
             return [escapejs(r.ident_name.lower()) for r in m.role.all()]
         return None
 
+    def _get_date(self, m):
+        if isinstance(m, Building) and m.inauguration_date:
+            return m.inauguration_date.isoformat()
+        if isinstance(m, Worksite) and m.inauguration_date:
+            return m.inauguration_date.isoformat()
+        if isinstance(m, Event) and m.beginning_date:
+            return m.beginning_date.isoformat()
+        return None
+
     def convert_context_to_json(self, context):
         "Convert the context dictionary into a GeoJSON object"
         queryset = self.get_queryset()
@@ -107,6 +116,7 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                         'techniques': [escapejs(t.name.lower()) for t in m.techniques.all()],
                         'type': escapejs(m.__class__.__name__.lower()),
                         'subtypes': self._get_subtypes(m),
+                        'date': self._get_date(m),
                         'simple': m.simple if isinstance(m, Building) else None,
                     }
                 } for m in queryset]}
