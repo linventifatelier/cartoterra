@@ -13,8 +13,11 @@
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="New document 1">
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="cartoterra.svg"
+   inkscape:export-filename="/Users/gregoirepaccoud/Documents/WEB/cartoterra-develop/cartoterra/cartoterra/static/img/cartoterralogo_big.png"
+   inkscape:export-xdpi="939.56927"
+   inkscape:export-ydpi="939.56927">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,13 +27,13 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="304.68419"
-     inkscape:cy="702.93237"
+     inkscape:zoom="1.6251106"
+     inkscape:cx="294.31947"
+     inkscape:cy="821.21785"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1366"
+     inkscape:window-width="1280"
      inkscape:window-height="754"
      inkscape:window-x="0"
      inkscape:window-y="14"
@@ -72,36 +75,7 @@
            height="67.14286"
            x="311.42856"
            y="73.790756" /></flowRegion><flowPara
-         id="flowPara2995"></flowPara></flowRoot>    <g
-       id="g3023">
-      <text
-         transform="scale(0.81179359,1.2318402)"
-         sodipodi:linespacing="125%"
-         id="text3001"
-         y="182.11513"
-         x="59.505543"
-         style="font-size:95.72022246999999595px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           style="font-size:76.57617188000000397px;fill:#ffffff"
-           y="182.11513"
-           x="59.505543"
-           id="tspan3003"
-           sodipodi:role="line">CartoTerra.Net</tspan></text>
-      <text
-         transform="scale(0.94770399,1.0551818)"
-         sodipodi:linespacing="125%"
-         id="text3005"
-         y="203.9642"
-         x="544.27893"
-         style="font-size:56.47956848px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           style="fill:#ff0000"
-           y="203.9642"
-           x="544.27893"
-           id="tspan3007"
-           sodipodi:role="line">BETA</tspan></text>
-    </g>
-    <flowRoot
+         id="flowPara2995" /></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot3009"
        style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Bitstream Vera Sans;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
@@ -111,5 +85,63 @@
            height="42.857143"
            x="48.57143"
            y="176.6479" /></flowRegion><flowPara
-         id="flowPara3015"></flowPara></flowRoot>  </g>
+         id="flowPara3015" /></flowRoot>    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="295.71429"
+       y="242.36218"
+       id="text3001"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3003"
+         x="295.71429"
+         y="242.36218"
+         style="-inkscape-font-specification:Designosaur;font-family:Designosaur;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">cartoterra.net</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:#000003;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="path3005"
+       sodipodi:cx="262.14285"
+       sodipodi:cy="232.36218"
+       sodipodi:rx="20.714285"
+       sodipodi:ry="20.932703"
+       d="m 282.85714,232.36218 a 20.714285,20.932703 0 1 1 -41.42857,0 20.714285,20.932703 0 1 1 41.42857,0 z"
+       transform="matrix(0.64456012,0,0,0.64456012,105.49144,81.528401)" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:0.41027215;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 270.7634,244.43067 c 0,8e-4 -4.70854,-5.4448 -4.86836,-12.81072 -0.15982,-7.36592 3.33896,-12.09721 3.33896,-12.09721"
+       id="path3777"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="czc" />
+    <path
+       sodipodi:nodetypes="czc"
+       inkscape:connector-curvature="0"
+       id="path3779"
+       d="m 273.49742,245.1236 c 0,0 -2.60474,-4.67516 -2.76456,-12.41519 -0.15982,-7.74003 1.66089,-11.50236 1.66089,-11.50236"
+       style="fill:none;stroke:#ffffff;stroke-width:0.41027215;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       sodipodi:nodetypes="czc"
+       inkscape:connector-curvature="0"
+       id="path3783"
+       d="m 269.17593,244.43067 c 0,0 -6.99281,-4.8515 -7.15263,-12.13887 -0.15982,-7.28737 3.11468,-11.27084 3.11468,-11.27084"
+       style="fill:none;stroke:#ffffff;stroke-width:0.41027215;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       sodipodi:nodetypes="czc"
+       inkscape:connector-curvature="0"
+       id="path3785"
+       d="m 261.63891,236.39959 c 0,0 3.78507,1.94233 10.24819,1.96992 6.46312,0.0276 12.37723,-1.74309 12.37723,-1.74309"
+       style="fill:none;stroke:#ffffff;stroke-width:0.41027215;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:0.41027215;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 262.10919,239.09222 c 0,0 5.924,2.34545 9.71073,2.37303 3.78673,0.0276 7.40556,-0.66814 7.40556,-0.66814"
+       id="path3787"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+    <path
+       sodipodi:nodetypes="ccc"
+       inkscape:connector-curvature="0"
+       id="path3789"
+       d="m 264.10919,241.39182 c 0,0 5.924,2.34545 9.71073,2.37303 3.78673,0.0276 7.40556,-0.66814 7.40556,-0.66814"
+       style="fill:none;stroke:#ffffff;stroke-width:0.41027215;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+  </g>
 </svg>
