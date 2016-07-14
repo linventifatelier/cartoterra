@@ -29,7 +29,8 @@
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
-{% block site_brand %}<a class="brand" href="{% url "home" %}"><img src="{% static "img/cartoterra.png" %}" alt="site-logo" /></a>{% endblock %}
+{% block site_brand %}<div class="logo"></div>
+<a class="brand logo" href="{% url "home" %}"><img src="{% static "img/cartoterralogo_white.png" %}" alt="site-logo" /></a>{% endblock %}
 
 {% comment %}
 <div id='langbar' style='text-align:right;padding-top:5px;'>

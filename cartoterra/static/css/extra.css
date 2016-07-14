@@ -57,6 +57,10 @@ input[type="color"],
 
 /* HEADER */
 
+.logo {
+height:15px;
+}
+
 .buildings {
   font-family:arial, helvetica, sans-serif;
   font-size:1.2em;
@@ -298,6 +302,19 @@ body:before {
 .cartoterra-home-category-background {
     height: 100px;
     width: 100%;
+}
+
+.cartoterra-home-categories {
+    margin-left:-25px;
+}
+
+.cartoterra-home-categories-legend {
+    margin-top:6px;
+    font-weight:bold;
+}
+
+.cartoterra-home-welcome-cont {
+    width: 338px;
 }
 
 .cartoterra-center-cropped {
