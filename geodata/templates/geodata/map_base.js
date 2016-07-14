@@ -41,13 +41,13 @@ function importFeature (feature, layer) {
 {% for layer in map_layers %}
 $.getJSON("{{ layer.url }}", function(data) {
     function getIconFromFeature (feature) {
-        var size = [24, 24];
-        var anchor = [12, 12];
+        var size = [12, 12];
+        var anchor = [6, 6];
         var classname = 'geodata-marker-{{ layer.name|lower|escapejs }}';
 
         if (feature.properties.simple) {
-            size = [12, 12];
-            anchor = [6, 6];
+            size = [6, 6];
+            anchor = [3, 3];
             className = 'geodata-marker-{{ layer.name|lower|escapejs }} geodata-marker-{{ layer.name|lower|escapejs }}-simple';
         };
 
