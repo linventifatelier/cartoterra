@@ -40,4 +40,14 @@
     {% endif %}
     </td>
 </tr>
+<tr>
+    <th>{% trans "Inauguration date" %}</th>
+    <td>
+    {% if geodata.inauguration_date %}
+        {{ geodata.inauguration_date }}
+    {% else %}
+        {% trans "not provided" %}.
+    {% endif %}
+    </td>
+</tr>
 {% endblock %}
