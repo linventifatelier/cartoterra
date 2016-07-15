@@ -81,7 +81,7 @@
                     <li>
                         <label>
                             <input type="checkbox" id="{{ type.name|lower|escapejs }}{{ subtype.ident_name|lower|escapejs }}SubTypeCheckbox" checked />
-                            <span>{{ subtype.name }}</span>
+                            <span>{% if subtype.name %}{{ subtype.name }}{% else %}{{ subtype.ident_name }}{% endif %}</span>
                         </label>
                     </li>
                 {% endfor %}

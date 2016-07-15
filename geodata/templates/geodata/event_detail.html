@@ -5,7 +5,13 @@
 <tr>
     <th>{% trans "Event type" %}</th>
     <td>
-        {{ geodata.get_event_type_display }}
+        {% if geodata.event_type %}
+        {% if geodata.event_type.name %}
+        {{ geodata.event_type.name }}
+        {% else %}
+        {{ geodata.event_type.ident_name }}
+        {% endif %}
+        {% endif %}
     </td>
 </tr>
 <tr>
