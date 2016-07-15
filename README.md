@@ -8,9 +8,10 @@
 
 See [COPYRIGHT](COPYRIGHT) file.
 
-## Installation
+## Development
 
-### Development
+### Git
+
 You have to use git to get the latest versions of cartoterra.net. To know more about git:
 https://git-scm.com/doc
 
@@ -46,6 +47,27 @@ Checking connectivity... done.
 
 up-to-date files should be uploaded to your folder.
 
+### Recommended method: docker
+
+Install dockera and docker-compose:
+https://www.docker.com/products/overview#/install_the_platform
+
+run (and get a coffee while docker is building the container and attaching to it):
+
+```shell
+$ docker-compose build
+...
+$ docker-compose up
+...
+Starting src_web_1
+Attaching to src_web_1
+```
+
+go to:
+http://127.0.0.1:8000 in your browser, modify files in the repo and reload the page to see your modifications.
+
+
+### Manual method
 
 #### Requirements
 
@@ -63,7 +85,7 @@ up-to-date files should be uploaded to your folder.
 If you don’t know about python, pip and virtualenv:
 http://www.dabapps.com/blog/introduction-to-pip-and-virtualenv-python/
 
-#### Installing on a Mac OSX
+#### Manual installation on a Mac OSX
 
 It is highly recommended to use homebrew (http://brew.sh/)
 
