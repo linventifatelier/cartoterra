@@ -155,7 +155,7 @@ function dateFromString (str) {
 function geodataDateCheckbox (id, start, end) {
     $(id).add(start).add(end).change(function(event) {
         initFilter();
-        var checkboxchecked = $('#dateCheckbox').is(':checked');
+        var checkboxchecked = $(id).is(':checked');
         var startdate = dateFromString($(start).val());
         var enddate = dateFromString($(end).val());
 
@@ -193,19 +193,19 @@ function geodataDateCheckbox (id, start, end) {
     });
 };
 
-geodataDateCheckbox('#dateCheckbox', '#dateStart', '#dateEnd');
+geodataDateCheckbox('#date-checkbox', '#date-start', '#date-end');
 
 {% for type in types %}
-geodataCheckbox('#{{ type.name|lower|escapejs }}TypeCheckbox', 'geodata-marker-type-{{ type.name|lower|escapejs }}');
+geodataCheckbox('#{{ type.name|slugify }}-type-checkbox', 'geodata-marker-type-{{ type.name|slugify }}');
 {% if type.subtypes %}
 {% for subtype in type.subtypes %}
-geodataCheckbox('#{{ type.name|lower|escapejs }}{{ subtype.ident_name|lower|escapejs }}SubTypeCheckbox', 'geodata-marker-subtype-{{ type.name|lower|escapejs }}-{{ subtype.ident_name|lower|escapejs }}');
+geodataCheckbox('#{{ type.name|slugify }}-{{ subtype.ident_name|slugify }}-subtype-checkbox', 'geodata-marker-subtype-{{ type.name|slugify }}-{{ subtype.ident_name|slugify }}');
 {% endfor %}
 {% endif %}
 {% endfor %}
 
 {% for technique in techniques %}
-geodataCheckbox('#{{ technique.name|lower|escapejs }}TechniqueCheckbox', 'geodata-marker-technique-{{ technique.name|lower|escapejs }}');
+geodataCheckbox('#{{ technique.name|slugify }}-technique-checkbox', 'geodata-marker-technique-{{ technique.name|slugify }}');
 {% endfor %}
-geodataCheckbox('#techniqueNoneCheckbox', 'geodata-marker-notechnique');
+geodataCheckbox('#technique-none-checkbox', 'geodata-marker-notechnique');
 {% endblock %}
