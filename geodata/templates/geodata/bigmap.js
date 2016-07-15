@@ -108,28 +108,104 @@ map{{ module }}.addControl(declusterControl{{ module }});
 
 var hasclustercontrol{{ module }} = true;
 
-function geodataCheckbox (id, markerclassname) {
-    $(id).change(function(event) {
-        if (hasclustercontrol{{ module }}) {
-            map{{ module }}.removeControl(declusterControl{{ module }});
-            hasclustercontrol{{ module }} = false;
-        }
-        if (cluster{{ module }}) {
-            map{{ module }}.removeLayer(clusterlayer{{ module }});
-            map{{ module }}.addLayer(declusterlayer{{ module }});
-            cluster{{ module }} = false;
-        };
-        var checkbox = event.target;
-        if (checkbox.checked) {
-            $('.' + markerclassname).css("display", "");
-        } else {
-            $('.' + markerclassname).css("display", "none");
-        }
-    }) ;
+function initFilter () {
+    if (hasclustercontrol{{ module }}) {
+        map{{ module }}.removeControl(declusterControl{{ module }});
+        hasclustercontrol{{ module }} = false;
+    }
+    if (cluster{{ module }}) {
+        map{{ module }}.removeLayer(clusterlayer{{ module }});
+        map{{ module }}.addLayer(declusterlayer{{ module }});
+        cluster{{ module }} = false;
+    };
 };
 
-geodataCheckbox('#buildingCheckbox', 'geodata-marker-buildings');
-geodataCheckbox('#worksiteCheckbox', 'geodata-marker-worksites');
-geodataCheckbox('#eventCheckbox', 'geodata-marker-events');
-geodataCheckbox('#stakeholderCheckbox', 'geodata-marker-stakeholders');
+function geodataCheckbox (id, markerclassname) {
+    $(id).change(function(event) {
+        initFilter();
+        var checkbox = event.target;
+        $('.' + markerclassname).each(function () {
+            var valhide = $(this).data("geodata-marker-hide") || 0;
+            var valdatehide = $(this).data("geodata-marker-date-hide") || 0;
+            if (checkbox.checked) {
+                valhide--;
+            } else {
+                valhide++;
+            };
+            $(this).data("geodata-marker-hide", valhide);
+            if (valhide + valdatehide > 0) {
+                $(this).css("display", "none");
+            } else {
+                $(this).css("display", "");
+            };
+        });
+    });
+};
+
+function dateFromString (str) {
+    if (str) {
+        var datearray = str.split("-");
+        var date = new Date(datearray[0], datearray[1] - 1, datearray[2]);
+        return date;
+    } else {
+        return null;
+    }
+};
+
+function geodataDateCheckbox (id, start, end) {
+    $(id).add(start).add(end).change(function(event) {
+        initFilter();
+        var checkboxchecked = $('#dateCheckbox').is(':checked');
+        var startdate = dateFromString($(start).val());
+        var enddate = dateFromString($(end).val());
+
+        $('.geodata-marker-nodate').each(function () {
+            var valdatehide = 0;
+            var valhide = $(this).data("geodata-marker-hide") || 0;
+            if (checkboxchecked) {
+                valdatehide = 1;
+            };
+            $(this).data("geodata-marker-date-hide", valdatehide);
+            if (valhide + valdatehide > 0) {
+                $(this).css("display", "none");
+            } else {
+                $(this).css("display", "");
+            };
+        });
+
+        $('[class^=geodata-marker-date-],[class*= geodata-marker-date-]').each(function () {
+            var valdatehide = 0;
+            var valhide = $(this).data("geodata-marker-hide") || 0;
+            if (checkboxchecked && startdate && enddate) {
+                var datematch = $(this).attr('class').match(/geodata-marker-date-([0-9-]+)/);
+                var date = dateFromString(datematch[1]);
+                if (!(date >= startdate && date <= enddate)) {
+                    valdatehide = 1;
+                };
+            };
+            $(this).data("geodata-marker-date-hide", valdatehide);
+            if (valhide + valdatehide > 0) {
+                $(this).css("display", "none");
+            } else {
+                $(this).css("display", "");
+            };
+        });
+    });
+};
+
+geodataDateCheckbox('#dateCheckbox', '#dateStart', '#dateEnd');
+
+{% for type in types %}
+geodataCheckbox('#{{ type.name|lower|escapejs }}TypeCheckbox', 'geodata-marker-type-{{ type.name|lower|escapejs }}');
+{% if type.subtypes %}
+{% for subtype in type.subtypes %}
+geodataCheckbox('#{{ type.name|lower|escapejs }}{{ subtype.ident_name|lower|escapejs }}SubTypeCheckbox', 'geodata-marker-subtype-{{ type.name|lower|escapejs }}-{{ subtype.ident_name|lower|escapejs }}');
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+{% for technique in techniques %}
+geodataCheckbox('#{{ technique.name|lower|escapejs }}TechniqueCheckbox', 'geodata-marker-technique-{{ technique.name|lower|escapejs }}');
+{% endfor %}
+geodataCheckbox('#techniqueNoneCheckbox', 'geodata-marker-notechnique');
 {% endblock %}

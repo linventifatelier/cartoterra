@@ -300,6 +300,11 @@ body:before {
     width: 100%;
 }
 
+.cartoterra-home-categories-legend {
+    margin-top:6px;
+    font-weight:bold;
+}
+
 .cartoterra-center-cropped {
     overflow: hidden;
     background-position: center center;

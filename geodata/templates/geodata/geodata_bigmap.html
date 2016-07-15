@@ -4,6 +4,7 @@
 
 {% block extra_style %}
 {{ block.super }}
+<link href="{% static "css/bootstrap-datepicker3.min.css" %}" type="text/css" rel="stylesheet">
 <link href="{% static "css/MarkerCluster.min.css" %}" type="text/css" rel="stylesheet">
 <link href="{% static "css/MarkerClusterDefault.min.css" %}" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="{% static "css/geodatamap.css" %}?v=1.4" type="text/css">
@@ -12,6 +13,8 @@
 
 {% block extra_script %}
 {{ block.super }}
+<script type="text/javascript" src="{% static "js/bootstrap-datepicker.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/form-datepicker.js" %}"></script>
 <script type="text/javascript" src="{% static "js/leaflet.markercluster.min.js" %}"></script>
 <script type="text/javascript">
 //<![CDATA[
@@ -64,28 +67,62 @@
     <div class="geodata-toolbox-tool" id="{{ module }}_toolbox_filter">
         <h2>{% trans "Select data" %}</h2>
         <div>
-            <label>
-                <input type="checkbox" id="buildingCheckbox" checked />
-                {% trans "Buildings" %}
-            </label>
+            <h3>{% trans "Type" %}</h3>
+            {% for type in types %}
+            <div>
+                <label>
+                    <input type="checkbox" id="{{ type.name|lower|escapejs }}TypeCheckbox" checked />
+                    <span>{{ type.name|lower }}</span>
+                    <span>({{ type.count }})</span>
+                </label>
+                {% if type.subtypes %}
+                <ul>
+                {% for subtype in type.subtypes %}
+                    <li>
+                        <label>
+                            <input type="checkbox" id="{{ type.name|lower|escapejs }}{{ subtype.ident_name|lower|escapejs }}SubTypeCheckbox" checked />
+                            <span>{{ subtype.name }}</span>
+                        </label>
+                    </li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
         <div>
-            <label>
-                <input type="checkbox" id="worksiteCheckbox" checked />
-                {% trans "Worksites" %}
-            </label>
+            <h3>{% trans "Techniques" %}</h3>
+            {% for technique in techniques %}
+            <div>
+                <label>
+                    <input type="checkbox" id="{{ technique.name|lower|escapejs }}TechniqueCheckbox" checked />
+                    {{ technique.name }}
+                </label>
+            </div>
+            {% endfor %}
+            <div>
+                <label>
+                    <input type="checkbox" id="techniqueNoneCheckbox" checked />
+                    {% trans "not provided" %}
+                </label>
+            </div>
         </div>
         <div>
-            <label>
-                <input type="checkbox" id="eventCheckbox" checked />
-                {% trans "Events" %}
-            </label>
-        </div>
-        <div>
-            <label>
-                <input type="checkbox" id="stakeholderCheckbox" checked />
-                {% trans "Stakeholders" %}
-            </label>
+            <h3>{% trans "Date" %}</h3>
+            <div>
+                <label>
+                    <input type="checkbox" id="dateCheckbox" />
+                    {% trans "date" %}
+                </label>
+                <div class="input-group input-daterange form-datepicker">
+                    <input type="text" id="dateStart" class="form-control date-start">
+                    <span class="input-group-addon">{% trans "to" %}</span>
+                    <input type="text" id="dateEnd" class="form-control date-end">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="geodata-toolbox-tool" id="{{ module }}_toolbox_add">

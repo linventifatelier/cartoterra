@@ -1,7 +1,8 @@
 """GeoData views."""
 
 from django.utils.translation import ugettext_lazy as _
-from models import Building, Worksite, Event, Stakeholder, Profile, EarthGroup
+from models import Building, Worksite, Event, Stakeholder, Profile, \
+    EarthGroup, EarthTechnique, EventType, EarthRole
 from forms import BuildingForm, WorksiteForm, EventForm, StakeholderForm, \
     ImageFormSet, EarthGroupForm
 from django.contrib.auth.decorators import login_required
@@ -21,6 +22,7 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.utils.text import Truncator
+from django.utils.html import escapejs
 
 
 class GeoJSONResponseMixin(object):
@@ -66,6 +68,22 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
 
 
 class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
+    def _get_subtypes(self, m):
+        if isinstance(m, Event):
+            return [escapejs(m.event_type.ident_name.lower())]
+        if isinstance(m, Stakeholder):
+            return [escapejs(r.ident_name.lower()) for r in m.role.all()]
+        return None
+
+    def _get_date(self, m):
+        if isinstance(m, Building) and m.inauguration_date:
+            return m.inauguration_date.isoformat()
+        if isinstance(m, Worksite) and m.inauguration_date:
+            return m.inauguration_date.isoformat()
+        if isinstance(m, Event) and m.beginning_date:
+            return m.beginning_date.isoformat()
+        return None
+
     def convert_context_to_json(self, context):
         "Convert the context dictionary into a GeoJSON object"
         queryset = self.get_queryset()
@@ -95,6 +113,10 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                             'name': g.name,
                             'logo': g.logo.url if g.logo else None
                         } for g in m.earthgroup_set.all()],
+                        'techniques': [escapejs(t.name.lower()) for t in m.techniques.all()],
+                        'type': escapejs(m.__class__.__name__.lower()),
+                        'subtypes': self._get_subtypes(m),
+                        'date': self._get_date(m),
                         'simple': m.simple if isinstance(m, Building) else None,
                     }
                 } for m in queryset]}
@@ -325,19 +347,7 @@ class StakeholderListView(StakeholderMixin, GeoDataListView):
             return queryset
 
 
-class GeoDataAllMixin(object):
-    def get_context_data(self, **kwargs):
-        context = super(GeoDataAllMixin, self).get_context_data(**kwargs)
-        context['module'] = self.module
-        context['map_layers'] = self.map_layers
-        return context
-
-
-class GeoDataAllView(GeoDataAllMixin, TemplateView):
-    pass
-
-
-class BigMapView(GeoDataAllView):
+class BigMapView(TemplateView):
     """Returns a template to present all buildings."""
     template_name = 'geodata/geodata_bigmap.html'
     module = "bigmap"
@@ -379,6 +389,21 @@ class BigMapView(GeoDataAllView):
         'url': reverse_lazy('geojson_stakeholder_list'),
     }
     map_layers = [buildings, worksites, events, stakeholders]
+
+    def get_context_data(self, **kwargs):
+        context = super(BigMapView, self).get_context_data(**kwargs)
+        context['module'] = self.module
+        context['map_layers'] = self.map_layers
+        context['techniques'] = EarthTechnique.objects.all()
+        context['types'] = [
+            {'name': 'Building', 'count': Building.objects.count()},
+            {'name': 'Worksite', 'count': Worksite.objects.count()},
+            {'name': 'Event', 'count': Event.objects.count(),
+             'subtypes': EventType.objects.all()},
+            {'name': 'Stakeholder', 'count': Stakeholder.objects.count(),
+             'subtypes': EarthRole.objects.all()},
+        ]
+        return context
 
 
 class GeoDataSingleObjectMixin(object):
@@ -926,7 +951,6 @@ class ProfileDetailView(DetailView):
 class ProfileListView(ListView):
     """Returns a template to present all profiles."""
     model = Profile
-    # template_name = 'profile_list.html'
 
 
 class GeoJSONEarthGroupListView(GeoJSONListView):

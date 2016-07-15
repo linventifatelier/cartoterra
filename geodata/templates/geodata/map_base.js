@@ -41,14 +41,34 @@ function importFeature (feature, layer) {
 {% for layer in map_layers %}
 $.getJSON("{{ layer.url }}", function(data) {
     function getIconFromFeature (feature) {
-        var size = [24, 24];
-        var anchor = [12, 12];
-        var classname = 'geodata-marker-{{ layer.name|lower|escapejs }}';
+        var size = [12, 12];
+        var anchor = [6, 6];
+        var classname = 'geodata-marker-type-' + feature.properties.type;
 
         if (feature.properties.simple) {
-            size = [12, 12];
-            anchor = [6, 6];
-            className = 'geodata-marker-{{ layer.name|lower|escapejs }} geodata-marker-{{ layer.name|lower|escapejs }}-simple';
+            size = [6, 6];
+            anchor = [3, 3];
+            classname = classname + ' geodata-marker-type-' + feature.properties.type + '-simple';
+        };
+
+        if (feature.properties.techniques.length > 0) {
+            feature.properties.techniques.forEach(function(entry) {
+                classname = classname + ' geodata-marker-technique-' + entry;
+            });
+        } else {
+            classname = classname + ' geodata-marker-notechnique';
+        };
+
+        if (feature.properties.subtypes && feature.properties.subtypes.length > 0) {
+            feature.properties.subtypes.forEach(function(entry) {
+                classname = classname + ' geodata-marker-subtype-' + feature.properties.type + '-' + entry;
+            });
+        };
+
+        if (feature.properties.date) {
+            classname = classname + ' geodata-marker-date-' + feature.properties.date;
+        } else {
+            classname = classname + ' geodata-marker-nodate'
         };
 
         return L.icon({
