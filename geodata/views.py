@@ -22,7 +22,7 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.utils.text import Truncator
-from django.utils.html import escapejs
+from django.template.defaultfilters import slugify
 
 
 class GeoJSONResponseMixin(object):
@@ -71,10 +71,10 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
     def _get_subtypes(self, m):
         if isinstance(m, Event):
             if m.event_type:
-                return [escapejs(m.event_type.ident_name.lower())]
+                return [slugify(m.event_type.ident_name)]
             return []
         if isinstance(m, Stakeholder):
-            return [escapejs(r.ident_name.lower()) for r in m.role.all()]
+            return [slugify(r.ident_name) for r in m.role.all()]
         return None
 
     def _get_date(self, m):
@@ -115,8 +115,8 @@ class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
                             'name': g.name,
                             'logo': g.logo.url if g.logo else None
                         } for g in m.earthgroup_set.all()],
-                        'techniques': [escapejs(t.name.lower()) for t in m.techniques.all()],
-                        'type': escapejs(m.__class__.__name__.lower()),
+                        'techniques': [slugify(t.name) for t in m.techniques.all()],
+                        'type': slugify(m.__class__.__name__),
                         'subtypes': self._get_subtypes(m),
                         'date': self._get_date(m),
                         'simple': m.simple if isinstance(m, Building) else None,
