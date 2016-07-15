@@ -70,7 +70,9 @@ class GeoJSONFeatureResponseMixin(GeoJSONResponseMixin):
 class GeoJSONFeatureCollectionResponseMixin(GeoJSONResponseMixin):
     def _get_subtypes(self, m):
         if isinstance(m, Event):
-            return [escapejs(m.event_type.ident_name.lower())]
+            if m.event_type:
+                return [escapejs(m.event_type.ident_name.lower())]
+            return []
         if isinstance(m, Stakeholder):
             return [escapejs(r.ident_name.lower()) for r in m.role.all()]
         return None
