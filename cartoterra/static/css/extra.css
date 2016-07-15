@@ -306,6 +306,7 @@ body:before {
 }
 
 .cartoterra-center-cropped {
+    background-size: cover;
     overflow: hidden;
     background-position: center center;
     background-repeat: no-repeat;
@@ -323,6 +324,10 @@ body:before {
 .cartoterra-home-welcome {
     height: 500px;
     background-size: 100% 100%;
+}
+
+.cartoterra-home-welcome-image {
+    min-height: 100%;
 }
 
 .cartoterra-navbar {
