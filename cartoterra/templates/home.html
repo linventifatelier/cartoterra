@@ -5,11 +5,6 @@
 
 {% block extra_style %}
 {{ block.super }}
-<style type="text/css">
-.cartoterra-home-welcome {
-    background-image: url("{% static "img/home.jpg" %}");
-}
-</style>
 {% endblock %}
 
 {% block extra_script %}
@@ -20,13 +15,15 @@
 
 {% block body %}
 <div class="cartoterra-home-welcome-cont col-sm-5 col-md-4">
-    <div class="cartoterra-home-welcome cartoterra-center-cropped">
-        <div class="cartoterra-home-title">
-            <h2 class="cartoterra-home-title-content">
-                <span>{{ SITE_NAME }}</span>
-                <span>-</span>
-                <span>{% trans "participative atlas of earthen architectures" %}</span>
-            </h2>
+    <div class="cartoterra-home-welcome">
+        <div class="cartoterra-center-cropped cartoterra-home-welcome-image" style="background-image: url('{% static "img/home.jpg"%}');">
+            <div class="cartoterra-home-title">
+                <h2 class="cartoterra-home-title-content">
+                    <span>{{ SITE_NAME }}</span>
+                    <span>-</span>
+                    <span>{% trans "participative atlas of earthen architectures" %}</span>
+                </h2>
+            </div>
         </div>
     </div>
 </div>
@@ -36,9 +33,9 @@
         <div class="cartoterra-home-categories-legend">
             <span class="text-uppercase">{% trans "Map" %}</span> - {% trans "go to the entirety of cartoterra data" %}
         </div>
-        <div class="cartoterra-home-map cartoterra-center-cropped cartoterra-home-category-background">
+        <div class="cartoterra-home-map">
             <a href="{% url "show_bigmap" %}">
-                <img src="{% static "img/map_geodata.jpg" %}" width="100%" alt="{% trans "Map" %}">
+                <div class="cartoterra-center-cropped cartoterra-home-category-background" style="background-image: url('{% static "img/map_geodata.jpg"%}');" alt="{% trans "Map" %}"></div>
             </a>
         </div>
     </div>
