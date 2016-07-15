@@ -71,7 +71,7 @@
             {% for type in types %}
             <div>
                 <label>
-                    <input type="checkbox" id="{{ type.name|lower|escapejs }}TypeCheckbox" checked />
+                    <input type="checkbox" id="{{ type.name|slugify }}-type-checkbox" checked />
                     <span>{{ type.name|lower }}</span>
                     <span>({{ type.count }})</span>
                 </label>
@@ -80,8 +80,8 @@
                 {% for subtype in type.subtypes %}
                     <li>
                         <label>
-                            <input type="checkbox" id="{{ type.name|lower|escapejs }}{{ subtype.ident_name|lower|escapejs }}SubTypeCheckbox" checked />
-                            <span>{{ subtype.name }}</span>
+                            <input type="checkbox" id="{{ type.name|slugify }}-{{ subtype.ident_name|slugify }}-subtype-checkbox" checked />
+                            <span>{% if subtype.name %}{{ subtype.name }}{% else %}{{ subtype.ident_name }}{% endif %}</span>
                         </label>
                     </li>
                 {% endfor %}
@@ -95,14 +95,14 @@
             {% for technique in techniques %}
             <div>
                 <label>
-                    <input type="checkbox" id="{{ technique.name|lower|escapejs }}TechniqueCheckbox" checked />
+                    <input type="checkbox" id="{{ technique.name|slugify }}-technique-checkbox" checked />
                     {{ technique.name }}
                 </label>
             </div>
             {% endfor %}
             <div>
                 <label>
-                    <input type="checkbox" id="techniqueNoneCheckbox" checked />
+                    <input type="checkbox" id="technique-none-checkbox" checked />
                     {% trans "not provided" %}
                 </label>
             </div>
@@ -111,13 +111,13 @@
             <h3>{% trans "Date" %}</h3>
             <div>
                 <label>
-                    <input type="checkbox" id="dateCheckbox" />
+                    <input type="checkbox" id="date-checkbox" />
                     {% trans "date" %}
                 </label>
                 <div class="input-group input-daterange form-datepicker">
-                    <input type="text" id="dateStart" class="form-control date-start">
+                    <input type="text" id="date-start" class="form-control date-start">
                     <span class="input-group-addon">{% trans "to" %}</span>
-                    <input type="text" id="dateEnd" class="form-control date-end">
+                    <input type="text" id="date-end" class="form-control date-end">
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </div>
