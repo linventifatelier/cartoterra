@@ -300,17 +300,9 @@ body:before {
     width: 100%;
 }
 
-.cartoterra-home-categories {
-    margin-left:-25px;
-}
-
 .cartoterra-home-categories-legend {
     margin-top:6px;
     font-weight:bold;
-}
-
-.cartoterra-home-welcome-cont {
-    width: 338px;
 }
 
 .cartoterra-center-cropped {
