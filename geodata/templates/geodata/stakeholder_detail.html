@@ -8,7 +8,7 @@
     {% if geodata.role.all %}
         <ul>
         {% for role in geodata.role.all %}
-            <li>{{ role }}</li>
+        <li>{% if role.name %}{{ role.name }}{% else %}{{ role.ident_name }}{% endif %}</li>
         {% endfor %}
         </ul>
     {% else %}
